@@ -1,0 +1,131 @@
+========================================================================
+NOTEBOOK 10: HUMAN-STUDY STIMULUS EXPORT
+========================================================================
+genres              : ['Western', 'Horror', 'Science Fiction', 'Crime', 'Comedy', 'Fantasy']
+seed                : 20260219
+min films in genre  : 20
+k per cell          : 12
+foils per genre     : 8 (flat rule: film_count in target < 5 or absent; fallback where the flat rule yields < 8 candidates: < max(5, 0.2% of films in target); unique across set = True)
+fallback genres     : ['Comedy']
+allowed types       : ['noun', 'chunk']
+tercile cuts        : high > 0.667, low <= 0.333 (within-genre percentile)
+
+BLOCKLIST
+------------------------------------------------------------------------
+cross-check         : parsed from notebook 09
+narrative pairs     : 17,979 before, 17,965 after (324 per-cell rows forced non-narrative)
+manual exclusions   : 43 strings in MANUAL_EXCLUDE (156 pool rows skipped at draw time)
+
+ELIGIBLE POOL AND CELL SIZES (candidates available before sampling)
+------------------------------------------------------------------------
+Western          pool= 415  HH= 61  HL= 33  LH= 42  LL= 65   rho(prev,dist)=+0.210
+Horror           pool=1502  HH=150  HL=143  LH=173  LL=190   rho(prev,dist)=+0.031
+Science Fiction  pool=1131  HH=130  HL=102  LH=123  LL=148   rho(prev,dist)=+0.051
+Crime            pool=1617  HH=208  HL=132  LH=162  LL=208   rho(prev,dist)=+0.123
+Comedy           pool=3255  HH=287  HL=373  LH=449  LL=341   rho(prev,dist)=-0.097
+Fantasy          pool=1052  HH=113  HL=105  LH=117  LL=131   rho(prev,dist)=+0.044
+
+SAMPLED STIMULI PER CELL (nouns + chunks) AND FOILS
+------------------------------------------------------------------------
+Western          HH=12 (11n+1c)  HL=12 (12n+0c)  LH=12 (6n+6c)  LL=12 (10n+2c)   foils=8
+Horror           HH=12 (8n+4c)  HL=12 (10n+2c)  LH=12 (6n+6c)  LL=12 (6n+6c)   foils=8
+Science Fiction  HH=12 (12n+0c)  HL=12 (10n+2c)  LH=12 (6n+6c)  LL=12 (6n+6c)   foils=8
+Crime            HH=12 (6n+6c)  HL=12 (11n+1c)  LH=12 (6n+6c)  LL=12 (6n+6c)   foils=8
+Comedy           HH=12 (6n+6c)  HL=12 (6n+6c)  LH=12 (6n+6c)  LL=12 (6n+6c)   foils=8
+Fantasy          HH=12 (11n+1c)  HL=12 (9n+3c)  LH=12 (7n+5c)  LL=12 (6n+6c)   foils=8
+
+FOILS (flat rule first; rate fallback only where the flat rule yields too few)
+------------------------------------------------------------------------
+Western          rule=flat          threshold <   5 films of 1,362  candidates: flat=256 fallback=  0  chosen=8 (8 flat + 0 fallback)  homes: Comedy=1, Crime=2, Fantasy=1, Horror=2, Science Fiction=2
+Horror           rule=flat          threshold <   5 films of 4,363  candidates: flat= 13 fallback= 36  chosen=8 (8 flat + 0 fallback)  homes: Comedy=3, Crime=1, Western=4
+Science Fiction  rule=flat          threshold <   5 films of 2,590  candidates: flat= 40 fallback= 11  chosen=8 (8 flat + 0 fallback)  homes: Comedy=3, Crime=4, Western=1
+Crime            rule=flat          threshold <   5 films of 5,564  candidates: flat= 18 fallback= 46  chosen=8 (8 flat + 0 fallback)  homes: Comedy=1, Fantasy=1, Horror=2, Science Fiction=2, Western=2
+Comedy           rule=rate_fallback threshold <  30 films of 14,722  candidates: flat=  0 fallback= 24  chosen=8 (0 flat + 8 fallback)  homes: Crime=1, Fantasy=1, Horror=2, Science Fiction=2, Western=2
+Fantasy          rule=flat          threshold <   5 films of 2,429  candidates: flat= 25 fallback=  0  chosen=8 (8 flat + 0 fallback)  homes: Comedy=3, Crime=3, Western=2
+genres that used the rate fallback: ['Comedy']
+  Comedy: flat rule found 0 candidates (< 8 needed); threshold raised to < 30 films (ceil(0.002 x 14,722))
+serve order (ascending candidates under the rule used): ['Horror', 'Crime', 'Comedy', 'Fantasy', 'Science Fiction', 'Western']
+
+STIMULUS STRINGS DRAWN IN MORE THAN ONE GENRE (allowed; reported for the design)
+------------------------------------------------------------------------
+'best friend': Western (LL), Horror (HL), Crime (HL), Comedy (HH), Fantasy (HL)
+'birth': Horror (HL), Crime (HL)
+'car accident': Science Fiction (LL), Fantasy (LL)
+'close friend': Horror (LL), Comedy (HL), Fantasy (LL)
+'country': Horror (HL), Fantasy (HL)
+'creature': Horror (HH), Science Fiction (HH)
+'daughter': Western (HL), Crime (HL)
+'doctor': Western (HL), Crime (HL)
+'father death': Horror (LL), Crime (LL)
+'high school': Science Fiction (LL), Comedy (HH), Fantasy (LL)
+'hunter': Crime (LL), Fantasy (HH)
+'kingdom': Crime (LL), Fantasy (HH)
+'little girl': Horror (HH), Science Fiction (LL)
+'new job': Crime (LL), Comedy (HH)
+'passenger': Western (HH), Horror (HL)
+'police officer': Science Fiction (HL), Crime (HH), Fantasy (LL)
+'preacher': Horror (LH), Comedy (LL)
+'serial killer': Horror (HH), Crime (HH)
+'shipment': Western (HH), Crime (HH)
+'small town': Science Fiction (LL), Comedy (HL), Fantasy (LL)
+'son': Western (HL), Horror (HL)
+'trip': Science Fiction (HL), Crime (HL)
+'truth': Western (HL), Horror (HL)
+'young man': Horror (HL), Fantasy (HL)
+'young woman': Western (LL), Science Fiction (HL), Comedy (HL), Fantasy (HL)
+
+OVERLAP REJECTIONS (dropped because a whole-word sub- or super-string was already selected)
+------------------------------------------------------------------------
+Western          LH  'cold blood' blocked by 'MANUAL_EXCLUDE'
+Western          LH  'old west' blocked by 'MANUAL_EXCLUDE'
+Western          HH  'band' blocked by 'MANUAL_EXCLUDE'
+Horror           HH  'horror' blocked by 'MANUAL_EXCLUDE'
+Horror           HL  'charge' blocked by 'MANUAL_EXCLUDE'
+Horror           HL  'star' blocked by 'MANUAL_EXCLUDE'
+Horror           LL  'theme' blocked by 'MANUAL_EXCLUDE'
+Science Fiction  LL  'actor' blocked by 'MANUAL_EXCLUDE'
+Science Fiction  LL  'production' blocked by 'MANUAL_EXCLUDE'
+Crime            HL  'reality' blocked by 'MANUAL_EXCLUDE'
+Crime            HL  'rock' blocked by 'MANUAL_EXCLUDE'
+Crime            HL  'performance' blocked by 'MANUAL_EXCLUDE'
+Crime            LL  'west' blocked by 'MANUAL_EXCLUDE'
+Crime            LL  'indian' blocked by 'MANUAL_EXCLUDE'
+Crime            LL  'replacement' blocked by 'MANUAL_EXCLUDE'
+Comedy           LH  'new light' blocked by 'MANUAL_EXCLUDE'
+Comedy           HH  'weight' blocked by 'MANUAL_EXCLUDE'
+Comedy           HH  'dismay' blocked by 'MANUAL_EXCLUDE'
+Comedy           LH  'yorker' blocked by 'MANUAL_EXCLUDE'
+Comedy           LL  'antagonist' blocked by 'MANUAL_EXCLUDE'
+Comedy           LL  'testing' blocked by 'MANUAL_EXCLUDE'
+Fantasy          HL  'officer' blocked by 'police officer'
+Fantasy          HL  'school' blocked by 'high school'
+
+SUBTLEX
+------------------------------------------------------------------------
+joined from /Users/dgkamper/Library/CloudStorage/GoogleDrive-dgkamper@gmail.com/My Drive/DGK Lab/Reasoning Lab/DGK Lab - Scene A Faire Computational/Data/SUBTLEX-US/SUBTLEXus74286wordstextversion.txt: 336 of 336 items matched on the head token
+
+TOTAL ITEMS
+------------------------------------------------------------------------
+336 rows in stimuli_long (288 stratified, 48 foils)
+
+DISPLAY TEXT
+------------------------------------------------------------------------
+18 items shown with DISPLAY_OVERRIDES applied (statistics use the pipeline string):
+  Western          'civil war'                  shown as 'the Civil War'
+  Western          'troop'                      shown as 'troops'
+  Western          'texas ranger'               shown as 'Texas Ranger'
+  Western          'boot'                       shown as 'boots'
+  Horror           'mysterious circumstance'    shown as 'mysterious circumstances'
+  Horror           'father death'               shown as "a father's death"
+  Horror           'theatre'                    shown as 'theater'
+  Crime            'fbi agent'                  shown as 'FBI agent'
+  Crime            'self defense'               shown as 'self-defense'
+  Crime            'double cross'               shown as 'double-cross'
+  Crime            'right hand man'             shown as 'right-hand man'
+  Crime            'brother death'              shown as "a brother's death"
+  Crime            'father death'               shown as "a father's death"
+  Crime            'christmas'                  shown as 'Christmas'
+  Comedy           'christmas eve'              shown as 'Christmas Eve'
+  Comedy           'real killer'                shown as 'the real killer'
+  Fantasy          'north pole'                 shown as 'North Pole'
+  Fantasy          'stair'                      shown as 'stairs'

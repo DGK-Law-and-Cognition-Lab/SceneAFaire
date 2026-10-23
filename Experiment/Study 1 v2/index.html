@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genres and Themes Categorization</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="loading-screen"><div class="spinner"></div><p style="font-family:Georgia;color:#6c757d">Loading experiment...</p></div>
+<div class="container" style="display:none" id="experimentContainer">
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+<div id="pageContainer"></div>
+</div>
+<!-- Stimuli are fetched at runtime from stimuli/stimuli_<genre>.json.
+     If fetch is blocked (e.g. file://), experiment.js injects stimuli/stimuli_all.js (window.STIMULI). -->
+<script src="experiment.js"></script>
+</body>
+</html>
