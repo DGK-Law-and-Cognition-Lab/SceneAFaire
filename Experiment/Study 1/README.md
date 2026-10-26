@@ -1,4 +1,4 @@
-# Study 1 v2 (SA_GEN1v2): Genre Element Generation and Expectedness Ratings
+# Study 1 (SAF_STUDY1): Genre Element Generation and Expectedness Ratings
 
 Plain-JavaScript Pavlovia experiment. No build step, no PsychoJS. After consent,
 a two-sentence reading task (moving-window self-paced reading) flags implausibly
@@ -72,16 +72,16 @@ Changed:
 11. **No hard-coded "Genre N of 2".** Labels use `GENRES_PER_PARTICIPANT`.
 12. **No em-dashes** in UI text; scale labels use the "1 = Not at all familiar"
     style.
-13. Data file prefix is `SA_GEN1v2` (constant `STUDY_CODE`).
+13. Data file prefix is `SAF_STUDY1` (constant `STUDY_CODE`).
 
 ## Constants (top of `experiment.js`)
 
 | Constant | Default | Meaning |
 | --- | --- | --- |
-| `STUDY_CODE` | `'SA_GEN1v2'` | Prefix of the data file name. |
+| `STUDY_CODE` | `'SAF_STUDY1'` | Prefix of the data file name. |
 | `GENRES` | six entries | `key` and `display` for each genre; keys match `stimuli/stimuli_<key>.json`. |
 | `GENRES_PER_PARTICIPANT` | `2` | Genres per participant. Each `PAIR_SETS` entry must list this many keys. |
-| `PAIR_SETS` | A, B | Wave A: western-horror, crime-science_fiction, comedy-fantasy. Wave B: western-crime, horror-fantasy, science_fiction-comedy. Matches `Docs/Preregistration/Study1_v2_assignment_schedule.csv`. |
+| `PAIR_SETS` | A, B | Wave A: western-horror, crime-science_fiction, comedy-fantasy. Wave B: western-crime, horror-fantasy, science_fiction-comedy. Matches `Docs/Preregistration/Study1_assignment_schedule.csv`. |
 | `DEFAULT_WAVE` | `'A'` | Unused by the SONA assignment path (kept for compatibility). |
 | `CATEGORIES` | 5 entries | Generation categories; `required: true` entries need `MIN_PER_CAT`. |
 | `MIN_PER_CAT`, `MIN_TOTAL`, `MAX_TOTAL` | `2`, `10`, `20` | Generation limits. |
@@ -92,7 +92,7 @@ Changed:
 | `ATTENTION_CHECKS` | 2 entries | Text and expected response for each check. |
 | `ATTENTION_MIN_POS`, `ATTENTION_MAX_POS` | `10`, `50` | 1-based position window for attention checks in the final sequence. |
 | `PROLIFIC_COMPLETION_URL` | `''` | Prolific completion link. Empty means no redirect (completion code shown instead). |
-| `COMPLETION_CODE` | `'SAGEN1V2'` | Code shown on the completion page. |
+| `COMPLETION_CODE` | `'SAFSTUDY1'` | Code shown on the completion page. |
 | `SONA_URL_BASE` | credit URL of SONA experiment 3298 (set Oct 22, 2026) | The credit-granting URL from the SONA listing, ending in `survey_code=`; the participant id is appended. If emptied, `platform=sona` sessions end on the completion page instead of redirecting. The copy in the GitHub release has the credit token blanked. |
 | `CONSENT_URL`, `CONTACT_NAME`, `CONTACT_EMAIL` | UCLA Box link, David G. Kamper, davidgkamper@ucla.edu | Consent and debrief contact. |
 | `ESTIMATED_MINUTES` | `'25 to 35'` | Shown on the instructions page. |
@@ -128,7 +128,7 @@ index.html?participant=12345                               (what a SONA particip
 The study lives at the root of the Pavlovia project `genres-and-themes/experiment-1`
 (GitLab project id 510161). This is the address the SONA listing uses:
 `https://run.pavlovia.org/genres-and-themes/experiment-1`. Results go to that
-project's `data/` folder as `SA_GEN1v2_<id>_SESSION_<date>.csv`. (From October 19
+project's `data/` folder as `SAF_STUDY1_<id>_SESSION_<date>.csv`. (From October 19
 to 22, 2026 a copy was hosted in the `genres/` folder of `characters/study-2`; that
 copy is no longer used.)
 
@@ -146,11 +146,11 @@ copy is no longer used.)
    `https://run.pavlovia.org/genres-and-themes/experiment-1/index.html?participant=PILOT_DK1&wave=A&pair=0&order=1`.
    Use a new id each run (PILOT_DK2, ...). Change `wave`, `pair`, `order` to see
    other genre pairs; the twelve combinations are in
-   `Docs/Preregistration/Study1_v2_assignment_schedule.csv`. If the page says the
+   `Docs/Preregistration/Study1_assignment_schedule.csv`. If the page says the
    study could not connect to its data server, Pavlovia refused the session and
    nothing would have been saved.
 4. Check the data. After the completion page, a file
-   `data/SA_GEN1v2_PILOT_DK1_SESSION_<date>.csv` should appear in the repository
+   `data/SAF_STUDY1_PILOT_DK1_SESSION_<date>.csv` should appear in the repository
    (or under Download results on the Pavlovia dashboard).
 5. SONA. The listing's study URL is
    `https://run.pavlovia.org/genres-and-themes/experiment-1?participant=%SURVEY_CODE%`,
@@ -174,12 +174,12 @@ write into the live `data/` folder.
 1. Re-run `Analysis/notebooks/10_human_study_stimuli.ipynb`. It writes
    `Analysis/v4_rebuild/10_human_study_stimuli/stimuli_<genre>.json` (plus the
    long CSV/parquet, review sheet and report).
-2. Copy the six JSON files into `Experiment/Study 1 v2/stimuli/`, overwriting the
+2. Copy the six JSON files into `Experiment/Study 1/stimuli/`, overwriting the
    old ones.
 3. Regenerate the inline fallback from inside the `stimuli/` folder:
 
    ```
-   cd "Experiment/Study 1 v2/stimuli"
+   cd "Experiment/Study 1/stimuli"
    python3 - <<'PY'
    import json
    genres = ['western','horror','science_fiction','crime','comedy','fantasy']
@@ -263,7 +263,7 @@ Final questions: `seriousness`, `fullscreen_maintained`, `distractions`,
 1. In a terminal:
 
    ```
-   cd "Experiment/Study 1 v2"
+   cd "Experiment/Study 1"
    python3 -m http.server 8000
    ```
 
@@ -273,7 +273,7 @@ Final questions: `seriousness`, `fullscreen_maintained`, `distractions`,
 3. On the captcha page press `q` (the on-screen image instruction); pressing `z`
    (the hidden trap instruction) ends the session.
 4. Work through both genres. The console shows `=== STUDY DATA ===` with the full
-   record on the final page, and a CSV named `SA_GEN1v2_<pid>_<timestamp>.csv`
+   record on the final page, and a CSV named `SAF_STUDY1_<pid>_<timestamp>.csv`
    downloads instead of uploading.
 5. Other useful test URLs: `?wave=B&pair=1&order=2`, `?platform=sona&survey_code=12347`
    (cell 11; redirects to SONA only once `SONA_URL_BASE` is set), `?PROLIFIC_PID=test123`

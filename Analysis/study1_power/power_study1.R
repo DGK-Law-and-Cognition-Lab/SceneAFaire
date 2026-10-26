@@ -1,5 +1,5 @@
-# Study 1 v2: power and sensitivity by simulation.
-# Registered with the Study 1 v2 preregistration (Section 4.4). Seed 20260219.
+# Study 1: power and sensitivity by simulation.
+# Described in the Study 1 preregistration (Section 3.4). Seed 20260219.
 #
 # No pilot data exist, so every variance component is an assumption. Each
 # scenario is run under a smaller and a larger item variance, because item
@@ -157,7 +157,7 @@ write.csv(rating_res, file.path(here, "power_results_rating.csv"), row.names = F
 write.csv(gen_res, file.path(here, "power_results_generation.csv"), row.names = FALSE)
 
 sink(file.path(here, "power_summary.txt"))
-cat("Study 1 v2 power simulations. Seed", SEED, "| rating sims per scenario", N_SIM_R, "| generation sims per scenario", N_SIM_G, "\n")
+cat("Study 1 power simulations. Seed", SEED, "| rating sims per scenario", N_SIM_R, "| generation sims per scenario", N_SIM_G, "\n")
 cat("Assumed SDs (rating scale points): participant intercept 0.7, participant slopes 0.3, residual 1.3; item SD as listed.\n")
 cat("Ratings rounded to the 1-7 scale. Generation: 30 participants per genre, 6 pool elements produced per participant per genre.\n\n")
 print(rating_res, row.names = FALSE); cat("\n"); print(gen_res, row.names = FALSE)

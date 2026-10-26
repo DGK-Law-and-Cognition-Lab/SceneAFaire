@@ -1,6 +1,6 @@
 // ============================================================
-// SA_GEN1 v2: Genre Element Generation and Expectedness Rating Study
-// Scenes a Faire Human Validation, Study 1, version 2
+// SAF_STUDY1: Genre Element Generation and Expectedness Rating Study
+// Scenes a Faire Human Validation, Study 1
 // ============================================================
 //
 // Flow:
@@ -24,7 +24,7 @@
 // ============================================================
 
 // Short code used in data file names (data/<STUDY_CODE>_<pid>_SESSION_<date>.csv).
-var STUDY_CODE = 'SA_GEN1v2';
+var STUDY_CODE = 'SAF_STUDY1';
 
 // Genres. Keys match the stimuli file names (stimuli/stimuli_<key>.json).
 var GENRES = {
@@ -43,7 +43,7 @@ var GENRES_PER_PARTICIPANT = 2;
 // Three rotations (waves). Across waves every genre has at least two partners.
 // Each entry must contain GENRES_PER_PARTICIPANT genre keys.
 // Two rounds of three disjoint pairs; matches the preregistration (Question 4)
-// and Docs/Preregistration/Study1_v2_assignment_schedule.csv. Each genre is
+// and Docs/Preregistration/Study1_assignment_schedule.csv. Each genre is
 // paired with two different partners across the rounds.
 var PAIR_SETS = {
   A: [['western', 'horror'], ['crime', 'science_fiction'], ['comedy', 'fantasy']],
@@ -141,8 +141,8 @@ function minWait(secs) { return secs > 0 ? { nt: false, timer: secs } : { nt: tr
 
 // Completion routing.
 var PROLIFIC_COMPLETION_URL = '';            // e.g. 'https://app.prolific.com/submissions/complete?cc=XXXXXXX'
-var COMPLETION_CODE = 'SAGEN1V2';            // shown on the completion page when no redirect happens
-// SONA credit redirect for the Study 1 v2 listing (experiment 3298, "Genres and
+var COMPLETION_CODE = 'SAFSTUDY1';            // shown on the completion page when no redirect happens
+// SONA credit redirect for the Study 1 listing (experiment 3298, "Genres and
 // Themes Categorization"), set October 22, 2026. The participant's survey code is
 // appended. If this is ever emptied, a ?platform=sona session ends on the
 // completion page instead of redirecting.

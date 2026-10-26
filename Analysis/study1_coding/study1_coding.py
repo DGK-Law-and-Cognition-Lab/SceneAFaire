@@ -1,6 +1,6 @@
-"""Study 1 v2: automated coding of the generation-task responses.
+"""Study 1: automated coding of the generation-task responses.
 
-Described in the Study 1 v2 preregistration (Section 6.4). The pipeline maps
+Described in the Study 1 preregistration (Section 6.4). The pipeline maps
 every free-text entry onto the corpus vocabulary in five stages:
 
   1. Units. Each non-removed entry is split on explicit list delimiters

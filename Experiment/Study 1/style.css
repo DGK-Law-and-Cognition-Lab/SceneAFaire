@@ -1,4 +1,4 @@
-/* SA_GEN1 v2: Genre Element Generation and Expectedness Rating Study */
+/* SAF_STUDY1: Genre Element Generation and Expectedness Rating Study */
 :root{--primary:#2c3e50;--accent:#3498db;--bg:#f8f9fa;--card:#fff;--border:#dee2e6;--text:#212529;--muted:#6c757d;--error:#dc3545;--success:#16a34a}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Georgia','Times New Roman',serif;background:var(--bg);color:var(--text);line-height:1.7;min-height:100vh}

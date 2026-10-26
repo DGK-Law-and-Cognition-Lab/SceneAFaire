@@ -1,6 +1,6 @@
-**Study 1 (version 2): Human coding manual for the generation task**
+**Study 1: Human coding manual for the generation task**
 
-*Scènes à Faire Human Validation Project. Registered with the Study 1 (version 2) preregistration (Section 6.4) and frozen at registration. It is not revised after data collection begins. This version replaces the hand-coding manual of October 19, 2026.*
+*Scènes à Faire Human Validation Project. Registered with the Study 1 preregistration (Section 6.4) and frozen at registration. It is not revised after data collection begins. This version replaces the hand-coding manual of October 19, 2026.*
 
 **1. Purpose**
 

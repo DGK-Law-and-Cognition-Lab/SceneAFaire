@@ -1,4 +1,4 @@
-Study 1 v2 power simulations. Seed 20260219 | rating sims per scenario 200 | generation sims per scenario 200 
+Study 1 power simulations. Seed 20260219 | rating sims per scenario 200 | generation sims per scenario 200 
 Assumed SDs (rating scale points): participant intercept 0.7, participant slopes 0.3, residual 1.3; item SD as listed.
 Ratings rounded to the 1-7 scale. Generation: 30 participants per genre, 6 pool elements produced per participant per genre.
 
