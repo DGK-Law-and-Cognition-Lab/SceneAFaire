@@ -1,6 +1,6 @@
-# Scènes à Faire: Study 1 (version 2) materials
+# Scènes à Faire: Study 1 materials
 
-Materials for Study 1 (version 2) of the Scènes à Faire Human Validation Project (David G. Kamper, Mira Patel and Keith J. Holyoak, UCLA Department of Psychology). The preregistration itself is a single document registered on OSF. It cites the release `study1-v2-prereg` of this repository and its commit, which fix these files as of registration.
+Materials for Study 1 of the Scènes à Faire Human Validation Project (David G. Kamper, Mira Patel and Keith J. Holyoak, UCLA Department of Psychology). The preregistration itself is a single document registered on OSF. It cites the release `study1-v2-prereg` of this repository and its commit, which fix these files as of registration.
 
 | Folder | Contents |
 |---|---|
