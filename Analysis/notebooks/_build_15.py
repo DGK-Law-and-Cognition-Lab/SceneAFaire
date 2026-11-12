@@ -35,9 +35,7 @@ except Exception:
 _CANDS = [
     Path('/content/drive/MyDrive/DGK Lab/Reasoning Lab/'
          'DGK Lab - Scene A Faire Computational/Analysis/v4_rebuild'),
-    Path('/Users/USER/Library/CloudStorage/GoogleDrive-ACCOUNT/'
-         'My Drive/DGK Lab/Reasoning Lab/'
-         'DGK Lab - Scene A Faire Computational/Analysis/v4_rebuild'),
+    *[p / 'Analysis' / 'v4_rebuild' for p in [Path.cwd(), *Path.cwd().parents]],   # local run: any parent folder
     Path.cwd() / 'v4_rebuild',
     Path.cwd().parent / 'v4_rebuild',
 ]

@@ -6,6 +6,8 @@ output:
   html_document:
     toc: true
     toc_float: true
+params:
+  target: talk
 ---
 
 This file draws the Study 1 figures with ggplot2, shows each one here, and saves it as a PNG in `Analysis/v4_rebuild/12_study1_analysis/figures/`. The talk's slides use those PNG files as they are. It fits no models.
@@ -14,13 +16,15 @@ There are two kinds of figure. The first kind plots what people did in plain uni
 
 **How to run.** Open this file in RStudio and press *Knit*. It takes under a minute. Knit `study1_analysis.Rmd` in real mode first, so that its tables exist.
 
+**Two targets.** With the default `params: target: talk`, the figures are drawn for the slides (large type, PNG) into `Analysis/v4_rebuild/12_study1_analysis/figures/`. With `target: manuscript` (in RStudio: *Knit with Parameters*), the same figures are drawn in the manuscript's single figure style, the style of `Analysis/notebooks/saf_style.py`: matplotlib's default look (white background, a box around each panel, no gridlines, ticks outside, DejaVu Sans), the same hex colors, no titles (the captions carry them), 6.5 inches wide. They are saved as PDF and as 300-dpi PNG files named `fig_study1_*` in the manuscript's `figures/` folder. The talk figures are not touched in manuscript mode.
+
 Every plot is upright: categories run along the bottom and values go up. Every interval is a 95% interval. High distinctiveness is red and low distinctiveness is gray; where prevalence has its own color it is blue.
 
 # Setup
 
 ```{r setup, message=FALSE}
 library(ggplot2); library(knitr); library(jsonlite); library(arrow)
-knitr::opts_chunk$set(echo = TRUE, fig.width = 9.1, fig.height = 4, dpi = 110)
+knitr::opts_chunk$set(echo = TRUE, fig.width = 9.1, fig.height = 4, dpi = 110, dev = "ragg_png")   # ragg sees fonts registered with systemfonts
 
 # This file's folder. knitr gives it while knitting; when chunks are run one at a time in
 # RStudio, the working directory is the document's folder.
@@ -36,13 +40,93 @@ FIG  <- file.path(OUT, "figures")
 dir.create(FIG, recursive = TRUE, showWarnings = FALSE)
 stopifnot("Knit study1_analysis.Rmd in real mode first: estimates.csv is missing." = file.exists(file.path(OUT, "estimates.csv")))
 
-BLUE <- "#1f77b4"; RED <- "#d62728"; GRAY <- "grey45"
+TARGET <- if (exists("params") && !is.null(params$target)) params$target else "talk"
+stopifnot(TARGET %in% c("talk", "manuscript"))
+MS <- TARGET == "manuscript"
+
+# Colors. The manuscript palette is the one in Analysis/notebooks/saf_style.py; change it there and here together.
+BLUE <- "#1f77b4"; RED <- "#d62728"                     # prevalence, distinctiveness
+GRAY  <- if (MS) "#7f7f7f" else "grey45"                  # saf_style NEUTRAL: everything that is neither measure
+LIGHT <- if (MS) "#c7c7c7" else "grey70"                  # saf_style LIGHT
+DARK  <- if (MS) "#7f7f7f" else "grey20"                  # the darker of two grays in one figure
 DCOL <- c("High distinctiveness" = RED, "Low distinctiveness" = GRAY)
 GENRES <- c("Western", "Horror", "Science Fiction", "Crime", "Fantasy", "Comedy")
-theme_set(theme_bw(base_size = 14))                 # sized to be read from the back of a room
-save_fig <- function(p, name, height = 4) {
-  ggsave(file.path(FIG, paste0(name, ".png")), p, width = 9.1, height = height, dpi = 200, bg = "white")
-  p
+
+if (!MS) {
+  theme_set(theme_bw(base_size = 14))               # sized to be read from the back of a room
+  save_fig <- function(p, name, height = 4) {
+    ggsave(file.path(FIG, paste0(name, ".png")), p, width = 9.1, height = height, dpi = 200, bg = "white")
+    p
+  }
+} else {
+  # DejaVu Sans is matplotlib's default font; R does not ship it, so the copy inside matplotlib is
+  # registered when it can be found (ragg uses it for the PNG files; cairo_pdf resolves the name to
+  # Bitstream Vera Sans, the font DejaVu Sans was built from, with the same letter shapes). Otherwise Helvetica.
+  ttf <- Sys.glob(c("/Library/Frameworks/Python.framework/Versions/*/lib/python*/site-packages/matplotlib/mpl-data/fonts/ttf",
+                    path.expand("~/Library/Python/*/lib/python/site-packages/matplotlib/mpl-data/fonts/ttf"),
+                    "/usr/local/lib/python3*/dist-packages/matplotlib/mpl-data/fonts/ttf",
+                    "/usr/lib/python3/dist-packages/matplotlib/mpl-data/fonts/ttf"))
+  ttf <- ttf[file.exists(file.path(ttf, "DejaVuSans.ttf"))]
+  FONT <- "Helvetica"
+  if (length(ttf) > 0 && requireNamespace("systemfonts", quietly = TRUE)) {
+    f <- function(x) file.path(ttf[1], x)
+    systemfonts::register_font("DejaVu Sans", plain = f("DejaVuSans.ttf"), bold = f("DejaVuSans-Bold.ttf"),
+                               italic = f("DejaVuSans-Oblique.ttf"), bolditalic = f("DejaVuSans-BoldOblique.ttf"))
+    FONT <- "DejaVu Sans"
+  }
+  # matplotlib's default look, as far as ggplot allows: boxed panel, no grid, ticks outside, black text,
+  # panel titles without a box, a thin light frame around the legend. Font size 9 (8 for tick labels and legend).
+  theme_mpl <- function(base_size = 9) {
+    theme_bw(base_size = base_size, base_family = FONT) +
+      theme(panel.grid = element_blank(),
+            panel.border = element_rect(colour = "black", fill = NA, linewidth = 0.4),
+            axis.ticks = element_line(colour = "black", linewidth = 0.3),
+            axis.ticks.length = unit(3.5, "pt"),
+            axis.text = element_text(colour = "black", size = base_size - 1),
+            axis.title = element_text(colour = "black", size = base_size),
+            strip.background = element_blank(),
+            strip.text = element_text(colour = "black", size = base_size, margin = margin(2, 0, 3, 0)),
+            legend.key = element_blank(),
+            legend.text = element_text(size = base_size - 1),
+            plot.title = element_blank(), plot.subtitle = element_blank(),
+            plot.background = element_rect(fill = "white", colour = NA))
+  }
+  theme_set(theme_mpl())
+  MS_FIG <- file.path(ROOT, "Docs", "Writing", "manuscript", "Scene A Faire Computational", "figures")
+  dir.create(MS_FIG, recursive = TRUE, showWarnings = FALSE)
+  # Talk name -> manuscript name, and the printed height of each figure (inches; width is always 6.5).
+  MS_NAME <- c(study1_listing_cells = "listing_cells", study1_listing_by_genre = "listing_by_genre",
+               study1_ratings = "ratings", study1_ratings_by_genre = "ratings_by_genre",
+               study1_composite_rounds = "composite_rounds", study1_composite = "composite_folds",
+               study1_composite_items = "composite_items", study1_listing = "listing_estimates",
+               study1_robustness = "robustness")
+  MS_HEIGHT <- c(listing_cells = 3.0, listing_by_genre = 3.6, ratings = 3.0, ratings_by_genre = 3.6,
+                 composite_rounds = 2.6, composite_folds = 2.8, composite_items = 3.2,
+                 listing_estimates = 2.8, robustness = 3.6)
+  # The talk figures use large points and labels; scale them to the 9-point page.
+  shrink <- function(p) {
+    for (L in p$layers) {
+      g <- class(L$geom)[1]
+      if (!is.null(L$aes_params$size))
+        L$aes_params$size <- L$aes_params$size * (if (g %in% c("GeomText", "GeomLabel")) 0.7 else if (g == "GeomPoint") 0.6 else 1)
+      if (!is.null(L$aes_params$linewidth) && g %in% c("GeomLine", "GeomPath"))
+        L$aes_params$linewidth <- L$aes_params$linewidth * 0.7
+    }
+    p
+  }
+  save_fig <- function(p, name, height = 4) {
+    short <- MS_NAME[[name]]
+    q <- shrink(p) + labs(title = NULL, subtitle = NULL) +
+      theme(legend.background = element_rect(colour = "#cccccc", fill = "white", linewidth = 0.3),
+            axis.text.x = if (short == "robustness") element_text(colour = "black", size = 7, angle = 40, hjust = 1, vjust = 1, lineheight = 0.9)
+                          else element_text(colour = "black", size = 8))
+    if (short == "composite_rounds") q <- q + labs(y = "Rounds won (of 10)")
+    if (short == "robustness") q <- q + scale_x_discrete(labels = function(x) gsub("\n", " ", x))
+    out <- file.path(MS_FIG, paste0("fig_study1_", short))
+    ggsave(paste0(out, ".pdf"), q, width = 6.5, height = MS_HEIGHT[[short]], device = cairo_pdf, bg = "white")
+    ggsave(paste0(out, ".png"), q, width = 6.5, height = MS_HEIGHT[[short]], dpi = 300, device = ragg::agg_png, bg = "white")
+    q
+  }
 }
 # Mean and 95% t interval of a vector (one value per participant).
 mean_ci <- function(x) {
@@ -168,7 +252,8 @@ listing_genre <- do.call(rbind, lapply(split(rate, list(rate$genre, rate$prevale
   cbind(genre = d$genre[1], prevalence = d$prevalence[1], distinctiveness = d$distinctiveness[1], mean_ci(d$produced))))
 listing_genre$prevalence <- factor(listing_genre$prevalence, levels = c("Low", "High"))
 n_genre <- tapply(rate$participant_id, rate$genre, function(x) length(unique(x)))
-panel <- function(g) factor(sprintf("%s (%d participants)", g, n_genre[g]), levels = sprintf("%s (%d participants)", GENRES, n_genre[GENRES]))
+PANEL_FMT <- if (MS) "%s (n = %d)" else "%s (%d participants)"      # shorter panel titles on the printed page
+panel <- function(g) factor(sprintf(PANEL_FMT, g, n_genre[g]), levels = sprintf(PANEL_FMT, GENRES, n_genre[GENRES]))
 listing_genre$panel <- panel(listing_genre$genre)
 
 six_panels <- function(d, ylab, title, scales = "fixed", dots = NULL) {
@@ -248,7 +333,7 @@ p_items <- ggplot(item_means, aes(100 * ensemble_pct, rating, colour = distincti
   geom_errorbar(data = kinds, aes(composite, ymin = lower, ymax = upper), width = 1.5, colour = "black", inherit.aes = FALSE) +
   geom_point(data = kinds, aes(composite, estimate), size = 4.5) +
   geom_label(data = kinds, aes(composite, estimate, label = kind), colour = "black", size = 4, vjust = ifelse(kinds$from_line < 0, 1.7, -0.9),
-             fill = "white", label.size = 0) +
+             fill = "white", linewidth = 0) +
   scale_colour_manual(values = DCOL, name = NULL) +
   scale_y_continuous(limits = c(1, 7), breaks = 1:7) +
   scale_x_continuous(breaks = seq(0, 100, 25), limits = c(0, 104)) +
@@ -273,7 +358,7 @@ won$model <- factor(won$model, levels = c("The two numbers, kept apart", "The co
 p_rounds <- ggplot(won, aes(task, rounds, fill = model)) +
   geom_col(position = position_dodge(width = 0.7), width = 0.6) +
   geom_text(aes(label = rounds), position = position_dodge(width = 0.7), vjust = -0.5, size = 4.5) +
-  scale_fill_manual(values = c("The two numbers, kept apart" = "grey20", "The composite alone" = "grey70"), name = NULL) +
+  scale_fill_manual(values = c("The two numbers, kept apart" = DARK, "The composite alone" = LIGHT), name = NULL) +
   scale_y_continuous(limits = c(0, 11.5), breaks = seq(0, 10, 2)) +
   labs(x = NULL, y = "Rounds won (of 10) in predicting\nthe left-out participants",
        title = "One combined score, or the two numbers kept apart?") +
@@ -294,7 +379,7 @@ strip <- sapply(names(lab), function(o) {
 folds$strip <- factor(strip[folds$outcome], levels = strip)
 
 p_composite <- ggplot(folds, aes(factor(fold), difference)) +
-  geom_col(fill = "grey45", width = 0.7) +
+  geom_col(fill = GRAY, width = 0.7) +
   geom_hline(yintercept = 0) +
   facet_wrap(~ strip) +
   labs(x = "Round of cross-validation (a different tenth of participants held out each time)",
