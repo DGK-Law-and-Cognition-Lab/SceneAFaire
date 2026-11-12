@@ -1,0 +1,29 @@
+UNION CORPUS REPORT
+============================================================
+
+Total films:       45,958
+  CMU only:        19,964
+  Kaggle only:     10,709
+  Both corpora:    15,285
+
+Year range: 1895–2017
+Films with valid year: 44,159
+
+CANONICAL GENRE COUNTS
+  Action              7,775
+  Adventure           6,146
+  Animation           2,835
+  Comedy             14,724
+  Crime               5,564
+  Drama              22,364
+  Family              4,164
+  Fantasy             2,429
+  History             2,882
+  Horror              4,363
+  Music               2,926
+  Mystery             2,681
+  Romance             8,220
+  Science Fiction     2,590
+  Thriller            7,447
+  War                 1,658
+  Western             1,362

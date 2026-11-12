@@ -1,0 +1,831 @@
+---
+title: "Study 1: the registered analysis"
+author: "David Kamper, Mira Patel and Keith Holyoak"
+date: "`r format(Sys.time(), '%B %d, %Y, %H:%M')`"
+params:
+  mode: simulate
+  precompute: false
+  workers: 8
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: false
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "")
+options(width = 160)
+```
+
+This notebook fits every confirmatory, secondary and robustness model of the Study 1 preregistration in its registered form, with the registered random-effects reduction rule. Section numbers refer to the registered document (`Docs/Preregistration/Study1_full/Study1_Preregistration.docx`). The exploratory analyses of Section 8.4 are not here.
+
+**How to run.** Open this file in RStudio and choose *Knit with Parameters*, then set the parameters, or render it from the R console in this folder:
+
+```r
+rmarkdown::render("study1_analysis.Rmd", params = list(mode = "simulate"), envir = new.env())
+rmarkdown::render("study1_analysis.Rmd", params = list(mode = "real", precompute = TRUE),
+                  output_file = "study1_precompute.html",
+                  output_dir = "../v4_rebuild/12_study1_analysis", envir = new.env())
+rmarkdown::render("study1_analysis.Rmd", params = list(mode = "real"),
+                  output_file = "study1_analysis_real.html",
+                  output_dir = "../v4_rebuild/12_study1_analysis", envir = new.env())
+```
+
+`simulate` builds simulated data in the registered format with known effects and runs every step on them, which checks the code. `real` runs on the Study 1 data. It needs the session files in `Data/Study1_raw/` and the outputs of notebook 11 in `Analysis/v4_rebuild/11_study1_coding/`, including `coding_decision.json`, which notebook 11's decision cell writes after both human coder sheets are restored. Outputs go to `Analysis/v4_rebuild/12_study1_analysis/` in real mode and to `simulated_run/` next to this file in simulate mode.
+
+**Run time, the fit cache and the precompute run.** The run fits 68 models (28 on the full data and 40 in the cross-validation of Section 6.5). Thirty-two are generation models, and on the real data each of those has about 390,000 rows and 8,800 element intercepts, so a run done one model at a time would take days. The notebook therefore fits every model first in parallel, on `workers` processes, and saves each fitted model in a local cache outside Google Drive (`tools::R_user_dir("saf_study1", "cache")`). The analysis chunks then run in their registered order and read each fit from the cache. A fit is read only when its formula, data, settings, fitting code and package versions are all identical to those of the saved fit, so a cached fit is the model the chunk would have fit itself. With `precompute: true`, the notebook fits the models before `coding_decision.json` exists, on the automated coding, and stops without computing or showing any estimate. Most of those fits are needed whatever the coding decision is (the liberal and strict codings, and the automated coding, which is either primary or reported alongside the human coding), and if the automated coding is primary, every fit is ready when the real run starts. Progress is written to `prefetch_log.txt` in the output folder. In real mode the notebook keeps the Mac awake while it runs (macOS `caffeinate`, tied to this R process), but the Mac must stay plugged in with the lid open. The cache takes several gigabytes; delete the folder when the analysis is final.
+
+Required packages: lme4, lmerTest, ordinal, jsonlite, arrow, digest, knitr and rmarkdown.
+
+# Setup
+
+```{r packages}
+suppressPackageStartupMessages({
+  library(lme4); library(lmerTest); library(ordinal); library(jsonlite); library(arrow); library(knitr)
+})
+MODE <- if (exists("params") && !is.null(params$mode)) params$mode else "simulate"
+stopifnot(MODE %in% c("simulate", "real"))
+PRECOMPUTE <- exists("params") && isTRUE(as.logical(params$precompute))
+WORKERS <- if (exists("params") && !is.null(params$workers)) as.integer(params$workers) else 8L
+WORKERS <- max(1L, min(WORKERS, parallel::detectCores() - 2L))
+CACHE <- file.path(tools::R_user_dir("saf_study1", "cache"), MODE)   # local; not synced by Google Drive
+dir.create(CACHE, recursive = TRUE, showWarnings = FALSE)
+if (MODE == "real" && Sys.info()[["sysname"]] == "Darwin")           # no idle or system sleep while this R process runs
+  system2("caffeinate", c("-i", "-s", "-w", Sys.getpid()), wait = FALSE)
+SEED <- 20260219
+
+# This file's folder. knitr gives it while knitting; when chunks are run one at a time in
+# RStudio, the working directory is the document's folder.
+input <- tryCatch(knitr::current_input(dir = TRUE), error = function(e) NULL)
+HERE <- if (!is.null(input)) dirname(normalizePath(input)) else normalizePath(getwd())
+AN <- normalizePath(file.path(HERE, ".."))
+ROOT <- normalizePath(file.path(AN, ".."))
+STIM <- file.path(AN, "v4_rebuild", "10_human_study_stimuli")
+OUT <- if (MODE == "real") file.path(AN, "v4_rebuild", "12_study1_analysis") else file.path(HERE, "simulated_run")
+dir.create(OUT, recursive = TRUE, showWarnings = FALSE)
+RAW <- if (MODE == "real") file.path(ROOT, "Data", "Study1_raw") else file.path(OUT, "raw")
+CODED <- if (MODE == "real") file.path(AN, "v4_rebuild", "11_study1_coding") else file.path(OUT, "coded")
+
+GENRE_KEY <- c(Western = "western", Horror = "horror", "Science Fiction" = "science_fiction",
+               Crime = "crime", Comedy = "comedy", Fantasy = "fantasy")
+CELLS <- c("HH", "HL", "LH", "LL")
+CTRL_L <- lmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+CTRL_G <- glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5))
+SINGULAR_TOL <- 1e-4
+cat("mode:", MODE, if (PRECOMPUTE) "(precompute: fits only, no estimates)", "\nproject root:", ROOT, "\noutputs:", OUT,
+    "\nfit cache:", CACHE, "| parallel workers:", WORKERS, "\n")
+```
+
+# Registered materials
+
+The rated items with their cells, and the frozen percentile predictors and Lg10CD for every element of the generation analysis set (Sections 2.5 and 5.8). Both files are notebook 10 outputs.
+
+```{r materials}
+stim <- read.csv(file.path(STIM, "stimuli_long.csv"), stringsAsFactors = FALSE)
+stim$is_foil <- as.logical(stim$is_foil)
+pool <- read.csv(file.path(STIM, "eligible_pool_predictors.csv"), stringsAsFactors = FALSE)
+pool <- pool[as.logical(pool$in_generation_analysis_set), ]
+stim <- merge(stim, pool[, c("genre", "key", "ensemble_pct")], by = c("genre", "key"), all.x = TRUE)
+cat("rated items:", nrow(stim), "| generation analysis set:", nrow(pool), "\n")
+```
+
+# Simulated inputs (simulate mode only)
+
+This chunk runs only in simulate mode. It writes session files in the experiment's data format to `simulated_run/raw/` and stand-ins for the notebook 11 outputs to `simulated_run/coded/`. The generating effects are known, so the estimates below can be checked against them. For ratings, P = 0.5 and D = 0.4 scale points, and foils sit 1 point below the LL cell. For production, prevalence and distinctiveness are 1.0 each on the logit scale, with a participant intercept SD of 0.5 and slope SDs of 0.4. One session is planted for each exclusion rule, plus a pilot session that must be dropped. Each generation pool is subsampled to 150 elements per genre for speed.
+
+```{r simulate, eval = (MODE == "simulate")}
+set.seed(SEED)
+SIM_N <- 100
+SIM_POOL_N <- 150
+dir.create(RAW, recursive = TRUE, showWarnings = FALSE); unlink(list.files(RAW, full.names = TRUE))
+dir.create(CODED, recursive = TRUE, showWarnings = FALSE)
+
+pairs <- list(c("western", "horror"), c("crime", "science_fiction"), c("comedy", "fantasy"),
+              c("western", "crime"), c("horror", "fantasy"), c("science_fiction", "comedy"))
+cell_genres <- function(cell) { p <- pairs[[cell %/% 2 + 1]]; if (cell %% 2 == 0) p else rev(p) }
+key_to_display <- setNames(names(GENRE_KEY), GENRE_KEY)
+
+ids <- as.character(1000 + seq_len(SIM_N))
+p_int <- setNames(rnorm(SIM_N, 0, 0.7), ids)
+p_sP <- setNames(rnorm(SIM_N, 0, 0.3), ids); p_sD <- setNames(rnorm(SIM_N, 0, 0.3), ids)
+item_eff <- setNames(rnorm(nrow(stim), 0, 0.8), stim$item_id)
+
+rate_block <- function(pid, gkey) {
+  it <- stim[stim$genre == key_to_display[[gkey]], ]
+  P <- ifelse(it$cell_code %in% c("HH", "HL"), .5, -.5); D <- ifelse(it$cell_code %in% c("HH", "LH"), .5, -.5)
+  mu <- 4 + 0.5 * P + 0.4 * D + p_sP[pid] * P + p_sD[pid] * D
+  mu[it$is_foil] <- 4 - 0.25 - 0.2 - 1
+  it$response <- pmin(7, pmax(1, round(mu + p_int[pid] + item_eff[it$item_id] + rnorm(nrow(it), 0, 1.3))))
+  it <- it[sample(nrow(it)), ]
+  as.character(toJSON(data.frame(pos = seq_len(nrow(it)), item_id = it$item_id, text = it$display_text,
+                                 cell_code = it$cell_code, is_foil = it$is_foil, response = it$response),
+                      auto_unbox = TRUE))
+}
+
+session <- function(pid, start, overrides = list()) {
+  cell <- suppressWarnings(as.integer(pid)) %% 12
+  if (is.na(cell)) cell <- 0                       # test identifiers run cell 0 here
+  g <- cell_genres(cell)
+  s <- list(participant_id = pid, is_test = "false", platform = "sona", platform_source = "numeric_id",
+            cell_index = cell, g1 = g[1], g2 = g[2], start_time = start, end_time = "2027-01-15T10:30:00Z",
+            captcha_pass = "true", spr_fast_any = "false", task_check_failed_both = "false",
+            attention_pass_total = 4, attention_total = 4, ai_usage = "No", seriousness = "2",
+            distractions = sample(c("1", "2", "3"), 1, prob = c(.1, .4, .5)),
+            genre1_familiarity = sample(1:7, 1), genre2_familiarity = sample(1:7, 1),
+            genre1_ratings = rate_block(pid, g[1]), genre2_ratings = rate_block(pid, g[2]))
+  s[names(overrides)] <- overrides
+  as.data.frame(s, stringsAsFactors = FALSE)
+}
+write_session <- function(s, tag) write.csv(s, file.path(RAW, sprintf("SAF_STUDY1_%s_SESSION_%s.csv", s$participant_id, tag)), row.names = FALSE)
+
+# One planted case per exclusion rule (rule 6 is planted in the quality flags below).
+planted <- list("1091" = list(captcha_pass = "false"), "1092" = list(spr_fast_any = "true"),
+                "1093" = list(task_check_failed_both = "true"), "1094" = list(attention_pass_total = 3),
+                "1095" = list(end_time = ""), "1097" = list(ai_usage = "Yes"), "1099" = list(seriousness = "1"))
+for (i in seq_along(ids)) {
+  pid <- ids[i]
+  write_session(session(pid, sprintf("2027-01-%02dT09:%02d:00Z", 10 + i %/% 60, i %% 60), planted[[pid]] %||% list()), "a")
+}
+write_session(session("1098", "2027-02-01T09:00:00Z"), "b")              # a second session from 1098: rule 8
+write_session(session("PILOT_C0", "2027-01-01T09:00:00Z", list(is_test = "true")), "pilot")
+
+# Stand-ins for notebook 11 outputs
+sub_pool <- do.call(rbind, lapply(split(pool, pool$genre), function(d) d[sample(nrow(d), min(SIM_POOL_N, nrow(d))), ]))
+u_item <- setNames(rnorm(nrow(sub_pool), 0, 1), paste(sub_pool$genre, sub_pool$key))
+pg <- do.call(rbind, lapply(ids, function(pid) { g <- cell_genres(as.integer(pid) %% 12)
+  data.frame(participant_id = pid, genre = key_to_display[g], stringsAsFactors = FALSE) }))
+prod <- merge(pg, sub_pool[, c("genre", "key", "prevalence_pct", "distinctiveness_pct")], by = "genre")
+g_int <- setNames(rnorm(SIM_N, 0, 0.5), ids); g_sP <- setNames(rnorm(SIM_N, 0, 0.4), ids); g_sD <- setNames(rnorm(SIM_N, 0, 0.4), ids)
+eta <- -4 + (1.0 + g_sP[prod$participant_id]) * (prod$prevalence_pct - .5) +
+  (1.0 + g_sD[prod$participant_id]) * (prod$distinctiveness_pct - .5) +
+  g_int[prod$participant_id] + u_item[paste(prod$genre, prod$key)]
+prod$produced <- rbinom(nrow(prod), 1, plogis(eta))
+base <- prod[, c("participant_id", "genre", "key", "produced")]
+write_parquet(base, file.path(CODED, "production_matrix.parquet"))
+write_parquet(transform(base, produced = pmax(produced, rbinom(nrow(base), 1, .01))), file.path(CODED, "production_matrix_liberal.parquet"))
+write_parquet(transform(base, produced = produced * rbinom(nrow(base), 1, .7)), file.path(CODED, "production_matrix_strict.parquet"))
+
+flags <- do.call(rbind, lapply(ids, function(pid) data.frame(participant_id = pid, slot = 1:2,
+  genre = cell_genres(as.integer(pid) %% 12), n_entries = 14, share_uninterpretable = 0, share_instruction_echo = 0, flag = "False")))
+flags[flags$participant_id == "1096", c("share_uninterpretable", "flag")] <- list(0.6, "True")
+write.csv(flags, file.path(CODED, "quality_flags.csv"), row.names = FALSE)
+
+s1 <- do.call(rbind, lapply(ids, function(pid) { g <- cell_genres(as.integer(pid) %% 12)
+  data.frame(participant_id = pid, slot = 1:2, cued_genre = g, other_genre = rev(g), n_entries = 14,
+             cos_cued = 0.30 + rnorm(2, 0, 0.02), cos_other = 0.28 + rnorm(2, 0, 0.02)) }))
+write.csv(s1, file.path(CODED, "s1_genre_discrimination.csv"), row.names = FALSE)
+write_json(list(primary = "automated", kappa_human_human = 0.8, kappa_human_automated_mean = 0.75),
+           file.path(CODED, "coding_decision.json"), auto_unbox = TRUE)
+cat("simulated inputs written to", OUT, "\n")
+```
+
+# The coding decision (Section 6.4.6)
+
+The primary coding of the generation responses follows the registered decision rule, which notebook 11 applies after both human sheets are in. If the automated coding is primary, the production matrices without a suffix are used. If the human coding is primary, the files ending `_human` are used, and H1 is also reported on the automated coding.
+
+```{r decision}
+decision_file <- file.path(CODED, "coding_decision.json")
+if (!file.exists(decision_file) && PRECOMPUTE) {
+  decision <- list(primary = "automated", note = "precompute run before the coding decision; no estimates are computed")
+} else {
+  if (!file.exists(decision_file))
+    stop("coding_decision.json is not in ", CODED, ". Restore both human coder sheets and run notebook 11's ",
+         "decision cell first; the registered analysis cannot choose the primary coding without it. ",
+         "To fit the models before then, knit with precompute: true.")
+  decision <- fromJSON(decision_file)
+}
+PRIMARY <- decision$primary                          # "automated" or "human"
+stopifnot(PRIMARY %in% c("automated", "human"))
+suffix <- if (PRIMARY == "human") "_human" else ""
+str(decision)
+```
+
+# Sessions and exclusions (Sections 6.1 and 8.2)
+
+Every session file is read, investigator test sessions are removed (identifiers beginning PILOT or TEST, or flagged `is_test`), and the nine exclusion rules are applied in their registered order. Each excluded participant is counted under the first rule they meet; the table also shows how many meet each rule in any order. Rule 6 comes from notebook 11's quality flags under the primary coding.
+
+```{r sessions}
+read_sessions <- function(dir) {
+  files <- list.files(dir, pattern = "SAF_STUDY1_.*\\.csv$", full.names = TRUE)   # Pavlovia names them data_SAF_STUDY1_...
+  rows <- lapply(files, function(f) read.csv(f, colClasses = "character", check.names = FALSE))
+  cols <- unique(unlist(lapply(rows, names)))
+  do.call(rbind, lapply(rows, function(d) { for (c in setdiff(cols, names(d))) d[[c]] <- NA_character_; d[cols] }))
+}
+is_true <- function(x) tolower(trimws(as.character(x))) %in% "true"
+blank <- function(x) is.na(x) | trimws(x) == ""
+
+flags <- read.csv(file.path(CODED, paste0("quality_flags", suffix, ".csv")), colClasses = c(participant_id = "character"))
+flagged <- unique(flags$participant_id[is_true(flags$flag)])
+
+sessions <- read_sessions(RAW)
+n_files <- nrow(sessions)
+test <- grepl("^(pilot|test)", sessions$participant_id, ignore.case = TRUE) | is_true(sessions$is_test)
+cat("session files:", n_files, "| investigator test sessions removed:", sum(test),
+    paste0("(", paste(sessions$participant_id[test], collapse = ", "), ")"), "\n")
+sessions <- sessions[!test, ]
+sessions <- sessions[order(sessions$start_time), ]
+rules <- data.frame(
+  r1_hidden_trap = !is_true(sessions$captcha_pass),
+  r2_reading_speed = is_true(sessions$spr_fast_any),
+  r3_task_check = is_true(sessions$task_check_failed_both),
+  r4_attention = suppressWarnings(as.integer(sessions$attention_pass_total)) %in% NA |
+                 suppressWarnings(as.integer(sessions$attention_pass_total)) < 4,
+  r5_incomplete = blank(sessions$end_time) | blank(sessions$genre1_ratings) | blank(sessions$genre2_ratings),
+  r6_generation_quality = sessions$participant_id %in% flagged,
+  r7_ai_use = sessions$ai_usage %in% "Yes",
+  r8_duplicate_id = duplicated(sessions$participant_id),
+  r9_not_serious = sessions$seriousness %in% "1")
+first_rule <- apply(rules, 1, function(r) if (any(r)) names(rules)[which(r)[1]] else NA_character_)
+excl_report <- data.frame(rule = names(rules),
+                          excluded_in_order = sapply(names(rules), function(r) sum(first_rule %in% r)),
+                          meeting_rule_any_order = colSums(rules))
+usable <- sessions[is.na(first_rule), ]
+cat("participant sessions:", nrow(sessions), "| usable:", nrow(usable), "\n")
+kable(excl_report, row.names = FALSE)
+kable(as.data.frame(table(genre = c(usable$g1, usable$g2)), responseName = "usable_participants"),
+      caption = "Usable participants per genre")
+```
+
+# Analysis tables (Section 6.1)
+
+The rating table has one row per participant and rated item; the production table has one row per participant, genre and element of the generation analysis set. Prevalence, distinctiveness and the composite enter as within-genre percentile ranks centered at 0.5. In the factorial rating model, P and D are coded +0.5 for the top tercile and -0.5 for the bottom. Lg10CD is centered on the rows of each model, and genre has sum-to-zero contrasts.
+
+```{r tables}
+ratings_table <- function(s) {
+  out <- vector("list", 2 * nrow(s))
+  k <- 0
+  for (i in seq_len(nrow(s))) for (slot in 1:2) {
+    r <- fromJSON(s[[paste0("genre", slot, "_ratings")]][i])
+    k <- k + 1
+    out[[k]] <- data.frame(participant_id = s$participant_id[i], slot = slot, item_id = r$item_id,
+                           rating = as.numeric(r$response), stringsAsFactors = FALSE)
+  }
+  d <- do.call(rbind, out)
+  d <- merge(d, stim[, c("item_id", "genre", "key", "cell_code", "is_foil", "display_text", "element",
+                         "prevalence_pct", "distinctiveness_pct", "ensemble_pct", "Lg10CD")], by = "item_id")
+  d$pid <- factor(d$participant_id); d$item <- factor(d$item_id)
+  d$P <- ifelse(d$cell_code %in% c("HH", "HL"), 0.5, ifelse(d$cell_code %in% c("LH", "LL"), -0.5, NA))
+  d$D <- ifelse(d$cell_code %in% c("HH", "LH"), 0.5, ifelse(d$cell_code %in% c("HL", "LL"), -0.5, NA))
+  d$prevalence <- d$prevalence_pct - 0.5
+  d$distinctiveness <- d$distinctiveness_pct - 0.5
+  d$composite <- d$ensemble_pct - 0.5
+  d
+}
+production_table <- function(path, ids) {
+  m <- as.data.frame(read_parquet(path))
+  m <- m[m$participant_id %in% ids, ]
+  m <- merge(m, pool[, c("genre", "key", "prevalence_pct", "distinctiveness_pct", "ensemble_pct",
+                         "Lg10CD", "rel_freq_in_genre")], by = c("genre", "key"))
+  m$pid <- factor(m$participant_id); m$item <- factor(paste(m$genre, m$key, sep = "|"))
+  m$prevalence <- m$prevalence_pct - 0.5
+  m$distinctiveness <- m$distinctiveness_pct - 0.5
+  m$composite <- m$ensemble_pct - 0.5
+  m
+}
+# Centering and contrasts are set on the rows of each model.
+prep <- function(d) {
+  d <- d[!is.na(d$Lg10CD), ]
+  d$lg <- d$Lg10CD - mean(d$Lg10CD)
+  d$genre <- factor(d$genre)
+  contrasts(d$genre) <- contr.sum(nlevels(d$genre))
+  d
+}
+prep_nolg <- function(d) { d$genre <- factor(d$genre); contrasts(d$genre) <- contr.sum(nlevels(d$genre)); d }
+
+R_all <- ratings_table(usable)
+R48 <- R_all[!R_all$is_foil, ]
+# The primary production matrix follows the coding decision; the liberal and strict sensitivity
+# codings (and, when the human coding is primary, the automated coding) come from notebook 11.
+prod_file <- function(tag, primary = TRUE) file.path(CODED, paste0("production_matrix", tag, if (primary) suffix else "", ".parquet"))
+G <- production_table(prod_file(""), usable$participant_id)
+cat("rating rows:", nrow(R_all), "(", nrow(R48), "stratified ) | production rows:", nrow(G), "\n")
+```
+
+# Model fitting and the reduction rule (Section 6.1)
+
+Every model is fit with bobyqa and 200,000 function evaluations. A fit fails if lme4 reports a convergence failure or the random-effects covariance is singular (tolerance 0.0001); for the ordinal models, a failure is a non-finite standard error or a random-effect SD below that tolerance. A failed model is refit in the registered order: the correlations among the participant random effects are removed, then the slope with the smaller estimated variance, then the remaining slope. The steps taken for every model are listed at the end of this notebook.
+
+```{r fitting}
+re_part <- function(slopes, corr) {
+  if (!length(slopes)) return("(1 | pid) + (1 | item)")
+  if (corr) return(sprintf("(1 + %s | pid) + (1 | item)", paste(slopes, collapse = " + ")))
+  paste0("(1 | pid) + ", paste(sprintf("(0 + %s | pid)", slopes), collapse = " + "), " + (1 | item)")
+}
+clmm_failed <- function(m) {
+  if (inherits(m, "try-error")) return(TRUE)
+  se <- suppressWarnings(sqrt(diag(vcov(m))))
+  sds <- unlist(lapply(VarCorr(m), function(v) attr(v, "stddev")))
+  any(!is.finite(se)) || any(sds < SINGULAR_TOL)
+}
+fit_once <- function(fixed, slopes, corr, data, kind, REML) {
+  f <- as.formula(paste(fixed, "+", re_part(slopes, corr)))
+  msgs <- character()
+  m <- withCallingHandlers(
+    try(switch(kind,
+               lmer = lmer(f, data = data, REML = REML, control = CTRL_L),
+               glmer = glmer(f, data = data, family = binomial, control = CTRL_G),
+               clmm = clmm(f, data = data, link = "logit")), silent = TRUE),
+    warning = function(w) { msgs <<- c(msgs, conditionMessage(w)); invokeRestart("muffleWarning") },
+    message = function(w) { msgs <<- c(msgs, conditionMessage(w)); invokeRestart("muffleMessage") })
+  failed <- if (inherits(m, "try-error")) TRUE else if (kind == "clmm") clmm_failed(m) else
+    length(m@optinfo$conv$lme4$messages) > 0 || isSingular(m, tol = SINGULAR_TOL)
+  list(model = m, failed = failed, formula = paste(deparse(f, width.cutoff = 500), collapse = ""),
+       messages = unique(msgs), slopes = slopes, corr = corr)
+}
+slope_variances <- function(m, slopes) {
+  vc <- VarCorr(m)
+  sapply(slopes, function(s) {
+    v <- NA
+    for (g in seq_along(vc)) { M <- as.matrix(vc[[g]]); if (s %in% rownames(M)) v <- M[s, s] }
+    v
+  })
+}
+fit_reduced_now <- function(fixed, slopes, data, kind = "lmer", REML = TRUE, structure = NULL) {
+  if (!is.null(structure)) {                          # refit with a given structure (cross-validation)
+    fit <- fit_once(fixed, structure$slopes, structure$corr, data, kind, REML)
+    fit$steps <- fit$formula; return(fit)
+  }
+  fit <- fit_once(fixed, slopes, TRUE, data, kind, REML); steps <- list(fit)
+  if (fit$failed && length(slopes)) {
+    fit <- fit_once(fixed, slopes, FALSE, data, kind, REML); steps <- c(steps, list(fit))
+    while (fit$failed && length(slopes)) {
+      if (length(slopes) == 2 && !inherits(fit$model, "try-error")) {
+        slopes <- slopes[-which.min(slope_variances(fit$model, slopes))]
+      } else if (length(slopes) == 2) slopes <- slopes[1] else slopes <- character()
+      fit <- fit_once(fixed, slopes, FALSE, data, kind, REML); steps <- c(steps, list(fit))
+    }
+  }
+  fit$steps <- vapply(steps, function(x) paste0(x$formula, if (x$failed) "   [failed: reduced]" else "   [used]"), "")
+  if (fit$failed) fit$steps[length(fit$steps)] <- sub("\\[failed: reduced\\]", "[failed: no further reduction]", fit$steps[length(fit$steps)])
+  fit
+}
+```
+
+# The fit cache and parallel fitting
+
+`fit_reduced` is the registered fitting function above (`fit_reduced_now`) with a cache in front of it. Each call is keyed by a SHA-256 digest of its formula, slopes, given structure, model kind, REML setting (for linear models; the logistic and ordinal fits ignore it), the model's variables in the data, the code of the fitting functions, the control settings and the versions of lme4, lmerTest, ordinal and Matrix. A call whose key matches a saved fit returns that fit. Any other call fits the model and saves it. The fitting functions receive only the model's variables, the only columns they use.
+
+`prefetch` fits a list of such calls in parallel, on separate R processes, and saves each result in the cache, the largest models first. It only fits ahead. The analysis chunks below make their own calls in the registered order, and a call the list missed or got wrong is fit when its chunk runs. The cross-validation fits of Section 6.5 need the reduced structures of the full-data H3 models, so they form a second wave. The end of the notebook counts the fits read from the cache and the fits made in the sequential pass.
+
+```{r cache}
+CACHE_STATS <- new.env(); CACHE_STATS$read <- 0L; CACHE_STATS$fitted <- 0L
+CODE_DIGEST <- digest::digest(list(
+  lapply(list(fit_once, fit_reduced_now, re_part, clmm_failed, slope_variances), function(f) deparse(utils::removeSource(f))),
+  CTRL_L, CTRL_G, SINGULAR_TOL,
+  vapply(c("lme4", "lmerTest", "ordinal", "Matrix"), function(p) as.character(packageVersion(p)), "")), algo = "sha256")
+fit_vars <- function(fixed, slopes, structure) sort(unique(c(all.vars(as.formula(fixed)), "pid", "item", slopes, structure$slopes)))
+cache_path <- function(fixed, slopes, data, kind, REML, structure) {
+  key <- digest::digest(list(CODE_DIGEST, fixed, slopes, structure, kind, if (kind == "lmer") REML else NA,
+                             lapply(data[fit_vars(fixed, slopes, structure)], identity)), algo = "sha256")
+  file.path(CACHE, paste0(key, ".rds"))
+}
+save_fit <- function(fit, path) { tmp <- paste0(path, ".part", Sys.getpid()); saveRDS(fit, tmp); file.rename(tmp, path) }
+fit_reduced <- function(fixed, slopes, data, kind = "lmer", REML = TRUE, structure = NULL) {
+  path <- cache_path(fixed, slopes, data, kind, REML, structure)
+  if (file.exists(path)) { CACHE_STATS$read <- CACHE_STATS$read + 1L; return(readRDS(path)) }
+  fit <- fit_reduced_now(fixed, slopes, data[fit_vars(fixed, slopes, structure)], kind, REML, structure)
+  save_fit(fit, path); CACHE_STATS$fitted <- CACHE_STATS$fitted + 1L
+  fit
+}
+
+spec <- function(name, fixed, slopes, data, kind = "lmer", REML = TRUE, structure = NULL)
+  list(name = name, fixed = fixed, slopes = slopes, data = data[fit_vars(fixed, slopes, structure)], kind = kind,
+       REML = REML, structure = structure, path = cache_path(fixed, slopes, data, kind, REML, structure))
+PREFETCH_LOG <- file.path(OUT, "prefetch_log.txt")
+run_spec <- function(s) {
+  if (file.exists(s$path)) return(data.frame(model = s$name, kind = s$kind, status = "in cache", minutes = 0))
+  stamp <- function(...) cat(format(Sys.time(), "%Y-%m-%d %H:%M"), ..., "\n", file = PREFETCH_LOG, append = TRUE)
+  stamp("started ", s$name)
+  t0 <- Sys.time()
+  status <- tryCatch({ save_fit(fit_reduced_now(s$fixed, s$slopes, s$data, s$kind, s$REML, s$structure), s$path); "fitted" },
+                     error = function(e) paste("error:", conditionMessage(e)))
+  minutes <- round(as.numeric(difftime(Sys.time(), t0, units = "mins")), 1)
+  stamp("finished", s$name, "in", minutes, "min", if (status != "fitted") status)
+  data.frame(model = s$name, kind = s$kind, status = status, minutes = minutes)
+}
+prefetch <- function(specs) {
+  specs <- specs[!duplicated(vapply(specs, `[[`, "", "path"))]      # the H3 two-dimension generation model is the H1 model
+  cost <- vapply(specs, function(s) nrow(s$data) * if (s$kind == "glmer") 100 else 1, 0)
+  specs <- specs[order(-cost)]
+  todo <- !file.exists(vapply(specs, `[[`, "", "path"))
+  n <- min(WORKERS, sum(todo))
+  if (n > 1) {
+    Sys.setenv(VECLIB_MAXIMUM_THREADS = "1", OPENBLAS_NUM_THREADS = "1", OMP_NUM_THREADS = "1")   # one core per worker
+    cl <- parallel::makePSOCKcluster(n)
+    on.exit(parallel::stopCluster(cl), add = TRUE)
+    parallel::clusterEvalQ(cl, suppressPackageStartupMessages({ library(lme4); library(lmerTest); library(ordinal); NULL }))
+    for (nm in c("fit_once", "fit_reduced_now", "re_part", "clmm_failed", "slope_variances", "save_fit", "run_spec",
+                 "CTRL_L", "CTRL_G", "SINGULAR_TOL", "PREFETCH_LOG")) {
+      obj <- get(nm)
+      if (is.function(obj)) environment(obj) <- globalenv()       # send the function, not this notebook's environment
+      parallel::clusterCall(cl, assign, nm, obj, envir = globalenv())
+    }
+    res <- parallel::clusterApplyLB(cl, specs, run_spec)
+  } else res <- lapply(specs, run_spec)
+  do.call(rbind, res)
+}
+cv_folds <- function(ids) { set.seed(SEED); ids <- sort(unique(as.character(ids))); setNames(sample(rep(1:10, length.out = length(ids))), ids) }
+```
+
+```{r prefetch}
+# The calls of the analysis chunks below, on the same tables.
+PD <- c("prevalence", "distinctiveness")
+H1_FIXED <- "produced ~ prevalence + distinctiveness + lg + genre"
+H2_FIXED <- "rating ~ P + D + P:D + lg + genre"
+G1 <- prep(G); R1 <- prep(R48)
+R1o <- R1; R1o$rating_f <- factor(R1o$rating, levels = 1:7, ordered = TRUE)
+RM <- prep_nolg(R_all); RM$itemclass <- relevel(factor(ifelse(RM$is_foil, "FOIL", RM$cell_code)), ref = "FOIL")
+distracted <- usable$participant_id[usable$distractions %in% "1"]
+genres <- as.character(sort(unique(G1$genre)))
+wave1 <- c(
+  list(spec("H1", H1_FIXED, PD, G1, "glmer"),
+       spec("H1 without Lg10CD", "produced ~ prevalence + distinctiveness + genre", PD, prep_nolg(G), "glmer"),
+       spec("H3 generation composite", "produced ~ composite + lg + genre", "composite", G1, "glmer", REML = FALSE),
+       spec("H1 without significantly distracted participants", H1_FIXED, PD, prep(G[!(G$participant_id %in% distracted), ]), "glmer")),
+  lapply(c("liberal", "strict"), function(tag)
+    spec(paste("H1", tag), H1_FIXED, PD, prep(production_table(prod_file(paste0("_", tag), primary = FALSE), usable$participant_id)), "glmer")),
+  if (PRIMARY == "human")
+    list(spec("H1 automated coding", H1_FIXED, PD, prep(production_table(prod_file("", primary = FALSE), usable$participant_id)), "glmer")),
+  lapply(genres, function(g) spec(paste("H1 without", g), H1_FIXED, PD, prep(G[G$genre != g, ]), "glmer")),
+  list(spec("H2", H2_FIXED, c("P", "D"), R1),
+       spec("H2 without Lg10CD", "rating ~ P + D + P:D + genre", c("P", "D"), prep_nolg(R48)),
+       spec("H2 ordinal", "rating_f ~ P + D + P:D + lg + genre", c("P", "D"), R1o, "clmm"),
+       spec("H2 continuous", "rating ~ prevalence + distinctiveness + lg + genre", PD, R1),
+       spec("M1", "rating ~ itemclass + genre", character(), RM),
+       spec("H3 rating two-dimension", "rating ~ prevalence + distinctiveness + lg + genre", PD, R1, REML = FALSE),
+       spec("H3 rating composite", "rating ~ composite + lg + genre", "composite", R1, REML = FALSE),
+       spec("H2 first genre block only", H2_FIXED, c("P", "D"), prep(R48[R48$slot == 1, ])),
+       spec("H2 without display-edited items", H2_FIXED, c("P", "D"), prep(R48[R48$display_text == R48$element, ])),
+       spec("H2 without significantly distracted participants", H2_FIXED, c("P", "D"), prep(R48[!(R48$participant_id %in% distracted), ]))),
+  lapply(genres, function(g) spec(paste("H2 without", g), H2_FIXED, c("P", "D"), prep(R48[R48$genre != g, ]))))
+done1 <- prefetch(wave1)
+
+wave2 <- list()
+for (o in list(list(name = "generation", data = G1, kind = "glmer", outcome = "produced"),
+               list(name = "rating", data = R1, kind = "lmer", outcome = "rating"))) {
+  two_f <- paste(o$outcome, "~ prevalence + distinctiveness + lg + genre")
+  comp_f <- paste(o$outcome, "~ composite + lg + genre")
+  two <- fit_reduced(two_f, PD, o$data, o$kind, REML = FALSE)
+  comp <- fit_reduced(comp_f, "composite", o$data, o$kind, REML = FALSE)
+  folds <- cv_folds(o$data$pid)
+  for (k in 1:10) {
+    train <- o$data[!(as.character(o$data$pid) %in% names(folds)[folds == k]), ]
+    wave2 <- c(wave2, list(
+      spec(sprintf("H3 %s two-dimension, fold %d", o$name, k), two_f, NULL, train, o$kind, FALSE, list(slopes = two$slopes, corr = two$corr)),
+      spec(sprintf("H3 %s composite, fold %d", o$name, k), comp_f, NULL, train, o$kind, FALSE, list(slopes = comp$slopes, corr = comp$corr))))
+  }
+}
+done2 <- prefetch(wave2)
+rm(two, comp, train, wave1, wave2)
+CACHE_STATS$read <- 0L; CACHE_STATS$fitted <- 0L                      # count the analysis pass only
+kable(rbind(done1, done2), row.names = FALSE, caption = "Models fit ahead, in parallel (minutes of wall time)")
+if (PRECOMPUTE) {
+  cat("Precompute finished:", nrow(done1) + nrow(done2), "models are in the cache at", CACHE, "\n",
+      "No estimates were computed. Knit again with precompute: false once coding_decision.json is written.\n")
+  knitr::knit_exit()
+}
+```
+
+# Estimates and intervals (Section 6.1)
+
+Intervals are model-based: Wald z intervals for logistic and ordinal models, Satterthwaite t intervals for linear models. Every coefficient and contrast is collected in one table, written to `estimates.csv`.
+
+```{r estimates}
+est_rows <- list()
+add <- function(analysis, term, est, se, lo, hi, p, df = NA, note = "") {
+  est_rows[[length(est_rows) + 1]] <<- data.frame(analysis = analysis, term = term, estimate = est, se = se,
+                                                 df = df, lower = lo, upper = hi, p = p, note = note)
+}
+coef_row <- function(fit, term, analysis, note = "") {
+  m <- fit$model
+  cf <- summary(m)$coefficients
+  if (inherits(m, "glmerMod")) {
+    e <- cf[term, "Estimate"]; s <- cf[term, "Std. Error"]
+    add(analysis, term, e, s, e - qnorm(.975) * s, e + qnorm(.975) * s, cf[term, "Pr(>|z|)"], NA, note)
+  } else if (inherits(m, "clmm")) {
+    e <- cf[term, "Estimate"]; s <- cf[term, "Std. Error"]
+    add(analysis, term, e, s, e - qnorm(.975) * s, e + qnorm(.975) * s, cf[term, "Pr(>|z|)"], NA, note)
+  } else {
+    e <- cf[term, "Estimate"]; s <- cf[term, "Std. Error"]; df <- cf[term, "df"]
+    add(analysis, term, e, s, e - qt(.975, df) * s, e + qt(.975, df) * s, cf[term, "Pr(>|t|)"], df, note)
+  }
+}
+contrast_row <- function(fit, weights, label, analysis) {
+  m <- fit$model
+  L <- setNames(rep(0, length(fixef_any(m))), names(fixef_any(m)))
+  L[names(weights)] <- weights
+  if (inherits(m, "lmerModLmerTest")) {
+    ct <- contest(m, L, joint = FALSE, confint = TRUE)
+    add(analysis, label, ct$Estimate, ct$`Std. Error`, ct$lower, ct$upper, ct$`Pr(>|t|)`, ct$df)
+  } else {
+    b <- fixef_any(m); V <- as.matrix(vcov_fixed(m))
+    e <- sum(L * b); s <- sqrt(as.numeric(t(L) %*% V %*% L))
+    add(analysis, label, e, s, e - qnorm(.975) * s, e + qnorm(.975) * s, 2 * pnorm(-abs(e / s)))
+  }
+}
+fixef_any <- function(m) if (inherits(m, "clmm")) m$beta else fixef(m)
+vcov_fixed <- function(m) if (inherits(m, "clmm")) vcov(m)[names(m$beta), names(m$beta)] else vcov(m)
+structures <- list()
+note_structure <- function(name, fit) structures[[name]] <<- fit$steps
+show_rows <- function(pattern) {
+  e <- do.call(rbind, est_rows)
+  kable(e[grepl(pattern, e$analysis), c("analysis", "term", "estimate", "se", "df", "lower", "upper", "p")],
+        row.names = FALSE, digits = 4)
+}
+```
+
+# H1: generation (Section 6.2)
+
+`produced ~ prevalence + distinctiveness + Lg10CD + genre + (1 + prevalence + distinctiveness | participant) + (1 | item)`, logit link. The H1 decision uses the prevalence coefficient. Also fit: the model without Lg10CD, the liberal and strict sensitivity codings (Section 6.4.7), and, when the human coding is primary, the automated coding. The Lg10CD coefficient is the S3 report for generation (Section 7.3), shown as an odds ratio in `estimates.csv`.
+
+```{r h1}
+H1_FIXED <- "produced ~ prevalence + distinctiveness + lg + genre"
+G1 <- prep(G)
+h1 <- fit_reduced(H1_FIXED, c("prevalence", "distinctiveness"), G1, "glmer"); note_structure("H1", h1)
+for (t in c("prevalence", "distinctiveness", "lg")) coef_row(h1, t, "H1")
+h1n <- fit_reduced("produced ~ prevalence + distinctiveness + genre", c("prevalence", "distinctiveness"), prep_nolg(G), "glmer")
+note_structure("H1 without Lg10CD", h1n)
+for (t in c("prevalence", "distinctiveness")) coef_row(h1n, t, "H1 without Lg10CD")
+for (tag in c("liberal", "strict")) {
+  Gs <- prep(production_table(prod_file(paste0("_", tag), primary = FALSE), usable$participant_id))
+  f <- fit_reduced(H1_FIXED, c("prevalence", "distinctiveness"), Gs, "glmer"); note_structure(paste("H1", tag), f)
+  coef_row(f, "prevalence", paste("H1", tag, "coding"))
+}
+if (PRIMARY == "human") {                               # Section 6.4.6: H1 is reported on both codings
+  Ga <- prep(production_table(prod_file("", primary = FALSE), usable$participant_id))
+  f <- fit_reduced(H1_FIXED, c("prevalence", "distinctiveness"), Ga, "glmer"); note_structure("H1 automated coding", f)
+  coef_row(f, "prevalence", "H1 automated coding")
+}
+show_rows("^H1")
+```
+
+## Production norms and the descriptive replication (Section 6.2)
+
+The share of each genre's analysis set produced by at least one participant, by at least two, and by at least one sixth of the genre's participants (the McRae et al. rule). Then, within each genre, the Spearman correlation between production frequency and raw prevalence, with a 95% percentile interval from 2,000 bootstrap resamples of participants.
+
+```{r norms}
+norms <- do.call(rbind, lapply(split(G, G$genre), function(d) {
+  n_p <- length(unique(d$participant_id))
+  cnt <- tapply(d$produced, d$key, sum)
+  data.frame(genre = d$genre[1], n_participants = n_p, n_elements = length(cnt),
+             share_produced_by_any = mean(cnt >= 1), share_by_2 = mean(cnt >= 2),
+             share_by_one_sixth = mean(cnt >= n_p / 6))         # 5 of 30, the McRae et al. rule
+}))
+set.seed(SEED)
+spearman <- do.call(rbind, lapply(split(G, G$genre), function(d) {
+  M <- tapply(d$produced, list(d$participant_id, d$key), sum); M[is.na(M)] <- 0   # participants x elements
+  rf <- tapply(d$rel_freq_in_genre, d$key, function(x) x[1])[colnames(M)]
+  boot <- replicate(2000, suppressWarnings(cor(colMeans(M[sample(nrow(M), replace = TRUE), , drop = FALSE]), rf, method = "spearman")))
+  data.frame(genre = d$genre[1], spearman = cor(colMeans(M), rf, method = "spearman"),
+             lower = unname(quantile(boot, .025, na.rm = TRUE)), upper = unname(quantile(boot, .975, na.rm = TRUE)))
+}))
+kable(norms, row.names = FALSE, digits = 3)
+kable(spearman, row.names = FALSE, digits = 3)
+```
+
+# H2a, H2b and H2c: expectedness ratings (Section 6.3)
+
+`rating ~ P + D + P:D + Lg10CD + genre + (1 + P + D | participant) + (1 | item)` on the 48 stratified items per genre, fit by REML. H2a uses P, H2b uses D, and H2c is the contrast P minus D, which equals the adjusted HL mean minus the adjusted LH mean. The four adjusted cell means are reported. The standardizing SD is the square root of the sum of the participant-intercept, item-intercept and residual variances. The sensitivity analyses are (a) the model without Lg10CD, (b) the cumulative-link mixed model on the latent scale, and (c) the continuous model with centered percentile predictors. The Lg10CD coefficient of the primary model is the S3 report for ratings (Section 7.3).
+
+```{r h2}
+H2_FIXED <- "rating ~ P + D + P:D + lg + genre"
+R1 <- prep(R48)
+h2 <- fit_reduced(H2_FIXED, c("P", "D"), R1, "lmer"); note_structure("H2", h2)
+for (t in c("P", "D", "P:D", "lg")) coef_row(h2, t, "H2")
+contrast_row(h2, c(P = 1, D = -1), "P minus D (H2c)", "H2")
+for (cc in CELLS) {
+  p <- if (cc %in% c("HH", "HL")) .5 else -.5; dd <- if (cc %in% c("HH", "LH")) .5 else -.5
+  contrast_row(h2, c("(Intercept)" = 1, P = p, D = dd, "P:D" = p * dd), paste("adjusted mean", cc), "H2 cell means")
+}
+vc <- as.data.frame(VarCorr(h2$model))
+sd_std <- sqrt(sum(vc$vcov[(vc$grp == "pid" & vc$var1 == "(Intercept)" & is.na(vc$var2)) |
+                          (vc$grp == "item") | (vc$grp == "Residual")]))
+h2n <- fit_reduced("rating ~ P + D + P:D + genre", c("P", "D"), prep_nolg(R48), "lmer"); note_structure("H2 without Lg10CD", h2n)
+for (t in c("P", "D")) coef_row(h2n, t, "H2 without Lg10CD")
+contrast_row(h2n, c(P = 1, D = -1), "P minus D", "H2 without Lg10CD")
+R1o <- R1; R1o$rating_f <- factor(R1o$rating, levels = 1:7, ordered = TRUE)
+h2o <- fit_reduced("rating_f ~ P + D + P:D + lg + genre", c("P", "D"), R1o, "clmm"); note_structure("H2 ordinal", h2o)
+for (t in c("P", "D")) coef_row(h2o, t, "H2 ordinal (latent scale)")
+contrast_row(h2o, c(P = 1, D = -1), "P minus D", "H2 ordinal (latent scale)")
+h2_cont <- fit_reduced("rating ~ prevalence + distinctiveness + lg + genre", c("prevalence", "distinctiveness"), R1, "lmer")
+note_structure("H2 continuous", h2_cont)
+for (t in c("prevalence", "distinctiveness")) coef_row(h2_cont, t, "H2 continuous")
+contrast_row(h2_cont, c(prevalence = 1, distinctiveness = -1), "prevalence minus distinctiveness", "H2 continuous")
+cat("standardizing SD for rating effects:", round(sd_std, 3), "\n")
+show_rows("^H2")
+```
+
+# M1: foils (Section 7.1)
+
+`rating ~ itemclass + genre + (1 | participant) + (1 | item)` on all 56 rated items per genre, with foil as the reference class. M1 holds if all four contrasts of foil minus a cell are negative with intervals that exclude zero.
+
+```{r m1}
+RM <- prep_nolg(R_all)
+RM$itemclass <- relevel(factor(ifelse(RM$is_foil, "FOIL", RM$cell_code)), ref = "FOIL")
+m1 <- fit_reduced("rating ~ itemclass + genre", character(), RM, "lmer"); note_structure("M1", m1)
+for (cc in CELLS) contrast_row(m1, setNames(-1, paste0("itemclass", cc)), paste("foil minus", cc), "M1")
+show_rows("^M1")
+```
+
+# S1: genre-specific generation (Section 7.2)
+
+For each participant and genre block, the mean cosine of the block's entries to the cued genre's centroid minus that to the other genre's centroid (notebook 11). Each participant's score is the mean over the two blocks. The test is a one-sample t test against zero, with a Wilcoxon signed-rank test, the share of positive blocks and the mean cosines by genre as sensitivity reports.
+
+```{r s1}
+s1 <- read.csv(file.path(CODED, "s1_genre_discrimination.csv"), colClasses = c(participant_id = "character"))
+s1 <- s1[s1$participant_id %in% usable$participant_id, ]
+s1$diff <- s1$cos_cued - s1$cos_other
+s1p <- aggregate(diff ~ participant_id, data = s1, FUN = mean)
+s1t <- t.test(s1p$diff)
+add("S1", "mean within-participant cosine difference", unname(s1t$estimate), unname(s1t$stderr),
+    s1t$conf.int[1], s1t$conf.int[2], s1t$p.value, unname(s1t$parameter))
+s1w <- wilcox.test(s1p$diff)
+s1_by_genre <- aggregate(cbind(cos_cued, cos_other, diff) ~ cued_genre, data = s1, FUN = mean)
+s1_share_positive <- mean(s1$diff > 0)
+show_rows("^S1")
+cat(sprintf("Wilcoxon p = %.4g | share of genre blocks positive = %.3f\n", s1w$p.value, s1_share_positive))
+kable(s1_by_genre, row.names = FALSE, digits = 4)
+```
+
+# H3: the composite against its two dimensions (Section 6.5)
+
+For each outcome, the two-dimension model is compared with a composite model that replaces prevalence and distinctiveness, in the fixed and random parts, with the composite's centered percentile. Both are fit by maximum likelihood and reduced independently. H3 is supported for an outcome when both criteria favor the two-dimension model: lower AIC, and higher summed held-out log-likelihood in ten-fold cross-validation by participant. Held-out participants are scored by their marginal log-likelihood: item effects come from the refit model, and the participant's own effects are integrated over their estimated distribution, exactly for ratings and by Monte Carlo with 1,000 draws for generation (seed 20260219 plus the fold). Setting them to zero instead would penalize the model whose richer random-effects structure leaves less residual variance.
+
+```{r h3}
+pid_cov <- function(m) {
+  vc <- VarCorr(m)
+  blocks <- vc[grepl("^pid(\\.[0-9]+)?$", names(vc))]
+  nm <- unlist(lapply(blocks, function(b) rownames(as.matrix(b))))
+  G <- matrix(0, length(nm), length(nm), dimnames = list(nm, nm))
+  for (b in blocks) { M <- as.matrix(b); G[rownames(M), colnames(M)] <- M }
+  G
+}
+z_matrix <- function(d, nm) matrix(vapply(nm, function(n) if (n == "(Intercept)") rep(1, nrow(d)) else d[[n]],
+                                          numeric(nrow(d))), nrow = nrow(d))
+ll_gauss <- function(y, mu, Z, G, s2) {
+  R <- chol(Z %*% G %*% t(Z) + diag(s2, length(y)))
+  r <- backsolve(R, y - mu, transpose = TRUE)
+  -0.5 * (length(y) * log(2 * pi) + 2 * sum(log(diag(R))) + sum(r^2))
+}
+ll_logit <- function(y, eta, Z, G, S = 1000) {
+  ev <- eigen(G, symmetric = TRUE)
+  L <- ev$vectors %*% diag(sqrt(pmax(ev$values, 0)), ncol(G))
+  E <- eta + Z %*% (L %*% matrix(rnorm(S * ncol(G)), ncol(G), S))
+  ll_s <- colSums(y * plogis(E, log.p = TRUE) + (1 - y) * plogis(-E, log.p = TRUE))
+  mx <- max(ll_s); mx + log(mean(exp(ll_s - mx)))
+}
+heldout_ll <- function(fixed, structure, data, kind, outcome) {
+  folds <- cv_folds(data$pid)
+  per_fold <- numeric(10)
+  for (k in 1:10) {
+    set.seed(SEED + k)
+    test_ids <- names(folds)[folds == k]
+    train <- data[!(as.character(data$pid) %in% test_ids), ]; test <- data[as.character(data$pid) %in% test_ids, ]
+    f <- fit_reduced(fixed, NULL, train, kind, REML = FALSE, structure = structure)
+    G <- pid_cov(f$model)
+    eta <- predict(f$model, newdata = test, re.form = ~ (1 | item), type = "link", allow.new.levels = TRUE)
+    per_fold[k] <- sum(vapply(split(seq_len(nrow(test)), as.character(test$pid)), function(ix) {
+      Z <- z_matrix(test[ix, ], rownames(G))
+      if (kind == "glmer") ll_logit(test[[outcome]][ix], eta[ix], Z, G)
+      else ll_gauss(test[[outcome]][ix], eta[ix], Z, G, sigma(f$model)^2)
+    }, 0))
+  }
+  per_fold
+}
+h3 <- list(); h3_folds <- list()
+for (o in list(list(name = "generation", data = G1, kind = "glmer", outcome = "produced"),
+               list(name = "rating", data = R1, kind = "lmer", outcome = "rating"))) {
+  two_f <- paste(o$outcome, "~ prevalence + distinctiveness + lg + genre")
+  comp_f <- paste(o$outcome, "~ composite + lg + genre")
+  two <- fit_reduced(two_f, c("prevalence", "distinctiveness"), o$data, o$kind, REML = FALSE)
+  comp <- fit_reduced(comp_f, "composite", o$data, o$kind, REML = FALSE)
+  note_structure(paste("H3", o$name, "two-dimension"), two); note_structure(paste("H3", o$name, "composite"), comp)
+  cv_two <- heldout_ll(two_f, list(slopes = two$slopes, corr = two$corr), o$data, o$kind, o$outcome)
+  cv_comp <- heldout_ll(comp_f, list(slopes = comp$slopes, corr = comp$corr), o$data, o$kind, o$outcome)
+  h3[[o$name]] <- data.frame(outcome = o$name, AIC_two = AIC(two$model), AIC_composite = AIC(comp$model),
+                             heldout_ll_two = sum(cv_two), heldout_ll_composite = sum(cv_comp),
+                             supported = AIC(two$model) < AIC(comp$model) && sum(cv_two) > sum(cv_comp),
+                             folds_favoring_two = sum(cv_two > cv_comp))
+  h3_folds[[o$name]] <- data.frame(outcome = o$name, fold = 1:10, heldout_ll_two = cv_two,
+                                   heldout_ll_composite = cv_comp, difference = cv_two - cv_comp)
+}
+h3 <- do.call(rbind, h3)
+h3_folds <- do.call(rbind, h3_folds)
+h3$AIC_difference <- h3$AIC_composite - h3$AIC_two
+h3$heldout_ll_difference <- h3$heldout_ll_two - h3$heldout_ll_composite
+kable(h3, row.names = FALSE, digits = 2)
+kable(h3_folds, row.names = FALSE, digits = 2, caption = "Held-out log-likelihood per fold")
+```
+
+# Robustness checks (Section 8.1)
+
+Leave one genre out (H1 prevalence; H2 P, D and P minus D), the first genre block only, without the display-edited items, and without participants who report being significantly distracted. The covariate, coding and rating-scale checks of Section 8.1 are fit above with H1 and H2.
+
+```{r robustness}
+for (g in sort(unique(G1$genre))) {
+  f <- fit_reduced(H1_FIXED, c("prevalence", "distinctiveness"), prep(G[G$genre != g, ]), "glmer")
+  note_structure(paste("H1 without", g), f); coef_row(f, "prevalence", paste("H1 leaving out", g))
+  f <- fit_reduced(H2_FIXED, c("P", "D"), prep(R48[R48$genre != g, ]), "lmer")
+  note_structure(paste("H2 without", g), f)
+  for (t in c("P", "D")) coef_row(f, t, paste("H2 leaving out", g))
+  contrast_row(f, c(P = 1, D = -1), "P minus D", paste("H2 leaving out", g))
+}
+robust <- list(
+  "H2 first genre block only" = R48[R48$slot == 1, ],
+  "H2 without display-edited items" = R48[R48$display_text == R48$element, ],
+  "H2 without significantly distracted participants" =
+    R48[!(R48$participant_id %in% usable$participant_id[usable$distractions %in% "1"]), ])
+for (nm in names(robust)) {
+  f <- fit_reduced(H2_FIXED, c("P", "D"), prep(robust[[nm]]), "lmer"); note_structure(nm, f)
+  for (t in c("P", "D")) coef_row(f, t, nm)
+  contrast_row(f, c(P = 1, D = -1), "P minus D", nm)
+}
+f <- fit_reduced(H1_FIXED, c("prevalence", "distinctiveness"),
+                 prep(G[!(G$participant_id %in% usable$participant_id[usable$distractions %in% "1"]), ]), "glmer")
+note_structure("H1 without significantly distracted participants", f)
+coef_row(f, "prevalence", "H1 without significantly distracted participants")
+show_rows("leaving out|first genre|display-edited|distracted")
+```
+
+# Decisions and outputs
+
+The registered decisions, then every estimate. H1 prevalence, H2a and H2b are read from whether the 95% interval excludes zero in the predicted direction (Section 1.2). Odds ratios are added for the generation models, and standardized effects for the linear rating models.
+
+```{r outputs}
+est <- do.call(rbind, est_rows)
+est$odds_ratio <- ifelse(grepl("^H1", est$analysis), exp(est$estimate), NA)
+est$standardized <- ifelse(grepl("^H2", est$analysis) & !grepl("ordinal", est$analysis), est$estimate / sd_std, NA)
+write.csv(est, file.path(OUT, "estimates.csv"), row.names = FALSE)
+write.csv(excl_report, file.path(OUT, "exclusions.csv"), row.names = FALSE)
+write.csv(h3, file.path(OUT, "h3_model_comparison.csv"), row.names = FALSE)
+write.csv(h3_folds, file.path(OUT, "h3_folds.csv"), row.names = FALSE)
+write.csv(spearman, file.path(OUT, "descriptive_spearman.csv"), row.names = FALSE)
+write.csv(norms, file.path(OUT, "production_norm_shares.csv"), row.names = FALSE)
+write.csv(s1_by_genre, file.path(OUT, "s1_by_genre.csv"), row.names = FALSE)
+
+decide <- function(a, t) {
+  r <- est[est$analysis == a & est$term == t, ]
+  if (r$lower > 0) "supported (interval above zero)" else if (r$upper < 0) "contradicted (interval below zero)" else "not supported (interval includes zero)"
+}
+h2c_row <- est[est$analysis == "H2" & est$term == "P minus D (H2c)", ]
+m1r <- est[est$analysis == "M1", ]
+decisions <- function() {
+  cat("Study 1 registered analysis |", MODE, "mode |", format(Sys.time()), "\n")
+  cat("Primary coding:", PRIMARY, "| usable participants:", nrow(usable), "\n")
+  if (!is.null(decision$note)) cat("Coding decision note:", decision$note, "\n")
+  cat("Usable participants per genre:\n"); print(table(c(usable$g1, usable$g2)))
+  cat("\nExclusions (rules applied in order):\n"); print(excl_report, row.names = FALSE)
+  cat("\nDecisions\n")
+  cat("H1  prevalence:", decide("H1", "prevalence"), "\n")
+  cat("H2a P:", decide("H2", "P"), "\n")
+  cat("H2b D:", decide("H2", "D"), "\n")
+  cat(sprintf("H2c P minus D: %.3f [%.3f, %.3f] -> %s\n", h2c_row$estimate, h2c_row$lower, h2c_row$upper,
+              if (h2c_row$lower > 0) "expectation follows prevalence more closely" else if (h2c_row$upper < 0)
+                "expectation follows distinctiveness more closely" else "no detectable difference"))
+  cat("M1  all four foil contrasts below zero:", all(m1r$upper < 0), "\n")
+  cat("H3  supported by outcome:\n"); print(h3, row.names = FALSE)
+  cat(sprintf("\nS1  mean cosine difference %.4f, t test p = %.4g, Wilcoxon p = %.4g, share of genre blocks positive %.3f\n",
+              s1t$estimate, s1t$p.value, s1w$p.value, s1_share_positive))
+  cat("\nStandardizing SD for rating effects:", round(sd_std, 3), "\n")
+}
+decisions()
+```
+
+```{r all-estimates}
+kable(est, row.names = FALSE, digits = 4)
+```
+
+## Random-effects structures
+
+The steps the reduction rule took for every model, with the structure used marked.
+
+```{r structures}
+for (nm in names(structures)) { cat("-", nm, "\n"); cat(paste0("    ", structures[[nm]], "\n"), sep = "") }
+cache_note <- sprintf("Model fits in the analysis pass: %d read from the fit cache, %d fit in the pass itself.",
+                      CACHE_STATS$read, CACHE_STATS$fitted)
+cat("\n", cache_note, "\n", sep = "")
+```
+
+## results.txt
+
+The same report as plain text, with every estimate, the reduction steps, the descriptive tables and the session information, written to `results.txt` in the output folder.
+
+```{r results-file}
+writeLines(capture.output({
+  decisions()
+  cat("\nAll estimates:\n"); print(est, row.names = FALSE, digits = 4)
+  cat("\nRandom-effects structures (reduction steps):\n")
+  for (nm in names(structures)) { cat("-", nm, "\n"); cat(paste0("    ", structures[[nm]], "\n"), sep = "") }
+  cat(cache_note, "\n")
+  cat("\nH3 held-out log-likelihood per fold:\n"); print(h3_folds, row.names = FALSE)
+  cat("\nDescriptive replication (Spearman, participant bootstrap):\n"); print(spearman, row.names = FALSE)
+  cat("\nProduction norm shares:\n"); print(norms, row.names = FALSE)
+  cat("\n"); print(sessionInfo())
+}), file.path(OUT, "results.txt"))
+cat("wrote", OUT, "\n")
+```
+
+```{r session-info}
+sessionInfo()
+```

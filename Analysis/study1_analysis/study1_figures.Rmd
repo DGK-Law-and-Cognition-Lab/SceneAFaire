@@ -1,0 +1,416 @@
+---
+title: "Study 1: figures"
+author: "David Kamper, Mira Patel and Keith Holyoak"
+date: "`r format(Sys.time(), '%B %d, %Y, %H:%M')`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+This file draws the Study 1 figures with ggplot2, shows each one here, and saves it as a PNG in `Analysis/v4_rebuild/12_study1_analysis/figures/`. The talk's slides use those PNG files as they are. It fits no models.
+
+There are two kinds of figure. The first kind plots what people did in plain units: the percentage of participants who listed an element, and the mean rating on the 1-to-7 scale, overall and in each of the six genres. These are raw means computed here from the same data, with the same exclusions, as the registered analysis. The second kind plots the estimates of the registered analysis (`study1_analysis.Rmd`, knit in real mode), read from the tables it wrote to `Analysis/v4_rebuild/12_study1_analysis/`. Each section says which kind it is. The registered tests are the ones in the analysis report; the raw-mean figures show the same patterns without a model.
+
+**How to run.** Open this file in RStudio and press *Knit*. It takes under a minute. Knit `study1_analysis.Rmd` in real mode first, so that its tables exist.
+
+Every plot is upright: categories run along the bottom and values go up. Every interval is a 95% interval. High distinctiveness is red and low distinctiveness is gray; where prevalence has its own color it is blue.
+
+# Setup
+
+```{r setup, message=FALSE}
+library(ggplot2); library(knitr); library(jsonlite); library(arrow)
+knitr::opts_chunk$set(echo = TRUE, fig.width = 9.1, fig.height = 4, dpi = 110)
+
+# This file's folder. knitr gives it while knitting; when chunks are run one at a time in
+# RStudio, the working directory is the document's folder.
+input <- tryCatch(knitr::current_input(dir = TRUE), error = function(e) NULL)
+HERE <- if (!is.null(input)) dirname(normalizePath(input)) else normalizePath(getwd())
+AN   <- normalizePath(file.path(HERE, ".."))
+ROOT <- normalizePath(file.path(AN, ".."))
+STIM <- file.path(AN, "v4_rebuild", "10_human_study_stimuli")
+CODED <- file.path(AN, "v4_rebuild", "11_study1_coding")
+RAW  <- file.path(ROOT, "Data", "Study1_raw")
+OUT  <- file.path(AN, "v4_rebuild", "12_study1_analysis")
+FIG  <- file.path(OUT, "figures")
+dir.create(FIG, recursive = TRUE, showWarnings = FALSE)
+stopifnot("Knit study1_analysis.Rmd in real mode first: estimates.csv is missing." = file.exists(file.path(OUT, "estimates.csv")))
+
+BLUE <- "#1f77b4"; RED <- "#d62728"; GRAY <- "grey45"
+DCOL <- c("High distinctiveness" = RED, "Low distinctiveness" = GRAY)
+GENRES <- c("Western", "Horror", "Science Fiction", "Crime", "Fantasy", "Comedy")
+theme_set(theme_bw(base_size = 14))                 # sized to be read from the back of a room
+save_fig <- function(p, name, height = 4) {
+  ggsave(file.path(FIG, paste0(name, ".png")), p, width = 9.1, height = height, dpi = 200, bg = "white")
+  p
+}
+# Mean and 95% t interval of a vector (one value per participant).
+mean_ci <- function(x) {
+  x <- x[!is.na(x)]; h <- qt(.975, length(x) - 1) * sd(x) / sqrt(length(x))
+  data.frame(estimate = mean(x), lower = mean(x) - h, upper = mean(x) + h, n = length(x))
+}
+```
+
+# The registered tables and the data
+
+The estimates come from the tables of the registered analysis. The raw means need the responses themselves, so the same steps as the registered analysis are repeated here: read every session file, remove investigator test sessions, apply the nine exclusion rules in their registered order, and build the rating table and the listing table under the primary coding. The count excluded under each rule is checked against the registered analysis's own table, and the chunk stops if they differ.
+
+```{r data}
+est   <- read.csv(file.path(OUT, "estimates.csv"), stringsAsFactors = FALSE)
+folds <- read.csv(file.path(OUT, "h3_folds.csv"), stringsAsFactors = FALSE)
+h3    <- read.csv(file.path(OUT, "h3_model_comparison.csv"), stringsAsFactors = FALSE)
+E <- function(analysis, term) { r <- est[est$analysis == analysis & est$term == term, ]; stopifnot(nrow(r) == 1); r }
+
+stim <- read.csv(file.path(STIM, "stimuli_long.csv"), stringsAsFactors = FALSE)
+stim$is_foil <- as.logical(stim$is_foil)
+pool <- read.csv(file.path(STIM, "eligible_pool_predictors.csv"), stringsAsFactors = FALSE)
+pool <- pool[as.logical(pool$in_generation_analysis_set), ]
+stim <- merge(stim, pool[, c("genre", "key", "ensemble_pct")], by = c("genre", "key"), all.x = TRUE)
+
+decision <- fromJSON(file.path(CODED, "coding_decision.json"))
+suffix <- if (decision$primary == "human") "_human" else ""
+
+read_sessions <- function(dir) {
+  files <- list.files(dir, pattern = "SAF_STUDY1_.*\\.csv$", full.names = TRUE)
+  rows <- lapply(files, function(f) read.csv(f, colClasses = "character", check.names = FALSE))
+  cols <- unique(unlist(lapply(rows, names)))
+  do.call(rbind, lapply(rows, function(d) { for (c in setdiff(cols, names(d))) d[[c]] <- NA_character_; d[cols] }))
+}
+is_true <- function(x) tolower(trimws(as.character(x))) %in% "true"
+blank <- function(x) is.na(x) | trimws(x) == ""
+flags <- read.csv(file.path(CODED, paste0("quality_flags", suffix, ".csv")), colClasses = c(participant_id = "character"))
+flagged <- unique(flags$participant_id[is_true(flags$flag)])
+sessions <- read_sessions(RAW)
+sessions <- sessions[!(grepl("^(pilot|test)", sessions$participant_id, ignore.case = TRUE) | is_true(sessions$is_test)), ]
+sessions <- sessions[order(sessions$start_time), ]
+rules <- data.frame(
+  r1_hidden_trap = !is_true(sessions$captcha_pass),
+  r2_reading_speed = is_true(sessions$spr_fast_any),
+  r3_task_check = is_true(sessions$task_check_failed_both),
+  r4_attention = suppressWarnings(as.integer(sessions$attention_pass_total)) %in% NA |
+                 suppressWarnings(as.integer(sessions$attention_pass_total)) < 4,
+  r5_incomplete = blank(sessions$end_time) | blank(sessions$genre1_ratings) | blank(sessions$genre2_ratings),
+  r6_generation_quality = sessions$participant_id %in% flagged,
+  r7_ai_use = sessions$ai_usage %in% "Yes",
+  r8_duplicate_id = duplicated(sessions$participant_id),
+  r9_not_serious = sessions$seriousness %in% "1")
+first_rule <- apply(rules, 1, function(r) if (any(r)) names(rules)[which(r)[1]] else NA_character_)
+usable <- sessions[is.na(first_rule), ]
+registered <- read.csv(file.path(OUT, "exclusions.csv"))
+stopifnot("The exclusions here differ from the registered analysis." =
+            all(sapply(names(rules), function(r) sum(first_rule %in% r)) == registered$excluded_in_order[match(names(rules), registered$rule)]))
+
+# Ratings: one row per participant and rated item (the 48 stratified items per genre; foils left out).
+R <- do.call(rbind, lapply(seq_len(nrow(usable)), function(i) do.call(rbind, lapply(1:2, function(slot) {
+  r <- fromJSON(usable[[paste0("genre", slot, "_ratings")]][i])
+  data.frame(participant_id = usable$participant_id[i], item_id = r$item_id, rating = as.numeric(r$response), stringsAsFactors = FALSE)
+}))))
+R <- merge(R, stim[, c("item_id", "genre", "cell_code", "is_foil", "ensemble_pct")], by = "item_id")
+R <- R[!R$is_foil, ]
+R$prevalence      <- factor(ifelse(R$cell_code %in% c("HH", "HL"), "High", "Low"), levels = c("Low", "High"))
+R$distinctiveness <- ifelse(R$cell_code %in% c("HH", "LH"), "High distinctiveness", "Low distinctiveness")
+
+# Listing: one row per participant, genre and element of the generation analysis set (rows the registered model uses).
+G <- as.data.frame(read_parquet(file.path(CODED, paste0("production_matrix", suffix, ".parquet"))))
+G <- G[G$participant_id %in% usable$participant_id, ]
+G <- merge(G, pool[, c("genre", "key", "prevalence_pct", "distinctiveness_pct", "Lg10CD")], by = c("genre", "key"))
+G <- G[!is.na(G$Lg10CD), ]
+third <- function(p) ifelse(p <= 1/3, "Low", ifelse(p > 2/3, "High", "Middle"))
+G$prevalence <- third(G$prevalence_pct); G$dist3 <- third(G$distinctiveness_pct)
+
+cat("usable participants:", nrow(usable), "| rating rows:", nrow(R), "| listing rows:", nrow(G), "\n")
+```
+
+# Listing: the four kinds of element (raw percentages)
+
+The listing task, drawn the same way as the ratings. Every element of a genre's set is placed in the bottom, middle or top third of the genre on prevalence, and likewise on distinctiveness. The figure uses the four corners, the same four kinds of element the rated items were drawn from: low or high prevalence crossed with low or high distinctiveness. The height of a point is the percentage of participants who listed an element of that kind, averaged over the elements of that kind and over genres. The intervals treat participants as the unit.
+
+The registered test of H1 is a mixed-effects logistic model on all the elements, with percentile predictors; its estimates are in the last sections. This figure shows the same pattern without a model.
+
+```{r listing-cells, fig.height=4.2}
+# Each participant's listing rate in each corner of each of their two genres.
+Gc <- G[G$prevalence != "Middle" & G$dist3 != "Middle", ]
+Gc$distinctiveness <- paste(Gc$dist3, "distinctiveness")
+rate <- aggregate(produced ~ participant_id + genre + prevalence + distinctiveness, Gc, function(x) 100 * mean(x))
+by_pid <- aggregate(produced ~ participant_id + prevalence + distinctiveness, rate, mean)          # average of the participant's two genres
+listing_cells <- do.call(rbind, lapply(split(by_pid, list(by_pid$prevalence, by_pid$distinctiveness)), function(d)
+  cbind(prevalence = d$prevalence[1], distinctiveness = d$distinctiveness[1], mean_ci(d$produced))))
+listing_cells$prevalence <- factor(listing_cells$prevalence, levels = c("Low", "High"))
+
+# Value labels sit above each point, or beside it (side = TRUE) when two points are close together.
+two_lines <- function(d, ylab, title, digits, side = FALSE) {
+  d$value <- formatC(d$estimate, format = "f", digits = digits)
+  labels <- if (side) geom_text(aes(label = value, hjust = ifelse(prevalence == "Low", 1.5, -0.5)), colour = "black", size = 4)
+            else geom_text(aes(y = upper, label = value), vjust = -0.6, colour = "black", size = 4)
+  ggplot(d, aes(prevalence, estimate, colour = distinctiveness, group = distinctiveness)) +
+    geom_line(linewidth = 1) +
+    geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.06, colour = "black") +
+    geom_point(size = 4) +
+    labels +
+    scale_colour_manual(values = DCOL, name = NULL) +
+    labs(x = "Prevalence of the element in the genre", y = ylab, title = title)
+}
+p_listing_cells <- two_lines(listing_cells, "Participants who listed the element (%)",
+                             "Listing: how often each kind of element is listed", 2, side = TRUE) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.15))) +
+  scale_x_discrete(labels = c(Low = "Low (bottom third of the genre)", High = "High (top third of the genre)")) +
+  theme(legend.position = "inside", legend.position.inside = c(0.2, 0.8), legend.background = element_rect(colour = "grey70"))
+save_fig(p_listing_cells, "study1_listing_cells", height = 4.2)
+kable(listing_cells, digits = 3, row.names = FALSE)
+```
+
+# Listing, genre by genre (raw percentages)
+
+The same figure for each of the six genres. Each panel uses only the participants who were given that genre, and each panel has its own vertical scale, because the genres' sets differ in size (405 elements for the Western, 3,215 for comedy) and so in how often any one element is listed.
+
+```{r listing-by-genre, fig.height=4.8}
+listing_genre <- do.call(rbind, lapply(split(rate, list(rate$genre, rate$prevalence, rate$distinctiveness)), function(d)
+  cbind(genre = d$genre[1], prevalence = d$prevalence[1], distinctiveness = d$distinctiveness[1], mean_ci(d$produced))))
+listing_genre$prevalence <- factor(listing_genre$prevalence, levels = c("Low", "High"))
+n_genre <- tapply(rate$participant_id, rate$genre, function(x) length(unique(x)))
+panel <- function(g) factor(sprintf("%s (%d participants)", g, n_genre[g]), levels = sprintf("%s (%d participants)", GENRES, n_genre[GENRES]))
+listing_genre$panel <- panel(listing_genre$genre)
+
+six_panels <- function(d, ylab, title, scales = "fixed", dots = NULL) {
+  ggplot(d, aes(prevalence, estimate, colour = distinctiveness, group = distinctiveness)) +
+    dots +
+    geom_line(linewidth = 0.9) +
+    geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.08, colour = "black") +
+    geom_point(size = 2.8) +
+    facet_wrap(~ panel, nrow = 2, scales = scales) +
+    scale_colour_manual(values = DCOL, name = NULL) +
+    labs(x = "Prevalence of the element in the genre", y = ylab, title = title) +
+    theme(legend.position = "bottom")
+}
+p_listing_genre <- six_panels(listing_genre, "Participants who listed the element (%)", "Listing, genre by genre (each panel has its own scale)", scales = "free_y") +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.08)))
+save_fig(p_listing_genre, "study1_listing_by_genre", height = 4.8)
+kable(listing_genre[order(listing_genre$panel), c("genre", "prevalence", "distinctiveness", "estimate", "lower", "upper", "n")], digits = 3, row.names = FALSE)
+```
+
+# Ratings: the four kinds of item (registered estimates)
+
+Participants rated how expected each item is in a typical film of the genre, from 1 to 7. Each point is a cell's adjusted mean from the registered model, with its 95% interval. The slope of each line is the effect of prevalence (H2a). The gap between the two lines is the effect of distinctiveness (H2b). H2c compares the two points that disagree: high prevalence with low distinctiveness against low prevalence with high distinctiveness.
+
+```{r ratings, fig.height=4.2}
+cells <- rbind(
+  cbind(E("H2 cell means", "adjusted mean HH"), prevalence = "High", distinctiveness = "High distinctiveness"),
+  cbind(E("H2 cell means", "adjusted mean HL"), prevalence = "High", distinctiveness = "Low distinctiveness"),
+  cbind(E("H2 cell means", "adjusted mean LH"), prevalence = "Low",  distinctiveness = "High distinctiveness"),
+  cbind(E("H2 cell means", "adjusted mean LL"), prevalence = "Low",  distinctiveness = "Low distinctiveness"))
+cells$prevalence <- factor(cells$prevalence, levels = c("Low", "High"))
+
+p_ratings <- two_lines(cells, "How expected in a typical film of the genre\n(1 = not at all, 7 = completely)",
+                       "Ratings: how expected each kind of item is", 2) +
+  scale_y_continuous(limits = c(1, 7), breaks = 1:7) +
+  scale_x_discrete(labels = c(Low = "Low (bottom third of the genre)", High = "High (top third of the genre)")) +
+  theme(legend.position = "inside", legend.position.inside = c(0.2, 0.2), legend.background = element_rect(colour = "grey70"))
+save_fig(p_ratings, "study1_ratings", height = 4.2)
+kable(est[est$analysis == "H2", c("term", "estimate", "lower", "upper", "p", "standardized")], digits = 3, row.names = FALSE)
+```
+
+# Ratings, genre by genre (raw means)
+
+The same figure for each of the six genres, from raw means. Each small dot is one rated item: its mean rating over the participants who were given that genre. Each large point is the mean of the twelve items of a kind. The intervals here treat the twelve items as the unit, because a genre's cell rests on only twelve items and which twelve were drawn matters more than which participants rated them. The registered model estimates one effect across genres; these panels show whether each genre has the same shape.
+
+```{r ratings-by-genre, fig.height=4.8}
+item_means <- aggregate(rating ~ item_id + genre + prevalence + distinctiveness + ensemble_pct + cell_code, R, mean)
+ratings_genre <- do.call(rbind, lapply(split(item_means, list(item_means$genre, item_means$prevalence, item_means$distinctiveness)), function(d)
+  cbind(genre = d$genre[1], prevalence = d$prevalence[1], distinctiveness = d$distinctiveness[1], mean_ci(d$rating))))
+ratings_genre$panel <- panel(ratings_genre$genre)
+item_means$panel <- panel(item_means$genre)
+
+p_ratings_genre <- six_panels(ratings_genre, "How expected (1 to 7)", "Ratings, genre by genre (small dots are the rated items)",
+                              dots = geom_point(data = item_means, aes(prevalence, rating, colour = distinctiveness), inherit.aes = FALSE,
+                                                size = 0.9, alpha = 0.35, position = position_jitter(width = 0.12, height = 0, seed = 20260219))) +
+  scale_y_continuous(limits = c(1, 7), breaks = 1:7)
+save_fig(p_ratings_genre, "study1_ratings_by_genre", height = 4.8)
+kable(ratings_genre[order(ratings_genre$panel), c("genre", "prevalence", "distinctiveness", "estimate", "lower", "upper", "n")], digits = 2, row.names = FALSE)
+```
+
+# One score or two? What the composite misses (raw means)
+
+Along the bottom is the composite score, as a percentile within the genre; up the side is the mean rating. Each small dot is one of the 288 rated items. The four large points are the four kinds of item: the mean composite score and the mean rating of the 72 items of that kind, with a 95% interval across those items. The dashed line is the best straight line through all the items, which is what a model that knows only the composite predicts.
+
+If the composite carried everything people use, the four kinds would sit on the line. Three of them nearly do. Items that are common but not characteristic get a middling composite score and a rating below the line. The registered test of H3 is the model comparison in the next section; this figure is a description, not a test.
+
+```{r composite-items, fig.height=4.2}
+kind <- c(HH = "common and characteristic", LH = "characteristic, not common", HL = "common, not characteristic", LL = "neither")
+kinds <- do.call(rbind, lapply(names(kind), function(k) { d <- item_means[item_means$cell_code == k, ]
+  cbind(kind = kind[[k]], distinctiveness = d$distinctiveness[1], composite = 100 * mean(d$ensemble_pct), mean_ci(d$rating)) }))
+line <- coef(lm(rating ~ I(100 * ensemble_pct), item_means))
+kinds$line <- line[1] + line[2] * kinds$composite
+kinds$from_line <- kinds$estimate - kinds$line
+
+p_items <- ggplot(item_means, aes(100 * ensemble_pct, rating, colour = distinctiveness)) +
+  geom_point(size = 1.2, alpha = 0.3) +
+  geom_abline(intercept = line[1], slope = line[2], linetype = "dashed") +
+  geom_errorbar(data = kinds, aes(composite, ymin = lower, ymax = upper), width = 1.5, colour = "black", inherit.aes = FALSE) +
+  geom_point(data = kinds, aes(composite, estimate), size = 4.5) +
+  geom_label(data = kinds, aes(composite, estimate, label = kind), colour = "black", size = 4, vjust = ifelse(kinds$from_line < 0, 1.7, -0.9),
+             fill = "white", label.size = 0) +
+  scale_colour_manual(values = DCOL, name = NULL) +
+  scale_y_continuous(limits = c(1, 7), breaks = 1:7) +
+  scale_x_continuous(breaks = seq(0, 100, 25), limits = c(0, 104)) +
+  labs(x = "Composite score (percentile within the genre)", y = "Mean rating: how expected (1 to 7)",
+       title = "The four kinds of item: composite score against rating",
+       subtitle = "Dashed line: what the composite alone predicts. Small dots: the 288 rated items.") +
+  theme(plot.subtitle = element_text(size = 11)) +
+  theme(legend.position = "inside", legend.position.inside = c(0.87, 0.14), legend.background = element_rect(colour = "grey70"))
+save_fig(p_items, "study1_composite_items", height = 4.2)
+kable(kinds[, c("kind", "composite", "estimate", "lower", "upper", "line", "from_line")], digits = 2, row.names = FALSE)
+```
+
+# One score or two? Rounds won (H3)
+
+The registered comparison of a model that knows the two numbers with a model that knows only the composite. A tenth of the participants is left out, both models are fit on the rest, and each is scored on the participants it has not seen; this is done ten times, with a different tenth left out each time. Each bar is the number of those ten rounds in which a model predicted the left-out participants better than the other.
+
+```{r composite-rounds, fig.height=4}
+lab <- c(generation = "Listing", rating = "Ratings")
+won <- rbind(data.frame(task = lab[h3$outcome], model = "The two numbers, kept apart", rounds = h3$folds_favoring_two),
+             data.frame(task = lab[h3$outcome], model = "The composite alone",         rounds = 10 - h3$folds_favoring_two))
+won$model <- factor(won$model, levels = c("The two numbers, kept apart", "The composite alone"))
+p_rounds <- ggplot(won, aes(task, rounds, fill = model)) +
+  geom_col(position = position_dodge(width = 0.7), width = 0.6) +
+  geom_text(aes(label = rounds), position = position_dodge(width = 0.7), vjust = -0.5, size = 4.5) +
+  scale_fill_manual(values = c("The two numbers, kept apart" = "grey20", "The composite alone" = "grey70"), name = NULL) +
+  scale_y_continuous(limits = c(0, 11.5), breaks = seq(0, 10, 2)) +
+  labs(x = NULL, y = "Rounds won (of 10) in predicting\nthe left-out participants",
+       title = "One combined score, or the two numbers kept apart?") +
+  theme(legend.position = "bottom")
+save_fig(p_rounds, "study1_composite_rounds")
+kable(h3, digits = 1, row.names = FALSE)
+```
+
+# One score or two? Round by round (H3)
+
+The same ten rounds, one bar each: the held-out log-likelihood of the two-number model minus that of the composite model. A bar above zero means the two numbers predicted the left-out participants better. The log-likelihood is the registered criterion; it scores how much probability a model gave to what the left-out participants did.
+
+```{r composite, fig.height=4}
+strip <- sapply(names(lab), function(o) {
+  r <- h3[h3$outcome == o, ]
+  sprintf("%s: two numbers better in %d of 10 rounds", lab[[o]], r$folds_favoring_two)
+})
+folds$strip <- factor(strip[folds$outcome], levels = strip)
+
+p_composite <- ggplot(folds, aes(factor(fold), difference)) +
+  geom_col(fill = "grey45", width = 0.7) +
+  geom_hline(yintercept = 0) +
+  facet_wrap(~ strip) +
+  labs(x = "Round of cross-validation (a different tenth of participants held out each time)",
+       y = "Held-out log-likelihood:\ntwo numbers minus composite",
+       title = "Does one combined score predict as well as the two numbers kept apart?")
+save_fig(p_composite, "study1_composite")
+kable(h3, digits = 1, row.names = FALSE)
+```
+
+# Listing: the registered estimates (H1)
+
+The registered model predicts, for every element of a genre's set and every participant, whether the participant listed it, from the element's prevalence, its distinctiveness and everyday word frequency. Each point is how many times higher the odds of being listed are for the element at the top of the genre's ranking than for the element at the bottom, with its 95% interval. The first point is the registered hypothesis. The second, distinctiveness, had no registered prediction. The last two repeat the prevalence test under the looser and the stricter coding of what participants typed.
+
+```{r listing, fig.height=4}
+rows <- rbind(
+  cbind(E("H1", "prevalence"),                 label = "Prevalence\n(registered test)",   what = "prevalence"),
+  cbind(E("H1", "distinctiveness"),            label = "Distinctiveness\n(no prediction)", what = "distinctiveness"),
+  cbind(E("H1 liberal coding", "prevalence"),  label = "Prevalence,\nlooser coding",       what = "prevalence"),
+  cbind(E("H1 strict coding", "prevalence"),   label = "Prevalence,\nstricter coding",     what = "prevalence"))
+rows$label <- factor(rows$label, levels = rows$label)
+rows$or <- exp(rows$estimate); rows$or_lo <- exp(rows$lower); rows$or_hi <- exp(rows$upper)
+
+p_listing <- ggplot(rows, aes(label, or, colour = what)) +
+  geom_hline(yintercept = 1, linetype = "dashed") +
+  geom_errorbar(aes(ymin = or_lo, ymax = or_hi), width = 0.12, colour = "black") +
+  geom_point(size = 4) +
+  geom_text(aes(y = or_hi, label = sprintf("%.0f times", or)), vjust = -0.7, colour = "black", size = 4) +
+  annotate("text", x = 0.55, y = 1.25, label = "no effect", hjust = 0, size = 3.3) +
+  scale_y_log10(breaks = c(1, 3, 10, 30, 100), limits = c(0.9, 220)) +
+  scale_colour_manual(values = c(prevalence = BLUE, distinctiveness = RED), guide = "none") +
+  labs(x = NULL, y = "Odds of being listed: top of the genre's\nranking against the bottom (log scale)",
+       title = "Listing: the registered estimates")
+save_fig(p_listing, "study1_listing")
+kable(rows[, c("analysis", "term", "estimate", "lower", "upper", "or", "or_lo", "or_hi", "p")], digits = 3, row.names = FALSE)
+```
+
+# The rating effects under every registered check
+
+The effect of prevalence and the effect of distinctiveness on the ratings, in points on the 1-to-7 scale with 95% intervals, in the registered model and under each registered robustness check that uses the same scale. The shaded bands are the registered model's own intervals, so a check agrees with the registered result when its point sits in or near its band. (The ordinal model is on a different scale and is in the analysis report.)
+
+```{r robustness, fig.height=4.6}
+checks <- c("H2" = "registered\nmodel", "H2 without Lg10CD" = "without word\nfrequency", "H2 first genre block only" = "first genre\nblock only",
+            "H2 without display-edited items" = "without\nedited items", "H2 without significantly distracted participants" = "without distracted\nparticipants",
+            "H2 leaving out Comedy" = "without\nComedy", "H2 leaving out Crime" = "without\nCrime", "H2 leaving out Fantasy" = "without\nFantasy",
+            "H2 leaving out Horror" = "without\nHorror", "H2 leaving out Science Fiction" = "without\nScience Fiction", "H2 leaving out Western" = "without\nWestern")
+rob <- est[est$analysis %in% names(checks) & est$term %in% c("P", "D"), ]
+rob$check <- factor(checks[rob$analysis], levels = checks)
+rob$effect <- ifelse(rob$term == "P", "Prevalence (high minus low)", "Distinctiveness (high minus low)")
+band <- rob[rob$analysis == "H2", ]
+
+p_robust <- ggplot(rob, aes(check, estimate, colour = effect, group = effect)) +
+  geom_rect(data = band, aes(xmin = -Inf, xmax = Inf, ymin = lower, ymax = upper, fill = effect), alpha = 0.15, colour = NA, inherit.aes = FALSE) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.25, position = position_dodge(width = 0.5), colour = "black") +
+  geom_point(size = 3, position = position_dodge(width = 0.5)) +
+  scale_colour_manual(values = c("Prevalence (high minus low)" = BLUE, "Distinctiveness (high minus low)" = RED), name = NULL) +
+  scale_fill_manual(values = c("Prevalence (high minus low)" = BLUE, "Distinctiveness (high minus low)" = RED), guide = "none") +
+  labs(x = NULL, y = "Difference in rated expectedness\n(scale points)", title = "Ratings: the two effects under each registered check") +
+  theme(legend.position = "bottom", axis.text.x = element_text(size = 8.5))
+save_fig(p_robust, "study1_robustness", height = 4.6)
+```
+
+# The manuscript's table of registered estimates
+
+The article's table of the registered results is written here from the same tables, so that no number in it is typed by hand. It is saved as a LaTeX (booktabs) file in the manuscript's `tables/` folder.
+
+```{r manuscript-table}
+TAB <- normalizePath(file.path(AN, "..", "Docs", "Writing", "manuscript", "Scene A Faire Computational", "tables"), mustWork = FALSE)
+dir.create(TAB, recursive = TRUE, showWarnings = FALSE)
+f2 <- function(x) sub("^-", "$-$", formatC(x, format = "f", digits = 2))   # typeset minus signs
+or_row <- function(hyp, label, r, result)
+  c(hyp, label, sprintf("OR %.0f", exp(r$estimate)), sprintf("[%.0f, %.0f]", exp(r$lower), exp(r$upper)), result)
+pt_row <- function(hyp, label, r, result)
+  c(hyp, label, f2(r$estimate), sprintf("[%s, %s]", f2(r$lower), f2(r$upper)), result)
+h3r <- function(o) h3[h3$outcome == o, ]
+rows <- rbind(
+  or_row("H1", "Listing: prevalence", E("H1", "prevalence"), "Supported"),
+  or_row("", "Listing: distinctiveness", E("H1", "distinctiveness"), "No prediction"),
+  pt_row("H2a", "Rating: prevalence", E("H2", "P"), "Supported"),
+  pt_row("H2b", "Rating: distinctiveness", E("H2", "D"), "Supported"),
+  pt_row("H2c", "Rating: prevalence minus distinctiveness", E("H2", "P minus D (H2c)"), "Distinctiveness larger"),
+  c("H3", "Listing: two measures vs.\\ composite", sprintf("$\\Delta$AIC %.1f", h3r("generation")$AIC_difference),
+    sprintf("%d of 10 folds", h3r("generation")$folds_favoring_two), "Supported"),
+  c("", "Rating: two measures vs.\\ composite", sprintf("$\\Delta$AIC %.1f", h3r("rating")$AIC_difference),
+    sprintf("%d of 10 folds", h3r("rating")$folds_favoring_two), "Supported"))
+body <- apply(rows, 1, function(r) paste(paste(r, collapse = " & "), "\\\\"))
+tex <- c("% Generated by Analysis/study1_analysis/study1_figures.Rmd (chunk manuscript-table). Do not edit by hand.",
+         "\\begin{table}[htbp]", "\\centering", "\\small",
+         "\\caption{Study 1: the registered tests. Listing estimates are odds ratios for an element at the top of its genre's ranking against one at the bottom, from a logistic mixed model; rating estimates are differences in scale points (1 to 7) between the high and low thirds, from a linear mixed model; both models hold everyday word frequency fixed. Intervals are 95\\%. For H3, $\\Delta$AIC is the composite model's AIC minus the two-measure model's, and the last column but one counts the cross-validation folds in which the two-measure model predicted held-out participants better. $N = 131$.}",
+         "\\label{tab:study1}",
+         "\\begin{tabular}{@{}lllll@{}}", "\\toprule",
+         "Test & Outcome and predictor & Estimate & Interval or folds & Result \\\\", "\\midrule",
+         body, "\\bottomrule", "\\end{tabular}", "\\end{table}")
+writeLines(tex, file.path(TAB, "T-IV-study1_estimates.tex"))
+kable(rows, col.names = c("Test", "Outcome and predictor", "Estimate", "Interval or folds", "Result"))
+cat("wrote", file.path(TAB, "T-IV-study1_estimates.tex"), "\n")
+```
+
+# The numbers behind the raw-mean figures
+
+Saved so that the talk's speaker notes quote the same values the figures show.
+
+```{r values}
+values <- rbind(
+  cbind(figure = "listing_cells",    genre = "all", listing_cells[, c("prevalence", "distinctiveness", "estimate", "lower", "upper", "n")]),
+  cbind(figure = "listing_by_genre", listing_genre[, c("genre", "prevalence", "distinctiveness", "estimate", "lower", "upper", "n")]),
+  cbind(figure = "ratings_by_genre", ratings_genre[, c("genre", "prevalence", "distinctiveness", "estimate", "lower", "upper", "n")]),
+  cbind(figure = "composite_kinds",  genre = "all", prevalence = kinds$kind, distinctiveness = sprintf("composite percentile %.1f", kinds$composite),
+        kinds[, c("estimate", "lower", "upper", "n")]))
+write.csv(values, file.path(OUT, "figure_values.csv"), row.names = FALSE)
+cat("wrote", file.path(OUT, "figure_values.csv"), "with", nrow(values), "rows\n")
+```
+
+# Files written
+
+```{r files}
+data.frame(file = list.files(FIG, pattern = "\\.png$"), kb = round(file.size(list.files(FIG, pattern = "\\.png$", full.names = TRUE)) / 1024))
+sessionInfo()
+```

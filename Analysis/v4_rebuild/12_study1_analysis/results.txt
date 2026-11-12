@@ -1,0 +1,306 @@
+Study 1 registered analysis | real mode | 2026-11-10 16:41:54 
+Primary coding: automated | usable participants: 131 
+Usable participants per genre:
+
+         comedy           crime         fantasy          horror science_fiction         western 
+             49              46              39              36              43              49 
+
+Exclusions (rules applied in order):
+                  rule excluded_in_order meeting_rule_any_order
+        r1_hidden_trap                 0                      0
+      r2_reading_speed                 1                      1
+         r3_task_check                 0                      0
+          r4_attention                 2                      2
+         r5_incomplete                 0                      0
+ r6_generation_quality                 0                      0
+             r7_ai_use                 1                      2
+       r8_duplicate_id                 0                      0
+        r9_not_serious                 2                      2
+
+Decisions
+H1  prevalence: supported (interval above zero) 
+H2a P: supported (interval above zero) 
+H2b D: supported (interval above zero) 
+H2c P minus D: -1.134 [-1.504, -0.763] -> expectation follows distinctiveness more closely
+M1  all four foil contrasts below zero: TRUE 
+H3  supported by outcome:
+    outcome  AIC_two AIC_composite heldout_ll_two heldout_ll_composite supported folds_favoring_two AIC_difference heldout_ll_difference
+ generation 17094.42      17151.26      -9319.851            -9424.009      TRUE                 10       56.84212              104.1582
+     rating 43727.92      44025.50     -21566.955           -21693.135      TRUE                  8      297.57973              126.1799
+
+S1  mean cosine difference 0.0578, t test p = 2.182e-61, Wilcoxon p = 3.089e-23, share of genre blocks positive 0.947
+
+Standardizing SD for rating effects: 1.633 
+
+All estimates:
+                                         analysis                                      term estimate       se    df     lower    upper          p note
+                                               H1                                prevalence  3.20110 0.555266    NA  2.112800  4.28940  8.167e-09     
+                                               H1                           distinctiveness  2.36661 0.545089    NA  1.298253  3.43496  1.414e-05     
+                                               H1                                        lg  0.38250 0.263129    NA -0.133223  0.89823  1.460e-01     
+                                H1 without Lg10CD                                prevalence  3.47516 0.521545    NA  2.452955  4.49737  2.679e-11     
+                                H1 without Lg10CD                           distinctiveness  2.22543 0.515964    NA  1.214155  3.23670  1.610e-05     
+                                H1 liberal coding                                prevalence  2.96514 0.471615    NA  2.040789  3.88949  3.232e-10     
+                                 H1 strict coding                                prevalence  3.22476 0.740755    NA  1.772905  4.67661  1.341e-05     
+                                               H2                                         P  0.35562 0.120992 279.0  0.117451  0.59380  3.565e-03     
+                                               H2                                         D  1.48924 0.138054 346.7  1.217711  1.76077  1.380e-23     
+                                               H2                                       P:D  0.10371 0.238718 277.6 -0.366213  0.57364  6.643e-01     
+                                               H2                                        lg  0.50089 0.096020 278.1  0.311872  0.68991  3.567e-07     
+                                               H2                           P minus D (H2c) -1.13362 0.188387 318.9 -1.504254 -0.76298  4.861e-09     
+                                    H2 cell means                          adjusted mean HH  5.73417 0.134145 390.8  5.470432  5.99790 2.084e-149     
+                                    H2 cell means                          adjusted mean HL  4.19307 0.137890 385.2  3.921960  4.46418 2.033e-104     
+                                    H2 cell means                          adjusted mean LH  5.32669 0.136457 387.2  5.058397  5.59498 2.737e-136     
+                                    H2 cell means                          adjusted mean LL  3.88930 0.133583 391.6  3.626673  4.15193 5.313e-100     
+                                H2 without Lg10CD                                         P  0.45484 0.125012 280.3  0.208756  0.70092  3.266e-04     
+                                H2 without Lg10CD                                         D  1.24417 0.134911 350.4  0.978828  1.50950  2.788e-18     
+                                H2 without Lg10CD                                 P minus D -0.78933 0.185128 325.4 -1.153527 -0.42513  2.638e-05     
+                        H2 ordinal (latent scale)                                         P  0.49245 0.170181    NA  0.158899  0.82599  3.808e-03     
+                        H2 ordinal (latent scale)                                         D  2.18425 0.195776    NA  1.800536  2.56797  6.628e-29     
+                        H2 ordinal (latent scale)                                 P minus D -1.69180 0.266399    NA -2.213937 -1.16967  2.144e-10     
+                                    H2 continuous                                prevalence  0.53014 0.168898 283.2  0.197687  0.86260  1.875e-03     
+                                    H2 continuous                           distinctiveness  2.30008 0.186259 359.2  1.933785  2.66638  1.926e-29     
+                                    H2 continuous          prevalence minus distinctiveness -1.76994 0.263571 332.6 -2.288414 -1.25146  8.132e-11     
+                                               M1                             foil minus HH -2.85379 0.193649 326.2 -3.234746 -2.47283  4.967e-38     
+                                               M1                             foil minus HL -1.59095 0.193649 326.2 -1.971913 -1.20999  5.011e-15     
+                                               M1                             foil minus LH -2.37632 0.193649 326.2 -2.757281 -1.99536  1.016e-28     
+                                               M1                             foil minus LL -1.15808 0.193649 326.2 -1.539040 -0.77712  5.849e-09     
+                                               S1 mean within-participant cosine difference  0.05778 0.001884 130.0  0.054058  0.06151  2.182e-61     
+                            H1 leaving out Comedy                                prevalence  3.13393 0.546558    NA  2.062697  4.20516  9.812e-09     
+                            H2 leaving out Comedy                                         P  0.34995 0.127517 230.9  0.098706  0.60120  6.539e-03     
+                            H2 leaving out Comedy                                         D  1.62585 0.152484 296.5  1.325758  1.92594  1.106e-22     
+                            H2 leaving out Comedy                                 P minus D -1.27590 0.203411 269.8 -1.676370 -0.87542  1.406e-09     
+                             H1 leaving out Crime                                prevalence  3.16681 0.659626    NA  1.873968  4.45966  1.579e-06     
+                             H2 leaving out Crime                                         P  0.36295 0.135776 231.0  0.095435  0.63047  8.050e-03     
+                             H2 leaving out Crime                                         D  1.39185 0.155179 287.9  1.086424  1.69728  3.907e-17     
+                             H2 leaving out Crime                                 P minus D -1.02890 0.213224 265.9 -1.448724 -0.60908  2.357e-06     
+                           H1 leaving out Fantasy                                prevalence  3.35922 0.591358    NA  2.200184  4.51826  1.343e-08     
+                           H2 leaving out Fantasy                                         P  0.24058 0.126791 232.0 -0.009227  0.49039  5.901e-02     
+                           H2 leaving out Fantasy                                         D  1.44342 0.143474 290.8  1.161036  1.72580  1.260e-20     
+                           H2 leaving out Fantasy                                 P minus D -1.20283 0.196700 266.9 -1.590115 -0.81555  3.415e-09     
+                            H1 leaving out Horror                                prevalence  3.19820 0.566739    NA  2.087414  4.30899  1.669e-08     
+                            H2 leaving out Horror                                         P  0.32406 0.133536 235.0  0.060977  0.58714  1.599e-02     
+                            H2 leaving out Horror                                         D  1.55229 0.154667 297.6  1.247911  1.85667  1.318e-20     
+                            H2 leaving out Horror                                 P minus D -1.22823 0.212631 278.6 -1.646802 -0.80967  2.038e-08     
+                   H1 leaving out Science Fiction                                prevalence  3.28462 0.623611    NA  2.062363  4.50687  1.386e-07     
+                   H2 leaving out Science Fiction                                         P  0.36177 0.137108 230.5  0.091624  0.63191  8.893e-03     
+                   H2 leaving out Science Fiction                                         D  1.37538 0.153352 278.6  1.073507  1.67726  4.503e-17     
+                   H2 leaving out Science Fiction                                 P minus D -1.01362 0.210637 256.7 -1.428413 -0.59882  2.550e-06     
+                           H1 leaving out Western                                prevalence  3.25822 0.624566    NA  2.034098  4.48235  1.821e-07     
+                           H2 leaving out Western                                         P  0.49314 0.133134 233.8  0.230846  0.75544  2.648e-04     
+                           H2 leaving out Western                                         D  1.53199 0.142841 272.4  1.250777  1.81320  1.281e-22     
+                           H2 leaving out Western                                 P minus D -1.03885 0.200991 254.3 -1.434667 -0.64303  4.774e-07     
+                        H2 first genre block only                                         P  0.34749 0.125024 276.0  0.101369  0.59361  5.820e-03     
+                        H2 first genre block only                                         D  1.45296 0.148817 361.4  1.160305  1.74562  3.869e-20     
+                        H2 first genre block only                                 P minus D -1.10547 0.200683 334.5 -1.500230 -0.71071  7.228e-08     
+                  H2 without display-edited items                                         P  0.37605 0.124232 262.1  0.131431  0.62067  2.716e-03     
+                  H2 without display-edited items                                         D  1.51979 0.141758 321.7  1.240903  1.79868  3.919e-23     
+                  H2 without display-edited items                                 P minus D -1.14374 0.192638 297.0 -1.522850 -0.76463  8.081e-09     
+ H2 without significantly distracted participants                                         P  0.35598 0.121325 279.1  0.117152  0.59481  3.623e-03     
+ H2 without significantly distracted participants                                         D  1.50051 0.138120 344.9  1.228843  1.77217  7.661e-24     
+ H2 without significantly distracted participants                                 P minus D -1.14453 0.189929 321.7 -1.518186 -0.77087  4.596e-09     
+ H1 without significantly distracted participants                                prevalence  3.22476 0.556897    NA  2.133258  4.31625  7.014e-09     
+ odds_ratio standardized
+     24.560           NA
+     10.661           NA
+      1.466           NA
+     32.303           NA
+      9.257           NA
+     19.397           NA
+     25.148           NA
+         NA      0.21782
+         NA      0.91215
+         NA      0.06352
+         NA      0.30679
+         NA     -0.69433
+         NA      3.51215
+         NA      2.56823
+         NA      3.26257
+         NA      2.38218
+         NA      0.27859
+         NA      0.76205
+         NA     -0.48346
+         NA           NA
+         NA           NA
+         NA           NA
+         NA      0.32471
+         NA      1.40879
+         NA     -1.08408
+         NA           NA
+         NA           NA
+         NA           NA
+         NA           NA
+         NA           NA
+     22.964           NA
+         NA      0.21434
+         NA      0.99582
+         NA     -0.78148
+     23.732           NA
+         NA      0.22231
+         NA      0.85250
+         NA     -0.63020
+     28.767           NA
+         NA      0.14736
+         NA      0.88408
+         NA     -0.73673
+     24.488           NA
+         NA      0.19848
+         NA      0.95077
+         NA     -0.75229
+     26.699           NA
+         NA      0.22158
+         NA      0.84242
+         NA     -0.62083
+     26.003           NA
+         NA      0.30205
+         NA      0.93834
+         NA     -0.63629
+         NA      0.21284
+         NA      0.88993
+         NA     -0.67709
+         NA      0.23033
+         NA      0.93086
+         NA     -0.70054
+         NA      0.21804
+         NA      0.91905
+         NA     -0.70102
+     25.147           NA
+
+Random-effects structures (reduction steps):
+- H1 
+    produced ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [failed: reduced]
+    produced ~ prevalence + distinctiveness + lg + genre + (1 | pid) + (0 + prevalence | pid) + (0 + distinctiveness | pid) + (1 | item)   [used]
+- H1 without Lg10CD 
+    produced ~ prevalence + distinctiveness + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [used]
+- H1 liberal 
+    produced ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [used]
+- H1 strict 
+    produced ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [used]
+- H2 
+    rating ~ P + D + P:D + lg + genre + (1 + P + D | pid) + (1 | item)   [failed: reduced]
+    rating ~ P + D + P:D + lg + genre + (1 | pid) + (0 + P | pid) + (0 + D | pid) + (1 | item)   [used]
+- H2 without Lg10CD 
+    rating ~ P + D + P:D + genre + (1 + P + D | pid) + (1 | item)   [used]
+- H2 ordinal 
+    rating_f ~ P + D + P:D + lg + genre + (1 + P + D | pid) + (1 | item)   [used]
+- H2 continuous 
+    rating ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [used]
+- M1 
+    rating ~ itemclass + genre + (1 | pid) + (1 | item)   [used]
+- H3 generation two-dimension 
+    produced ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [failed: reduced]
+    produced ~ prevalence + distinctiveness + lg + genre + (1 | pid) + (0 + prevalence | pid) + (0 + distinctiveness | pid) + (1 | item)   [used]
+- H3 generation composite 
+    produced ~ composite + lg + genre + (1 + composite | pid) + (1 | item)   [used]
+- H3 rating two-dimension 
+    rating ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [used]
+- H3 rating composite 
+    rating ~ composite + lg + genre + (1 + composite | pid) + (1 | item)   [used]
+- H1 without Comedy 
+    produced ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [used]
+- H2 without Comedy 
+    rating ~ P + D + P:D + lg + genre + (1 + P + D | pid) + (1 | item)   [failed: reduced]
+    rating ~ P + D + P:D + lg + genre + (1 | pid) + (0 + P | pid) + (0 + D | pid) + (1 | item)   [used]
+- H1 without Crime 
+    produced ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [failed: reduced]
+    produced ~ prevalence + distinctiveness + lg + genre + (1 | pid) + (0 + prevalence | pid) + (0 + distinctiveness | pid) + (1 | item)   [used]
+- H2 without Crime 
+    rating ~ P + D + P:D + lg + genre + (1 + P + D | pid) + (1 | item)   [used]
+- H1 without Fantasy 
+    produced ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [used]
+- H2 without Fantasy 
+    rating ~ P + D + P:D + lg + genre + (1 + P + D | pid) + (1 | item)   [used]
+- H1 without Horror 
+    produced ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [failed: reduced]
+    produced ~ prevalence + distinctiveness + lg + genre + (1 | pid) + (0 + prevalence | pid) + (0 + distinctiveness | pid) + (1 | item)   [used]
+- H2 without Horror 
+    rating ~ P + D + P:D + lg + genre + (1 + P + D | pid) + (1 | item)   [used]
+- H1 without Science Fiction 
+    produced ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [used]
+- H2 without Science Fiction 
+    rating ~ P + D + P:D + lg + genre + (1 + P + D | pid) + (1 | item)   [failed: reduced]
+    rating ~ P + D + P:D + lg + genre + (1 | pid) + (0 + P | pid) + (0 + D | pid) + (1 | item)   [failed: reduced]
+    rating ~ P + D + P:D + lg + genre + (1 | pid) + (0 + D | pid) + (1 | item)   [used]
+- H1 without Western 
+    produced ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [used]
+- H2 without Western 
+    rating ~ P + D + P:D + lg + genre + (1 + P + D | pid) + (1 | item)   [used]
+- H2 first genre block only 
+    rating ~ P + D + P:D + lg + genre + (1 + P + D | pid) + (1 | item)   [used]
+- H2 without display-edited items 
+    rating ~ P + D + P:D + lg + genre + (1 + P + D | pid) + (1 | item)   [failed: reduced]
+    rating ~ P + D + P:D + lg + genre + (1 | pid) + (0 + P | pid) + (0 + D | pid) + (1 | item)   [used]
+- H2 without significantly distracted participants 
+    rating ~ P + D + P:D + lg + genre + (1 + P + D | pid) + (1 | item)   [used]
+- H1 without significantly distracted participants 
+    produced ~ prevalence + distinctiveness + lg + genre + (1 + prevalence + distinctiveness | pid) + (1 | item)   [used]
+Model fits in the analysis pass: 69 read from the fit cache, 0 fit in the pass itself. 
+
+H3 held-out log-likelihood per fold:
+    outcome fold heldout_ll_two heldout_ll_composite difference
+ generation    1      -919.5646            -934.1014 14.5367693
+ generation    2      -843.8348            -852.7803  8.9455603
+ generation    3      -808.1150            -817.2300  9.1150211
+ generation    4      -959.8263            -971.9098 12.0835443
+ generation    5      -930.7225            -938.6667  7.9441643
+ generation    6     -1035.5094           -1045.1750  9.6656118
+ generation    7     -1069.9377           -1083.3884 13.4507717
+ generation    8      -862.4827            -869.6502  7.1674658
+ generation    9      -939.2649            -948.4501  9.1852577
+ generation   10      -950.5931            -962.6571 12.0640771
+     rating    1     -2296.1254           -2295.6181 -0.5072948
+     rating    2     -2127.5935           -2146.7630 19.1695151
+     rating    3     -2083.2408           -2104.6091 21.3683301
+     rating    4     -2248.3627           -2256.6793  8.3166150
+     rating    5     -2198.9294           -2201.9264  2.9970069
+     rating    6     -2042.3731           -2051.4231  9.0500301
+     rating    7     -2241.3759           -2272.7831 31.4072278
+     rating    8     -2099.3237           -2095.6985 -3.6252453
+     rating    9     -2065.6325           -2078.6949 13.0624356
+     rating   10     -2163.9976           -2188.9389 24.9413263
+
+Descriptive replication (Spearman, participant bootstrap):
+           genre  spearman     lower     upper
+          Comedy 0.1972555 0.1594273 0.1897503
+           Crime 0.2662027 0.2278163 0.2706269
+         Fantasy 0.2037359 0.1643133 0.2123087
+          Horror 0.2227824 0.1779424 0.2246020
+ Science Fiction 0.2494172 0.1910966 0.2590132
+         Western 0.2731656 0.2181661 0.3023841
+
+Production norm shares:
+           genre n_participants n_elements share_produced_by_any share_by_2 share_by_one_sixth
+          Comedy             49       3215            0.05132193 0.01835148        0.001555210
+           Crime             46       1590            0.11006289 0.04968553        0.006918239
+         Fantasy             39       1028            0.10603113 0.05058366        0.010700389
+          Horror             36       1474            0.07462687 0.03256445        0.006784261
+ Science Fiction             43       1104            0.10326087 0.04438406        0.006340580
+         Western             49        405            0.20740741 0.11358025        0.017283951
+
+R version 4.5.2 (2025-10-31)
+Platform: aarch64-apple-darwin20
+Running under: macOS 27.2
+
+Matrix products: default
+BLAS:   /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.12.1
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: America/Los_Angeles
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] knitr_1.51         arrow_24.0.0       jsonlite_2.0.0     ordinal_2025.12-29 lmerTest_3.2-1     lme4_2.0-1         Matrix_1.7-5      
+
+loaded via a namespace (and not attached):
+ [1] sass_0.4.10         generics_0.1.4      lattice_0.22-9      digest_0.6.39       magrittr_2.0.5      evaluate_1.0.5      grid_4.5.2         
+ [8] RColorBrewer_1.1-3  fastmap_1.2.0       purrr_1.2.2         scales_1.4.0        numDeriv_2016.8-1.1 jquerylib_0.1.4     reformulas_0.4.4   
+[15] Rdpack_2.6.6        cli_3.6.6           rlang_1.2.0         rbibutils_2.4.1     bit64_4.8.2         splines_4.5.2       cachem_1.1.0       
+[22] yaml_2.3.12         otel_0.2.0          parallel_4.5.2      tools_4.5.2         ucminf_1.2.3        nloptr_2.2.1        minqa_1.2.8        
+[29] dplyr_1.2.1         ggplot2_4.0.3       boot_1.3-32         assertthat_0.2.1    vctrs_0.7.3         R6_2.6.1            lifecycle_1.0.5    
+[36] bit_4.6.0           MASS_7.3-65         pkgconfig_2.0.3     bslib_0.11.0        pillar_1.11.1       gtable_0.3.6        glue_1.8.1         
+[43] Rcpp_1.1.1-1.1      xfun_0.57           tibble_3.3.1        tidyselect_1.2.1    rstudioapi_0.18.0   farver_2.1.2        htmltools_0.5.9    
+[50] nlme_3.1-169        rmarkdown_2.31      compiler_4.5.2      S7_0.2.2           

@@ -1,0 +1,1867 @@
+======================================================================
+NOTEBOOK 03c: CO-OCCURRENCE NETWORK & COMBINATION ANALYSIS REPORT
+======================================================================
+narrative pair universe (node universe) : 17,979
+films in corpus                         : 45,958
+node floor (≥ films per genre)          : 5
+edge floor (≥ joint films per genre)    : 5
+Dirichlet alpha (pair posterior)        : 1.0
+PageRank damping                        : 0.85
+Z stock threshold (originality cohort)  : 1.0
+
+PER-GENRE NETWORK SIZE
+----------------------------------------------------------------------
+genre                nodes     edges    density   eig_status
+Action               9,309   912,728     0.0211   weighted_power_fallback
+Adventure            8,578   801,778     0.0218   weighted_power_fallback
+Animation            5,143   304,279     0.0230   weighted_power_fallback
+Comedy              12,279 1,063,342     0.0141   weighted_power_fallback
+Crime                6,837   524,038     0.0224   weighted_power_fallback
+Drama               14,834 1,632,400     0.0148   weighted_power_fallback
+Family               6,240   380,644     0.0196   weighted_power_fallback
+Fantasy              4,909   331,019     0.0275   weighted_power_fallback
+History              5,158   291,276     0.0219   weighted_power_fallback
+Horror               6,526   539,453     0.0253   weighted_power_fallback
+Music                4,298   188,615     0.0204   weighted_power_fallback
+Mystery              4,429   241,102     0.0246   weighted_power_fallback
+Romance              7,981   528,333     0.0166   weighted_power_fallback
+Science Fiction      5,118   358,777     0.0274   weighted_power_fallback
+Thriller             9,061   857,783     0.0209   weighted_power_fallback
+War                  3,535   178,852     0.0286   weighted_power_fallback
+Western              2,272    83,939     0.0325   weighted_power_fallback
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Action
+======================================================================
+   1. grab                         [verb          ] tax=event            eig=0.0513  pr=0.0011  z_ens=1.26  films=413  deg=2087
+   2. knock                        [verb          ] tax=event            eig=0.0508  pr=0.0013  z_ens=1.91  films=606  deg=2633
+   3. order                        [verb          ] tax=event            eig=0.0505  pr=0.0021  z_ens=6.34  films=1037  deg=3728
+   4. room                         [noun          ] tax=setting          eig=0.0504  pr=0.0017  z_ens=2.24  films=790  deg=3144
+   5. drop                         [verb          ] tax=event            eig=0.0500  pr=0.0013  z_ens=1.72  films=566  deg=2537
+   6. fire                         [noun          ] tax=object           eig=0.0493  pr=0.0016  z_ens=3.48  films=760  deg=3021
+   7. window                       [noun          ] tax=object           eig=0.0492  pr=0.0009  z_ens=0.54  films=307  deg=1718
+   8. pull                         [verb          ] tax=event            eig=0.0490  pr=0.0013  z_ens=1.74  films=594  deg=2579
+   9. door                         [noun          ] tax=object           eig=0.0486  pr=0.0010  z_ens=0.75  films=378  deg=1925
+  10. cut                          [verb          ] tax=event            eig=0.0476  pr=0.0012  z_ens=1.74  films=590  deg=2591
+  11. explode                      [verb          ] tax=event            eig=0.0475  pr=0.0010  z_ens=2.67  films=432  deg=2056
+  12. warn                         [verb          ] tax=event            eig=0.0474  pr=0.0013  z_ens=2.30  films=689  deg=2765
+  13. jump                         [verb          ] tax=event            eig=0.0473  pr=0.0010  z_ens=1.31  films=445  deg=2093
+  14. walk                         [verb          ] tax=event            eig=0.0469  pr=0.0014  z_ens=1.92  films=731  deg=2899
+  15. throw                        [verb          ] tax=event            eig=0.0467  pr=0.0018  z_ens=2.90  films=947  deg=3422
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Adventure
+======================================================================
+   1. grab                         [verb          ] tax=event            eig=0.0524  pr=0.0011  z_ens=1.52  films=380  deg=1966
+   2. order                        [verb          ] tax=event            eig=0.0505  pr=0.0021  z_ens=7.18  films=893  deg=3442
+   3. room                         [noun          ] tax=setting          eig=0.0499  pr=0.0018  z_ens=2.45  films=688  deg=2893
+   4. knock                        [verb          ] tax=event            eig=0.0498  pr=0.0015  z_ens=2.88  films=604  deg=2635
+   5. walk                         [verb          ] tax=event            eig=0.0496  pr=0.0015  z_ens=2.12  films=642  deg=2758
+   6. drop                         [verb          ] tax=event            eig=0.0493  pr=0.0013  z_ens=1.82  films=487  deg=2310
+   7. door                         [noun          ] tax=object           eig=0.0492  pr=0.0012  z_ens=1.21  films=391  deg=2003
+   8. window                       [noun          ] tax=object           eig=0.0488  pr=0.0010  z_ens=0.92  films=320  deg=1740
+   9. pull                         [verb          ] tax=event            eig=0.0486  pr=0.0014  z_ens=2.12  films=554  deg=2481
+  10. jump                         [verb          ] tax=event            eig=0.0485  pr=0.0011  z_ens=1.94  films=443  deg=2090
+  11. fire                         [noun          ] tax=object           eig=0.0480  pr=0.0016  z_ens=4.62  films=696  deg=2860
+  12. throw                        [verb          ] tax=event            eig=0.0474  pr=0.0019  z_ens=3.34  films=857  deg=3273
+  13. warn                         [verb          ] tax=event            eig=0.0473  pr=0.0014  z_ens=3.32  films=661  deg=2734
+  14. cut                          [verb          ] tax=event            eig=0.0470  pr=0.0012  z_ens=1.91  films=519  deg=2387
+  15. climb                        [verb          ] tax=event            eig=0.0470  pr=0.0009  z_ens=1.59  films=285  deg=1592
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Animation
+======================================================================
+   1. attack                       [noun          ] tax=event            eig=0.0711  pr=0.0023  z_ens=1.62  films=256  deg=1370
+   2. kill                         [verb          ] tax=event            eig=0.0666  pr=0.0043  z_ens=4.78  films=597  deg=2411
+   3. attack                       [verb          ] tax=event            eig=0.0648  pr=0.0033  z_ens=4.55  films=515  deg=2169
+   4. destroy                      [verb          ] tax=event            eig=0.0645  pr=0.0039  z_ens=7.08  films=554  deg=2227
+   5. confront                     [verb          ] tax=event            eig=0.0633  pr=0.0021  z_ens=1.67  films=297  deg=1477
+   6. die                          [verb          ] tax=event            eig=0.0618  pr=0.0024  z_ens=1.88  films=361  deg=1630
+   7. wound                        [verb          ] tax=event            eig=0.0609  pr=0.0011  z_ens=0.14  films=90  deg=608
+   8. death                        [noun          ] tax=event            eig=0.0605  pr=0.0024  z_ens=1.65  films=329  deg=1552
+   9. battle                       [noun          ] tax=event            eig=0.0595  pr=0.0021  z_ens=3.12  films=309  deg=1402
+  10. power                        [noun          ] tax=theme            eig=0.0595  pr=0.0024  z_ens=5.32  films=382  deg=1613
+  11. free                         [verb          ] tax=event            eig=0.0590  pr=0.0018  z_ens=2.89  films=282  deg=1390
+  12. order                        [verb          ] tax=event            eig=0.0588  pr=0.0020  z_ens=2.19  films=307  deg=1493
+  13. fight                        [verb          ] tax=event            eig=0.0580  pr=0.0026  z_ens=3.84  films=460  deg=1888
+  14. capture                      [verb          ] tax=event            eig=0.0579  pr=0.0029  z_ens=4.90  films=486  deg=2019
+  15. leader                       [noun          ] tax=character_type   eig=0.0573  pr=0.0015  z_ens=1.08  films=193  deg=1034
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Comedy
+======================================================================
+   1. attack                       [verb          ] tax=event            eig=0.0539  pr=0.0016  z_ens=1.92  films=1014  deg=3354
+   2. pull                         [verb          ] tax=event            eig=0.0521  pr=0.0017  z_ens=2.90  films=1080  deg=3559
+   3. window                       [noun          ] tax=object           eig=0.0512  pr=0.0012  z_ens=1.75  films=699  deg=2681
+   4. knock                        [verb          ] tax=event            eig=0.0511  pr=0.0014  z_ens=2.96  films=993  deg=3226
+   5. cut                          [verb          ] tax=event            eig=0.0508  pr=0.0013  z_ens=1.89  films=843  deg=3031
+   6. warn                         [verb          ] tax=event            eig=0.0500  pr=0.0011  z_ens=1.29  films=719  deg=2674
+   7. drop                         [verb          ] tax=event            eig=0.0499  pr=0.0013  z_ens=2.43  films=920  deg=3128
+   8. walk                         [verb          ] tax=event            eig=0.0496  pr=0.0020  z_ens=3.91  films=1471  deg=4191
+   9. order                        [verb          ] tax=event            eig=0.0489  pr=0.0013  z_ens=1.79  films=856  deg=2982
+  10. gun                          [noun          ] tax=object           eig=0.0486  pr=0.0012  z_ens=1.94  films=815  deg=2741
+  11. fire                         [noun          ] tax=object           eig=0.0484  pr=0.0011  z_ens=1.24  films=651  deg=2504
+  12. grab                         [verb          ] tax=event            eig=0.0483  pr=0.0010  z_ens=1.30  films=559  deg=2202
+  13. shoot                        [verb          ] tax=event            eig=0.0479  pr=0.0021  z_ens=3.65  films=1560  deg=4241
+  14. confront                     [verb          ] tax=event            eig=0.0474  pr=0.0015  z_ens=2.85  films=1269  deg=3651
+  15. drive                        [verb          ] tax=event            eig=0.0474  pr=0.0022  z_ens=4.99  films=1726  deg=4575
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Crime
+======================================================================
+   1. door                         [noun          ] tax=object           eig=0.0606  pr=0.0019  z_ens=1.99  films=425  deg=1889
+   2. walk                         [verb          ] tax=event            eig=0.0582  pr=0.0023  z_ens=2.89  films=634  deg=2419
+   3. phone                        [noun          ] tax=object           eig=0.0565  pr=0.0013  z_ens=2.39  films=292  deg=1392
+   4. window                       [noun          ] tax=object           eig=0.0561  pr=0.0015  z_ens=2.11  films=375  deg=1673
+   5. pick                         [verb          ] tax=event            eig=0.0561  pr=0.0018  z_ens=2.69  films=501  deg=2051
+   6. order                        [verb          ] tax=event            eig=0.0559  pr=0.0017  z_ens=2.08  films=470  deg=1954
+   7. wait                         [verb          ] tax=event            eig=0.0558  pr=0.0021  z_ens=3.03  films=602  deg=2264
+   8. gun                          [noun          ] tax=object           eig=0.0557  pr=0.0030  z_ens=14.35  films=948  deg=2988
+   9. drive                        [verb          ] tax=event            eig=0.0553  pr=0.0030  z_ens=6.08  films=884  deg=2909
+  10. room                         [noun          ] tax=setting          eig=0.0552  pr=0.0029  z_ens=4.40  films=809  deg=2784
+  11. fire                         [noun          ] tax=object           eig=0.0550  pr=0.0015  z_ens=1.78  films=399  deg=1739
+  12. throw                        [verb          ] tax=event            eig=0.0550  pr=0.0021  z_ens=2.57  films=619  deg=2336
+  13. grab                         [verb          ] tax=event            eig=0.0547  pr=0.0012  z_ens=1.35  films=293  deg=1391
+  14. drop                         [verb          ] tax=event            eig=0.0547  pr=0.0014  z_ens=1.67  films=385  deg=1690
+  15. knock                        [verb          ] tax=event            eig=0.0546  pr=0.0015  z_ens=2.10  films=436  deg=1792
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Drama
+======================================================================
+   1. order                        [verb          ] tax=event            eig=0.0504  pr=0.0015  z_ens=2.11  films=1412  deg=4338
+   2. fire                         [noun          ] tax=object           eig=0.0461  pr=0.0012  z_ens=1.69  films=1170  deg=3781
+   3. attack                       [verb          ] tax=event            eig=0.0460  pr=0.0014  z_ens=2.03  films=1669  deg=4576
+   4. cut                          [verb          ] tax=event            eig=0.0455  pr=0.0011  z_ens=1.59  films=1210  deg=3868
+   5. warn                         [verb          ] tax=event            eig=0.0451  pr=0.0011  z_ens=1.69  films=1276  deg=3932
+   6. walk                         [verb          ] tax=event            eig=0.0445  pr=0.0018  z_ens=3.76  films=2212  deg=5492
+   7. door                         [noun          ] tax=object           eig=0.0441  pr=0.0011  z_ens=1.54  films=1175  deg=3743
+   8. scream                       [verb          ] tax=event            eig=0.0441  pr=0.0006  z_ens=0.28  films=432  deg=2048
+   9. knock                        [verb          ] tax=event            eig=0.0440  pr=0.0008  z_ens=0.70  films=854  deg=3020
+  10. window                       [noun          ] tax=object           eig=0.0438  pr=0.0009  z_ens=1.07  films=879  deg=3094
+  11. pull                         [verb          ] tax=event            eig=0.0438  pr=0.0011  z_ens=1.61  films=1277  deg=3873
+  12. reply                        [verb          ] tax=event            eig=0.0438  pr=0.0007  z_ens=1.08  films=588  deg=2465
+  13. room                         [noun          ] tax=setting          eig=0.0436  pr=0.0022  z_ens=4.26  films=2457  deg=5880
+  14. gun                          [noun          ] tax=object           eig=0.0434  pr=0.0012  z_ens=2.37  films=1409  deg=3962
+  15. destroy                      [verb          ] tax=event            eig=0.0431  pr=0.0013  z_ens=1.64  films=1415  deg=4144
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Family
+======================================================================
+   1. order                        [verb          ] tax=event            eig=0.0644  pr=0.0021  z_ens=2.05  films=344  deg=1665
+   2. free                         [verb          ] tax=event            eig=0.0617  pr=0.0016  z_ens=2.37  films=294  deg=1390
+   3. attack                       [verb          ] tax=event            eig=0.0613  pr=0.0022  z_ens=2.57  films=449  deg=1879
+   4. fly                          [verb          ] tax=event            eig=0.0612  pr=0.0025  z_ens=8.65  films=541  deg=2126
+   5. knock                        [verb          ] tax=event            eig=0.0601  pr=0.0020  z_ens=2.93  films=393  deg=1741
+   6. drop                         [verb          ] tax=event            eig=0.0595  pr=0.0019  z_ens=2.35  films=341  deg=1574
+   7. destroy                      [verb          ] tax=event            eig=0.0582  pr=0.0024  z_ens=3.50  films=494  deg=1967
+   8. capture                      [verb          ] tax=event            eig=0.0574  pr=0.0023  z_ens=4.07  films=523  deg=2021
+   9. warn                         [verb          ] tax=event            eig=0.0558  pr=0.0015  z_ens=1.89  films=330  deg=1506
+  10. pull                         [verb          ] tax=event            eig=0.0558  pr=0.0024  z_ens=3.91  films=460  deg=1910
+  11. escape                       [verb          ] tax=event            eig=0.0556  pr=0.0044  z_ens=6.83  films=975  deg=3135
+  12. flee                         [verb          ] tax=event            eig=0.0553  pr=0.0015  z_ens=1.63  films=337  deg=1472
+  13. hide                         [verb          ] tax=event            eig=0.0552  pr=0.0025  z_ens=4.12  films=611  deg=2321
+  14. room                         [noun          ] tax=setting          eig=0.0550  pr=0.0023  z_ens=3.22  films=510  deg=2029
+  15. arrive                       [verb          ] tax=event            eig=0.0550  pr=0.0049  z_ens=7.44  films=1054  deg=3320
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Fantasy
+======================================================================
+   1. attack                       [verb          ] tax=event            eig=0.0605  pr=0.0033  z_ens=7.63  films=542  deg=2280
+   2. flee                         [verb          ] tax=event            eig=0.0595  pr=0.0023  z_ens=2.95  films=349  deg=1713
+   3. free                         [verb          ] tax=event            eig=0.0578  pr=0.0021  z_ens=6.41  films=330  deg=1629
+   4. warn                         [verb          ] tax=event            eig=0.0576  pr=0.0018  z_ens=2.51  films=288  deg=1468
+   5. confront                     [verb          ] tax=event            eig=0.0573  pr=0.0024  z_ens=2.95  films=380  deg=1848
+   6. knock                        [verb          ] tax=event            eig=0.0566  pr=0.0018  z_ens=2.14  films=262  deg=1397
+   7. wall                         [noun          ] tax=object           eig=0.0564  pr=0.0014  z_ens=1.74  films=173  deg=1058
+   8. wound                        [verb          ] tax=event            eig=0.0562  pr=0.0014  z_ens=1.27  films=180  deg=1031
+   9. attack                       [noun          ] tax=event            eig=0.0561  pr=0.0022  z_ens=2.73  films=319  deg=1586
+  10. summon                       [verb          ] tax=event            eig=0.0551  pr=0.0013  z_ens=3.87  films=172  deg=1005
+  11. order                        [verb          ] tax=event            eig=0.0547  pr=0.0019  z_ens=2.72  films=312  deg=1564
+  12. throw                        [verb          ] tax=event            eig=0.0547  pr=0.0025  z_ens=3.15  films=410  deg=1929
+  13. cut                          [verb          ] tax=event            eig=0.0545  pr=0.0015  z_ens=1.39  films=210  deg=1185
+  14. declare                      [verb          ] tax=event            eig=0.0544  pr=0.0013  z_ens=1.10  films=155  deg=955
+  15. army                         [noun          ] tax=character_type   eig=0.0543  pr=0.0016  z_ens=4.02  films=239  deg=1246
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — History
+======================================================================
+   1. order                        [verb          ] tax=event            eig=0.0721  pr=0.0028  z_ens=4.27  films=323  deg=1702
+   2. warn                         [verb          ] tax=event            eig=0.0663  pr=0.0019  z_ens=1.37  films=201  deg=1221
+   3. attack                       [verb          ] tax=event            eig=0.0641  pr=0.0023  z_ens=2.25  films=301  deg=1513
+   4. confront                     [verb          ] tax=event            eig=0.0623  pr=0.0022  z_ens=1.81  films=271  deg=1464
+   5. room                         [noun          ] tax=setting          eig=0.0622  pr=0.0027  z_ens=2.42  films=303  deg=1602
+   6. declare                      [verb          ] tax=event            eig=0.0617  pr=0.0017  z_ens=3.06  films=201  deg=1164
+   7. throw                        [verb          ] tax=event            eig=0.0613  pr=0.0022  z_ens=2.24  films=307  deg=1566
+   8. fire                         [noun          ] tax=object           eig=0.0612  pr=0.0019  z_ens=1.84  films=210  deg=1217
+   9. wound                        [verb          ] tax=event            eig=0.0609  pr=0.0017  z_ens=1.74  films=188  deg=1047
+  10. cut                          [verb          ] tax=event            eig=0.0608  pr=0.0017  z_ens=1.65  films=215  deg=1191
+  11. flee                         [verb          ] tax=event            eig=0.0602  pr=0.0019  z_ens=2.21  films=279  deg=1390
+  12. shoot                        [verb          ] tax=event            eig=0.0597  pr=0.0029  z_ens=4.38  films=453  deg=1951
+  13. inform                       [verb          ] tax=event            eig=0.0595  pr=0.0021  z_ens=2.31  films=281  deg=1459
+  14. soldier                      [noun          ] tax=character_type   eig=0.0590  pr=0.0025  z_ens=9.16  films=337  deg=1564
+  15. walk                         [verb          ] tax=event            eig=0.0589  pr=0.0026  z_ens=2.67  films=327  deg=1662
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Horror
+======================================================================
+   1. grab                         [verb          ] tax=event            eig=0.0639  pr=0.0020  z_ens=4.08  films=441  deg=2128
+   2. knock                        [verb          ] tax=event            eig=0.0600  pr=0.0020  z_ens=4.07  films=560  deg=2366
+   3. door                         [noun          ] tax=object           eig=0.0585  pr=0.0028  z_ens=8.95  films=720  deg=2820
+   4. window                       [noun          ] tax=object           eig=0.0585  pr=0.0021  z_ens=4.94  films=507  deg=2258
+   5. pull                         [verb          ] tax=event            eig=0.0584  pr=0.0022  z_ens=3.86  films=578  deg=2447
+   6. drop                         [verb          ] tax=event            eig=0.0565  pr=0.0015  z_ens=1.57  films=368  deg=1820
+   7. walk                         [verb          ] tax=event            eig=0.0555  pr=0.0023  z_ens=3.62  films=655  deg=2617
+   8. climb                        [verb          ] tax=event            eig=0.0553  pr=0.0012  z_ens=1.69  films=238  deg=1315
+   9. hit                          [verb          ] tax=event            eig=0.0552  pr=0.0016  z_ens=2.10  films=452  deg=1975
+  10. scream                       [verb          ] tax=event            eig=0.0552  pr=0.0017  z_ens=7.77  films=463  deg=2059
+  11. cut                          [verb          ] tax=event            eig=0.0550  pr=0.0021  z_ens=4.73  films=594  deg=2438
+  12. reach                        [verb          ] tax=event            eig=0.0542  pr=0.0019  z_ens=2.23  films=516  deg=2255
+  13. gun                          [noun          ] tax=object           eig=0.0538  pr=0.0018  z_ens=2.64  films=489  deg=2102
+  14. wall                         [noun          ] tax=object           eig=0.0534  pr=0.0015  z_ens=3.69  films=394  deg=1858
+  15. knife                        [noun          ] tax=object           eig=0.0531  pr=0.0014  z_ens=5.71  films=365  deg=1701
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Music
+======================================================================
+   1. room                         [noun          ] tax=setting          eig=0.0810  pr=0.0034  z_ens=2.50  films=301  deg=1327
+   2. walk                         [verb          ] tax=event            eig=0.0788  pr=0.0033  z_ens=2.09  films=269  deg=1206
+   3. order                        [verb          ] tax=event            eig=0.0748  pr=0.0023  z_ens=1.17  films=181  deg=883
+   4. throw                        [verb          ] tax=event            eig=0.0737  pr=0.0030  z_ens=2.37  films=310  deg=1285
+   5. confront                     [verb          ] tax=event            eig=0.0715  pr=0.0028  z_ens=2.06  films=284  deg=1206
+   6. arrive                       [verb          ] tax=event            eig=0.0700  pr=0.0063  z_ens=6.14  films=651  deg=2146
+   7. wait                         [verb          ] tax=event            eig=0.0697  pr=0.0022  z_ens=1.47  films=211  deg=926
+   8. escape                       [verb          ] tax=event            eig=0.0691  pr=0.0039  z_ens=2.93  films=408  deg=1527
+   9. crowd                        [noun          ] tax=character_type   eig=0.0669  pr=0.0018  z_ens=2.20  films=139  deg=689
+  10. visit                        [verb          ] tax=event            eig=0.0658  pr=0.0032  z_ens=3.12  films=377  deg=1415
+  11. break                        [verb          ] tax=event            eig=0.0658  pr=0.0041  z_ens=4.12  films=497  deg=1726
+  12. flee                         [verb          ] tax=event            eig=0.0651  pr=0.0020  z_ens=1.09  films=188  deg=839
+  13. attack                       [verb          ] tax=event            eig=0.0650  pr=0.0019  z_ens=0.91  films=179  deg=796
+  14. car                          [noun          ] tax=object           eig=0.0645  pr=0.0023  z_ens=1.93  films=246  deg=993
+  15. jump                         [verb          ] tax=event            eig=0.0645  pr=0.0014  z_ens=0.57  films=112  deg=555
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Mystery
+======================================================================
+   1. door                         [noun          ] tax=object           eig=0.0758  pr=0.0029  z_ens=4.31  films=295  deg=1367
+   2. walk                         [verb          ] tax=event            eig=0.0732  pr=0.0026  z_ens=2.22  films=292  deg=1350
+   3. window                       [noun          ] tax=object           eig=0.0702  pr=0.0022  z_ens=3.89  films=235  deg=1147
+   4. attack                       [verb          ] tax=event            eig=0.0691  pr=0.0031  z_ens=2.79  films=330  deg=1479
+   5. warn                         [verb          ] tax=event            eig=0.0683  pr=0.0024  z_ens=2.79  films=270  deg=1271
+   6. confront                     [verb          ] tax=event            eig=0.0667  pr=0.0035  z_ens=4.35  films=417  deg=1720
+   7. room                         [noun          ] tax=setting          eig=0.0659  pr=0.0044  z_ens=10.19  films=548  deg=2032
+   8. cut                          [verb          ] tax=event            eig=0.0658  pr=0.0018  z_ens=1.34  films=192  deg=967
+   9. drive                        [verb          ] tax=event            eig=0.0645  pr=0.0031  z_ens=4.40  films=405  deg=1644
+  10. bed                          [noun          ] tax=object           eig=0.0645  pr=0.0017  z_ens=2.08  films=170  deg=853
+  11. wake                         [verb          ] tax=event            eig=0.0641  pr=0.0018  z_ens=1.85  films=196  deg=960
+  12. phone                        [noun          ] tax=object           eig=0.0641  pr=0.0016  z_ens=2.18  films=153  deg=791
+  13. pull                         [verb          ] tax=event            eig=0.0641  pr=0.0022  z_ens=2.26  films=259  deg=1205
+  14. knock                        [verb          ] tax=event            eig=0.0630  pr=0.0019  z_ens=1.80  films=216  deg=1023
+  15. return                       [verb          ] tax=event            eig=0.0620  pr=0.0063  z_ens=6.72  films=762  deg=2523
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Romance
+======================================================================
+   1. warn                         [verb          ] tax=event            eig=0.0592  pr=0.0014  z_ens=0.92  films=397  deg=1569
+   2. kiss                         [verb          ] tax=event            eig=0.0590  pr=0.0019  z_ens=5.06  films=623  deg=2064
+   3. walk                         [verb          ] tax=event            eig=0.0589  pr=0.0024  z_ens=3.13  films=847  deg=2553
+   4. attack                       [verb          ] tax=event            eig=0.0586  pr=0.0015  z_ens=0.78  films=426  deg=1668
+   5. cut                          [verb          ] tax=event            eig=0.0584  pr=0.0013  z_ens=0.79  films=366  deg=1495
+   6. room                         [noun          ] tax=setting          eig=0.0583  pr=0.0027  z_ens=3.53  films=947  deg=2723
+   7. order                        [verb          ] tax=event            eig=0.0571  pr=0.0015  z_ens=1.05  films=427  deg=1664
+   8. window                       [noun          ] tax=object           eig=0.0571  pr=0.0012  z_ens=0.60  films=286  deg=1218
+   9. confront                     [verb          ] tax=event            eig=0.0568  pr=0.0021  z_ens=2.64  films=816  deg=2465
+  10. arrive                       [verb          ] tax=event            eig=0.0561  pr=0.0047  z_ens=5.85  films=1660  deg=3892
+  11. pull                         [verb          ] tax=event            eig=0.0561  pr=0.0013  z_ens=0.93  films=413  deg=1574
+  12. knock                        [verb          ] tax=event            eig=0.0557  pr=0.0011  z_ens=0.43  films=284  deg=1209
+  13. door                         [noun          ] tax=object           eig=0.0549  pr=0.0013  z_ens=1.04  films=410  deg=1542
+  14. pick                         [verb          ] tax=event            eig=0.0540  pr=0.0014  z_ens=1.38  films=485  deg=1733
+  15. drop                         [verb          ] tax=event            eig=0.0538  pr=0.0012  z_ens=1.13  films=419  deg=1549
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Science Fiction
+======================================================================
+   1. grab                         [verb          ] tax=event            eig=0.0598  pr=0.0014  z_ens=0.97  films=180  deg=1109
+   2. knock                        [verb          ] tax=event            eig=0.0595  pr=0.0020  z_ens=1.78  films=289  deg=1561
+   3. pull                         [verb          ] tax=event            eig=0.0590  pr=0.0017  z_ens=1.09  films=233  deg=1357
+   4. order                        [verb          ] tax=event            eig=0.0587  pr=0.0024  z_ens=2.77  films=372  deg=1887
+   5. refuse                       [verb          ] tax=event            eig=0.0572  pr=0.0026  z_ens=2.22  films=437  deg=2085
+   6. wound                        [verb          ] tax=event            eig=0.0570  pr=0.0015  z_ens=1.42  films=223  deg=1257
+   7. flee                         [verb          ] tax=event            eig=0.0566  pr=0.0023  z_ens=2.58  films=394  deg=1915
+   8. drop                         [verb          ] tax=event            eig=0.0560  pr=0.0014  z_ens=0.94  films=206  deg=1205
+   9. fire                         [noun          ] tax=object           eig=0.0558  pr=0.0017  z_ens=1.74  films=273  deg=1487
+  10. warn                         [verb          ] tax=event            eig=0.0556  pr=0.0017  z_ens=1.51  films=272  deg=1487
+  11. inform                       [verb          ] tax=event            eig=0.0552  pr=0.0017  z_ens=1.38  films=282  deg=1504
+  12. room                         [noun          ] tax=setting          eig=0.0551  pr=0.0027  z_ens=2.76  films=395  deg=1933
+  13. gun                          [noun          ] tax=object           eig=0.0551  pr=0.0016  z_ens=1.50  films=253  deg=1369
+  14. confront                     [verb          ] tax=event            eig=0.0550  pr=0.0023  z_ens=2.25  films=388  deg=1925
+  15. walk                         [verb          ] tax=event            eig=0.0547  pr=0.0018  z_ens=1.35  films=291  deg=1532
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Thriller
+======================================================================
+   1. grab                         [verb          ] tax=event            eig=0.0526  pr=0.0013  z_ens=2.36  films=498  deg=2264
+   2. door                         [noun          ] tax=object           eig=0.0517  pr=0.0019  z_ens=4.97  films=793  deg=3029
+   3. window                       [noun          ] tax=object           eig=0.0516  pr=0.0014  z_ens=3.65  films=603  deg=2538
+   4. knock                        [verb          ] tax=event            eig=0.0511  pr=0.0015  z_ens=3.28  films=708  deg=2774
+   5. walk                         [verb          ] tax=event            eig=0.0502  pr=0.0018  z_ens=3.26  films=924  deg=3291
+   6. fire                         [noun          ] tax=object           eig=0.0497  pr=0.0015  z_ens=3.21  films=708  deg=2812
+   7. order                        [verb          ] tax=event            eig=0.0494  pr=0.0016  z_ens=2.71  films=726  deg=2880
+   8. drop                         [verb          ] tax=event            eig=0.0492  pr=0.0012  z_ens=2.13  films=587  deg=2450
+   9. pull                         [verb          ] tax=event            eig=0.0489  pr=0.0015  z_ens=3.65  films=801  deg=2952
+  10. climb                        [verb          ] tax=event            eig=0.0488  pr=0.0009  z_ens=1.16  films=282  deg=1528
+  11. cut                          [verb          ] tax=event            eig=0.0485  pr=0.0014  z_ens=2.81  films=677  deg=2688
+  12. wall                         [noun          ] tax=object           eig=0.0481  pr=0.0010  z_ens=1.87  films=410  deg=1952
+  13. approach                     [verb          ] tax=event            eig=0.0478  pr=0.0012  z_ens=2.41  films=587  deg=2481
+  14. throw                        [verb          ] tax=event            eig=0.0477  pr=0.0017  z_ens=2.92  films=910  deg=3237
+  15. room                         [noun          ] tax=setting          eig=0.0476  pr=0.0028  z_ens=9.90  films=1386  deg=4258
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — War
+======================================================================
+   1. fire                         [noun          ] tax=object           eig=0.0767  pr=0.0033  z_ens=2.63  films=221  deg=1229
+   2. order                        [verb          ] tax=event            eig=0.0754  pr=0.0048  z_ens=6.14  films=360  deg=1714
+   3. inform                       [verb          ] tax=event            eig=0.0744  pr=0.0029  z_ens=1.69  films=209  deg=1162
+   4. walk                         [verb          ] tax=event            eig=0.0712  pr=0.0021  z_ens=0.75  films=143  deg=840
+   5. arrive                       [verb          ] tax=event            eig=0.0701  pr=0.0051  z_ens=3.51  films=425  deg=1876
+   6. throw                        [verb          ] tax=event            eig=0.0681  pr=0.0020  z_ens=0.65  films=139  deg=824
+   7. break                        [verb          ] tax=event            eig=0.0667  pr=0.0033  z_ens=1.67  films=267  deg=1363
+   8. shoot                        [verb          ] tax=event            eig=0.0665  pr=0.0056  z_ens=5.54  films=464  deg=1973
+   9. carry                        [verb          ] tax=event            eig=0.0659  pr=0.0027  z_ens=2.38  films=235  deg=1188
+  10. cut                          [verb          ] tax=event            eig=0.0658  pr=0.0020  z_ens=0.81  films=137  deg=822
+  11. gun                          [noun          ] tax=object           eig=0.0658  pr=0.0021  z_ens=1.25  films=162  deg=872
+  12. room                         [noun          ] tax=setting          eig=0.0646  pr=0.0019  z_ens=0.64  films=129  deg=747
+  13. execute                      [verb          ] tax=event            eig=0.0639  pr=0.0023  z_ens=3.20  films=169  deg=917
+  14. run                          [verb          ] tax=event            eig=0.0638  pr=0.0035  z_ens=2.16  films=321  deg=1474
+  15. approach                     [verb          ] tax=event            eig=0.0638  pr=0.0017  z_ens=0.67  films=117  deg=693
+
+======================================================================
+TOP 15 BY EIGENVECTOR CENTRALITY (structural hubs) — Western
+======================================================================
+   1. walk                         [verb          ] tax=event            eig=0.0954  pr=0.0034  z_ens=0.69  films=104  deg=536
+   2. house                        [noun          ] tax=setting          eig=0.0949  pr=0.0037  z_ens=0.87  films=121  deg=605
+   3. camp                         [noun          ] tax=setting          eig=0.0876  pr=0.0030  z_ens=1.79  films=98  deg=489
+   4. room                         [noun          ] tax=setting          eig=0.0873  pr=0.0025  z_ens=0.43  films=80  deg=408
+   5. fire                         [noun          ] tax=object           eig=0.0844  pr=0.0028  z_ens=0.66  films=99  deg=473
+   6. order                        [verb          ] tax=event            eig=0.0827  pr=0.0031  z_ens=1.03  films=127  deg=577
+   7. wait                         [verb          ] tax=event            eig=0.0816  pr=0.0028  z_ens=0.68  films=109  deg=499
+   8. bury                         [verb          ] tax=event            eig=0.0809  pr=0.0023  z_ens=0.83  films=73  deg=376
+   9. refuse                       [verb          ] tax=event            eig=0.0809  pr=0.0044  z_ens=1.57  films=208  deg=825
+  10. shot                         [noun          ] tax=event            eig=0.0803  pr=0.0024  z_ens=0.62  films=73  deg=376
+  11. throw                        [verb          ] tax=event            eig=0.0792  pr=0.0028  z_ens=0.68  films=114  deg=507
+  12. break                        [verb          ] tax=event            eig=0.0789  pr=0.0042  z_ens=1.31  films=195  deg=810
+  13. fire                         [verb          ] tax=event            eig=0.0787  pr=0.0023  z_ens=0.49  films=81  deg=391
+  14. knock                        [verb          ] tax=event            eig=0.0786  pr=0.0024  z_ens=0.50  films=89  deg=416
+  15. offer                        [verb          ] tax=event            eig=0.0786  pr=0.0039  z_ens=1.88  films=205  deg=804
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Action
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. grab                         [verb          ] tax=event            eig=0.0513  pr=0.0011  z_ens=1.26  films=413  deg=2087
+   2. knock                        [verb          ] tax=event            eig=0.0508  pr=0.0013  z_ens=1.91  films=606  deg=2633
+   3. order                        [verb          ] tax=event            eig=0.0505  pr=0.0021  z_ens=6.34  films=1037  deg=3728
+   4. room                         [noun          ] tax=setting          eig=0.0504  pr=0.0017  z_ens=2.24  films=790  deg=3144
+   5. drop                         [verb          ] tax=event            eig=0.0500  pr=0.0013  z_ens=1.72  films=566  deg=2537
+   6. fire                         [noun          ] tax=object           eig=0.0493  pr=0.0016  z_ens=3.48  films=760  deg=3021
+   7. pull                         [verb          ] tax=event            eig=0.0490  pr=0.0013  z_ens=1.74  films=594  deg=2579
+   8. cut                          [verb          ] tax=event            eig=0.0476  pr=0.0012  z_ens=1.74  films=590  deg=2591
+   9. explode                      [verb          ] tax=event            eig=0.0475  pr=0.0010  z_ens=2.67  films=432  deg=2056
+  10. warn                         [verb          ] tax=event            eig=0.0474  pr=0.0013  z_ens=2.30  films=689  deg=2765
+  11. jump                         [verb          ] tax=event            eig=0.0473  pr=0.0010  z_ens=1.31  films=445  deg=2093
+  12. walk                         [verb          ] tax=event            eig=0.0469  pr=0.0014  z_ens=1.92  films=731  deg=2899
+  13. throw                        [verb          ] tax=event            eig=0.0467  pr=0.0018  z_ens=2.90  films=947  deg=3422
+  14. building                     [noun          ] tax=setting          eig=0.0465  pr=0.0013  z_ens=2.76  films=585  deg=2492
+  15. confront                     [verb          ] tax=event            eig=0.0455  pr=0.0019  z_ens=4.21  films=1102  deg=3688
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Adventure
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. grab                         [verb          ] tax=event            eig=0.0524  pr=0.0011  z_ens=1.52  films=380  deg=1966
+   2. order                        [verb          ] tax=event            eig=0.0505  pr=0.0021  z_ens=7.18  films=893  deg=3442
+   3. room                         [noun          ] tax=setting          eig=0.0499  pr=0.0018  z_ens=2.45  films=688  deg=2893
+   4. knock                        [verb          ] tax=event            eig=0.0498  pr=0.0015  z_ens=2.88  films=604  deg=2635
+   5. walk                         [verb          ] tax=event            eig=0.0496  pr=0.0015  z_ens=2.12  films=642  deg=2758
+   6. drop                         [verb          ] tax=event            eig=0.0493  pr=0.0013  z_ens=1.82  films=487  deg=2310
+   7. door                         [noun          ] tax=object           eig=0.0492  pr=0.0012  z_ens=1.21  films=391  deg=2003
+   8. pull                         [verb          ] tax=event            eig=0.0486  pr=0.0014  z_ens=2.12  films=554  deg=2481
+   9. jump                         [verb          ] tax=event            eig=0.0485  pr=0.0011  z_ens=1.94  films=443  deg=2090
+  10. fire                         [noun          ] tax=object           eig=0.0480  pr=0.0016  z_ens=4.62  films=696  deg=2860
+  11. throw                        [verb          ] tax=event            eig=0.0474  pr=0.0019  z_ens=3.34  films=857  deg=3273
+  12. warn                         [verb          ] tax=event            eig=0.0473  pr=0.0014  z_ens=3.32  films=661  deg=2734
+  13. cut                          [verb          ] tax=event            eig=0.0470  pr=0.0012  z_ens=1.91  films=519  deg=2387
+  14. climb                        [verb          ] tax=event            eig=0.0470  pr=0.0009  z_ens=1.59  films=285  deg=1592
+  15. explode                      [verb          ] tax=event            eig=0.0469  pr=0.0010  z_ens=2.64  films=354  deg=1809
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Animation
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. attack                       [noun          ] tax=event            eig=0.0711  pr=0.0023  z_ens=1.62  films=256  deg=1370
+   2. kill                         [verb          ] tax=event            eig=0.0666  pr=0.0043  z_ens=4.78  films=597  deg=2411
+   3. attack                       [verb          ] tax=event            eig=0.0648  pr=0.0033  z_ens=4.55  films=515  deg=2169
+   4. destroy                      [verb          ] tax=event            eig=0.0645  pr=0.0039  z_ens=7.08  films=554  deg=2227
+   5. confront                     [verb          ] tax=event            eig=0.0633  pr=0.0021  z_ens=1.67  films=297  deg=1477
+   6. die                          [verb          ] tax=event            eig=0.0618  pr=0.0024  z_ens=1.88  films=361  deg=1630
+   7. death                        [noun          ] tax=event            eig=0.0605  pr=0.0024  z_ens=1.65  films=329  deg=1552
+   8. battle                       [noun          ] tax=event            eig=0.0595  pr=0.0021  z_ens=3.12  films=309  deg=1402
+   9. power                        [noun          ] tax=theme            eig=0.0595  pr=0.0024  z_ens=5.32  films=382  deg=1613
+  10. free                         [verb          ] tax=event            eig=0.0590  pr=0.0018  z_ens=2.89  films=282  deg=1390
+  11. order                        [verb          ] tax=event            eig=0.0588  pr=0.0020  z_ens=2.19  films=307  deg=1493
+  12. fight                        [verb          ] tax=event            eig=0.0580  pr=0.0026  z_ens=3.84  films=460  deg=1888
+  13. capture                      [verb          ] tax=event            eig=0.0579  pr=0.0029  z_ens=4.90  films=486  deg=2019
+  14. leader                       [noun          ] tax=character_type   eig=0.0573  pr=0.0015  z_ens=1.08  films=193  deg=1034
+  15. rescue                       [verb          ] tax=event            eig=0.0571  pr=0.0025  z_ens=3.76  films=442  deg=1840
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Comedy
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. attack                       [verb          ] tax=event            eig=0.0539  pr=0.0016  z_ens=1.92  films=1014  deg=3354
+   2. pull                         [verb          ] tax=event            eig=0.0521  pr=0.0017  z_ens=2.90  films=1080  deg=3559
+   3. window                       [noun          ] tax=object           eig=0.0512  pr=0.0012  z_ens=1.75  films=699  deg=2681
+   4. knock                        [verb          ] tax=event            eig=0.0511  pr=0.0014  z_ens=2.96  films=993  deg=3226
+   5. cut                          [verb          ] tax=event            eig=0.0508  pr=0.0013  z_ens=1.89  films=843  deg=3031
+   6. warn                         [verb          ] tax=event            eig=0.0500  pr=0.0011  z_ens=1.29  films=719  deg=2674
+   7. drop                         [verb          ] tax=event            eig=0.0499  pr=0.0013  z_ens=2.43  films=920  deg=3128
+   8. walk                         [verb          ] tax=event            eig=0.0496  pr=0.0020  z_ens=3.91  films=1471  deg=4191
+   9. order                        [verb          ] tax=event            eig=0.0489  pr=0.0013  z_ens=1.79  films=856  deg=2982
+  10. gun                          [noun          ] tax=object           eig=0.0486  pr=0.0012  z_ens=1.94  films=815  deg=2741
+  11. fire                         [noun          ] tax=object           eig=0.0484  pr=0.0011  z_ens=1.24  films=651  deg=2504
+  12. grab                         [verb          ] tax=event            eig=0.0483  pr=0.0010  z_ens=1.30  films=559  deg=2202
+  13. shoot                        [verb          ] tax=event            eig=0.0479  pr=0.0021  z_ens=3.65  films=1560  deg=4241
+  14. confront                     [verb          ] tax=event            eig=0.0474  pr=0.0015  z_ens=2.85  films=1269  deg=3651
+  15. drive                        [verb          ] tax=event            eig=0.0474  pr=0.0022  z_ens=4.99  films=1726  deg=4575
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Crime
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. door                         [noun          ] tax=object           eig=0.0606  pr=0.0019  z_ens=1.99  films=425  deg=1889
+   2. walk                         [verb          ] tax=event            eig=0.0582  pr=0.0023  z_ens=2.89  films=634  deg=2419
+   3. phone                        [noun          ] tax=object           eig=0.0565  pr=0.0013  z_ens=2.39  films=292  deg=1392
+   4. window                       [noun          ] tax=object           eig=0.0561  pr=0.0015  z_ens=2.11  films=375  deg=1673
+   5. pick                         [verb          ] tax=event            eig=0.0561  pr=0.0018  z_ens=2.69  films=501  deg=2051
+   6. order                        [verb          ] tax=event            eig=0.0559  pr=0.0017  z_ens=2.08  films=470  deg=1954
+   7. wait                         [verb          ] tax=event            eig=0.0558  pr=0.0021  z_ens=3.03  films=602  deg=2264
+   8. gun                          [noun          ] tax=object           eig=0.0557  pr=0.0030  z_ens=14.35  films=948  deg=2988
+   9. drive                        [verb          ] tax=event            eig=0.0553  pr=0.0030  z_ens=6.08  films=884  deg=2909
+  10. room                         [noun          ] tax=setting          eig=0.0552  pr=0.0029  z_ens=4.40  films=809  deg=2784
+  11. fire                         [noun          ] tax=object           eig=0.0550  pr=0.0015  z_ens=1.78  films=399  deg=1739
+  12. throw                        [verb          ] tax=event            eig=0.0550  pr=0.0021  z_ens=2.57  films=619  deg=2336
+  13. grab                         [verb          ] tax=event            eig=0.0547  pr=0.0012  z_ens=1.35  films=293  deg=1391
+  14. drop                         [verb          ] tax=event            eig=0.0547  pr=0.0014  z_ens=1.67  films=385  deg=1690
+  15. knock                        [verb          ] tax=event            eig=0.0546  pr=0.0015  z_ens=2.10  films=436  deg=1792
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Drama
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. order                        [verb          ] tax=event            eig=0.0504  pr=0.0015  z_ens=2.11  films=1412  deg=4338
+   2. fire                         [noun          ] tax=object           eig=0.0461  pr=0.0012  z_ens=1.69  films=1170  deg=3781
+   3. attack                       [verb          ] tax=event            eig=0.0460  pr=0.0014  z_ens=2.03  films=1669  deg=4576
+   4. cut                          [verb          ] tax=event            eig=0.0455  pr=0.0011  z_ens=1.59  films=1210  deg=3868
+   5. warn                         [verb          ] tax=event            eig=0.0451  pr=0.0011  z_ens=1.69  films=1276  deg=3932
+   6. walk                         [verb          ] tax=event            eig=0.0445  pr=0.0018  z_ens=3.76  films=2212  deg=5492
+   7. door                         [noun          ] tax=object           eig=0.0441  pr=0.0011  z_ens=1.54  films=1175  deg=3743
+   8. window                       [noun          ] tax=object           eig=0.0438  pr=0.0009  z_ens=1.07  films=879  deg=3094
+   9. pull                         [verb          ] tax=event            eig=0.0438  pr=0.0011  z_ens=1.61  films=1277  deg=3873
+  10. reply                        [verb          ] tax=event            eig=0.0438  pr=0.0007  z_ens=1.08  films=588  deg=2465
+  11. room                         [noun          ] tax=setting          eig=0.0436  pr=0.0022  z_ens=4.26  films=2457  deg=5880
+  12. gun                          [noun          ] tax=object           eig=0.0434  pr=0.0012  z_ens=2.37  films=1409  deg=3962
+  13. destroy                      [verb          ] tax=event            eig=0.0431  pr=0.0013  z_ens=1.64  films=1415  deg=4144
+  14. inform                       [verb          ] tax=event            eig=0.0427  pr=0.0014  z_ens=3.05  films=1924  deg=4936
+  15. guard                        [noun          ] tax=character_type   eig=0.0425  pr=0.0008  z_ens=1.25  films=821  deg=2921
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Family
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. order                        [verb          ] tax=event            eig=0.0644  pr=0.0021  z_ens=2.05  films=344  deg=1665
+   2. free                         [verb          ] tax=event            eig=0.0617  pr=0.0016  z_ens=2.37  films=294  deg=1390
+   3. attack                       [verb          ] tax=event            eig=0.0613  pr=0.0022  z_ens=2.57  films=449  deg=1879
+   4. fly                          [verb          ] tax=event            eig=0.0612  pr=0.0025  z_ens=8.65  films=541  deg=2126
+   5. knock                        [verb          ] tax=event            eig=0.0601  pr=0.0020  z_ens=2.93  films=393  deg=1741
+   6. drop                         [verb          ] tax=event            eig=0.0595  pr=0.0019  z_ens=2.35  films=341  deg=1574
+   7. destroy                      [verb          ] tax=event            eig=0.0582  pr=0.0024  z_ens=3.50  films=494  deg=1967
+   8. capture                      [verb          ] tax=event            eig=0.0574  pr=0.0023  z_ens=4.07  films=523  deg=2021
+   9. warn                         [verb          ] tax=event            eig=0.0558  pr=0.0015  z_ens=1.89  films=330  deg=1506
+  10. pull                         [verb          ] tax=event            eig=0.0558  pr=0.0024  z_ens=3.91  films=460  deg=1910
+  11. escape                       [verb          ] tax=event            eig=0.0556  pr=0.0044  z_ens=6.83  films=975  deg=3135
+  12. flee                         [verb          ] tax=event            eig=0.0553  pr=0.0015  z_ens=1.63  films=337  deg=1472
+  13. hide                         [verb          ] tax=event            eig=0.0552  pr=0.0025  z_ens=4.12  films=611  deg=2321
+  14. room                         [noun          ] tax=setting          eig=0.0550  pr=0.0023  z_ens=3.22  films=510  deg=2029
+  15. arrive                       [verb          ] tax=event            eig=0.0550  pr=0.0049  z_ens=7.44  films=1054  deg=3320
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Fantasy
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. attack                       [verb          ] tax=event            eig=0.0605  pr=0.0033  z_ens=7.63  films=542  deg=2280
+   2. flee                         [verb          ] tax=event            eig=0.0595  pr=0.0023  z_ens=2.95  films=349  deg=1713
+   3. free                         [verb          ] tax=event            eig=0.0578  pr=0.0021  z_ens=6.41  films=330  deg=1629
+   4. warn                         [verb          ] tax=event            eig=0.0576  pr=0.0018  z_ens=2.51  films=288  deg=1468
+   5. confront                     [verb          ] tax=event            eig=0.0573  pr=0.0024  z_ens=2.95  films=380  deg=1848
+   6. knock                        [verb          ] tax=event            eig=0.0566  pr=0.0018  z_ens=2.14  films=262  deg=1397
+   7. wall                         [noun          ] tax=object           eig=0.0564  pr=0.0014  z_ens=1.74  films=173  deg=1058
+   8. wound                        [verb          ] tax=event            eig=0.0562  pr=0.0014  z_ens=1.27  films=180  deg=1031
+   9. attack                       [noun          ] tax=event            eig=0.0561  pr=0.0022  z_ens=2.73  films=319  deg=1586
+  10. summon                       [verb          ] tax=event            eig=0.0551  pr=0.0013  z_ens=3.87  films=172  deg=1005
+  11. order                        [verb          ] tax=event            eig=0.0547  pr=0.0019  z_ens=2.72  films=312  deg=1564
+  12. throw                        [verb          ] tax=event            eig=0.0547  pr=0.0025  z_ens=3.15  films=410  deg=1929
+  13. cut                          [verb          ] tax=event            eig=0.0545  pr=0.0015  z_ens=1.39  films=210  deg=1185
+  14. declare                      [verb          ] tax=event            eig=0.0544  pr=0.0013  z_ens=1.10  films=155  deg=955
+  15. army                         [noun          ] tax=character_type   eig=0.0543  pr=0.0016  z_ens=4.02  films=239  deg=1246
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — History
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. order                        [verb          ] tax=event            eig=0.0721  pr=0.0028  z_ens=4.27  films=323  deg=1702
+   2. warn                         [verb          ] tax=event            eig=0.0663  pr=0.0019  z_ens=1.37  films=201  deg=1221
+   3. attack                       [verb          ] tax=event            eig=0.0641  pr=0.0023  z_ens=2.25  films=301  deg=1513
+   4. confront                     [verb          ] tax=event            eig=0.0623  pr=0.0022  z_ens=1.81  films=271  deg=1464
+   5. room                         [noun          ] tax=setting          eig=0.0622  pr=0.0027  z_ens=2.42  films=303  deg=1602
+   6. declare                      [verb          ] tax=event            eig=0.0617  pr=0.0017  z_ens=3.06  films=201  deg=1164
+   7. throw                        [verb          ] tax=event            eig=0.0613  pr=0.0022  z_ens=2.24  films=307  deg=1566
+   8. fire                         [noun          ] tax=object           eig=0.0612  pr=0.0019  z_ens=1.84  films=210  deg=1217
+   9. wound                        [verb          ] tax=event            eig=0.0609  pr=0.0017  z_ens=1.74  films=188  deg=1047
+  10. cut                          [verb          ] tax=event            eig=0.0608  pr=0.0017  z_ens=1.65  films=215  deg=1191
+  11. flee                         [verb          ] tax=event            eig=0.0602  pr=0.0019  z_ens=2.21  films=279  deg=1390
+  12. shoot                        [verb          ] tax=event            eig=0.0597  pr=0.0029  z_ens=4.38  films=453  deg=1951
+  13. inform                       [verb          ] tax=event            eig=0.0595  pr=0.0021  z_ens=2.31  films=281  deg=1459
+  14. soldier                      [noun          ] tax=character_type   eig=0.0590  pr=0.0025  z_ens=9.16  films=337  deg=1564
+  15. walk                         [verb          ] tax=event            eig=0.0589  pr=0.0026  z_ens=2.67  films=327  deg=1662
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Horror
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. grab                         [verb          ] tax=event            eig=0.0639  pr=0.0020  z_ens=4.08  films=441  deg=2128
+   2. knock                        [verb          ] tax=event            eig=0.0600  pr=0.0020  z_ens=4.07  films=560  deg=2366
+   3. door                         [noun          ] tax=object           eig=0.0585  pr=0.0028  z_ens=8.95  films=720  deg=2820
+   4. window                       [noun          ] tax=object           eig=0.0585  pr=0.0021  z_ens=4.94  films=507  deg=2258
+   5. pull                         [verb          ] tax=event            eig=0.0584  pr=0.0022  z_ens=3.86  films=578  deg=2447
+   6. drop                         [verb          ] tax=event            eig=0.0565  pr=0.0015  z_ens=1.57  films=368  deg=1820
+   7. walk                         [verb          ] tax=event            eig=0.0555  pr=0.0023  z_ens=3.62  films=655  deg=2617
+   8. climb                        [verb          ] tax=event            eig=0.0553  pr=0.0012  z_ens=1.69  films=238  deg=1315
+   9. hit                          [verb          ] tax=event            eig=0.0552  pr=0.0016  z_ens=2.10  films=452  deg=1975
+  10. scream                       [verb          ] tax=event            eig=0.0552  pr=0.0017  z_ens=7.77  films=463  deg=2059
+  11. cut                          [verb          ] tax=event            eig=0.0550  pr=0.0021  z_ens=4.73  films=594  deg=2438
+  12. reach                        [verb          ] tax=event            eig=0.0542  pr=0.0019  z_ens=2.23  films=516  deg=2255
+  13. gun                          [noun          ] tax=object           eig=0.0538  pr=0.0018  z_ens=2.64  films=489  deg=2102
+  14. wall                         [noun          ] tax=object           eig=0.0534  pr=0.0015  z_ens=3.69  films=394  deg=1858
+  15. knife                        [noun          ] tax=object           eig=0.0531  pr=0.0014  z_ens=5.71  films=365  deg=1701
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Music
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. room                         [noun          ] tax=setting          eig=0.0810  pr=0.0034  z_ens=2.50  films=301  deg=1327
+   2. walk                         [verb          ] tax=event            eig=0.0788  pr=0.0033  z_ens=2.09  films=269  deg=1206
+   3. order                        [verb          ] tax=event            eig=0.0748  pr=0.0023  z_ens=1.17  films=181  deg=883
+   4. throw                        [verb          ] tax=event            eig=0.0737  pr=0.0030  z_ens=2.37  films=310  deg=1285
+   5. confront                     [verb          ] tax=event            eig=0.0715  pr=0.0028  z_ens=2.06  films=284  deg=1206
+   6. arrive                       [verb          ] tax=event            eig=0.0700  pr=0.0063  z_ens=6.14  films=651  deg=2146
+   7. wait                         [verb          ] tax=event            eig=0.0697  pr=0.0022  z_ens=1.47  films=211  deg=926
+   8. escape                       [verb          ] tax=event            eig=0.0691  pr=0.0039  z_ens=2.93  films=408  deg=1527
+   9. crowd                        [noun          ] tax=character_type   eig=0.0669  pr=0.0018  z_ens=2.20  films=139  deg=689
+  10. visit                        [verb          ] tax=event            eig=0.0658  pr=0.0032  z_ens=3.12  films=377  deg=1415
+  11. break                        [verb          ] tax=event            eig=0.0658  pr=0.0041  z_ens=4.12  films=497  deg=1726
+  12. flee                         [verb          ] tax=event            eig=0.0651  pr=0.0020  z_ens=1.09  films=188  deg=839
+  13. car                          [noun          ] tax=object           eig=0.0645  pr=0.0023  z_ens=1.93  films=246  deg=993
+  14. refuse                       [verb          ] tax=event            eig=0.0644  pr=0.0038  z_ens=4.31  films=480  deg=1681
+  15. kiss                         [verb          ] tax=event            eig=0.0641  pr=0.0017  z_ens=1.49  films=153  deg=706
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Mystery
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. door                         [noun          ] tax=object           eig=0.0758  pr=0.0029  z_ens=4.31  films=295  deg=1367
+   2. walk                         [verb          ] tax=event            eig=0.0732  pr=0.0026  z_ens=2.22  films=292  deg=1350
+   3. window                       [noun          ] tax=object           eig=0.0702  pr=0.0022  z_ens=3.89  films=235  deg=1147
+   4. attack                       [verb          ] tax=event            eig=0.0691  pr=0.0031  z_ens=2.79  films=330  deg=1479
+   5. warn                         [verb          ] tax=event            eig=0.0683  pr=0.0024  z_ens=2.79  films=270  deg=1271
+   6. confront                     [verb          ] tax=event            eig=0.0667  pr=0.0035  z_ens=4.35  films=417  deg=1720
+   7. room                         [noun          ] tax=setting          eig=0.0659  pr=0.0044  z_ens=10.19  films=548  deg=2032
+   8. cut                          [verb          ] tax=event            eig=0.0658  pr=0.0018  z_ens=1.34  films=192  deg=967
+   9. drive                        [verb          ] tax=event            eig=0.0645  pr=0.0031  z_ens=4.40  films=405  deg=1644
+  10. bed                          [noun          ] tax=object           eig=0.0645  pr=0.0017  z_ens=2.08  films=170  deg=853
+  11. wake                         [verb          ] tax=event            eig=0.0641  pr=0.0018  z_ens=1.85  films=196  deg=960
+  12. phone                        [noun          ] tax=object           eig=0.0641  pr=0.0016  z_ens=2.18  films=153  deg=791
+  13. pull                         [verb          ] tax=event            eig=0.0641  pr=0.0022  z_ens=2.26  films=259  deg=1205
+  14. knock                        [verb          ] tax=event            eig=0.0630  pr=0.0019  z_ens=1.80  films=216  deg=1023
+  15. return                       [verb          ] tax=event            eig=0.0620  pr=0.0063  z_ens=6.72  films=762  deg=2523
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Romance
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. kiss                         [verb          ] tax=event            eig=0.0590  pr=0.0019  z_ens=5.06  films=623  deg=2064
+   2. walk                         [verb          ] tax=event            eig=0.0589  pr=0.0024  z_ens=3.13  films=847  deg=2553
+   3. room                         [noun          ] tax=setting          eig=0.0583  pr=0.0027  z_ens=3.53  films=947  deg=2723
+   4. order                        [verb          ] tax=event            eig=0.0571  pr=0.0015  z_ens=1.05  films=427  deg=1664
+   5. confront                     [verb          ] tax=event            eig=0.0568  pr=0.0021  z_ens=2.64  films=816  deg=2465
+   6. arrive                       [verb          ] tax=event            eig=0.0561  pr=0.0047  z_ens=5.85  films=1660  deg=3892
+   7. door                         [noun          ] tax=object           eig=0.0549  pr=0.0013  z_ens=1.04  films=410  deg=1542
+   8. pick                         [verb          ] tax=event            eig=0.0540  pr=0.0014  z_ens=1.38  films=485  deg=1733
+   9. drop                         [verb          ] tax=event            eig=0.0538  pr=0.0012  z_ens=1.13  films=419  deg=1549
+  10. throw                        [verb          ] tax=event            eig=0.0538  pr=0.0019  z_ens=2.20  films=765  deg=2353
+  11. wait                         [verb          ] tax=event            eig=0.0532  pr=0.0019  z_ens=3.25  films=802  deg=2359
+  12. flee                         [verb          ] tax=event            eig=0.0532  pr=0.0015  z_ens=1.14  films=487  deg=1773
+  13. offer                        [verb          ] tax=event            eig=0.0530  pr=0.0025  z_ens=3.57  films=1007  deg=2753
+  14. drive                        [verb          ] tax=event            eig=0.0527  pr=0.0021  z_ens=2.80  films=853  deg=2483
+  15. cry                          [verb          ] tax=event            eig=0.0527  pr=0.0010  z_ens=1.06  films=266  deg=1114
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Science Fiction
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. knock                        [verb          ] tax=event            eig=0.0595  pr=0.0020  z_ens=1.78  films=289  deg=1561
+   2. pull                         [verb          ] tax=event            eig=0.0590  pr=0.0017  z_ens=1.09  films=233  deg=1357
+   3. order                        [verb          ] tax=event            eig=0.0587  pr=0.0024  z_ens=2.77  films=372  deg=1887
+   4. refuse                       [verb          ] tax=event            eig=0.0572  pr=0.0026  z_ens=2.22  films=437  deg=2085
+   5. wound                        [verb          ] tax=event            eig=0.0570  pr=0.0015  z_ens=1.42  films=223  deg=1257
+   6. flee                         [verb          ] tax=event            eig=0.0566  pr=0.0023  z_ens=2.58  films=394  deg=1915
+   7. fire                         [noun          ] tax=object           eig=0.0558  pr=0.0017  z_ens=1.74  films=273  deg=1487
+   8. warn                         [verb          ] tax=event            eig=0.0556  pr=0.0017  z_ens=1.51  films=272  deg=1487
+   9. inform                       [verb          ] tax=event            eig=0.0552  pr=0.0017  z_ens=1.38  films=282  deg=1504
+  10. room                         [noun          ] tax=setting          eig=0.0551  pr=0.0027  z_ens=2.76  films=395  deg=1933
+  11. gun                          [noun          ] tax=object           eig=0.0551  pr=0.0016  z_ens=1.50  films=253  deg=1369
+  12. confront                     [verb          ] tax=event            eig=0.0550  pr=0.0023  z_ens=2.25  films=388  deg=1925
+  13. walk                         [verb          ] tax=event            eig=0.0547  pr=0.0018  z_ens=1.35  films=291  deg=1532
+  14. door                         [noun          ] tax=object           eig=0.0547  pr=0.0015  z_ens=1.19  films=218  deg=1209
+  15. fire                         [verb          ] tax=event            eig=0.0544  pr=0.0015  z_ens=1.59  films=249  deg=1330
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Thriller
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. grab                         [verb          ] tax=event            eig=0.0526  pr=0.0013  z_ens=2.36  films=498  deg=2264
+   2. door                         [noun          ] tax=object           eig=0.0517  pr=0.0019  z_ens=4.97  films=793  deg=3029
+   3. window                       [noun          ] tax=object           eig=0.0516  pr=0.0014  z_ens=3.65  films=603  deg=2538
+   4. knock                        [verb          ] tax=event            eig=0.0511  pr=0.0015  z_ens=3.28  films=708  deg=2774
+   5. walk                         [verb          ] tax=event            eig=0.0502  pr=0.0018  z_ens=3.26  films=924  deg=3291
+   6. fire                         [noun          ] tax=object           eig=0.0497  pr=0.0015  z_ens=3.21  films=708  deg=2812
+   7. order                        [verb          ] tax=event            eig=0.0494  pr=0.0016  z_ens=2.71  films=726  deg=2880
+   8. drop                         [verb          ] tax=event            eig=0.0492  pr=0.0012  z_ens=2.13  films=587  deg=2450
+   9. pull                         [verb          ] tax=event            eig=0.0489  pr=0.0015  z_ens=3.65  films=801  deg=2952
+  10. climb                        [verb          ] tax=event            eig=0.0488  pr=0.0009  z_ens=1.16  films=282  deg=1528
+  11. cut                          [verb          ] tax=event            eig=0.0485  pr=0.0014  z_ens=2.81  films=677  deg=2688
+  12. wall                         [noun          ] tax=object           eig=0.0481  pr=0.0010  z_ens=1.87  films=410  deg=1952
+  13. approach                     [verb          ] tax=event            eig=0.0478  pr=0.0012  z_ens=2.41  films=587  deg=2481
+  14. throw                        [verb          ] tax=event            eig=0.0477  pr=0.0017  z_ens=2.92  films=910  deg=3237
+  15. room                         [noun          ] tax=setting          eig=0.0476  pr=0.0028  z_ens=9.90  films=1386  deg=4258
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — War
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. fire                         [noun          ] tax=object           eig=0.0767  pr=0.0033  z_ens=2.63  films=221  deg=1229
+   2. order                        [verb          ] tax=event            eig=0.0754  pr=0.0048  z_ens=6.14  films=360  deg=1714
+   3. inform                       [verb          ] tax=event            eig=0.0744  pr=0.0029  z_ens=1.69  films=209  deg=1162
+   4. arrive                       [verb          ] tax=event            eig=0.0701  pr=0.0051  z_ens=3.51  films=425  deg=1876
+   5. break                        [verb          ] tax=event            eig=0.0667  pr=0.0033  z_ens=1.67  films=267  deg=1363
+   6. shoot                        [verb          ] tax=event            eig=0.0665  pr=0.0056  z_ens=5.54  films=464  deg=1973
+   7. carry                        [verb          ] tax=event            eig=0.0659  pr=0.0027  z_ens=2.38  films=235  deg=1188
+   8. gun                          [noun          ] tax=object           eig=0.0658  pr=0.0021  z_ens=1.25  films=162  deg=872
+   9. execute                      [verb          ] tax=event            eig=0.0639  pr=0.0023  z_ens=3.20  films=169  deg=917
+  10. run                          [verb          ] tax=event            eig=0.0638  pr=0.0035  z_ens=2.16  films=321  deg=1474
+  11. die                          [verb          ] tax=event            eig=0.0620  pr=0.0046  z_ens=3.61  films=413  deg=1809
+  12. reach                        [verb          ] tax=event            eig=0.0620  pr=0.0026  z_ens=1.83  films=234  deg=1165
+  13. refuse                       [verb          ] tax=event            eig=0.0616  pr=0.0037  z_ens=2.59  films=328  deg=1534
+  14. attack                       [verb          ] tax=event            eig=0.0613  pr=0.0031  z_ens=2.47  films=294  deg=1355
+  15. save                         [verb          ] tax=event            eig=0.0611  pr=0.0031  z_ens=2.10  films=283  deg=1350
+
+======================================================================
+TOP 15 LOAD-BEARING CONVENTIONS — Western
+  (eigenvector centrality among z_ensemble_in_genre >= 1.0)
+======================================================================
+   1. camp                         [noun          ] tax=setting          eig=0.0876  pr=0.0030  z_ens=1.79  films=98  deg=489
+   2. order                        [verb          ] tax=event            eig=0.0827  pr=0.0031  z_ens=1.03  films=127  deg=577
+   3. refuse                       [verb          ] tax=event            eig=0.0809  pr=0.0044  z_ens=1.57  films=208  deg=825
+   4. break                        [verb          ] tax=event            eig=0.0789  pr=0.0042  z_ens=1.31  films=195  deg=810
+   5. offer                        [verb          ] tax=event            eig=0.0786  pr=0.0039  z_ens=1.88  films=205  deg=804
+   6. arrive                       [verb          ] tax=event            eig=0.0777  pr=0.0079  z_ens=4.26  films=384  deg=1298
+   7. gun                          [noun          ] tax=object           eig=0.0777  pr=0.0049  z_ens=5.51  films=263  deg=952
+   8. follow                       [verb          ] tax=event            eig=0.0776  pr=0.0043  z_ens=1.65  films=226  deg=865
+   9. drive                        [verb          ] tax=event            eig=0.0772  pr=0.0035  z_ens=1.20  films=153  deg=648
+  10. return                       [verb          ] tax=event            eig=0.0760  pr=0.0077  z_ens=4.17  films=409  deg=1323
+  11. attack                       [verb          ] tax=event            eig=0.0755  pr=0.0034  z_ens=1.34  films=171  deg=681
+  12. die                          [verb          ] tax=event            eig=0.0747  pr=0.0055  z_ens=2.22  films=272  deg=1003
+  13. horse                        [noun          ] tax=object           eig=0.0733  pr=0.0050  z_ens=16.29  films=299  deg=1020
+  14. wound                        [verb          ] tax=event            eig=0.0729  pr=0.0036  z_ens=3.31  films=203  deg=753
+  15. escape                       [verb          ] tax=event            eig=0.0722  pr=0.0058  z_ens=2.92  films=320  deg=1094
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Action
+======================================================================
+   1. baby cart [chunk] + kill [verb]
+      CS=33.50  lift=3.13  joint_g=5  P_s(g|i,j)=0.846  z_i=1.39  z_j=57.39
+   2. kill [verb] + lycan [entity_NORP]
+      CS=33.42  lift=3.13  joint_g=5  P_s(g|i,j)=0.846  z_i=57.39  z_j=1.24
+   3. kill [verb] + remaining terrorist [chunk]
+      CS=33.32  lift=3.13  joint_g=11  P_s(g|i,j)=0.791  z_i=57.39  z_j=1.06
+   4. ensuing firefight [chunk] + kill [verb]
+      CS=33.30  lift=3.13  joint_g=13  P_s(g|i,j)=0.769  z_i=1.03  z_j=57.39
+   5. autobots [entity_PRODUCT] + kill [verb]
+      CS=33.28  lift=3.13  joint_g=5  P_s(g|i,j)=0.725  z_i=0.99  z_j=57.39
+   6. kill [verb] + swordsmanship [noun]
+      CS=33.26  lift=3.13  joint_g=9  P_s(g|i,j)=0.756  z_i=57.39  z_j=0.97
+   7. alien queen [chunk] + kill [verb]
+      CS=33.25  lift=3.13  joint_g=6  P_s(g|i,j)=0.760  z_i=0.94  z_j=57.39
+   8. kill [verb] + remaining gang member [chunk]
+      CS=33.23  lift=3.13  joint_g=12  P_s(g|i,j)=0.710  z_i=57.39  z_j=0.91
+   9. erhu [noun] + kill [verb]
+      CS=33.22  lift=3.13  joint_g=5  P_s(g|i,j)=0.725  z_i=0.89  z_j=57.39
+  10. kill [verb] + orc [entity_ORG]
+      CS=33.19  lift=3.13  joint_g=5  P_s(g|i,j)=0.725  z_i=57.39  z_j=0.84
+  11. chemical weapon [chunk] + kill [verb]
+      CS=33.16  lift=3.13  joint_g=6  P_s(g|i,j)=0.675  z_i=0.79  z_j=57.39
+  12. cargo container [chunk] + kill [verb]
+      CS=33.16  lift=3.13  joint_g=6  P_s(g|i,j)=0.675  z_i=0.79  z_j=57.39
+  13. hydra [entity_GPE] + kill [verb]
+      CS=33.16  lift=3.13  joint_g=7  P_s(g|i,j)=0.590  z_i=0.79  z_j=57.39
+  14. contract killing [chunk] + kill [verb]
+      CS=33.07  lift=3.13  joint_g=6  P_s(g|i,j)=0.608  z_i=0.63  z_j=57.39
+  15. kill [verb] + universe [entity_ORG]
+      CS=33.06  lift=3.13  joint_g=6  P_s(g|i,j)=0.608  z_i=57.39  z_j=0.61
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Adventure
+======================================================================
+   1. pirate [noun] + ship [noun]
+      CS=34.35  lift=12.40  joint_g=92  P_s(g|i,j)=0.703  z_i=7.22  z_j=20.07
+   2. pirate ship [chunk] + ship [noun]
+      CS=33.92  lift=23.47  joint_g=23  P_s(g|i,j)=0.699  z_i=1.43  z_j=20.07
+   3. pirate captain [chunk] + ship [noun]
+      CS=33.03  lift=20.86  joint_g=8  P_s(g|i,j)=0.896  z_i=1.67  z_j=20.07
+   4. rocket ship [chunk] + ship [noun]
+      CS=32.83  lift=23.47  joint_g=7  P_s(g|i,j)=0.588  z_i=0.74  z_j=20.07
+   5. enemy ship [chunk] + ship [noun]
+      CS=32.83  lift=23.47  joint_g=8  P_s(g|i,j)=0.576  z_i=0.74  z_j=20.07
+   6. new ship [chunk] + ship [noun]
+      CS=32.79  lift=23.47  joint_g=11  P_s(g|i,j)=0.553  z_i=0.71  z_j=20.07
+   7. mutineer [noun] + ship [noun]
+      CS=32.66  lift=21.52  joint_g=9  P_s(g|i,j)=0.755  z_i=1.22  z_j=20.07
+   8. british ship [chunk] + ship [noun]
+      CS=32.62  lift=23.47  joint_g=7  P_s(g|i,j)=0.504  z_i=0.60  z_j=20.07
+   9. ship [noun] + spanish ship [chunk]
+      CS=32.52  lift=23.47  joint_g=5  P_s(g|i,j)=0.506  z_i=20.07  z_j=0.54
+  10. boarding party [chunk] + ship [noun]
+      CS=32.49  lift=23.47  joint_g=5  P_s(g|i,j)=0.506  z_i=0.52  z_j=20.07
+  11. merchant ship [chunk] + ship [noun]
+      CS=32.49  lift=23.47  joint_g=8  P_s(g|i,j)=0.474  z_i=0.52  z_j=20.07
+  12. cargo ship [chunk] + ship [noun]
+      CS=32.48  lift=23.47  joint_g=15  P_s(g|i,j)=0.430  z_i=0.52  z_j=20.07
+  13. rescue ship [chunk] + ship [noun]
+      CS=32.44  lift=23.47  joint_g=7  P_s(g|i,j)=0.471  z_i=0.49  z_j=20.07
+  14. ship [noun] + shipmate [noun]
+      CS=32.36  lift=20.02  joint_g=17  P_s(g|i,j)=0.569  z_i=20.07  z_j=1.53
+  15. lightsaber duel [chunk] + ship [noun]
+      CS=32.29  lift=21.52  joint_g=9  P_s(g|i,j)=0.755  z_i=0.98  z_j=20.07
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Animation
+======================================================================
+   1. cat [noun] + mouse [noun]
+      CS=69.65  lift=28.96  joint_g=156  P_s(g|i,j)=0.703  z_i=24.27  z_j=17.12
+   2. cat [noun] + girl cat [chunk]
+      CS=51.98  lift=52.28  joint_g=6  P_s(g|i,j)=0.861  z_i=24.27  z_j=2.00
+   3. alley cat [chunk] + cat [noun]
+      CS=51.37  lift=52.28  joint_g=13  P_s(g|i,j)=0.766  z_i=1.69  z_j=24.27
+   4. cat [noun] + mousehole [noun]
+      CS=51.24  lift=38.26  joint_g=29  P_s(g|i,j)=0.936  z_i=24.27  z_j=3.85
+   5. cat [noun] + female cat [chunk]
+      CS=50.94  lift=52.28  joint_g=8  P_s(g|i,j)=0.730  z_i=24.27  z_j=1.47
+   6. cat [noun] + tyke [noun]
+      CS=50.58  lift=47.53  joint_g=9  P_s(g|i,j)=0.821  z_i=24.27  z_j=1.92
+   7. cat [noun] + ironing board [chunk]
+      CS=49.58  lift=46.48  joint_g=8  P_s(g|i,j)=0.892  z_i=24.27  z_j=1.56
+   8. cat [noun] + whisker [noun]
+      CS=49.15  lift=38.44  joint_g=25  P_s(g|i,j)=0.963  z_i=24.27  z_j=2.66
+   9. cat [noun] + tweety cage [chunk]
+      CS=49.01  lift=41.83  joint_g=8  P_s(g|i,j)=0.892  z_i=24.27  z_j=1.98
+  10. black cat [chunk] + cat [noun]
+      CS=48.98  lift=52.28  joint_g=10  P_s(g|i,j)=0.323  z_i=0.48  z_j=24.27
+  11. cat [noun] + pet cat [chunk]
+      CS=48.30  lift=52.28  joint_g=5  P_s(g|i,j)=0.251  z_i=24.27  z_j=0.14
+  12. cat [noun] + feline [noun]
+      CS=47.98  lift=35.26  joint_g=22  P_s(g|i,j)=0.734  z_i=24.27  z_j=2.66
+  13. cat [noun] + pussycat [noun]
+      CS=47.35  lift=38.03  joint_g=8  P_s(g|i,j)=0.892  z_i=24.27  z_j=1.76
+  14. mouse [noun] + mousehole [noun]
+      CS=46.48  lift=84.28  joint_g=28  P_s(g|i,j)=0.904  z_i=17.12  z_j=3.85
+  15. cat [noun] + meow [verb]
+      CS=46.37  lift=41.08  joint_g=6  P_s(g|i,j)=0.502  z_i=24.27  z_j=0.69
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Comedy
+======================================================================
+   1. quick exit [chunk] + stooge [noun]
+      CS=48.06  lift=90.11  joint_g=6  P_s(g|i,j)=0.878  z_i=0.73  z_j=20.62
+   2. stooge [noun] + toothache [noun]
+      CS=40.72  lift=45.06  joint_g=5  P_s(g|i,j)=0.858  z_i=20.62  z_j=0.76
+   3. clobber [verb] + stooge [noun]
+      CS=38.03  lift=36.05  joint_g=5  P_s(g|i,j)=0.858  z_i=0.60  z_j=20.62
+   4. old west [chunk] + stooge [noun]
+      CS=36.69  lift=35.04  joint_g=7  P_s(g|i,j)=0.893  z_i=0.01  z_j=20.62
+   5. drum [verb] + stooge [noun]
+      CS=35.67  lift=30.04  joint_g=5  P_s(g|i,j)=0.858  z_i=0.34  z_j=20.62
+   6. gush [verb] + stooge [noun]
+      CS=35.37  lift=30.04  joint_g=5  P_s(g|i,j)=0.858  z_i=0.17  z_j=20.62
+   7. scurry [verb] + stooge [noun]
+      CS=34.51  lift=26.50  joint_g=5  P_s(g|i,j)=0.858  z_i=0.44  z_j=20.62
+   8. stooge [noun] + swipe [verb]
+      CS=34.27  lift=24.86  joint_g=8  P_s(g|i,j)=0.905  z_i=20.62  z_j=0.71
+   9. old west [entity_LOC] + stooge [noun]
+      CS=33.59  lift=26.50  joint_g=5  P_s(g|i,j)=0.858  z_i=-0.12  z_j=20.62
+  10. stooge [noun] + yank [verb]
+      CS=32.71  lift=23.26  joint_g=8  P_s(g|i,j)=0.905  z_i=20.62  z_j=0.17
+  11. repairman [noun] + stooge [noun]
+      CS=31.76  lift=20.80  joint_g=6  P_s(g|i,j)=0.878  z_i=0.31  z_j=20.62
+  12. stooge [noun] + trio [noun]
+      CS=31.75  lift=14.74  joint_g=75  P_s(g|i,j)=0.976  z_i=20.62  z_j=2.98
+  13. cement [noun] + stooge [noun]
+      CS=31.17  lift=19.17  joint_g=5  P_s(g|i,j)=0.858  z_i=0.49  z_j=20.62
+  14. gorilla [noun] + stooge [noun]
+      CS=27.93  lift=14.10  joint_g=9  P_s(g|i,j)=0.915  z_i=0.48  z_j=20.62
+  15. digger [noun] + stooge [noun]
+      CS=25.77  lift=11.38  joint_g=6  P_s(g|i,j)=0.878  z_i=0.57  z_j=20.62
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Crime
+======================================================================
+   1. bombay police [chunk] + police [noun]
+      CS=33.70  lift=7.51  joint_g=6  P_s(g|i,j)=0.606  z_i=1.19  z_j=32.24
+   2. murder [noun] + unsolved murder [chunk]
+      CS=33.65  lift=11.65  joint_g=11  P_s(g|i,j)=0.553  z_i=26.27  z_j=1.14
+   3. degree murder [chunk] + murder [noun]
+      CS=33.51  lift=11.65  joint_g=13  P_s(g|i,j)=0.484  z_i=1.03  z_j=26.27
+   4. mumbai police [chunk] + police [noun]
+      CS=33.36  lift=7.51  joint_g=8  P_s(g|i,j)=0.474  z_i=0.85  z_j=32.24
+   5. hong kong police [chunk] + police [noun]
+      CS=33.35  lift=7.51  joint_g=8  P_s(g|i,j)=0.474  z_i=0.84  z_j=32.24
+   6. murder [noun] + second murder [chunk]
+      CS=33.26  lift=11.65  joint_g=7  P_s(g|i,j)=0.470  z_i=26.27  z_j=0.83
+   7. local police [chunk] + police [noun]
+      CS=33.26  lift=7.51  joint_g=51  P_s(g|i,j)=0.290  z_i=0.75  z_j=32.24
+   8. murder [noun] + strange murder [chunk]
+      CS=33.19  lift=11.65  joint_g=5  P_s(g|i,j)=0.460  z_i=26.27  z_j=0.77
+   9. murder [noun] + serial murder [chunk]
+      CS=33.16  lift=11.65  joint_g=5  P_s(g|i,j)=0.460  z_i=26.27  z_j=0.75
+  10. multiple murder [chunk] + murder [noun]
+      CS=33.07  lift=11.65  joint_g=6  P_s(g|i,j)=0.433  z_i=0.67  z_j=26.27
+  11. murder [noun] + previous murder [chunk]
+      CS=33.06  lift=11.65  joint_g=5  P_s(g|i,j)=0.421  z_i=26.27  z_j=0.66
+  12. brutal murder [chunk] + murder [noun]
+      CS=33.05  lift=11.65  joint_g=20  P_s(g|i,j)=0.352  z_i=0.66  z_j=26.27
+  13. grisly murder [chunk] + murder [noun]
+      CS=33.02  lift=11.65  joint_g=6  P_s(g|i,j)=0.404  z_i=0.63  z_j=26.27
+  14. gruesome murder [chunk] + murder [noun]
+      CS=32.91  lift=11.65  joint_g=7  P_s(g|i,j)=0.371  z_i=0.54  z_j=26.27
+  15. police [noun] + state police [chunk]
+      CS=32.86  lift=7.51  joint_g=6  P_s(g|i,j)=0.319  z_i=32.24  z_j=0.36
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Drama
+======================================================================
+   1. adoptive mother [chunk] + mother [noun]
+      CS=22.05  lift=5.36  joint_g=18  P_s(g|i,j)=0.868  z_i=0.61  z_j=25.67
+   2. birth mother [chunk] + mother [noun]
+      CS=22.01  lift=5.36  joint_g=19  P_s(g|i,j)=0.801  z_i=0.56  z_j=25.67
+   3. blind mother [chunk] + mother [noun]
+      CS=21.97  lift=5.36  joint_g=9  P_s(g|i,j)=0.838  z_i=0.51  z_j=25.67
+   4. mother [noun] + surrogate mother [chunk]
+      CS=21.96  lift=5.36  joint_g=22  P_s(g|i,j)=0.794  z_i=25.67  z_j=0.50
+   5. divorced mother [chunk] + mother [noun]
+      CS=21.93  lift=5.36  joint_g=20  P_s(g|i,j)=0.778  z_i=0.47  z_j=25.67
+   6. mother [noun] + single mother [chunk]
+      CS=21.92  lift=5.36  joint_g=87  P_s(g|i,j)=0.656  z_i=25.67  z_j=0.45
+   7. ailing mother [chunk] + mother [noun]
+      CS=21.91  lift=5.36  joint_g=34  P_s(g|i,j)=0.698  z_i=0.44  z_j=25.67
+   8. mother [noun] + widowed mother [chunk]
+      CS=21.84  lift=5.36  joint_g=60  P_s(g|i,j)=0.621  z_i=25.67  z_j=0.36
+   9. alcoholic mother [chunk] + mother [noun]
+      CS=21.84  lift=5.36  joint_g=19  P_s(g|i,j)=0.712  z_i=0.36  z_j=25.67
+  10. good mother [chunk] + mother [noun]
+      CS=21.79  lift=5.36  joint_g=11  P_s(g|i,j)=0.701  z_i=0.30  z_j=25.67
+  11. domineering mother [chunk] + mother [noun]
+      CS=21.78  lift=5.36  joint_g=17  P_s(g|i,j)=0.662  z_i=0.29  z_j=25.67
+  12. dying mother [chunk] + mother [noun]
+      CS=21.77  lift=5.36  joint_g=18  P_s(g|i,j)=0.675  z_i=0.27  z_j=25.67
+  13. mother [noun] + sick mother [chunk]
+      CS=21.76  lift=5.36  joint_g=21  P_s(g|i,j)=0.663  z_i=25.67  z_j=0.27
+  14. elderly mother [chunk] + mother [noun]
+      CS=21.76  lift=5.36  joint_g=14  P_s(g|i,j)=0.677  z_i=0.26  z_j=25.67
+  15. mother [noun] + unwed mother [chunk]
+      CS=21.75  lift=5.36  joint_g=10  P_s(g|i,j)=0.682  z_i=25.67  z_j=0.25
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Family
+======================================================================
+   1. cat [noun] + mouse [noun]
+      CS=54.98  lift=28.96  joint_g=126  P_s(g|i,j)=0.568  z_i=17.19  z_j=15.48
+   2. santa [entity_GPE] + santa [noun]
+      CS=46.62  lift=368.54  joint_g=64  P_s(g|i,j)=0.647  z_i=8.78  z_j=7.00
+   3. coyote [noun] + road runner [chunk]
+      CS=44.83  lift=675.47  joint_g=21  P_s(g|i,j)=0.779  z_i=6.67  z_j=7.10
+   4. little mouse [chunk] + mouse [noun]
+      CS=41.62  lift=115.18  joint_g=12  P_s(g|i,j)=0.803  z_i=2.06  z_j=15.48
+   5. cheese [noun] + mouse [noun]
+      CS=39.71  lift=61.35  joint_g=37  P_s(g|i,j)=0.741  z_i=3.81  z_j=15.48
+   6. road runner [chunk] + road runner [entity_ORG]
+      CS=39.61  lift=1584.76  joint_g=20  P_s(g|i,j)=0.742  z_i=7.10  z_j=3.66
+   7. mouse [noun] + mousehole [noun]
+      CS=39.60  lift=84.28  joint_g=17  P_s(g|i,j)=0.550  z_i=15.48  z_j=2.38
+   8. mouse [noun] + mouse hole [chunk]
+      CS=37.71  lift=76.79  joint_g=11  P_s(g|i,j)=0.650  z_i=15.48  z_j=1.90
+   9. alley cat [chunk] + cat [noun]
+      CS=37.12  lift=52.28  joint_g=11  P_s(g|i,j)=0.650  z_i=1.58  z_j=17.19
+  10. road runner [chunk] + road runner [entity_FAC]
+      CS=36.81  lift=1584.76  joint_g=18  P_s(g|i,j)=0.752  z_i=7.10  z_j=2.90
+  11. ironing board [chunk] + mouse [noun]
+      CS=36.69  lift=89.59  joint_g=5  P_s(g|i,j)=0.630  z_i=0.84  z_j=15.48
+  12. mouse [noun] + whisker [noun]
+      CS=36.59  lift=77.92  joint_g=14  P_s(g|i,j)=0.585  z_i=15.48  z_j=1.32
+  13. cat [noun] + female cat [chunk]
+      CS=36.39  lift=52.28  joint_g=6  P_s(g|i,j)=0.549  z_i=17.19  z_j=1.20
+  14. mouse [noun] + mousetrap [noun]
+      CS=36.26  lift=68.39  joint_g=12  P_s(g|i,j)=0.602  z_i=15.48  z_j=1.68
+  15. cat [noun] + tyke [noun]
+      CS=35.75  lift=47.53  joint_g=6  P_s(g|i,j)=0.549  z_i=17.19  z_j=1.33
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Fantasy
+======================================================================
+   1. dragon [noun] + dragon king [chunk]
+      CS=38.97  lift=138.51  joint_g=5  P_s(g|i,j)=0.837  z_i=12.96  z_j=2.85
+   2. black dragon [chunk] + dragon [noun]
+      CS=38.71  lift=193.92  joint_g=5  P_s(g|i,j)=0.628  z_i=1.74  z_j=12.96
+   3. magic [noun] + witch [noun]
+      CS=37.42  lift=19.11  joint_g=45  P_s(g|i,j)=0.634  z_i=13.63  z_j=11.74
+   4. witch [entity_ORG] + witch [noun]
+      CS=36.97  lift=130.19  joint_g=11  P_s(g|i,j)=0.648  z_i=3.44  z_j=11.74
+   5. magic [noun] + spell [noun]
+      CS=36.58  lift=21.38  joint_g=60  P_s(g|i,j)=0.652  z_i=13.63  z_j=10.26
+   6. dark magic [chunk] + magic [noun]
+      CS=35.72  lift=96.35  joint_g=9  P_s(g|i,j)=0.694  z_i=2.01  z_j=13.63
+   7. magic [noun] + wand [noun]
+      CS=34.87  lift=43.05  joint_g=14  P_s(g|i,j)=0.637  z_i=13.63  z_j=4.91
+   8. earth [entity_LOC] + earth [noun]
+      CS=34.67  lift=29.18  joint_g=260  P_s(g|i,j)=0.240  z_i=9.24  z_j=11.31
+   9. magical power [chunk] + power [noun]
+      CS=34.40  lift=17.07  joint_g=36  P_s(g|i,j)=0.563  z_i=2.97  z_j=21.28
+  10. spell [noun] + witch [noun]
+      CS=34.28  lift=22.55  joint_g=45  P_s(g|i,j)=0.625  z_i=10.26  z_j=11.74
+  11. dragon [noun] + magic [noun]
+      CS=34.10  lift=13.01  joint_g=27  P_s(g|i,j)=0.819  z_i=12.96  z_j=13.63
+  12. wicked witch [chunk] + witch [noun]
+      CS=34.06  lift=130.19  joint_g=10  P_s(g|i,j)=0.716  z_i=2.25  z_j=11.74
+  13. white witch [entity_ORG] + witch [noun]
+      CS=33.71  lift=130.19  joint_g=5  P_s(g|i,j)=0.628  z_i=2.10  z_j=11.74
+  14. fairy [noun] + magic [noun]
+      CS=33.01  lift=18.95  joint_g=13  P_s(g|i,j)=0.521  z_i=8.82  z_j=13.63
+  15. magic [noun] + wizard [noun]
+      CS=32.97  lift=23.47  joint_g=28  P_s(g|i,j)=0.719  z_i=13.63  z_j=7.27
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — History
+======================================================================
+   1. jew [entity_NORP] + jew [noun]
+      CS=44.58  lift=207.74  joint_g=67  P_s(g|i,j)=0.357  z_i=8.20  z_j=8.51
+   2. british [entity_NORP] + british [noun]
+      CS=38.09  lift=33.60  joint_g=65  P_s(g|i,j)=0.335  z_i=15.47  z_j=6.21
+   3. jew [noun] + jewish [entity_NORP]
+      CS=32.44  lift=54.48  joint_g=46  P_s(g|i,j)=0.397  z_i=8.51  z_j=7.72
+   4. jew [entity_NORP] + jewish [entity_NORP]
+      CS=32.13  lift=56.55  joint_g=44  P_s(g|i,j)=0.390  z_i=8.20  z_j=7.72
+   5. british [entity_NORP] + british soldier [chunk]
+      CS=29.81  lift=33.60  joint_g=20  P_s(g|i,j)=0.313  z_i=15.47  z_j=1.49
+   6. british [entity_NORP] + british rule [chunk]
+      CS=29.32  lift=33.60  joint_g=9  P_s(g|i,j)=0.393  z_i=15.47  z_j=1.21
+   7. british [entity_NORP] + british officer [chunk]
+      CS=29.29  lift=33.60  joint_g=12  P_s(g|i,j)=0.317  z_i=15.47  z_j=1.19
+   8. civil war [chunk] + war [noun]
+      CS=29.06  lift=13.86  joint_g=33  P_s(g|i,j)=0.181  z_i=0.99  z_j=21.12
+   9. british [entity_NORP] + british troop [chunk]
+      CS=28.96  lift=33.60  joint_g=7  P_s(g|i,j)=0.319  z_i=15.47  z_j=1.01
+  10. british [entity_NORP] + british force [chunk]
+      CS=28.73  lift=33.60  joint_g=10  P_s(g|i,j)=0.324  z_i=15.47  z_j=0.88
+  11. british [entity_NORP] + british authority [chunk]
+      CS=28.36  lift=33.60  joint_g=5  P_s(g|i,j)=0.314  z_i=15.47  z_j=0.66
+  12. roman [entity_NORP] + roman [noun]
+      CS=27.74  lift=296.02  joint_g=25  P_s(g|i,j)=0.348  z_i=6.61  z_j=3.14
+  13. new emperor [chunk] + war [noun]
+      CS=27.62  lift=9.70  joint_g=7  P_s(g|i,j)=0.879  z_i=3.19  z_j=21.12
+  14. union army [chunk] + war [noun]
+      CS=27.07  lift=12.12  joint_g=8  P_s(g|i,j)=0.277  z_i=0.58  z_j=21.12
+  15. jew [noun] + jewish people [chunk]
+      CS=26.98  lift=196.96  joint_g=5  P_s(g|i,j)=0.503  z_i=8.51  z_j=1.71
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Horror
+======================================================================
+   1. vampire [noun] + vampire hunter [chunk]
+      CS=49.49  lift=142.22  joint_g=26  P_s(g|i,j)=0.898  z_i=17.71  z_j=2.26
+   2. remaining zombie [chunk] + zombie [noun]
+      CS=49.38  lift=176.08  joint_g=9  P_s(g|i,j)=0.904  z_i=1.73  z_j=17.37
+   3. female vampire [chunk] + vampire [noun]
+      CS=49.03  lift=147.30  joint_g=12  P_s(g|i,j)=0.926  z_i=1.93  z_j=17.71
+   4. flesh eating zombie [chunk] + zombie [noun]
+      CS=48.99  lift=176.08  joint_g=9  P_s(g|i,j)=0.822  z_i=1.58  z_j=17.37
+   5. vampire [noun] + vampirism [noun]
+      CS=48.86  lift=129.63  joint_g=21  P_s(g|i,j)=0.915  z_i=17.71  z_j=2.38
+   6. lycan [entity_NORP] + vampire [noun]
+      CS=48.32  lift=147.30  joint_g=5  P_s(g|i,j)=0.841  z_i=1.65  z_j=17.71
+   7. half vampire [chunk] + vampire [noun]
+      CS=48.29  lift=147.30  joint_g=7  P_s(g|i,j)=0.880  z_i=1.63  z_j=17.71
+   8. vampire [noun] + werewolf [noun]
+      CS=47.81  lift=46.46  joint_g=32  P_s(g|i,j)=0.763  z_i=17.71  z_j=7.20
+   9. zombie [noun] + zombifie [verb]
+      CS=47.42  lift=140.87  joint_g=8  P_s(g|i,j)=0.894  z_i=17.37  z_j=1.80
+  10. remaining vampire [chunk] + vampire [noun]
+      CS=47.39  lift=147.30  joint_g=5  P_s(g|i,j)=0.721  z_i=1.27  z_j=17.71
+  11. reanimate [verb] + zombie [noun]
+      CS=45.70  lift=79.70  joint_g=41  P_s(g|i,j)=0.933  z_i=3.51  z_j=17.37
+  12. undead [noun] + zombie [noun]
+      CS=44.99  lift=70.84  joint_g=33  P_s(g|i,j)=0.918  z_i=3.75  z_j=17.37
+  13. vampire [noun] + wooden stake [chunk]
+      CS=44.82  lift=100.43  joint_g=14  P_s(g|i,j)=0.878  z_i=17.71  z_j=1.74
+  14. garlic [noun] + vampire [noun]
+      CS=44.14  lift=98.20  joint_g=12  P_s(g|i,j)=0.926  z_i=1.53  z_j=17.71
+  15. reanimation [noun] + zombie [noun]
+      CS=43.39  lift=96.05  joint_g=6  P_s(g|i,j)=0.863  z_i=1.64  z_j=17.37
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Music
+======================================================================
+   1. silly song [chunk] + song [noun]
+      CS=55.80  lift=25.28  joint_g=11  P_s(g|i,j)=0.848  z_i=3.48  z_j=31.08
+   2. final song [chunk] + song [noun]
+      CS=55.27  lift=25.28  joint_g=9  P_s(g|i,j)=0.821  z_i=3.15  z_j=31.08
+   3. new song [chunk] + song [noun]
+      CS=54.98  lift=25.28  joint_g=26  P_s(g|i,j)=0.521  z_i=2.97  z_j=31.08
+   4. hit song [chunk] + song [noun]
+      CS=52.35  lift=25.28  joint_g=6  P_s(g|i,j)=0.431  z_i=1.34  z_j=31.08
+   5. song [noun] + title song [chunk]
+      CS=52.32  lift=25.28  joint_g=12  P_s(g|i,j)=0.354  z_i=31.08  z_j=1.32
+   6. countertop [noun] + song [noun]
+      CS=52.00  lift=18.63  joint_g=14  P_s(g|i,j)=0.935  z_i=4.49  z_j=31.08
+   7. song [noun] + theme song [chunk]
+      CS=50.92  lift=25.28  joint_g=6  P_s(g|i,j)=0.223  z_i=31.08  z_j=0.45
+   8. lyric [noun] + song [noun]
+      CS=48.54  lift=18.28  joint_g=34  P_s(g|i,j)=0.358  z_i=2.33  z_j=31.08
+   9. opening act [chunk] + song [noun]
+      CS=47.02  lift=17.50  joint_g=7  P_s(g|i,j)=0.703  z_i=1.78  z_j=31.08
+  10. bandmate [noun] + song [noun]
+      CS=46.17  lift=14.68  joint_g=14  P_s(g|i,j)=0.738  z_i=3.30  z_j=31.08
+  11. recording studio [chunk] + song [noun]
+      CS=46.16  lift=15.92  joint_g=11  P_s(g|i,j)=0.613  z_i=2.29  z_j=31.08
+  12. reprise [noun] + song [noun]
+      CS=45.88  lift=14.94  joint_g=10  P_s(g|i,j)=0.716  z_i=2.86  z_j=31.08
+  13. recording contract [chunk] + song [noun]
+      CS=44.88  lift=15.97  joint_g=7  P_s(g|i,j)=0.541  z_i=1.32  z_j=31.08
+  14. song [noun] + songwriter [noun]
+      CS=44.76  lift=13.69  joint_g=26  P_s(g|i,j)=0.651  z_i=31.08  z_j=3.13
+  15. music hall [chunk] + song [noun]
+      CS=44.67  lift=14.87  joint_g=6  P_s(g|i,j)=0.548  z_i=2.02  z_j=31.08
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Mystery
+======================================================================
+   1. murder [noun] + previous murder [chunk]
+      CS=43.01  lift=11.65  joint_g=7  P_s(g|i,j)=0.586  z_i=32.65  z_j=2.39
+   2. murder [noun] + mysterious murder [chunk]
+      CS=42.30  lift=11.65  joint_g=9  P_s(g|i,j)=0.451  z_i=32.65  z_j=1.81
+   3. multiple murder [chunk] + murder [noun]
+      CS=41.92  lift=11.65  joint_g=6  P_s(g|i,j)=0.430  z_i=1.50  z_j=32.65
+   4. murder [noun] + second murder [chunk]
+      CS=41.35  lift=11.65  joint_g=5  P_s(g|i,j)=0.335  z_i=32.65  z_j=1.04
+   5. gruesome murder [chunk] + murder [noun]
+      CS=41.33  lift=11.65  joint_g=6  P_s(g|i,j)=0.317  z_i=1.03  z_j=32.65
+   6. murder [noun] + unsolved murder [chunk]
+      CS=41.27  lift=11.65  joint_g=6  P_s(g|i,j)=0.301  z_i=32.65  z_j=0.97
+   7. murder [noun] + recent murder [chunk]
+      CS=41.05  lift=11.65  joint_g=5  P_s(g|i,j)=0.279  z_i=32.65  z_j=0.80
+   8. brutal murder [chunk] + murder [noun]
+      CS=41.05  lift=11.65  joint_g=13  P_s(g|i,j)=0.229  z_i=0.80  z_j=32.65
+   9. killer [noun] + murder [noun]
+      CS=40.26  lift=4.64  joint_g=224  P_s(g|i,j)=0.296  z_i=19.84  z_j=32.65
+  10. father murder [chunk] + murder [noun]
+      CS=40.12  lift=11.65  joint_g=5  P_s(g|i,j)=0.114  z_i=0.03  z_j=32.65
+  11. murder [noun] + murder weapon [chunk]
+      CS=37.31  lift=8.47  joint_g=17  P_s(g|i,j)=0.415  z_i=32.65  z_j=2.27
+  12. murder [noun] + real murderer [chunk]
+      CS=37.08  lift=8.47  joint_g=17  P_s(g|i,j)=0.415  z_i=32.65  z_j=2.07
+  13. murder [noun] + suspect [noun]
+      CS=36.51  lift=5.09  joint_g=141  P_s(g|i,j)=0.392  z_i=32.65  z_j=12.24
+  14. killer [noun] + serial killer [chunk]
+      CS=36.23  lift=24.20  joint_g=65  P_s(g|i,j)=0.271  z_i=19.84  z_j=2.89
+  15. killer [noun] + real killer [chunk]
+      CS=35.76  lift=24.20  joint_g=40  P_s(g|i,j)=0.328  z_i=19.84  z_j=2.60
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Romance
+======================================================================
+   1. love [noun] + true love [chunk]
+      CS=40.03  lift=3.96  joint_g=193  P_s(g|i,j)=0.575  z_i=55.09  z_j=3.11
+   2. love [noun] + love guru [chunk]
+      CS=39.06  lift=3.96  joint_g=6  P_s(g|i,j)=0.869  z_i=55.09  z_j=1.70
+   3. love [noun] + mutual love [chunk]
+      CS=38.74  lift=3.96  joint_g=21  P_s(g|i,j)=0.639  z_i=55.09  z_j=1.23
+   4. love [noun] + passionate love [chunk]
+      CS=38.60  lift=3.96  joint_g=12  P_s(g|i,j)=0.604  z_i=55.09  z_j=1.03
+   5. love [noun] + real love [chunk]
+      CS=38.60  lift=3.96  joint_g=15  P_s(g|i,j)=0.580  z_i=55.09  z_j=1.02
+   6. love [noun] + new love [chunk]
+      CS=38.52  lift=3.96  joint_g=20  P_s(g|i,j)=0.515  z_i=55.09  z_j=0.91
+   7. daughter love [chunk] + love [noun]
+      CS=38.40  lift=3.96  joint_g=6  P_s(g|i,j)=0.507  z_i=0.73  z_j=55.09
+   8. love [noun] + undying love [chunk]
+      CS=38.36  lift=3.96  joint_g=9  P_s(g|i,j)=0.478  z_i=55.09  z_j=0.67
+   9. love [noun] + mother love [chunk]
+      CS=38.34  lift=3.96  joint_g=10  P_s(g|i,j)=0.458  z_i=55.09  z_j=0.65
+  10. long lost love [chunk] + love [noun]
+      CS=38.34  lift=3.96  joint_g=7  P_s(g|i,j)=0.472  z_i=0.65  z_j=55.09
+  11. chief guest [chunk] + love [noun]
+      CS=38.33  lift=3.96  joint_g=6  P_s(g|i,j)=0.468  z_i=0.63  z_j=55.09
+  12. love [noun] + unrequited love [chunk]
+      CS=38.31  lift=3.96  joint_g=16  P_s(g|i,j)=0.423  z_i=55.09  z_j=0.60
+  13. lost love [chunk] + love [noun]
+      CS=38.27  lift=3.96  joint_g=23  P_s(g|i,j)=0.378  z_i=0.54  z_j=55.09
+  14. love [noun] + romantic love [chunk]
+      CS=38.27  lift=3.96  joint_g=6  P_s(g|i,j)=0.434  z_i=55.09  z_j=0.54
+  15. love [noun] + son love [chunk]
+      CS=38.22  lift=3.96  joint_g=6  P_s(g|i,j)=0.405  z_i=55.09  z_j=0.48
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Science Fiction
+======================================================================
+   1. earth [entity_LOC] + earth [noun]
+      CS=108.86  lift=29.18  joint_g=651  P_s(g|i,j)=0.602  z_i=35.14  z_j=29.40
+   2. earth [entity_LOC] + planet [noun]
+      CS=93.89  lift=24.50  joint_g=304  P_s(g|i,j)=0.802  z_i=35.14  z_j=23.56
+   3. alien [noun] + earth [entity_LOC]
+      CS=82.96  lift=20.34  joint_g=176  P_s(g|i,j)=0.800  z_i=19.94  z_j=35.14
+   4. earth [noun] + planet [noun]
+      CS=77.85  lift=18.92  joint_g=299  P_s(g|i,j)=0.795  z_i=29.40  z_j=23.56
+   5. earth [entity_LOC] + spaceship [noun]
+      CS=72.65  lift=28.55  joint_g=109  P_s(g|i,j)=0.784  z_i=35.14  z_j=8.21
+   6. earth [entity_LOC] + martian [entity_NORP]
+      CS=70.06  lift=33.59  joint_g=43  P_s(g|i,j)=0.797  z_i=35.14  z_j=4.73
+   7. alien [noun] + planet [noun]
+      CS=69.84  lift=24.81  joint_g=124  P_s(g|i,j)=0.861  z_i=19.94  z_j=23.56
+   8. alien [noun] + earth [noun]
+      CS=68.79  lift=16.26  joint_g=178  P_s(g|i,j)=0.788  z_i=19.94  z_j=29.40
+   9. earth [entity_LOC] + earth atmosphere [chunk]
+      CS=68.74  lift=39.93  joint_g=30  P_s(g|i,j)=0.715  z_i=35.14  z_j=2.15
+  10. earth [entity_LOC] + spacecraft [noun]
+      CS=68.60  lift=28.43  joint_g=76  P_s(g|i,j)=0.800  z_i=35.14  z_j=5.84
+  11. autobots [entity_PRODUCT] + earth [entity_LOC]
+      CS=68.43  lift=39.93  joint_g=6  P_s(g|i,j)=0.861  z_i=1.98  z_j=35.14
+  12. earth [entity_LOC] + earth orbit [chunk]
+      CS=68.18  lift=39.93  joint_g=19  P_s(g|i,j)=0.761  z_i=35.14  z_j=1.84
+  13. earth [entity_LOC] + transformers [entity_ORG]
+      CS=67.81  lift=39.93  joint_g=5  P_s(g|i,j)=0.838  z_i=35.14  z_j=1.64
+  14. earth [entity_LOC] + orbit [noun]
+      CS=67.79  lift=29.87  joint_g=83  P_s(g|i,j)=0.791  z_i=35.14  z_j=4.77
+  15. earth [entity_LOC] + earth surface [chunk]
+      CS=67.51  lift=39.93  joint_g=12  P_s(g|i,j)=0.707  z_i=35.14  z_j=1.48
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Thriller
+======================================================================
+   1. killer [noun] + serial killer [chunk]
+      CS=32.67  lift=24.20  joint_g=162  P_s(g|i,j)=0.675  z_i=16.46  z_j=4.05
+   2. kill [verb] + remaining terrorist [chunk]
+      CS=30.85  lift=3.13  joint_g=11  P_s(g|i,j)=0.791  z_i=52.76  z_j=1.37
+   3. kill [verb] + plastic explosive [chunk]
+      CS=30.81  lift=3.13  joint_g=9  P_s(g|i,j)=0.756  z_i=52.76  z_j=1.30
+   4. kill [verb] + remaining hostage [chunk]
+      CS=30.73  lift=3.13  joint_g=10  P_s(g|i,j)=0.720  z_i=52.76  z_j=1.17
+   5. double jeopardy [chunk] + kill [verb]
+      CS=30.64  lift=3.13  joint_g=6  P_s(g|i,j)=0.675  z_i=1.00  z_j=52.76
+   6. cargo container [chunk] + kill [verb]
+      CS=30.64  lift=3.13  joint_g=6  P_s(g|i,j)=0.675  z_i=1.00  z_j=52.76
+   7. arachnid [noun] + kill [verb]
+      CS=30.60  lift=3.13  joint_g=5  P_s(g|i,j)=0.634  z_i=0.94  z_j=52.76
+   8. alien queen [chunk] + kill [verb]
+      CS=30.59  lift=3.13  joint_g=5  P_s(g|i,j)=0.634  z_i=0.91  z_j=52.76
+   9. kill [verb] + remaining gang member [chunk]
+      CS=30.56  lift=3.13  joint_g=10  P_s(g|i,j)=0.593  z_i=52.76  z_j=0.85
+  10. hostage taker [chunk] + kill [verb]
+      CS=30.55  lift=3.13  joint_g=6  P_s(g|i,j)=0.607  z_i=0.85  z_j=52.76
+  11. ensuing firefight [chunk] + kill [verb]
+      CS=30.55  lift=3.13  joint_g=10  P_s(g|i,j)=0.593  z_i=0.84  z_j=52.76
+  12. kill [verb] + way radio [chunk]
+      CS=30.54  lift=3.13  joint_g=7  P_s(g|i,j)=0.590  z_i=52.76  z_j=0.82
+  13. chemical weapon [chunk] + kill [verb]
+      CS=30.50  lift=3.13  joint_g=5  P_s(g|i,j)=0.564  z_i=0.76  z_j=52.76
+  14. kill [verb] + spear gun [chunk]
+      CS=30.42  lift=3.13  joint_g=6  P_s(g|i,j)=0.506  z_i=52.76  z_j=0.62
+  15. false memory [chunk] + kill [verb]
+      CS=30.42  lift=3.13  joint_g=6  P_s(g|i,j)=0.506  z_i=0.61  z_j=52.76
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — War
+======================================================================
+   1. german [entity_NORP] + german [noun]
+      CS=100.15  lift=37.44  joint_g=256  P_s(g|i,j)=0.585  z_i=37.22  z_j=18.07
+   2. german [entity_NORP] + german soldier [chunk]
+      CS=74.96  lift=37.70  joint_g=55  P_s(g|i,j)=0.605  z_i=37.22  z_j=4.09
+   3. german [entity_NORP] + german troop [chunk]
+      CS=72.27  lift=37.70  joint_g=16  P_s(g|i,j)=0.763  z_i=37.22  z_j=2.60
+   4. german [entity_NORP] + german officer [chunk]
+      CS=71.93  lift=37.70  joint_g=27  P_s(g|i,j)=0.575  z_i=37.22  z_j=2.41
+   5. german [entity_NORP] + german patrol [chunk]
+      CS=71.89  lift=37.70  joint_g=10  P_s(g|i,j)=0.835  z_i=37.22  z_j=2.39
+   6. german [entity_NORP] + german line [chunk]
+      CS=71.72  lift=37.70  joint_g=16  P_s(g|i,j)=0.696  z_i=37.22  z_j=2.30
+   7. german [entity_NORP] + german force [chunk]
+      CS=71.72  lift=37.70  joint_g=18  P_s(g|i,j)=0.667  z_i=37.22  z_j=2.30
+   8. german [entity_NORP] + german submarine [chunk]
+      CS=71.30  lift=37.70  joint_g=10  P_s(g|i,j)=0.715  z_i=37.22  z_j=2.07
+   9. german [entity_NORP] + german prisoner [chunk]
+      CS=71.29  lift=37.70  joint_g=10  P_s(g|i,j)=0.715  z_i=37.22  z_j=2.06
+  10. allied [entity_ORG] + german [entity_NORP]
+      CS=71.17  lift=24.41  joint_g=78  P_s(g|i,j)=0.765  z_i=7.33  z_j=37.22
+  11. german [entity_NORP] + german bomber [chunk]
+      CS=71.13  lift=37.70  joint_g=8  P_s(g|i,j)=0.729  z_i=37.22  z_j=1.97
+  12. german [entity_NORP] + german commander [chunk]
+      CS=71.12  lift=37.70  joint_g=8  P_s(g|i,j)=0.729  z_i=37.22  z_j=1.97
+  13. german [entity_NORP] + german plane [chunk]
+      CS=71.09  lift=37.70  joint_g=8  P_s(g|i,j)=0.729  z_i=37.22  z_j=1.95
+  14. german [entity_NORP] + german invasion [chunk]
+      CS=71.06  lift=37.70  joint_g=8  P_s(g|i,j)=0.729  z_i=37.22  z_j=1.94
+  15. german [entity_NORP] + german sniper [chunk]
+      CS=71.04  lift=37.70  joint_g=6  P_s(g|i,j)=0.752  z_i=37.22  z_j=1.93
+
+======================================================================
+TOP 15 STOCK COMBINATIONS (high combination_stock) — Western
+======================================================================
+   1. cattle [noun] + ranch [noun]
+      CS=63.38  lift=40.61  joint_g=68  P_s(g|i,j)=0.907  z_i=11.53  z_j=22.69
+   2. ranch [noun] + rancher [noun]
+      CS=63.03  lift=48.85  joint_g=48  P_s(g|i,j)=0.814  z_i=22.69  z_j=9.73
+   3. ranch [noun] + ranch hand [chunk]
+      CS=59.45  lift=89.47  joint_g=22  P_s(g|i,j)=0.759  z_i=22.69  z_j=3.76
+   4. ranch [noun] + ranch foreman [chunk]
+      CS=57.52  lift=90.54  joint_g=9  P_s(g|i,j)=0.819  z_i=22.69  z_j=2.84
+   5. posse [noun] + ranch [noun]
+      CS=57.46  lift=23.89  joint_g=42  P_s(g|i,j)=0.977  z_i=13.52  z_j=22.69
+   6. ranch [noun] + rustler [noun]
+      CS=57.37  lift=43.46  joint_g=23  P_s(g|i,j)=0.921  z_i=22.69  z_j=7.73
+   7. father ranch [chunk] + ranch [noun]
+      CS=57.34  lift=108.65  joint_g=7  P_s(g|i,j)=0.638  z_i=1.77  z_j=22.69
+   8. cowhand [noun] + ranch [noun]
+      CS=56.94  lift=80.06  joint_g=12  P_s(g|i,j)=0.801  z_i=3.29  z_j=22.69
+   9. family ranch [chunk] + ranch [noun]
+      CS=56.24  lift=108.65  joint_g=6  P_s(g|i,j)=0.501  z_i=1.30  z_j=22.69
+  10. ranch [noun] + rustle [verb]
+      CS=55.64  lift=53.26  joint_g=25  P_s(g|i,j)=0.962  z_i=22.69  z_j=5.30
+  11. ranch [noun] + saloon [noun]
+      CS=54.10  lift=20.67  joint_g=40  P_s(g|i,j)=0.909  z_i=22.69  z_j=13.03
+  12. cowboy [noun] + ranch [noun]
+      CS=54.03  lift=26.68  joint_g=46  P_s(g|i,j)=0.822  z_i=10.22  z_j=22.69
+  13. outlaw [noun] + posse [noun]
+      CS=53.83  lift=39.13  joint_g=45  P_s(g|i,j)=0.938  z_i=15.84  z_j=13.52
+  14. ranch [noun] + stagecoach [noun]
+      CS=52.04  lift=23.49  joint_g=24  P_s(g|i,j)=0.961  z_i=22.69  z_j=10.28
+  15. local rancher [chunk] + ranch [noun]
+      CS=51.08  lift=54.32  joint_g=5  P_s(g|i,j)=0.836  z_i=2.88  z_j=22.69
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Action
+======================================================================
+   1. aircraft [noun] + gang [noun]
+      CS=-5.55  lift=0.44  joint_g=5  z_i=1.65  z_j=11.84
+   2. police [noun] + warrior [noun]
+      CS=-5.52  lift=0.36  joint_g=15  z_i=6.31  z_j=4.43
+   3. car [noun] + warrior [noun]
+      CS=-4.73  lift=0.36  joint_g=6  z_i=4.83  z_j=4.43
+   4. goon [noun] + soldier [noun]
+      CS=-4.62  lift=0.47  joint_g=7  z_i=5.09  z_j=7.01
+   5. gang [noun] + german [entity_NORP]
+      CS=-4.59  lift=0.50  joint_g=16  z_i=11.84  z_j=1.25
+   6. cop [noun] + soldier [noun]
+      CS=-4.41  lift=0.46  joint_g=14  z_i=4.37  z_j=7.01
+   7. gangster [noun] + soldier [noun]
+      CS=-4.37  lift=0.41  joint_g=7  z_i=2.72  z_j=7.01
+   8. american [entity_NORP] + goon [noun]
+      CS=-4.28  lift=0.32  joint_g=5  z_i=2.45  z_j=5.09
+   9. army [noun] + cop [noun]
+      CS=-4.01  lift=0.44  joint_g=12  z_i=5.34  z_j=4.37
+  10. commander [noun] + gang [noun]
+      CS=-3.94  lift=0.56  joint_g=14  z_i=1.92  z_j=11.84
+  11. marry [verb] + missile [noun]
+      CS=-3.91  lift=0.26  joint_g=8  z_i=2.63  z_j=3.15
+  12. love [noun] + swat [entity_ORG]
+      CS=-3.87  lift=0.26  joint_g=5  z_i=4.60  z_j=1.16
+  13. emperor [noun] + team [noun]
+      CS=-3.80  lift=0.53  joint_g=5  z_i=1.98  z_j=10.06
+  14. officer [noun] + tournament [noun]
+      CS=-3.77  lift=0.56  joint_g=5  z_i=11.19  z_j=1.66
+  15. battle [noun] + don [noun]
+      CS=-3.62  lift=0.60  joint_g=8  z_i=10.44  z_j=3.52
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Adventure
+======================================================================
+   1. robbery [noun] + ship [noun]
+      CS=-10.06  lift=0.39  joint_g=7  z_i=1.03  z_j=20.07
+   2. ranch [noun] + ship [noun]
+      CS=-6.40  lift=0.55  joint_g=5  z_i=1.68  z_j=20.07
+   3. indian [noun] + ship [noun]
+      CS=-5.15  lift=0.63  joint_g=5  z_i=2.45  z_j=20.07
+   4. killer [noun] + ship [noun]
+      CS=-4.86  lift=0.63  joint_g=12  z_i=1.01  z_j=20.07
+   5. cop [noun] + ship [noun]
+      CS=-4.80  lift=0.64  joint_g=18  z_i=1.13  z_j=20.07
+   6. car [noun] + warrior [noun]
+      CS=-4.79  lift=0.36  joint_g=5  z_i=3.63  z_j=5.75
+   7. school [noun] + ship [noun]
+      CS=-4.79  lift=0.64  joint_g=30  z_i=1.39  z_j=20.07
+   8. earth [entity_LOC] + marry [verb]
+      CS=-4.71  lift=0.37  joint_g=23  z_i=7.80  z_j=1.79
+   9. police [noun] + warrior [noun]
+      CS=-4.51  lift=0.36  joint_g=11  z_i=3.03  z_j=5.75
+  10. house [noun] + tribe [noun]
+      CS=-4.13  lift=0.51  joint_g=16  z_i=3.59  z_j=8.54
+  11. expedition [noun] + police [noun]
+      CS=-3.99  lift=0.37  joint_g=6  z_i=5.00  z_j=3.03
+  12. avenge [verb] + earth [entity_LOC]
+      CS=-3.98  lift=0.41  joint_g=5  z_i=1.14  z_j=7.80
+  13. police [noun] + tribe [noun]
+      CS=-3.93  lift=0.51  joint_g=12  z_i=3.03  z_j=8.54
+  14. gun [noun] + kingdom [noun]
+      CS=-3.92  lift=0.39  joint_g=7  z_i=5.53  z_j=2.75
+  15. aircraft [noun] + gang [noun]
+      CS=-3.83  lift=0.44  joint_g=6  z_i=2.80  z_j=6.51
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Animation
+======================================================================
+   1. brother [noun] + mouse [noun]
+      CS=-8.04  lift=0.42  joint_g=11  z_i=1.24  z_j=17.12
+   2. cat [noun] + soldier [noun]
+      CS=-7.84  lift=0.54  joint_g=13  z_i=24.27  z_j=1.24
+   3. cat [noun] + love [noun]
+      CS=-6.76  lift=0.59  joint_g=40  z_i=24.27  z_j=1.70
+   4. cat [noun] + island [noun]
+      CS=-6.52  lift=0.61  joint_g=6  z_i=24.27  z_j=1.86
+   5. mouse [noun] + team [noun]
+      CS=-6.23  lift=0.51  joint_g=5  z_i=17.12  z_j=1.29
+   6. mouse [noun] + war [noun]
+      CS=-5.93  lift=0.52  joint_g=9  z_i=17.12  z_j=1.07
+   7. mouse [noun] + star [noun]
+      CS=-5.91  lift=0.53  joint_g=6  z_i=17.12  z_j=1.25
+   8. love [noun] + mouse [noun]
+      CS=-5.87  lift=0.54  joint_g=26  z_i=1.70  z_j=17.12
+   9. cat [noun] + war [noun]
+      CS=-5.84  lift=0.63  joint_g=14  z_i=24.27  z_j=1.07
+  10. kill [verb] + mouse [noun]
+      CS=-5.53  lift=0.60  joint_g=28  z_i=4.78  z_j=17.12
+  11. brother [noun] + cat [noun]
+      CS=-5.51  lift=0.65  joint_g=11  z_i=1.24  z_j=24.27
+  12. mouse [noun] + soldier [noun]
+      CS=-5.16  lift=0.57  joint_g=6  z_i=17.12  z_j=1.24
+  13. cat [noun] + village [noun]
+      CS=-5.16  lift=0.67  joint_g=19  z_i=24.27  z_j=1.09
+  14. mouse [noun] + town [noun]
+      CS=-5.08  lift=0.58  joint_g=11  z_i=17.12  z_j=1.79
+  15. family [noun] + mouse [noun]
+      CS=-5.06  lift=0.59  joint_g=23  z_i=2.16  z_j=17.12
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Comedy
+======================================================================
+   1. love [noun] + stooge [noun]
+      CS=-21.08  lift=0.29  joint_g=10  z_i=13.91  z_j=20.62
+   2. son [noun] + stooge [noun]
+      CS=-18.32  lift=0.25  joint_g=6  z_i=5.90  z_j=20.62
+   3. attack [verb] + stooge [noun]
+      CS=-17.13  lift=0.22  joint_g=5  z_i=1.92  z_j=20.62
+   4. die [verb] + stooge [noun]
+      CS=-16.68  lift=0.26  joint_g=10  z_i=3.88  z_j=20.62
+   5. death [noun] + stooge [noun]
+      CS=-14.73  lift=0.29  joint_g=7  z_i=3.09  z_j=20.62
+   6. mother [noun] + stooge [noun]
+      CS=-14.62  lift=0.36  joint_g=12  z_i=7.76  z_j=20.62
+   7. refuse [verb] + stooge [noun]
+      CS=-13.11  lift=0.35  joint_g=11  z_i=4.21  z_j=20.62
+   8. fight [verb] + stooge [noun]
+      CS=-13.09  lift=0.33  joint_g=8  z_i=2.82  z_j=20.62
+   9. love [verb] + stooge [noun]
+      CS=-12.21  lift=0.39  joint_g=8  z_i=5.19  z_j=20.62
+  10. stooge [noun] + visit [verb]
+      CS=-12.13  lift=0.38  joint_g=7  z_i=20.62  z_j=4.30
+  11. kill [verb] + stooge [noun]
+      CS=-11.60  lift=0.44  joint_g=28  z_i=7.75  z_j=20.62
+  12. stand [verb] + stooge [noun]
+      CS=-11.21  lift=0.37  joint_g=5  z_i=2.10  z_j=20.62
+  13. fall [verb] + stooge [noun]
+      CS=-10.74  lift=0.52  joint_g=30  z_i=12.20  z_j=20.62
+  14. brother [noun] + stooge [noun]
+      CS=-10.09  lift=0.45  joint_g=11  z_i=4.90  z_j=20.62
+  15. police [noun] + stooge [noun]
+      CS=-10.08  lift=0.44  joint_g=9  z_i=4.04  z_j=20.62
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Crime
+======================================================================
+   1. american [entity_NORP] + cop [noun]
+      CS=-3.75  lift=0.49  joint_g=12  z_i=1.28  z_j=9.26
+   2. bookie [noun] + death [noun]
+      CS=-3.66  lift=0.48  joint_g=5  z_i=1.02  z_j=8.91
+   3. murder [noun] + school [noun]
+      CS=-3.47  lift=0.78  joint_g=87  z_i=26.27  z_j=1.62
+   4. affair [noun] + gang [noun]
+      CS=-3.20  lift=0.64  joint_g=37  z_i=2.07  z_j=12.33
+   5. murder [noun] + win [verb]
+      CS=-3.10  lift=0.80  joint_g=98  z_i=26.27  z_j=1.14
+   6. prosecutor [noun] + steal [verb]
+      CS=-3.09  lift=0.61  joint_g=5  z_i=2.32  z_j=10.17
+   7. heist [noun] + husband [noun]
+      CS=-3.05  lift=0.52  joint_g=11  z_i=6.52  z_j=2.84
+   8. marry [verb] + serial killer [chunk]
+      CS=-2.85  lift=0.25  joint_g=5  z_i=1.97  z_j=2.15
+   9. mother [noun] + syndicate [noun]
+      CS=-2.71  lift=0.39  joint_g=7  z_i=3.62  z_j=2.20
+  10. gang [noun] + husband [noun]
+      CS=-2.70  lift=0.70  joint_g=59  z_i=12.33  z_j=2.84
+  11. heist [noun] + marry [verb]
+      CS=-2.70  lift=0.53  joint_g=19  z_i=6.52  z_j=1.97
+  12. girl [noun] + heist [noun]
+      CS=-2.62  lift=0.59  joint_g=17  z_i=3.32  z_j=6.52
+  13. marry [verb] + robbery [noun]
+      CS=-2.61  lift=0.70  joint_g=49  z_i=1.97  z_j=12.44
+  14. husband [noun] + mobster [noun]
+      CS=-2.53  lift=0.51  joint_g=8  z_i=2.84  z_j=4.75
+  15. gang [noun] + relationship [noun]
+      CS=-2.51  lift=0.71  joint_g=51  z_i=12.33  z_j=2.18
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Drama
+======================================================================
+   1. german [noun] + marriage [noun]
+      CS=-6.72  lift=0.39  joint_g=12  z_i=1.53  z_j=12.73
+   2. attorney [noun] + village [noun]
+      CS=-6.24  lift=0.24  joint_g=6  z_i=1.53  z_j=7.28
+   3. marry [verb] + team [noun]
+      CS=-5.66  lift=0.57  joint_g=133  z_i=18.30  z_j=1.93
+   4. marriage [noun] + nazi [entity_NORP]
+      CS=-5.50  lift=0.46  joint_g=20  z_i=12.73  z_j=1.55
+   5. love [noun] + team [noun]
+      CS=-5.10  lift=0.65  joint_g=200  z_i=21.78  z_j=1.93
+   6. crew [noun] + love [noun]
+      CS=-4.80  lift=0.66  joint_g=122  z_i=1.05  z_j=21.78
+   7. client [noun] + village [noun]
+      CS=-4.76  lift=0.33  joint_g=9  z_i=1.34  z_j=7.28
+   8. marriage [noun] + team [noun]
+      CS=-4.57  lift=0.54  joint_g=62  z_i=12.73  z_j=1.93
+   9. prisoner [noun] + relationship [noun]
+      CS=-4.48  lift=0.62  joint_g=59  z_i=1.10  z_j=17.42
+  10. crew [noun] + marry [verb]
+      CS=-4.08  lift=0.66  joint_g=99  z_i=1.05  z_j=18.30
+  11. crew [noun] + marriage [noun]
+      CS=-4.05  lift=0.56  joint_g=46  z_i=1.05  z_j=12.73
+  12. love [noun] + nazi [entity_NORP]
+      CS=-4.01  lift=0.71  joint_g=89  z_i=21.78  z_j=1.55
+  13. husband [noun] + team [noun]
+      CS=-3.95  lift=0.63  joint_g=101  z_i=15.04  z_j=1.93
+  14. aids [noun] + marry [verb]
+      CS=-3.93  lift=0.67  joint_g=10  z_i=1.14  z_j=18.30
+  15. british [entity_NORP] + mother [noun]
+      CS=-3.87  lift=0.76  joint_g=125  z_i=1.95  z_j=25.67
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Family
+======================================================================
+   1. marry [verb] + mouse [noun]
+      CS=-8.96  lift=0.40  joint_g=12  z_i=3.88  z_j=15.48
+   2. brother [noun] + mouse [noun]
+      CS=-8.86  lift=0.42  joint_g=13  z_i=4.74  z_j=15.48
+   3. husband [noun] + mouse [noun]
+      CS=-7.92  lift=0.40  joint_g=7  z_i=1.58  z_j=15.48
+   4. mouse [noun] + wife [noun]
+      CS=-7.84  lift=0.44  joint_g=11  z_i=15.48  z_j=3.38
+   5. family [noun] + mouse [noun]
+      CS=-7.75  lift=0.59  joint_g=26  z_i=14.07  z_j=15.48
+   6. cat [noun] + marriage [noun]
+      CS=-7.47  lift=0.45  joint_g=6  z_i=17.19  z_j=1.57
+   7. cat [noun] + marry [verb]
+      CS=-6.62  lift=0.53  joint_g=22  z_i=17.19  z_j=3.88
+   8. father [noun] + mouse [noun]
+      CS=-6.46  lift=0.63  joint_g=24  z_i=12.20  z_j=15.48
+   9. daughter [noun] + mouse [noun]
+      CS=-6.35  lift=0.54  joint_g=12  z_i=4.91  z_j=15.48
+  10. love [noun] + mouse [noun]
+      CS=-6.33  lift=0.54  joint_g=22  z_i=4.80  z_j=15.48
+  11. mouse [noun] + relationship [noun]
+      CS=-6.21  lift=0.49  joint_g=5  z_i=15.48  z_j=1.75
+  12. marriage [noun] + mouse [noun]
+      CS=-6.20  lift=0.48  joint_g=5  z_i=1.57  z_j=15.48
+  13. cat [noun] + love [noun]
+      CS=-5.72  lift=0.59  joint_g=39  z_i=17.19  z_j=4.80
+  14. kill [verb] + mouse [noun]
+      CS=-5.16  lift=0.60  joint_g=25  z_i=4.95  z_j=15.48
+  15. mouse [noun] + sister [noun]
+      CS=-5.03  lift=0.59  joint_g=11  z_i=15.48  z_j=3.49
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Fantasy
+======================================================================
+   1. earth [entity_LOC] + marry [verb]
+      CS=-5.75  lift=0.37  joint_g=26  z_i=9.24  z_j=2.47
+   2. creature [noun] + marry [verb]
+      CS=-4.86  lift=0.37  joint_g=20  z_i=7.29  z_j=2.47
+   3. car [noun] + kingdom [noun]
+      CS=-4.71  lift=0.45  joint_g=7  z_i=1.31  z_j=10.50
+   4. car [noun] + king [noun]
+      CS=-4.24  lift=0.54  joint_g=13  z_i=1.31  z_j=12.64
+   5. kill [verb] + mermaid [noun]
+      CS=-4.17  lift=0.60  joint_g=8  z_i=12.48  z_j=3.73
+   6. earth [noun] + marry [verb]
+      CS=-4.13  lift=0.55  joint_g=52  z_i=11.31  z_j=2.47
+   7. marry [verb] + monster [noun]
+      CS=-3.83  lift=0.45  joint_g=18  z_i=2.47  z_j=7.20
+   8. human [noun] + marry [verb]
+      CS=-3.82  lift=0.47  joint_g=26  z_i=7.59  z_j=2.47
+   9. house [noun] + warrior [noun]
+      CS=-3.64  lift=0.50  joint_g=14  z_i=4.53  z_j=5.87
+  10. love [noun] + monster [noun]
+      CS=-3.60  lift=0.56  joint_g=34  z_i=5.17  z_j=7.20
+  11. creature [noun] + love [noun]
+      CS=-3.51  lift=0.57  joint_g=52  z_i=7.29  z_j=5.17
+  12. earth [entity_LOC] + love [noun]
+      CS=-3.38  lift=0.63  joint_g=72  z_i=9.24  z_j=5.17
+  13. dragon [noun] + wife [noun]
+      CS=-3.30  lift=0.65  joint_g=13  z_i=12.96  z_j=2.46
+  14. beast [noun] + love [noun]
+      CS=-3.03  lift=0.58  joint_g=19  z_i=6.04  z_j=5.17
+  15. magic [noun] + wife [noun]
+      CS=-3.01  lift=0.69  joint_g=26  z_i=13.63  z_j=2.46
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — History
+======================================================================
+   1. king [noun] + police [noun]
+      CS=-4.84  lift=0.50  joint_g=5  z_i=12.31  z_j=1.70
+   2. british [entity_NORP] + sister [noun]
+      CS=-4.02  lift=0.65  joint_g=21  z_i=15.47  z_j=2.86
+   3. british [noun] + relationship [noun]
+      CS=-3.99  lift=0.48  joint_g=6  z_i=6.21  z_j=4.70
+   4. player [noun] + war [noun]
+      CS=-3.81  lift=0.72  joint_g=9  z_i=2.28  z_j=21.12
+   5. actor [noun] + army [noun]
+      CS=-3.55  lift=0.60  joint_g=7  z_i=1.61  z_j=12.42
+   6. king [noun] + relationship [noun]
+      CS=-3.46  lift=0.67  joint_g=32  z_i=12.31  z_j=4.70
+   7. battle [noun] + writer [noun]
+      CS=-3.44  lift=0.48  joint_g=5  z_i=8.20  z_j=1.12
+   8. german [noun] + marriage [noun]
+      CS=-3.24  lift=0.39  joint_g=5  z_i=3.85  z_j=3.03
+   9. german [entity_NORP] + marriage [noun]
+      CS=-3.15  lift=0.63  joint_g=31  z_i=10.75  z_j=3.03
+  10. documentary [noun] + kill [verb]
+      CS=-3.15  lift=0.68  joint_g=7  z_i=5.19  z_j=11.00
+  11. british [entity_NORP] + girl [noun]
+      CS=-3.14  lift=0.72  joint_g=34  z_i=15.47  z_j=3.48
+  12. british [entity_NORP] + mother [noun]
+      CS=-3.08  lift=0.76  joint_g=41  z_i=15.47  z_j=6.48
+  13. german [entity_NORP] + king [noun]
+      CS=-3.06  lift=0.77  joint_g=10  z_i=10.75  z_j=12.31
+  14. king [noun] + murder [noun]
+      CS=-2.99  lift=0.65  joint_g=11  z_i=12.31  z_j=1.75
+  15. british [entity_NORP] + parent [noun]
+      CS=-2.96  lift=0.71  joint_g=15  z_i=15.47  z_j=1.92
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Horror
+======================================================================
+   1. love [noun] + zombie [noun]
+      CS=-8.31  lift=0.41  joint_g=21  z_i=1.24  z_j=17.37
+   2. husband [noun] + zombie [noun]
+      CS=-5.93  lift=0.54  joint_g=16  z_i=1.70  z_j=17.37
+   3. officer [noun] + vampire [noun]
+      CS=-5.09  lift=0.59  joint_g=11  z_i=1.34  z_j=17.71
+   4. creature [noun] + love [noun]
+      CS=-5.01  lift=0.57  joint_g=59  z_i=16.59  z_j=1.24
+   5. husband [noun] + vampire [noun]
+      CS=-4.68  lift=0.62  joint_g=19  z_i=1.70  z_j=17.71
+   6. creature [noun] + husband [noun]
+      CS=-4.40  lift=0.62  joint_g=50  z_i=16.59  z_j=1.70
+   7. son [noun] + zombie [noun]
+      CS=-4.24  lift=0.65  joint_g=26  z_i=2.62  z_j=17.37
+   8. school [noun] + zombie [noun]
+      CS=-4.19  lift=0.64  joint_g=11  z_i=1.63  z_j=17.37
+   9. father [noun] + zombie [noun]
+      CS=-4.02  lift=0.69  joint_g=37  z_i=4.40  z_j=17.37
+  10. apartment [noun] + zombie [noun]
+      CS=-3.98  lift=0.66  joint_g=6  z_i=1.67  z_j=17.37
+  11. scientist [noun] + spirit [noun]
+      CS=-3.93  lift=0.53  joint_g=6  z_i=3.18  z_j=9.36
+  12. accident [noun] + vampire [noun]
+      CS=-3.92  lift=0.67  joint_g=8  z_i=1.83  z_j=17.71
+  13. husband [noun] + monster [noun]
+      CS=-3.81  lift=0.53  joint_g=25  z_i=1.70  z_j=10.28
+  14. love [noun] + vampire [noun]
+      CS=-3.58  lift=0.69  joint_g=41  z_i=1.24  z_j=17.71
+  15. creature [noun] + school [noun]
+      CS=-3.46  lift=0.68  joint_g=27  z_i=16.59  z_j=1.63
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Music
+======================================================================
+   1. band [noun] + marriage [noun]
+      CS=-6.33  lift=0.61  joint_g=12  z_i=19.89  z_j=5.64
+   2. band [noun] + marry [verb]
+      CS=-4.93  lift=0.76  joint_g=44  z_i=19.89  z_j=16.66
+   3. affair [noun] + band [noun]
+      CS=-4.89  lift=0.63  joint_g=12  z_i=1.02  z_j=19.89
+   4. band [noun] + truth [noun]
+      CS=-4.79  lift=0.65  joint_g=13  z_i=19.89  z_j=2.60
+   5. band [noun] + husband [noun]
+      CS=-4.60  lift=0.66  joint_g=10  z_i=19.89  z_j=2.58
+   6. king [noun] + singer [noun]
+      CS=-4.45  lift=0.63  joint_g=9  z_i=2.50  z_j=16.95
+   7. gig [noun] + marry [verb]
+      CS=-4.39  lift=0.65  joint_g=12  z_i=3.80  z_j=16.66
+   8. actress [noun] + band [noun]
+      CS=-3.94  lift=0.69  joint_g=6  z_i=1.08  z_j=19.89
+   9. kill [verb] + song [noun]
+      CS=-3.41  lift=0.83  joint_g=91  z_i=5.66  z_j=31.08
+  10. love [noun] + solo [noun]
+      CS=-3.34  lift=0.75  joint_g=7  z_i=22.36  z_j=1.06
+  11. law [noun] + song [noun]
+      CS=-3.00  lift=0.83  joint_g=16  z_i=1.22  z_j=31.08
+  12. fall [verb] + songwriter [noun]
+      CS=-3.00  lift=0.66  joint_g=7  z_i=11.54  z_j=3.13
+  13. band member [chunk] + mother [noun]
+      CS=-2.97  lift=0.56  joint_g=5  z_i=3.34  z_j=7.02
+  14. kidnap [verb] + music [noun]
+      CS=-2.63  lift=0.72  joint_g=12  z_i=1.01  z_j=15.04
+  15. concert [noun] + village [noun]
+      CS=-2.58  lift=0.68  joint_g=10  z_i=10.86  z_j=2.39
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Mystery
+======================================================================
+   1. murder [noun] + school [noun]
+      CS=-4.21  lift=0.78  joint_g=43  z_i=32.65  z_j=1.21
+   2. love [noun] + suspect [noun]
+      CS=-3.36  lift=0.64  joint_g=34  z_i=2.85  z_j=12.24
+   3. investigate [verb] + marry [verb]
+      CS=-3.34  lift=0.67  joint_g=59  z_i=14.86  z_j=1.79
+   4. investigate [verb] + love [noun]
+      CS=-3.27  lift=0.69  joint_g=81  z_i=14.86  z_j=2.85
+   5. marry [verb] + serial killer [chunk]
+      CS=-3.24  lift=0.25  joint_g=5  z_i=1.79  z_j=2.89
+   6. killer [noun] + love [noun]
+      CS=-3.16  lift=0.76  joint_g=60  z_i=19.84  z_j=2.85
+   7. killer [noun] + marry [verb]
+      CS=-3.16  lift=0.75  joint_g=46  z_i=19.84  z_j=1.79
+   8. killer [noun] + relationship [noun]
+      CS=-2.91  lift=0.76  joint_g=46  z_i=19.84  z_j=1.77
+   9. investigation [noun] + marry [verb]
+      CS=-2.71  lift=0.70  joint_g=32  z_i=13.13  z_j=1.79
+  10. detective [noun] + marry [verb]
+      CS=-2.63  lift=0.69  joint_g=30  z_i=12.27  z_j=1.79
+  11. love [noun] + serial killer [chunk]
+      CS=-2.53  lift=0.41  joint_g=9  z_i=2.85  z_j=2.89
+  12. fire [verb] + mystery [noun]
+      CS=-2.31  lift=0.57  joint_g=6  z_i=1.03  z_j=7.12
+  13. investigation [noun] + love [noun]
+      CS=-2.28  lift=0.75  joint_g=54  z_i=13.13  z_j=2.85
+  14. detective [noun] + love [noun]
+      CS=-2.24  lift=0.74  joint_g=44  z_i=12.27  z_j=2.85
+  15. american [entity_NORP] + solve [verb]
+      CS=-1.99  lift=0.56  joint_g=11  z_i=1.23  z_j=5.66
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Romance
+======================================================================
+   1. king [noun] + relationship [noun]
+      CS=-4.16  lift=0.67  joint_g=34  z_i=1.00  z_j=19.46
+   2. discover [verb] + love story [chunk]
+      CS=-3.72  lift=0.38  joint_g=8  z_i=5.54  z_j=2.20
+   3. door [noun] + love [noun]
+      CS=-3.18  lift=0.89  joint_g=218  z_i=1.04  z_j=55.09
+   4. breakup [noun] + kill [verb]
+      CS=-3.12  lift=0.44  joint_g=5  z_i=1.20  z_j=6.47
+   5. blossom [verb] + kill [verb]
+      CS=-3.07  lift=0.46  joint_g=7  z_i=1.38  z_j=6.47
+   6. love [noun] + shoot [verb]
+      CS=-2.96  lift=0.90  joint_g=394  z_i=55.09  z_j=1.83
+   7. boyfriend [noun] + village [noun]
+      CS=-2.82  lift=0.48  joint_g=20  z_i=4.88  z_j=2.70
+   8. date [verb] + village [noun]
+      CS=-2.67  lift=0.40  joint_g=6  z_i=3.14  z_j=2.70
+   9. marry [verb] + shoot [verb]
+      CS=-2.62  lift=0.86  joint_g=252  z_i=32.44  z_j=1.83
+  10. marriage [noun] + shoot [verb]
+      CS=-2.58  lift=0.77  joint_g=139  z_i=18.16  z_j=1.83
+  11. car [noun] + love story [chunk]
+      CS=-2.57  lift=0.38  joint_g=5  z_i=3.14  z_j=2.20
+  12. boyfriend [noun] + war [noun]
+      CS=-2.35  lift=0.47  joint_g=19  z_i=4.88  z_j=1.27
+  13. marriage [noun] + steal [verb]
+      CS=-2.27  lift=0.80  joint_g=135  z_i=18.16  z_j=2.02
+  14. escape [verb] + love story [chunk]
+      CS=-2.26  lift=0.40  joint_g=5  z_i=2.69  z_j=2.20
+  15. kill [verb] + punjabi [entity_NORP]
+      CS=-2.10  lift=0.58  joint_g=6  z_i=6.47  z_j=1.32
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Science Fiction
+======================================================================
+   1. earth [entity_LOC] + police [noun]
+      CS=-12.36  lift=0.51  joint_g=48  z_i=35.14  z_j=1.48
+   2. love [noun] + planet [noun]
+      CS=-9.01  lift=0.48  joint_g=51  z_i=1.13  z_j=23.56
+   3. planet [noun] + police [noun]
+      CS=-8.99  lift=0.49  joint_g=31  z_i=23.56  z_j=1.48
+   4. house [noun] + planet [noun]
+      CS=-8.95  lift=0.50  joint_g=44  z_i=2.35  z_j=23.56
+   5. alien [noun] + love [noun]
+      CS=-8.60  lift=0.44  joint_g=27  z_i=19.94  z_j=1.13
+   6. earth [entity_LOC] + love [noun]
+      CS=-8.50  lift=0.63  joint_g=69  z_i=35.14  z_j=1.13
+   7. earth [noun] + police [noun]
+      CS=-7.65  lift=0.61  joint_g=53  z_i=29.40  z_j=1.48
+   8. earth [entity_LOC] + house [noun]
+      CS=-6.97  lift=0.69  joint_g=77  z_i=35.14  z_j=2.35
+   9. brother [noun] + earth [entity_LOC]
+      CS=-6.90  lift=0.68  joint_g=60  z_i=1.26  z_j=35.14
+  10. earth [entity_LOC] + family [noun]
+      CS=-6.76  lift=0.69  joint_g=65  z_i=35.14  z_j=1.64
+  11. brother [noun] + planet [noun]
+      CS=-6.38  lift=0.60  joint_g=37  z_i=1.26  z_j=23.56
+  12. mother [noun] + planet [noun]
+      CS=-5.67  lift=0.63  joint_g=43  z_i=1.38  z_j=23.56
+  13. earth [entity_LOC] + wife [noun]
+      CS=-5.63  lift=0.74  joint_g=100  z_i=35.14  z_j=1.94
+  14. earth [entity_LOC] + mother [noun]
+      CS=-5.62  lift=0.74  joint_g=69  z_i=35.14  z_j=1.38
+  15. love [noun] + scientist [noun]
+      CS=-5.17  lift=0.54  joint_g=53  z_i=1.13  z_j=15.50
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Thriller
+======================================================================
+   1. murder [noun] + soviet [entity_NORP]
+      CS=-4.51  lift=0.64  joint_g=10  z_i=18.73  z_j=1.57
+   2. murder [noun] + scientist [noun]
+      CS=-4.30  lift=0.65  joint_g=13  z_i=18.73  z_j=1.15
+   3. base [noun] + murder [noun]
+      CS=-4.19  lift=0.65  joint_g=18  z_i=1.03  z_j=18.73
+   4. killer [noun] + ship [noun]
+      CS=-4.10  lift=0.63  joint_g=18  z_i=16.46  z_j=1.31
+   5. fly [verb] + killer [noun]
+      CS=-4.08  lift=0.63  joint_g=30  z_i=1.22  z_j=16.46
+   6. killer [noun] + war [noun]
+      CS=-3.93  lift=0.64  joint_g=32  z_i=16.46  z_j=1.30
+   7. marry [verb] + serial killer [chunk]
+      CS=-3.79  lift=0.25  joint_g=9  z_i=1.44  z_j=4.05
+   8. killer [noun] + russian [entity_NORP]
+      CS=-3.70  lift=0.66  joint_g=10  z_i=16.46  z_j=1.64
+   9. police [noun] + scientist [noun]
+      CS=-3.67  lift=0.73  joint_g=37  z_i=21.85  z_j=1.15
+  10. fly [verb] + murder [noun]
+      CS=-3.66  lift=0.69  joint_g=70  z_i=1.22  z_j=18.73
+  11. police [noun] + soldier [noun]
+      CS=-3.49  lift=0.74  joint_g=65  z_i=21.85  z_j=1.30
+  12. helicopter [noun] + killer [noun]
+      CS=-3.32  lift=0.72  joint_g=14  z_i=3.76  z_j=16.46
+  13. love [noun] + swat [entity_ORG]
+      CS=-3.17  lift=0.26  joint_g=5  z_i=3.00  z_j=1.72
+  14. bond [noun] + killer [noun]
+      CS=-3.17  lift=0.73  joint_g=9  z_i=3.87  z_j=16.46
+  15. love [noun] + serial killer [chunk]
+      CS=-3.11  lift=0.41  joint_g=14  z_i=3.00  z_j=4.05
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — War
+======================================================================
+   1. german [entity_NORP] + girl [noun]
+      CS=-6.36  lift=0.72  joint_g=50  z_i=37.22  z_j=1.02
+   2. german [entity_NORP] + marry [verb]
+      CS=-3.87  lift=0.82  joint_g=59  z_i=37.22  z_j=1.50
+   3. allied [entity_ORG] + marry [verb]
+      CS=-3.84  lift=0.42  joint_g=7  z_i=7.33  z_j=1.50
+   4. german [noun] + marry [verb]
+      CS=-3.75  lift=0.68  joint_g=26  z_i=18.07  z_j=1.50
+   5. german [noun] + girl [noun]
+      CS=-3.63  lift=0.68  joint_g=25  z_i=18.07  z_j=1.02
+   6. commander [noun] + mother [noun]
+      CS=-3.57  lift=0.54  joint_g=26  z_i=9.83  z_j=1.73
+   7. allied [entity_ORG] + house [noun]
+      CS=-3.51  lift=0.44  joint_g=13  z_i=7.33  z_j=1.21
+   8. brother [noun] + german [entity_NORP]
+      CS=-3.21  lift=0.85  joint_g=59  z_i=1.69  z_j=37.22
+   9. german [entity_NORP] + son [noun]
+      CS=-3.15  lift=0.85  joint_g=76  z_i=37.22  z_j=2.75
+  10. german [entity_NORP] + love [noun]
+      CS=-3.03  lift=0.86  joint_g=95  z_i=37.22  z_j=2.10
+  11. german [noun] + love [noun]
+      CS=-2.95  lift=0.75  joint_g=44  z_i=18.07  z_j=2.10
+  12. daughter [noun] + german [entity_NORP]
+      CS=-2.91  lift=0.86  joint_g=60  z_i=1.20  z_j=37.22
+  13. family [noun] + submarine [noun]
+      CS=-2.87  lift=0.43  joint_g=7  z_i=2.94  z_j=3.78
+  14. girl [noun] + war [noun]
+      CS=-2.86  lift=0.82  joint_g=87  z_i=1.02  z_j=27.11
+  15. father [noun] + german [entity_NORP]
+      CS=-2.66  lift=0.87  joint_g=82  z_i=2.56  z_j=37.22
+
+======================================================================
+BOTTOM 15 STOCK×STOCK COMBINATIONS (low combination_stock
+  = potentially original within co-occurring pairs) — Western
+======================================================================
+   1. family [noun] + stagecoach [noun]
+      CS=-4.22  lift=0.49  joint_g=9  z_i=1.47  z_j=10.28
+   2. city [noun] + ranch [noun]
+      CS=-3.74  lift=0.73  joint_g=23  z_i=1.04  z_j=22.69
+   3. love [noun] + sheriff [noun]
+      CS=-3.44  lift=0.64  joint_g=44  z_i=1.67  z_j=13.86
+   4. girl [noun] + rustler [noun]
+      CS=-3.30  lift=0.47  joint_g=5  z_i=1.08  z_j=7.73
+   5. rustler [noun] + son [noun]
+      CS=-3.20  lift=0.53  joint_g=5  z_i=7.73  z_j=2.46
+   6. father [noun] + gunfighter [noun]
+      CS=-3.08  lift=0.50  joint_g=5  z_i=2.88  z_j=6.06
+   7. family [noun] + outlaw [noun]
+      CS=-2.91  lift=0.71  joint_g=24  z_i=1.47  z_j=15.84
+   8. cowboy [noun] + son [noun]
+      CS=-2.79  lift=0.64  joint_g=16  z_i=10.22  z_j=2.46
+   9. city [noun] + outlaw [noun]
+      CS=-2.74  lift=0.72  joint_g=13  z_i=1.04  z_j=15.84
+  10. cowboy [noun] + soldier [noun]
+      CS=-2.63  lift=0.65  joint_g=5  z_i=10.22  z_j=1.83
+  11. love [noun] + posse [noun]
+      CS=-2.44  lift=0.73  joint_g=27  z_i=1.67  z_j=13.52
+  12. cattle [noun] + girl [noun]
+      CS=-2.36  lift=0.69  joint_g=12  z_i=11.53  z_j=1.08
+  13. love [noun] + marshal [noun]
+      CS=-2.32  lift=0.61  joint_g=17  z_i=1.67  z_j=7.81
+  14. drive [verb] + outlaw [noun]
+      CS=-2.32  lift=0.76  joint_g=14  z_i=1.20  z_j=15.84
+  15. girl [noun] + outlaw [noun]
+      CS=-2.26  lift=0.77  joint_g=25  z_i=1.08  z_j=15.84

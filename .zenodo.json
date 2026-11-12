@@ -1,0 +1,41 @@
+{
+  "title": "Scènes à Faire: an empirical method (code, derived outputs, and Study 1 materials)",
+  "upload_type": "software",
+  "description": "<p>Code, small derived outputs, and Study 1 materials for <em>Common or Characteristic? An Empirical Method for Scènes à Faire</em> (Kamper, Bartholomew, Patel &amp; Holyoak, manuscript, 2026). From 45,958 film plot summaries in seventeen genres, the pipeline extracts narrative elements and computes each element's prevalence and distinctiveness within each genre, then tests the two measures against held-out films, elements courts have called sc&egrave;nes &agrave; faire, and a preregistered human study. Code is licensed MIT; data, documents and derived outputs are licensed CC BY 4.0 (see LICENSE-DATA). The source corpora and Study 1 participant data are not included.</p>",
+  "creators": [
+    {
+      "name": "Kamper, David G.",
+      "affiliation": "University of Chicago Law School"
+    },
+    {
+      "name": "Bartholomew, Mark",
+      "affiliation": "University at Buffalo School of Law"
+    },
+    {
+      "name": "Patel, Mira",
+      "affiliation": "University of California, Los Angeles"
+    },
+    {
+      "name": "Holyoak, Keith J.",
+      "affiliation": "University of California, Los Angeles"
+    }
+  ],
+  "access_right": "open",
+  "license": "MIT",
+  "language": "eng",
+  "keywords": [
+    "copyright",
+    "scènes à faire",
+    "genre",
+    "computational text analysis",
+    "film",
+    "preregistration"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://osf.io/4azwv",
+      "relation": "references",
+      "resource_type": "other"
+    }
+  ]
+}
