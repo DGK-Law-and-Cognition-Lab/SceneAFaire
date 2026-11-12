@@ -188,7 +188,7 @@ Element & Westerns & \%% & pctile & \%% & pctile & pre-1970 & 1990-- & Reading \
 
 \medskip
 \begin{minipage}{0.95\textwidth}\footnotesize
-\emph{Note:} Westerns: number of Westerns whose summary contains the element. Prevalence: percentage of Westerns that contain it. Distinctiveness: percentage of all films containing it that are Westerns. Percentiles rank the element among the Western's narrative elements found in at least %d Westerns (the pool Study~1 drew from); distinctiveness is ranked on the smoothed share. Odds ratio: median over five-year periods before 1970 and from 1990 on; it needs two or more periods with at least 30 Westerns and 5 films containing the element. Reading: thirds of each percentile, prevalence / distinctiveness. A dash marks a value not computed. Source: Notebook~15.
+\emph{Note:} Westerns: number of Westerns whose summary contains the element. Prevalence: percentage of Westerns that contain it. Distinctiveness: percentage of all films containing it that are Westerns. Percentiles rank the element among the Western's narrative elements found in at least %d Westerns (the pool Study~1 drew from); distinctiveness is ranked on the smoothed share. Odds ratio: median over five-year periods before 1970 and from 1990 on; it needs two or more periods with at least 30 Westerns and 5 films containing the element. Reading: thirds of each percentile, prevalence / distinctiveness. A dash marks a value not computed.
 \end{minipage}
 \end{table}
 ''' % (f'{films_in_genre:,}', '\n'.join(lines), MIN_FILMS)

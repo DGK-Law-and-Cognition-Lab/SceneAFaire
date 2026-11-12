@@ -124,7 +124,7 @@ md(r"""
 
 ## Figure: the pipeline
 
-Drawn from code: each box is a stage and names the notebook that carries it out.
+Drawn from code: each box is a stage. The boxes name stages only (no notebook numbers): the manuscript cites data and method, not scripts.
 """)
 code(r"""
 fig, ax = plt.subplots(figsize=S.size(1.0, 3.4))
@@ -134,18 +134,18 @@ def box(x, y, w, h, text, face='#efefef'):
     ax.text(x + w / 2, y + h / 2, text, ha='center', va='center', fontsize=7, linespacing=1.25)
 def arrow(x0, y0, x1, y1):
     ax.annotate('', xy=(x1, y1), xytext=(x0, y0), arrowprops=dict(arrowstyle='->', color=S.INK, lw=1))
-TOP = [(0.5, 21, 'Corpus\n45,958 plot summaries\n17 genres\n(Notebooks 01, 01b, 01c)'),
-       (24.5, 21, 'Elements\nnouns, noun phrases,\nverbs, named entities\n(02; checked in 02b)'),
-       (48.5, 21, 'Filters\n10 instances, 5 films;\nnarrative classifier\n(03, 03b)'),
-       (72.5, 27, 'Two measures per\nelement and genre\nprevalence  P(e | g)\ndistinctiveness  P(g | e)\n(03)')]
+TOP = [(0.5, 21, 'Corpus\n45,958 plot summaries\n17 genres'),
+       (24.5, 21, 'Elements\nnouns, noun phrases,\nverbs, named entities'),
+       (48.5, 21, 'Filters\n10 instances, 5 films;\nnarrative classifier'),
+       (72.5, 27, 'Two measures per\nelement and genre\nprevalence  P(e | g)\ndistinctiveness  P(g | e)')]
 for x, w, t in TOP:
     box(x, 26, w, 14, t)
 for x0, x1 in [(21.8, 24.2), (45.8, 48.2), (69.8, 72.2)]:
     arrow(x0, 33, x1, 33)
-BOT = [(0.5, 'Checks on the measures\nmeaning, held-out prediction,\nreliability, language model\n(04, 05, 14)'),
-       (25.5, 'Court record\nelements courts called\nstock, in the court-\nnamed genre (07, 07b, 07c)'),
-       (50.5, 'Study 1 (preregistered)\nwhat 131 people list\nand expect in six genres\n(10, 11, study1_analysis)'),
-       (75.5, 'Time, events,\ncombinations\n(03c, 08, 13, 14)')]
+BOT = [(0.5, 'Checks on the measures\nmeaning, held-out prediction,\nreliability, language model'),
+       (25.5, 'Court record\nelements courts called\nstock, in the court-\nnamed genre'),
+       (50.5, 'Study 1 (preregistered)\nwhat 131 people list\nand expect in six genres'),
+       (75.5, 'Time, events,\ncombinations')]
 for x, t in BOT:
     box(x, 2, 24, 14, t)
 for x, _ in BOT:
@@ -193,7 +193,7 @@ rows = [['CMU Movie Summary Corpus only', f"{src['cmu']:,}"],
 write_table('T-III-corpus', 'The corpus.', 'tab:corpus', 'lr', ['Films', 'Number'], rows,
             'The two sources are the CMU Movie Summary Corpus (Wikipedia plot summaries with Freebase metadata) and the '
             'Wikipedia Movie Plots dataset; a film in both is counted once, with the CMU summary as the base. Country is the '
-            "CMU country field where present, otherwise the Wikipedia Movie Plots origin field. Source: Notebooks 01c and 16a.")
+            "CMU country field where present, otherwise the Wikipedia Movie Plots origin field.")
 """)
 
 md(r"""
@@ -230,8 +230,7 @@ write_table('T-III-extraction', 'Elements extracted, filtered and kept.', 'tab:e
             ['Type', 'Extracted', 'After 10/5 filter', 'Narrative', 'Share kept'], rows,
             'Counts are unique (element, grammatical type) pairs across the corpus. The 10/5 filter keeps pairs with at least ten '
             'instances, each counted once per film, and at least five films. Narrative pairs are those the classifier labeled as '
-            'characters, settings, objects, events, themes or relationships, less a short blocklist of franchise names. '
-            'Source: Notebooks 02, 03, 03b and 16a.')
+            'characters, settings, objects, events, themes or relationships, less a short blocklist of franchise names.')
 print(pd.DataFrame(rows).to_string(index=False, header=False))
 """)
 
@@ -284,7 +283,7 @@ write_table('T-III-validation', 'How much of a reader\'s elements the extraction
             'A language model read a stratified sample of 1,500 summaries (88 or 89 per genre, seed 20260219) and listed their '
             'settings, characters, objects, events and themes. Recall is the share of those elements the pipeline also extracted '
             'from the same summary, averaged over films; noun-phrase precision is the share of the pipeline\'s noun phrases the '
-            'model also listed. Source: Notebooks 02b and 16a.')
+            'model also listed.')
 g = rec.groupby('genre')[['word_boundary', 'substring']].agg(['mean', 'std', 'size'])
 order_g = g[('word_boundary', 'mean')].sort_values(ascending=False).index
 fig, ax = plt.subplots(figsize=S.size(1.0, 2.8))
@@ -467,7 +466,7 @@ write_table('T-IV-top5', 'The five highest elements on each measure, six genres.
             ['Genre', 'Highest prevalence', 'Highest distinctiveness'], rows,
             'Narrative elements found in at least 20 of the genre\'s films, ranked within the genre. Prevalence is the share of the '
             'genre\'s films that mention the element; distinctiveness is the share of the films mentioning it that are in the genre '
-            '(smoothed). Source: Notebooks 03, 03b and 16a.', size=r'\footnotesize')
+            '(smoothed).', size=r'\footnotesize')
 for r in rows: print(r[0], '|', r[1], '|', r[2])
 # Supplement: all seventeen genres, top ten each (longtable; the supplement loads longtable)
 lines = []
@@ -479,7 +478,7 @@ sup = (r'\begin{longtable}{p{0.95in}p{2.45in}p{2.45in}}' '\n'
        r'\toprule Genre & Highest prevalence & Highest distinctiveness \\ \midrule \endfirsthead' '\n'
        r'\toprule Genre & Highest prevalence & Highest distinctiveness \\ \midrule \endhead' '\n'
        r'\bottomrule \endfoot' '\n' + '\n'.join(lines).replace('\\\\\n', '\\\\[3pt]\n') + '\n' r'\end{longtable}' '\n'
-       r'{\footnotesize\emph{Note:} Narrative elements found in at least 20 of the genre\'s films. Source: Notebook 16a.\par}' '\n')
+       r'{\footnotesize\emph{Note:} Narrative elements found in at least 20 of the genre’s films.\par}' '\n')
 (TAB / 'T-App-A_top10_two_measures.tex').write_text('{\\footnotesize\n' + sup + '}\n')
 print('wrote table T-App-A_top10_two_measures')
 """)

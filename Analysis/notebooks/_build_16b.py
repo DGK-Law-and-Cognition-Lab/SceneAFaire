@@ -493,8 +493,8 @@ write_table('T-IV-combinations_six', 'Combinations that mark a genre: the three 
             'tab:combinations', 'llrrr',
             r'Genre & Pair & Films & Pair (\%) & Best single (\%)', rows,
             r'Films: films of the genre whose summary contains both elements. Pair: of all films containing both, the percentage in the genre (smoothed). '
-            r'Best single: the higher of the two elements\' own distinctiveness in the genre. Pairs must appear in at least 10 of the genre\'s films or 0.5\% of them, whichever is larger; '
-            r'both elements are narrative nouns or noun phrases, and pairs whose wordings share a word are dropped. Source: Notebook~16b, from Notebook~03c\'s pair counts.'.replace(r"\'", "'"))
+            r'Best single: the higher of the two elements’ own distinctiveness in the genre. Pairs must appear in at least 10 of the genre\'s films or 0.5\% of them, whichever is larger; '
+            r'both elements are narrative nouns or noun phrases, and pairs whose wordings share a word are dropped.'.replace(r"\'", "'"))
 rows = []
 for g in GENRES:
     d = topc[topc['genre'] == g]
@@ -502,7 +502,7 @@ for g in GENRES:
         rows.append([tex(g) if i == 0 else '', tex(r.key), f'{r.joint_count_g:,}', f'{100 * r.posterior_smoothed:.0f}', f'{100 * r.best_single:.0f}'])
 write_table('T-App-B_combinations_17', 'The five most distinctive pairs of elements in each genre.', 'tab:app-combinations', 'llrrr',
             r'Genre & Pair & Films & Pair (\%) & Best single (\%)', rows,
-            'Columns and rule as in the combinations table in Part~IV.F of the article. Source: Notebook~16b.', long=True)
+            'Columns and rule as in the combinations table in Part~IV.F of the article.', long=True)
 """)
 
 md(r"""
