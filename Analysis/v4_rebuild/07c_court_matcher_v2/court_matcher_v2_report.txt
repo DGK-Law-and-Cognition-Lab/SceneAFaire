@@ -1,5 +1,5 @@
 NOTEBOOK 07c — STRICTER COURT MATCHER, EVENTS, REJECTED ELEMENTS
-416 in-scope court elements
+416 in-scope court features
 
 COVERAGE BY TIER
 tier
@@ -19,7 +19,7 @@ exact          66          0         0          0
 head            0        197         2          0
 phrase          0         59         4          0
 
-SCORED ITEMS AND BASELINES BY MATCH TIER  (elements: narrative only)
+SCORED ITEMS AND BASELINES BY MATCH TIER  (features: narrative only)
   strict (exact + phrase + event): 133 items; median percentile in the court genre: prevalence 0.880, distinctiveness 0.804
       rank of court genre, prevalence       case median 0.766  39/46 cases > 0.5  p=2.3e-08
       rank of court genre, distinctiveness  case median 0.760  40/46 cases > 0.5  p=2.1e-06
@@ -54,7 +54,7 @@ SCORED ITEMS AND BASELINES BY MATCH TIER  (elements: narrative only)
 ELEMENTS COURTS REFUSED TO CALL STOCK (first pass; extracted by a language model, quotations verified, not human-audited)
 23 rows in 14 cases; by kind: {'single': 13, 'combination': 10}; by holding: {'rejected_as_scenes_a_faire': 13, 'held_protectable': 10}
 matcher tiers: {'phrase': 11, 'declined': 6, 'head': 4, 'event': 2}
-scored in the court genre (narrative elements and events): 13
+scored in the court genre (story features and events): 13
       set              measure  n_held_stock  n_refused  median_held_stock  median_refused  auc_held_stock_higher     p
    strict         p_prevalence           133         13              0.880           0.723                  0.626 0.136
    strict    p_distinctiveness           133         13              0.804           0.781                  0.561 0.473
@@ -65,7 +65,7 @@ all tiers    p_distinctiveness           297         13              0.726      
 all tiers      rank_prevalence           297         13              0.812           0.778                  0.524 0.770
 all tiers rank_distinctiveness           297         13              0.800           0.778                  0.537 0.653
 
-scored refused elements:
+scored refused features:
                                                                                                                                      caseName     gen                                                                                                                                                                                                                                        phrase                match   tier  p_prevalence  p_distinctiveness
                                                                                                     Suntrust Bank v. Houghton Mifflin Company   Drama                                                                                                a novel's fifteen fictional characters with their physical attributes, mannerisms, distinct features and complex relationships with each other complex relationship phrase          0.72               0.84
 Suntrust Bank, as Trustee of the Stephen Mitchell Trusts F.B.O. Eugene Muse Mitchell and Joseph Reynolds Mitchell v. Houghton Mifflin Company   Drama                                                                                                a novel's fifteen fictional characters with their physical attributes, mannerisms, distinct features and complex relationships with each other complex relationship phrase          0.72               0.84

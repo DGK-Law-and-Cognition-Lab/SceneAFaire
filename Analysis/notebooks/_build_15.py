@@ -11,7 +11,7 @@ def code(s): cells.append(nbf.v4.new_code_cell(s.strip("\n")))
 md(r"""
 # Notebook 15 — The worked example on the two numbers
 
-Added November 11, 2026 for Part VI of the law review article. It computes, for each element of a constructed Western dispute, the numbers a court would read: how many Westerns contain the element (prevalence), what share of the films containing it are Westerns (distinctiveness), where each falls among the Western's elements, and whether the element's tie to the genre changed over time. Counting only: no language model is called and nothing upstream is changed.
+Added November 11, 2026 for Part VI of the law review article. It computes, for each story feature of a constructed Western dispute, the numbers a court would read: how many Westerns contain the element (prevalence), what share of the films containing it are Westerns (distinctiveness), where each falls among the Western's elements, and whether the element's tie to the genre changed over time. Counting only: no language model is called and nothing upstream is changed.
 
 **Inputs.** `03b_classification/stockiness_long_classified.parquet` (counts, the two numbers and the narrative classification); `10_human_study_stimuli/eligible_pool_predictors.csv` (the within-genre percentile ranks that Study 1 used, so the worked example reads elements on the same scale as the study); `08_temporal/stockiness_by_bin.parquet` (five-year periods, for the odds ratio over time, computed as in Notebook 14, Part C).
 
@@ -87,7 +87,7 @@ print('films in the genre:', films_in_genre)
 """)
 
 md(r"""
-## The two numbers for each disputed element
+## The two numbers for each disputed story feature
 
 Prevalence is the share of Westerns whose summary contains the element. Distinctiveness is shown two ways: the plain share of the films containing the element that are Westerns, and the smoothed version the pipeline ranks on (`posterior_smoothed`, α = 1), which differs from the plain share only for rare elements. The percentiles are read from the Study 1 pool file, and the counts there are checked against the scored table.
 """)
@@ -180,7 +180,7 @@ tex = r'''\begin{table}[htbp]
 \toprule
  & & \multicolumn{2}{c}{Prevalence} & \multicolumn{2}{c}{Distinctiveness} & \multicolumn{2}{c}{Odds ratio} & \\
 \cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}
-Element & Westerns & \%% & pctile & \%% & pctile & pre-1970 & 1990-- & Reading \\
+Story feature & Westerns & \%% & pctile & \%% & pctile & pre-1970 & 1990-- & Reading \\
 \midrule
 %s
 \bottomrule
@@ -188,7 +188,7 @@ Element & Westerns & \%% & pctile & \%% & pctile & pre-1970 & 1990-- & Reading \
 
 \medskip
 \begin{minipage}{0.95\textwidth}\footnotesize
-\emph{Note:} Westerns: number of Westerns whose summary contains the element. Prevalence: percentage of Westerns that contain it. Distinctiveness: percentage of all films containing it that are Westerns. Percentiles rank the element among the Western's narrative elements found in at least %d Westerns (the pool Study~1 drew from); distinctiveness is ranked on the smoothed share. Odds ratio: median over five-year periods before 1970 and from 1990 on; it needs two or more periods with at least 30 Westerns and 5 films containing the element. Reading: thirds of each percentile, prevalence / distinctiveness. A dash marks a value not computed.
+\emph{Note:} Westerns: number of Westerns whose summary contains the feature. Prevalence: percentage of Westerns that contain it. Distinctiveness: percentage of all films containing it that are Westerns. Percentiles rank the feature among the Western's story features found in at least %d Westerns (the pool Study~1 drew from); distinctiveness is ranked on the smoothed share. Odds ratio: median over five-year periods before 1970 and from 1990 on; it needs two or more periods with at least 30 Westerns and 5 films containing the feature. Reading: thirds of each percentile, prevalence / distinctiveness. A dash marks a value not computed.
 \end{minipage}
 \end{table}
 ''' % (f'{films_in_genre:,}', '\n'.join(lines), MIN_FILMS)

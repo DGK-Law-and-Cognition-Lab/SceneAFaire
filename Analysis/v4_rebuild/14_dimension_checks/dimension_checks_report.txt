@@ -1,7 +1,7 @@
 NOTEBOOK 14 — CHECKS ON THE TWO DIMENSIONS (counting only)
-345,366 (element, type, genre) cells; 237,516 narrative
+345,366 (feature, type, genre) cells; 237,516 narrative
 
-A1. MEAN WITHIN-GENRE SPEARMAN CORRELATION (narrative elements)
+A1. MEAN WITHIN-GENRE SPEARMAN CORRELATION (story features)
                  prevalence  distinctiveness  collocation  tfidf    g2  composite
 prevalence             1.00             0.34         0.91   0.95  0.36       0.61
 distinctiveness        0.34             1.00         0.66   0.41  0.85       0.90
@@ -18,7 +18,7 @@ composite_and_tfidf               31.7
 composite_and_g2                  31.9
 prevalence_and_distinctiveness     0.0
 
-A3. MEANING CHECK BY SCORE (top 50 vs all other narrative elements; mean Cohen's d over 17 genres)
+A3. MEANING CHECK BY SCORE (top 50 vs all other story features; mean Cohen's d over 17 genres)
                  mean_d  genres_positive
 measure                                 
 prevalence         0.35               17
@@ -37,7 +37,7 @@ tfidf                  0.940          0.857
 g2                     0.858          0.770
 composite              0.935          0.831
 
-B. HELD-OUT PREDICTION (22,979 films to compute the scores, 22,979 to test; 15,976 narrative elements, 22,727 of all elements)
+B. HELD-OUT PREDICTION (22,979 films to compute the scores, 22,979 to test; 15,976 story features, 22,727 of all features)
 Test 1, genre to content: mean AUC over genres
               auc_prevalence  auc_distinctiveness  auc_overall_frequency
 set                                                                     
@@ -48,7 +48,7 @@ Test 2, content to genre: mean AUC over genres
 set                                              
 all_elements                0.868           0.617
 narrative                   0.862           0.630
-Test 2 by genre (narrative elements)
+Test 2 by genre (story features)
           genre  n_in_genre  auc_distinctiveness  auc_prevalence
          Action        3929                0.857           0.615
       Adventure        3088                0.843           0.571
@@ -67,7 +67,7 @@ Science Fiction        1301                0.942           0.689
        Thriller        3737                0.831           0.601
             War         838                0.960           0.773
         Western         690                0.972           0.828
-Test 1 by genre (narrative elements)
+Test 1 by genre (story features)
           genre  n_films  auc_prevalence  auc_distinctiveness  auc_overall_frequency
          Action      300           0.904                0.638                  0.898
       Adventure      300           0.902                0.622                  0.896
@@ -93,7 +93,7 @@ films_in_genre  n_cells  prevalence  distinctiveness  prevalence_sd  distinctive
       20 to 99    32058       0.757            0.803          0.017               0.075        17
    100 or more    10917       0.938            0.934          0.020               0.031        17
 
-C. ASSOCIATION OVER TIME (periods with 30+ films in the genre and 5+ films with the element)
+C. ASSOCIATION OVER TIME (periods with 30+ films in the genre and 5+ films with the feature)
   sheriff    Western          before 1970 / 1990 on:  distinctiveness 0.61 / 0.14   genre share 0.067 / 0.010   odds ratio 24 / 17   prevalence 0.197 / 0.163
   outlaw     Western          before 1970 / 1990 on:  distinctiveness 0.80 / 0.39   genre share 0.067 / 0.010   odds ratio 65 / 66   prevalence 0.158 / 0.105
   vampire    Horror           before 1970 / 1990 on:  distinctiveness 0.93 / 0.82   genre share 0.077 / 0.101   odds ratio 131 / 35   prevalence 0.060 / 0.055
@@ -121,7 +121,7 @@ entity_PRODUCT        151    55       0.364
 entity_FAC             80    19       0.238
 entity_EVENT           65    12       0.185
 entity_WORK_OF_ART     61    14       0.230
-A rule with no language model ("keep everything that is not a named entity") agrees with the classifier on 74.4% of 27,212 elements.
+A rule with no language model ("keep everything that is not a named entity") agrees with the classifier on 74.4% of 27,212 features.
 element_taxonomy
 generic_or_empty     2814
 character_name       2065

@@ -1,0 +1,417 @@
+cluster_id,caseName,gen,element,phrase,match,tier,unit,match_07b,method_07b
+148199.0,"Benay v. Warner Bros. Entertainment, Inc.",Action,insertion of american character,insertion of american character,,declined,,american culture,semantic
+148199.0,"Benay v. Warner Bros. Entertainment, Inc.",Action,japanese historical setting,japanese historical setting,,declined,,setting,head_noun
+148199.0,"Benay v. Warner Bros. Entertainment, Inc.",Action,imperial palace,imperial palace,imperial palace,exact,element,imperial palace,exact
+148199.0,"Benay v. Warner Bros. Entertainment, Inc.",Action,army training grounds,army training grounds,ground,head,element,ground,head_noun
+148199.0,"Benay v. Warner Bros. Entertainment, Inc.",Action,battle scenes,battle scenes,,declined,,battle scene,semantic
+2289841.0,Whitehead v. Paramount Pictures Corp.,Action,police car chase,police car chase,car chase,phrase,element,chase,head_noun
+2289841.0,Whitehead v. Paramount Pictures Corp.,Action,small miseries of domestic life,small miseries of domestic life,domestic life,phrase,element,life,head_noun
+2289841.0,Whitehead v. Paramount Pictures Corp.,Action,romantic frolics at the beach,romantic frolics at the beach,frolic,head,element,beach,head_noun
+2289841.0,Whitehead v. Paramount Pictures Corp.,Action,conflicts,conflicts,conflict,head,element,conflict,head_noun
+2289841.0,Whitehead v. Paramount Pictures Corp.,Action,ambitious people,ambitious people,,declined,,business people,semantic
+2289841.0,Whitehead v. Paramount Pictures Corp.,Action,conservative bureaucracies,conservative bureaucracies,bureaucracy,head,element,bureaucracy,head_noun
+2289841.0,Whitehead v. Paramount Pictures Corp.,Action,evil bureaucracies,evil bureaucracies,bureaucracy,head,element,bureaucracy,head_noun
+2289841.0,Whitehead v. Paramount Pictures Corp.,Action,slight paranoia,slight paranoia,paranoia,head,element,paranoia,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,treasure maps,treasure maps,treasure map,phrase,element,map,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,ghost pirates,ghost pirates,pirate,head,element,pirate,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,undead,undead,undead,exact,element,undead,exact
+7336651.0,Alfred v. Walt Disney Co.,Adventure,supernatural,supernatural,,declined,,paranormal,semantic
+7336651.0,Alfred v. Walt Disney Co.,Adventure,ships,ships,ship,head,element,ship,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,black sails,black sails,sail,head,element,sail,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,skeletons,skeletons,skeleton,head,element,skeleton,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,privateers,privateers,privateer,head,element,privateer,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,naval attacks,naval attacks,attack,head,element,attack,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,dark fog,dark fog,,declined,,fog,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,pirate code,pirate code,,declined,,code,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,ghosts,ghosts,ghost,head,element,ghost,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,sea monsters,sea monsters,sea monster,phrase,element,monster,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,skull-faced pirates,skull-faced pirates,pirate,head,element,pirate,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,caribbean,caribbean,caribbean,exact,element,caribbean,exact
+7336651.0,Alfred v. Walt Disney Co.,Adventure,ships,ships,ship,head,element,ship,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,cavern,cavern,cavern,exact,element,cavern,exact
+7336651.0,Alfred v. Walt Disney Co.,Adventure,betrayal,betrayal,betrayal,exact,element,betrayal,exact
+7336651.0,Alfred v. Walt Disney Co.,Adventure,mutiny,mutiny,mutiny,exact,element,mutiny,exact
+7336651.0,Alfred v. Walt Disney Co.,Adventure,dark pirate clothing,dark pirate clothing,clothing,head,element,clothing,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,facial hair,facial hair,hair,head,element,hair,head_noun
+7336651.0,Alfred v. Walt Disney Co.,Adventure,cockiness,cockiness,,declined,,arrogance,semantic
+7336651.0,Alfred v. Walt Disney Co.,Adventure,bravery,bravery,bravery,exact,element,bravery,exact
+7336651.0,Alfred v. Walt Disney Co.,Adventure,drunkenness,drunkenness,drunkenness,exact,element,drunkenness,exact
+2541408.0,Campbell v. Walt Disney Co.,Animation,cocky kid,cocky kid,kid,head,element,kid,head_noun
+2541408.0,Campbell v. Walt Disney Co.,Animation,older mentor,older mentor,mentor,head,element,mentor,head_noun
+2541408.0,Campbell v. Walt Disney Co.,Animation,former champion racer,former champion racer,racer,head,element,racer,head_noun
+2541408.0,Campbell v. Walt Disney Co.,Animation,mentor,mentor,mentor,exact,element,mentor,exact
+2156520.0,Blakeman v. the Walt Disney Co.,Comedy,political candidate,political candidate,candidate,head,element,candidate,head_noun
+2156520.0,Blakeman v. the Walt Disney Co.,Comedy,scheming campaign strategist,scheming campaign strategist,,declined,,,
+2156520.0,Blakeman v. the Walt Disney Co.,Comedy,reagan-republican candidate,reagan-republican candidate,candidate,head,element,candidate,head_noun
+2156520.0,Blakeman v. the Walt Disney Co.,Comedy,liberal democrat candidate,liberal democrat candidate,candidate,head,element,candidate,head_noun
+2156520.0,Blakeman v. the Walt Disney Co.,Comedy,devious campaign strategist,devious campaign strategist,,declined,,,
+2156520.0,Blakeman v. the Walt Disney Co.,Comedy,hotly-contested modern election,hotly-contested modern election,election,head,element,election,head_noun
+2156520.0,Blakeman v. the Walt Disney Co.,Comedy,dirty campaign tricks,dirty campaign tricks,trick,head,element,trick,head_noun
+2313771.0,"A Slice of Pie Productions, LLC v. Wayans Bros. Entertainment",Comedy,fbi office,fbi office,office,head,element,office,head_noun
+2313771.0,"A Slice of Pie Productions, LLC v. Wayans Bros. Entertainment",Comedy,jealous girlfriend,jealous girlfriend,girlfriend,head,element,girlfriend,head_noun
+2313771.0,"A Slice of Pie Productions, LLC v. Wayans Bros. Entertainment",Comedy,jealous wife,jealous wife,wife,head,element,wife,head_noun
+7314879.0,"Shame on You Productions, Inc. v. Elizabeth Banks",Comedy,one-night stand,one-night stand,night stand,phrase,element,stand,head_noun
+7314879.0,"Shame on You Productions, Inc. v. Elizabeth Banks",Comedy,stranger,stranger,stranger,exact,element,stranger,exact
+7314879.0,"Shame on You Productions, Inc. v. Elizabeth Banks",Comedy,waking up disoriented,waking up disoriented,,declined,,disorientation,semantic
+7314879.0,"Shame on You Productions, Inc. v. Elizabeth Banks",Comedy,gentlemen's bedroom,gentlemen's bedroom,bedroom,head,element,bedroom,head_noun
+7314879.0,"Shame on You Productions, Inc. v. Elizabeth Banks",Comedy,getting drunk,getting drunk,,declined,,drunk,head_noun
+7326071.0,Tanksley v. Daniels,Drama,musical interludes,musical interludes,interlude,head,element,interlude,head_noun
+4775747.0,Anas Osama Ibrahim Abdin v. CBS Broadcasting Inc.,Science Fiction,alien encounters,alien encounters,encounter,head,element,encounter,head_noun
+4775747.0,Anas Osama Ibrahim Abdin v. CBS Broadcasting Inc.,Science Fiction,war games,war games,war game,phrase,element,game,head_noun
+4775747.0,Anas Osama Ibrahim Abdin v. CBS Broadcasting Inc.,Science Fiction,spaceship,spaceship,spaceship,exact,element,spaceship,exact
+4775747.0,Anas Osama Ibrahim Abdin v. CBS Broadcasting Inc.,Science Fiction,war games,war games,war game,phrase,element,game,head_noun
+4775747.0,Anas Osama Ibrahim Abdin v. CBS Broadcasting Inc.,Science Fiction,supernatural forces,supernatural forces,supernatural force,phrase,element,force,head_noun
+4775747.0,Anas Osama Ibrahim Abdin v. CBS Broadcasting Inc.,Science Fiction,space travel,space travel,space travel,exact,element,space travel,exact
+7327412.0,"Dickerson v. WB Studio Enterprises, Inc.",Comedy,three barbers' chairs,three barbers' chairs,chair,head,element,chair,head_noun
+7327412.0,"Dickerson v. WB Studio Enterprises, Inc.",Comedy,pay phone,pay phone,pay phone,exact,element,pay phone,exact
+7327412.0,"Dickerson v. WB Studio Enterprises, Inc.",Comedy,one female employee,one female employee,female employee,phrase,element,employee,head_noun
+7327412.0,"Dickerson v. WB Studio Enterprises, Inc.",Comedy,tension between local businesses,tension between local businesses,local business,phrase,element,business,head_noun
+7327412.0,"Dickerson v. WB Studio Enterprises, Inc.",Comedy,wise/kind father figure,wise/kind father figure,father figure,phrase,element,wise,head_noun
+7327412.0,"Dickerson v. WB Studio Enterprises, Inc.",Comedy,pregnant woman,pregnant woman,pregnant woman,exact,element,pregnant woman,exact
+7327412.0,"Dickerson v. WB Studio Enterprises, Inc.",Comedy,sassy/attractive female employee,sassy/attractive female employee,female employee,phrase,element,sassy,head_noun
+7327412.0,"Dickerson v. WB Studio Enterprises, Inc.",Comedy,troubled young man wearing a black bandanna,troubled young man wearing a black bandanna,young man,phrase,element,troubled boy,semantic
+2377760.0,Flaherty v. Filardi,Drama,dissatisfied attorney,dissatisfied attorney,attorney,head,element,attorney,head_noun
+2539817.0,"Cabell v. Sony Pictures Entertainment, Inc.",Comedy,blow dryer ,blow dryer,,declined,,dryer,head_noun
+2539817.0,"Cabell v. Sony Pictures Entertainment, Inc.",Comedy,weapon,weapon,weapon,exact,element,weapon,exact
+2539817.0,"Cabell v. Sony Pictures Entertainment, Inc.",Comedy,fighting pose,fighting pose,,declined,,pose,head_noun
+666626.0,Alveda King Beal v. Paramount Pictures Corporation,Comedy,lavish palace,lavish palace,palace,head,element,palace,head_noun
+666626.0,Alveda King Beal v. Paramount Pictures Corporation,Comedy,private quarters and baths in a palace,private quarters and baths in a palace,quarter,head,element,palace,head_noun
+666626.0,Alveda King Beal v. Paramount Pictures Corporation,Comedy,baths,baths,bath,head,element,bath,head_noun
+666626.0,Alveda King Beal v. Paramount Pictures Corporation,Comedy,women in subservient role,women in subservient role,women,head,element,role,head_noun
+666626.0,Alveda King Beal v. Paramount Pictures Corporation,Comedy,fast-food restaurant,fast-food restaurant,fast food restaurant,phrase,element,restaurant,head_noun
+666626.0,Alveda King Beal v. Paramount Pictures Corporation,Comedy,nightclub sequence,nightclub sequence,sequence,head,element,sequence,head_noun
+666626.0,Alveda King Beal v. Paramount Pictures Corporation,Comedy,hotels,hotels,hotel,head,element,hotel,head_noun
+666626.0,Alveda King Beal v. Paramount Pictures Corporation,Comedy,restaurant dining,restaurant dining,dining,head,element,dining,head_noun
+666626.0,Alveda King Beal v. Paramount Pictures Corporation,Comedy,palace festivities,palace festivities,festivity,head,element,festivity,head_noun
+666626.0,Alveda King Beal v. Paramount Pictures Corporation,Comedy,parties at private home,parties at private home,party,head,element,home,head_noun
+2417285.0,Robinson v. New Line Cinema Corp.,Crime,security cameras,security cameras,security camera,phrase,element,camera,head_noun
+2417285.0,Robinson v. New Line Cinema Corp.,Crime,robbery countdowns,robbery countdowns,countdown,head,element,countdown,head_noun
+2417285.0,Robinson v. New Line Cinema Corp.,Crime,violence,violence,violence,exact,element,violence,exact
+2501871.0,Robinson v. New Line Cinema Corp.,Crime,security cameras,security cameras,security camera,phrase,element,camera,head_noun
+2501871.0,Robinson v. New Line Cinema Corp.,Crime,violence,violence,violence,exact,element,violence,exact
+2501871.0,Robinson v. New Line Cinema Corp.,Crime,robbery countdowns,robbery countdowns,countdown,head,element,countdown,head_noun
+2501871.0,Robinson v. New Line Cinema Corp.,Crime,policeman  ,policeman,policeman,exact,element,policeman,exact
+2501871.0,Robinson v. New Line Cinema Corp.,Crime,duty,duty,duty,exact,element,duty,exact
+2501871.0,Robinson v. New Line Cinema Corp.,Crime,neighborhood restaurant,neighborhood restaurant,restaurant,head,element,restaurant,head_noun
+2501871.0,Robinson v. New Line Cinema Corp.,Crime,love interest's apartment,love interest's apartment,,declined,,apartment,head_noun
+465042.0,"Thomas Walker v. Time Life Films, Inc., David Susskind, Gill Champion, Martin Richards and Heywood Gould",Crime,foot chases,foot chases,chase,head,element,chase,head_noun
+465042.0,"Thomas Walker v. Time Life Films, Inc., David Susskind, Gill Champion, Martin Richards and Heywood Gould",Crime,morale problems of policemen,morale problems of policemen,problem,head,element,police corruption,semantic
+465042.0,"Thomas Walker v. Time Life Films, Inc., David Susskind, Gill Champion, Martin Richards and Heywood Gould",Crime,irish cop,irish cop,cop,head,element,cop,head_noun
+465042.0,"Thomas Walker v. Time Life Films, Inc., David Susskind, Gill Champion, Martin Richards and Heywood Gould",Crime,drunks,drunks,drunk,head,element,drunk,head_noun
+465042.0,"Thomas Walker v. Time Life Films, Inc., David Susskind, Gill Champion, Martin Richards and Heywood Gould",Crime,prostitutes,prostitutes,prostitute,head,element,prostitute,head_noun
+465042.0,"Thomas Walker v. Time Life Films, Inc., David Susskind, Gill Champion, Martin Richards and Heywood Gould",Crime,vermin,vermin,vermin,exact,element,vermin,exact
+465042.0,"Thomas Walker v. Time Life Films, Inc., David Susskind, Gill Champion, Martin Richards and Heywood Gould",Crime,derelict cars,derelict cars,car,head,element,car,head_noun
+465042.0,"Thomas Walker v. Time Life Films, Inc., David Susskind, Gill Champion, Martin Richards and Heywood Gould",Crime,cockfights,cockfights,cockfight,head,element,cockfight,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,movie theatre,movie theatre,movie theatre,exact,element,movie theatre,exact
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,calling an unborn child junior,calling an unborn child junior,unborn child,phrase,element,junior,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,excessive drinking,excessive drinking,excessive drinking,exact,element,excessive drinking,exact
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,birth,birth,birth,exact,element,birth,exact
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,father-daughter hug,father-daughter hug,,declined,,hug,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,reading spouse's journal,reading spouse's journal,journal,head,element,journal,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,fourth of july outing,fourth of july outing,outing,head,element,outing,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,new year's eve outing,new year's eve outing,new year's eve,phrase,element,outing,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,child leaving for college,child leaving for college,leave for college,event,event,college,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,parental fight,parental fight,fight,head,element,fight,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,absent drunk father,absent drunk father,father,head,element,father,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,woman struggling with weight gain,woman struggling with weight gain,woman,head,element,gain,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,child overhearing argument,child overhearing argument,argument,head,element,argument,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,kissing,kissing,kissing,exact,element,kissing,exact
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,coming home from work,coming home from work,coming home,phrase,element,work,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,emotional turmoil,emotional turmoil,emotional turmoil,exact,element,emotional turmoil,exact
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,club,club,club,exact,element,club,exact
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,church picnic,church picnic,picnic,head,element,picnic,head_noun
+2152135.0,Scott-Blanton v. Universal City Studios Productions LLLP,Drama,kitchen,kitchen,kitchen,exact,element,kitchen,exact
+2562036.0,Hoch v. Mastercard International Inc.,Drama,highway signs,highway signs,sign,head,element,sign,head_noun
+2562036.0,Hoch v. Mastercard International Inc.,Drama,service stops,service stops,stop,head,element,stop,head_noun
+2562036.0,Hoch v. Mastercard International Inc.,Drama,geographic landmarks,geographic landmarks,landmark,head,element,landmark,head_noun
+2562036.0,Hoch v. Mastercard International Inc.,Drama,transportation by automobile,transportation by automobile,transportation,head,element,automobile,head_noun
+8689676.0,Tillman v. New Line Cinema Corp.,Drama,concerned father,concerned father,father,head,element,father,head_noun
+1605909.0,Schwarz v. Universal Pictures Co.,Romance,romance between servant and master,romance between servant and master,romance,head,element,master,head_noun
+1605909.0,Schwarz v. Universal Pictures Co.,Romance,butler's ball,butler's ball,ball,head,element,ball,head_noun
+7309296.0,Dean v. Cameron,Fantasy,levitation,levitation,,declined,,,
+7309296.0,Dean v. Cameron,Fantasy,dragon-like creatures,dragon-like creatures,creature,head,element,creature,head_noun
+7309296.0,Dean v. Cameron,Fantasy,stone arches,stone arches,arch,head,element,arch,head_noun
+7309296.0,Dean v. Cameron,Fantasy,acacia trees,acacia trees,tree,head,element,tree,head_noun
+7309296.0,Dean v. Cameron,Fantasy,willow trees,willow trees,tree,head,element,tree,head_noun
+7309296.0,Dean v. Cameron,Fantasy,colorful amphibians and reptiles,colorful amphibians and reptiles,,declined,,reptile,head_noun
+7309296.0,Dean v. Cameron,Fantasy,foliage,foliage,,declined,,,
+7309296.0,Dean v. Cameron,Fantasy,waterfalls,waterfalls,waterfall,head,element,waterfall,head_noun
+7332240.0,Horror Inc. v. Miller,Horror,personal killings,personal killings,killing,head,element,killing,head_noun
+7332240.0,Horror Inc. v. Miller,Horror,early kiling of main character,early kiling of main character,main character,phrase,element,twist ending,semantic
+7332240.0,Horror Inc. v. Miller,Horror,summer camp,summer camp,summer camp,exact,element,summer camp,exact
+7332240.0,Horror Inc. v. Miller,Horror,monste/killer returns to life,monste/killer returns to life,return,head,element,life,head_noun
+74110.0,Herzog v. Castle Rock Entertainment,Mystery,secret-keepers,secret-keepers,keeper,head,element,keeper,head_noun
+74110.0,Herzog v. Castle Rock Entertainment,Mystery,crooked lawman,crooked lawman,lawman,head,element,lawman,head_noun
+74110.0,Herzog v. Castle Rock Entertainment,Mystery,justice,justice,justice,exact,element,justice,exact
+8730861.0,Moore v. Lightstorm Entertainment,Science Fiction,3-d terrain in battle,3-d terrain in battle,terrain,head,element,battle,head_noun
+8730861.0,Moore v. Lightstorm Entertainment,Science Fiction,dramatic foliage,dramatic foliage,,declined,,,
+8730861.0,Moore v. Lightstorm Entertainment,Science Fiction,giant forests,giant forests,forest,head,element,forest,head_noun
+8730861.0,Moore v. Lightstorm Entertainment,Science Fiction,bioluminescence,bioluminescence,,declined,,strange light,semantic
+8730861.0,Moore v. Lightstorm Entertainment,Science Fiction,brave protagonist,brave protagonist,protagonist,head,element,protagonist,head_noun
+8730861.0,Moore v. Lightstorm Entertainment,Science Fiction,adventurous protagonist,adventurous protagonist,protagonist,head,element,protagonist,head_noun
+8730861.0,Moore v. Lightstorm Entertainment,Science Fiction,strategic protagonist,strategic protagonist,protagonist,head,element,protagonist,head_noun
+8730861.0,Moore v. Lightstorm Entertainment,Science Fiction,protagonist leads revolt,protagonist leads revolt,,declined,,revolt,head_noun
+1959343.0,"Wavelength Film Co. v. Columbia Pictures Industries, Inc.",Science Fiction,alien arriving on earth,alien arriving on earth,,declined,,earth,head_noun
+1959343.0,"Wavelength Film Co. v. Columbia Pictures Industries, Inc.",Science Fiction,spaceship,spaceship,spaceship,exact,element,spaceship,exact
+1959343.0,"Wavelength Film Co. v. Columbia Pictures Industries, Inc.",Science Fiction,humans fearing alien,humans fearing alien,human,head,element,alien,head_noun
+1959343.0,"Wavelength Film Co. v. Columbia Pictures Industries, Inc.",Science Fiction,government pursuing alien,government pursuing alien,,declined,,alien,head_noun
+1959343.0,"Wavelength Film Co. v. Columbia Pictures Industries, Inc.",Science Fiction,friendly human rescuer,friendly human rescuer,rescuer,head,element,rescuer,head_noun
+1959343.0,"Wavelength Film Co. v. Columbia Pictures Industries, Inc.",Science Fiction,alien leaving earth before death,alien leaving earth before death,leave earth,event,event,death,head_noun
+1959343.0,"Wavelength Film Co. v. Columbia Pictures Industries, Inc.",Science Fiction,spherical spacecraft,spherical spacecraft,spacecraft,head,element,spacecraft,head_noun
+2175154.0,Goldberg v. Cameron,Science Fiction,man vs machines conflict,man vs machines conflict,conflict,head,element,conflict,head_noun
+2320346.0,"Idema v. Dreamworks, Inc.",Action,fanatical terrorist,fanatical terrorist,terrorist,head,element,terrorist,head_noun
+2320346.0,"Idema v. Dreamworks, Inc.",Action,border crossing,border crossing,border crossing,exact,element,border crossing,exact
+2320346.0,"Idema v. Dreamworks, Inc.",Action,brash cocky military officer,brash cocky military officer,military officer,phrase,element,officer,head_noun
+2320346.0,"Idema v. Dreamworks, Inc.",Action,triumph through guile and physical abilities,triumph through guile and physical abilities,,declined,,ability,head_noun
+2182985.0,Muller v. TWENTIETH CENTURY FOX FILM CORP.,Science Fiction,expedition to a dangerous and remote location,expedition to a dangerous and remote location,remote location,phrase,element,location,head_noun
+2182985.0,Muller v. TWENTIETH CENTURY FOX FILM CORP.,Science Fiction,action-adventure meets science-fiction,action-adventure meets science-fiction,,declined,,fiction,head_noun
+2182985.0,Muller v. TWENTIETH CENTURY FOX FILM CORP.,Science Fiction,team expert,team expert,expert,head,element,expert,head_noun
+2182985.0,Muller v. TWENTIETH CENTURY FOX FILM CORP.,Science Fiction,team trapped underground,team trapped underground,,declined,,underground,head_noun
+2182985.0,Muller v. TWENTIETH CENTURY FOX FILM CORP.,Science Fiction,initial reluctance to participate in expedition,initial reluctance to participate in expedition,initial reluctance,phrase,element,expedition,head_noun
+2182985.0,Muller v. TWENTIETH CENTURY FOX FILM CORP.,Science Fiction,ancient underground city,ancient underground city,underground city,phrase,element,city,head_noun
+2182985.0,Muller v. TWENTIETH CENTURY FOX FILM CORP.,Science Fiction,ancient underground pyramid,ancient underground pyramid,pyramid,head,element,pyramid,head_noun
+2156278.0,Zambito v. Paramount Pictures Corp.,Adventure,archaeologist searching for artifacts,archaeologist searching for artifacts,archaeologist,head,element,artifact,head_noun
+2156278.0,Zambito v. Paramount Pictures Corp.,Adventure,treasure hidden,treasure hidden,treasure,head,element,hidden treasure,semantic
+2156278.0,Zambito v. Paramount Pictures Corp.,Adventure,cave inhabited by snakes,cave inhabited by snakes,,declined,,snake,head_noun
+2156278.0,Zambito v. Paramount Pictures Corp.,Adventure,fire used to repel snakes,fire used to repel snakes,,declined,,snake,head_noun
+2156278.0,Zambito v. Paramount Pictures Corp.,Adventure,birds frightening an intruder in the jungle,birds frightening an intruder in the jungle,,declined,,jungle,head_noun
+2156278.0,Zambito v. Paramount Pictures Corp.,Adventure,traveler seeking solace in a tavern,traveler seeking solace in a tavern,seek solace,event,event,tavern,head_noun
+2156278.0,Zambito v. Paramount Pictures Corp.,Adventure,sunlight used to locate treasure,sunlight used to locate treasure,sunlight,head,element,treasure,head_noun
+2489389.0,Doody v. PENGUIN GROUP (USA) INC.,Adventure,wealthy and powerful mongolian villain,wealthy and powerful mongolian villain,villain,head,element,villain,head_noun
+2489389.0,Doody v. PENGUIN GROUP (USA) INC.,Adventure,character uncovering an artifact,character uncovering an artifact,,declined,,artifact,head_noun
+2489389.0,Doody v. PENGUIN GROUP (USA) INC.,Adventure,female character held captive,female character held captive,female character,phrase,element,captive,head_noun
+2489389.0,Doody v. PENGUIN GROUP (USA) INC.,Adventure,captive served food on a tray,captive served food on a tray,serve food,event,event,tray,head_noun
+2489389.0,Doody v. PENGUIN GROUP (USA) INC.,Adventure,public unveiling of treasure,public unveiling of treasure,unveiling,head,element,treasure,head_noun
+2489389.0,Doody v. PENGUIN GROUP (USA) INC.,Adventure,hero thanked for discovery,hero thanked for discovery,,declined,,discovery,head_noun
+2489389.0,Doody v. PENGUIN GROUP (USA) INC.,Adventure,back-to-back action sequences,back-to-back action sequences,action sequence,phrase,element,sequence,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,sympathetic mob boss,sympathetic mob boss,mob boss,phrase,element,boss,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,respected avenger,respected avenger,avenger,head,element,avenger,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,corrupt cops,corrupt cops,corrupt cop,phrase,element,cop,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,renegade mobster,renegade mobster,mobster,head,element,mobster,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,police shakedown,police shakedown,,declined,,police search,semantic
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,mob hangout in neighborhood business,mob hangout in neighborhood business,hangout,head,element,business,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,tip-off,tip-off,,declined,,off,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,pointed-object-to-the-head homicide,pointed-object-to-the-head homicide,homicide,head,element,homicide,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,race to capture killer,race to capture killer,capture killer,event,event,killer,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,shots fired at dead bodies,shots fired at dead bodies,dead body,phrase,element,body,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,generic tattoos,generic tattoos,tattoo,head,element,tattoo,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,drug trafficking,drug trafficking,drug trafficking,exact,element,drug trafficking,exact
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,common italian names,common italian names,name,head,element,name,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,common irish names,common irish names,name,head,element,name,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,mob jargon,mob jargon,,declined,,jargon,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,working class neighborhood,working class neighborhood,working class neighborhood,exact,element,working class neighborhood,exact
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,revenge,revenge,revenge,exact,element,revenge,exact
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,murdered innocent leaving behind widow and children,murdered innocent leaving behind widow and children,,declined,,children,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,avenger's distrust of justice system,avenger's distrust of justice system,distrust,head,element,system,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,victim of police shakedown expressing disdain for corrupt cops,victim of police shakedown expressing disdain for corrupt cops,corrupt cop,phrase,element,cop,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,fight in a butcher shop using available weapons,fight in a butcher shop using available weapons,butcher shop,phrase,element,weapon,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,meat cleaver as weapon in butcher shop fight,meat cleaver as weapon in butcher shop fight,butcher shop,phrase,element,fight,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,corkscrew as weapon in kitchen confrontation,corkscrew as weapon in kitchen confrontation,,declined,,confrontation,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,eyewitness,eyewitness,eyewitness,exact,element,eyewitness,exact
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,villain linked to organized crime,villain linked to organized crime,organized crime,phrase,element,crime,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,homicide,homicide,homicide,exact,element,homicide,exact
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,avenger of victim,avenger of victim,avenger,head,element,victim,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,rival party pursuing villain,rival party pursuing villain,,declined,,villain,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,mob boss,mob boss,mob boss,exact,element,mob boss,exact
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,renegade mobster,renegade mobster,mobster,head,element,mobster,head_noun
+2098503.0,"Sinicola v. Warner Bros., Inc.",Crime,mob boss seeking to make example of renegade,mob boss seeking to make example of renegade,mob boss,phrase,element,renegade,head_noun
+1515188.0,"Walker v. Time Life Films, Inc.",Crime,bribery,bribery,bribery,exact,element,bribery,exact
+1515188.0,"Walker v. Time Life Films, Inc.",Crime,prostitution,prostitution,prostitution,exact,element,prostitution,exact
+1515188.0,"Walker v. Time Life Films, Inc.",Crime,purse-snatching,purse-snatching,,declined,,,
+1515188.0,"Walker v. Time Life Films, Inc.",Crime,neighborhood hostility to law enforcers,neighborhood hostility to law enforcers,hostility,head,element,enforcer,head_noun
+1515188.0,"Walker v. Time Life Films, Inc.",Crime,disarming of threatening individuals,disarming of threatening individuals,,declined,,individual,head_noun
+1515188.0,"Walker v. Time Life Films, Inc.",Crime,poor morale of disgruntled officers,poor morale of disgruntled officers,morale,head,element,officer,head_noun
+1515188.0,"Walker v. Time Life Films, Inc.",Crime,poverty-stricken crime-ridden environment,poverty-stricken crime-ridden environment,environment,head,element,environment,head_noun
+7328344.0,Nobile v. Watts,Drama,blood on the floor after a dramatic birth,blood on the floor after a dramatic birth,blood,head,element,birth,head_noun
+7328344.0,Nobile v. Watts,Drama,mother wishing to hold newborn,mother wishing to hold newborn,mother,head,element,newborn,head_noun
+7328344.0,Nobile v. Watts,Drama,becoming sick when secret is discovered,becoming sick when secret is discovered,,declined,,dark secret,semantic
+7328344.0,Nobile v. Watts,Drama,childless couple finding motherless baby,childless couple finding motherless baby,childless couple,phrase,element,baby,head_noun
+7328344.0,Nobile v. Watts,Drama,remote storm-swept island,remote storm-swept island,island,head,element,island,head_noun
+7309258.0,"White v. Alcon Film Fund, LLC",Drama,slang terms,slang terms,term,head,element,term,head_noun
+7309258.0,"White v. Alcon Film Fund, LLC",Drama,drugs and crime in housing projects,drugs and crime in housing projects,housing project,phrase,element,project,head_noun
+7309258.0,"White v. Alcon Film Fund, LLC",Drama,basketball court in housing project,basketball court in housing project,housing project,phrase,element,project,head_noun
+7309258.0,"White v. Alcon Film Fund, LLC",Drama,protagonist living alone with a mother figure,protagonist living alone with a mother figure,mother figure,phrase,element,figure,head_noun
+7309258.0,"White v. Alcon Film Fund, LLC",Drama,housing project,housing project,housing project,exact,element,housing project,exact
+1457524.0,"Arden v. Columbia Pictures Industries, Inc.",Comedy,awakening to alarm clock,awakening to alarm clock,alarm clock,phrase,element,clock,head_noun
+1457524.0,"Arden v. Columbia Pictures Industries, Inc.",Comedy,"repetition of actions, conversations, and events","repetition of actions, conversations, and events",repetition,head,element,event,head_noun
+1457524.0,"Arden v. Columbia Pictures Industries, Inc.",Comedy,reliving experiences,reliving experiences,experience,head,element,experience,head_noun
+7331850.0,Cline v. Reetz-Laiolo,Drama,alienated youth,alienated youth,youth,head,element,youth,head_noun
+7331850.0,Cline v. Reetz-Laiolo,Drama,single parent,single parent,single parent,exact,element,single parent,exact
+7331850.0,Cline v. Reetz-Laiolo,Drama,youth falling in with a bad crowd,youth falling in with a bad crowd,youth,head,element,crowd,head_noun
+7331850.0,Cline v. Reetz-Laiolo,Drama,youth committing a crime,youth committing a crime,commit crime,event,event,crime,head_noun
+7331850.0,Cline v. Reetz-Laiolo,Drama,youth sent away after being caught,youth sent away after being caught,,declined,,young criminal,semantic
+1759178.0,Denker v. Uhry,Drama,elderly person fearing theft by minority helper,elderly person fearing theft by minority helper,,declined,,helper,head_noun
+1759178.0,Denker v. Uhry,Drama,fear of silverware theft,fear of silverware theft,fear,head,element,theft,head_noun
+1759178.0,Denker v. Uhry,Drama,bigot distinguishing acquaintances from rest of racial group,bigot distinguishing acquaintances from rest of racial group,,declined,,group,head_noun
+1759178.0,Denker v. Uhry,Drama,invoking the constitution to resist meddling,invoking the constitution to resist meddling,,declined,,meddling,head_noun
+1884962.0,Nelson v. Grisham,Drama,media presence,media presence,presence,head,element,presence,head_noun
+1884962.0,Nelson v. Grisham,Drama,politicians,politicians,politician,head,element,politician,head_noun
+1884962.0,Nelson v. Grisham,Drama,jail house personnel,jail house personnel,personnel,head,element,personnel,head_noun
+1884962.0,Nelson v. Grisham,Drama,last minute appeals by attorneys,last minute appeals by attorneys,appeal,head,element,attorney,head_noun
+1479450.0,"Davis v. United Artists, Inc.",War,patriotic soldier confused by war,patriotic soldier confused by war,soldier,head,element,war,head_noun
+1479450.0,"Davis v. United Artists, Inc.",War,fbi surveillance,fbi surveillance,surveillance,head,element,surveillance,head_noun
+1479450.0,"Davis v. United Artists, Inc.",War,anti-war figures,anti-war figures,figure,head,element,figure,head_noun
+1479450.0,"Davis v. United Artists, Inc.",War,fruit stand during r&r scenes in the war zone,fruit stand during r&r scenes in the war zone,war zone,phrase,element,zone,head_noun
+7330060.0,"Nicassio v. Viacom Int'l, Inc.",Family,perseverance,perseverance,perseverance,exact,element,perseverance,exact
+7330060.0,"Nicassio v. Viacom Int'l, Inc.",Family,adversity,adversity,adversity,exact,element,adversity,exact
+7330060.0,"Nicassio v. Viacom Int'l, Inc.",Family,encouragement,encouragement,encouragement,exact,element,encouragement,exact
+7330060.0,"Nicassio v. Viacom Int'l, Inc.",Family,sidekick,sidekick,sidekick,exact,element,sidekick,exact
+7330060.0,"Nicassio v. Viacom Int'l, Inc.",Family,antagonist,antagonist,antagonist,exact,element,antagonist,exact
+778480.0,"Cavalier v. Random House, Inc.",Family,journey in the night sky,journey in the night sky,night sky,phrase,element,sky,head_noun
+778480.0,"Cavalier v. Random House, Inc.",Family,magical adventures teaching children to overcome fears,magical adventures teaching children to overcome fears,teach child,event,event,fear,head_noun
+778480.0,"Cavalier v. Random House, Inc.",Family,moon character,moon character,,declined,,crescent moon,semantic
+334640.0,"Rebecca Reyher and Ruth Gannett v. Children's Television Workshop and Tuesday Publications, Inc.",Family,lost child protagonist,lost child protagonist,lost child,phrase,element,protagonist,head_noun
+334640.0,"Rebecca Reyher and Ruth Gannett v. Children's Television Workshop and Tuesday Publications, Inc.",Family,reunion with parents,reunion with parents,reunion,head,element,parent,head_noun
+7334813.0,Dubay v. King,Western,gunslinger,gunslinger,gunslinger,exact,element,gunslinger,exact
+7334813.0,Dubay v. King,Western,western costume/gear,western costume/gear,gear,head,element,costume,head_noun
+7334813.0,Dubay v. King,Western,cowboys,cowboys,cowboys,exact,element,cowboys,exact
+7334813.0,Dubay v. King,Western,bank robbers,bank robbers,bank robber,phrase,element,robber,head_noun
+7334813.0,Dubay v. King,Western,shootouts,shootouts,shootout,head,element,shootout,head_noun
+7334813.0,Dubay v. King,Western,american west,american west,american west,exact,element,american west,exact
+7334813.0,Dubay v. King,Western,square-jawed cowboy in wide-brim dark hat,square-jawed cowboy in wide-brim dark hat,cowboy,head,element,hat,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,sidekick for young hero,sidekick for young hero,sidekick,head,element,hero,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,blond popular athletic girl as love interest,blond popular athletic girl as love interest,love interest,phrase,element,interest,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,figures from greek mythology,figures from greek mythology,figure,head,element,mythology,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,magic weapons,magic weapons,weapon,head,element,weapon,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,sports contests,sports contests,contest,head,element,contest,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,school classrooms,school classrooms,classroom,head,element,classroom,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,flirtation between boys and girls,flirtation between boys and girls,flirtation,head,element,girl,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,defeat of medusa,defeat of medusa,defeat,head,element,medusa,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,defeat of the hydra,defeat of the hydra,defeat,head,element,hydra,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,flying shoes,flying shoes,shoe,head,element,shoe,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,conversations among the gods,conversations among the gods,conversation,head,element,god,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,"conflicts with kronos, atlas, and medusa","conflicts with kronos, atlas, and medusa",,declined,,medusa,head_noun
+8710107.0,DiTocco v. Riordan,Fantasy,hercules' labors,hercules' labors,labor,head,element,labor,head_noun
+2469556.0,Allen v. Scholastic Inc.,Fantasy,castle,castle,castle,exact,element,castle,exact
+2469556.0,Allen v. Scholastic Inc.,Fantasy,magical worlds based in europe,magical worlds based in europe,world,head,element,europe,head_noun
+2469556.0,Allen v. Scholastic Inc.,Fantasy,wizard hospitals,wizard hospitals,hospital,head,element,hospital,head_noun
+2469556.0,Allen v. Scholastic Inc.,Fantasy,wizard colleges,wizard colleges,college,head,element,college,head_noun
+2469556.0,Allen v. Scholastic Inc.,Fantasy,secret wizard society,secret wizard society,society,head,element,society,head_noun
+2469556.0,Allen v. Scholastic Inc.,Fantasy,excitement,excitement,excitement,exact,element,excitement,exact
+2469556.0,Allen v. Scholastic Inc.,Fantasy,innocence,innocence,innocence,exact,element,innocence,exact
+2469556.0,Allen v. Scholastic Inc.,Fantasy,simplicity,simplicity,simplicity,exact,element,simplicity,exact
+2469556.0,Allen v. Scholastic Inc.,Fantasy,competition,competition,competition,exact,element,competition,exact
+2469556.0,Allen v. Scholastic Inc.,Fantasy,scoring ,scoring,scoring,exact,element,scoring,exact
+2469556.0,Allen v. Scholastic Inc.,Fantasy,prize,prize,prize,exact,element,prize,exact
+2469556.0,Allen v. Scholastic Inc.,Fantasy,winner,winner,winner,exact,element,winner,exact
+2415027.0,Hogan v. DC Comics,Horror,dual nature,dual nature,nature,head,element,nature,head_noun
+2415027.0,Hogan v. DC Comics,Horror,use of flashback or memory ,use of flashback or memory,,declined,,memory,head_noun
+2415027.0,Hogan v. DC Comics,Horror,indoctrination into evil through killing,indoctrination into evil through killing,,declined,,killing,head_noun
+2415027.0,Hogan v. DC Comics,Horror,use of cross to scare away a vampire,use of cross to scare away a vampire,,declined,,vampire,head_noun
+2415027.0,Hogan v. DC Comics,Horror,religious imagery ,religious imagery,imagery,head,element,imagery,head_noun
+2415027.0,Hogan v. DC Comics,Horror,half-vampire half-human character,half-vampire half-human character,half vampire,phrase,element,half vampire,semantic
+2415027.0,Hogan v. DC Comics,Horror,sinister genealogy,sinister genealogy,,declined,,family curse,semantic
+2415027.0,Hogan v. DC Comics,Horror,quest to discover origins,quest to discover origins,,declined,,origin,head_noun
+2415027.0,Hogan v. DC Comics,Horror,struggle ,struggle,struggle,exact,element,struggle,exact
+2415027.0,Hogan v. DC Comics,Horror,choice between good and evil,choice between good and evil,choice,head,element,evil,head_noun
+2415027.0,Hogan v. DC Comics,Horror,macabre feel,macabre feel,,declined,,feel,head_noun
+2415027.0,Hogan v. DC Comics,Horror,dark scenes,dark scenes,,declined,,graphic scene,semantic
+2415027.0,Hogan v. DC Comics,Horror,scary characters,scary characters,,declined,,scary story,semantic
+2415027.0,Hogan v. DC Comics,Horror,violence,violence,violence,exact,element,violence,exact
+2375853.0,Randolph v. Dimension Films,Fantasy,conspiracies,conspiracies,conspiracy,head,element,conspiracy,head_noun
+2375853.0,Randolph v. Dimension Films,Fantasy,characters with superhuman qualities,characters with superhuman qualities,,declined,,quality,head_noun
+2375853.0,Randolph v. Dimension Films,Fantasy,advanced technology,advanced technology,advanced technology,exact,element,advanced technology,exact
+2375853.0,Randolph v. Dimension Films,Fantasy,child searching for lost parent,child searching for lost parent,,declined,,parent,head_noun
+2375853.0,Randolph v. Dimension Films,Fantasy,imaginary realm,imaginary realm,realm,head,element,realm,head_noun
+1886253.0,Randolph v. Dimension Films,Fantasy,imaginary world,imaginary world,imaginary world,exact,element,imaginary world,exact
+1886253.0,Randolph v. Dimension Films,Fantasy,journal used to navigate imaginary realm,journal used to navigate imaginary realm,,declined,,realm,head_noun
+1886253.0,Randolph v. Dimension Films,Fantasy,character searching for a father,character searching for a father,search for father,event,event,father,head_noun
+1886253.0,Randolph v. Dimension Films,Fantasy,using power of the mind as a weapon in battle,using power of the mind as a weapon in battle,use as weapon,event,event,battle,head_noun
+1475694.0,"Conan Properties, Inc. v. Mattel, Inc.",Fantasy,superhuman muscleman,superhuman muscleman,,declined,,superhuman strength,semantic
+1475694.0,"Conan Properties, Inc. v. Mattel, Inc.",Fantasy,square-jawed broad-shouldered hero,square-jawed broad-shouldered hero,hero,head,element,hero,head_noun
+376829.0,"A. A. Hoehling v. Universal City Studios, Inc., and Michael MacDonald Mooney",History,german beer hall,german beer hall,hall,head,element,hall,head_noun
+376829.0,"A. A. Hoehling v. Universal City Studios, Inc., and Michael MacDonald Mooney",History,heil hitler greeting,heil hitler greeting,,declined,,greeting,head_noun
+376829.0,"A. A. Hoehling v. Universal City Studios, Inc., and Michael MacDonald Mooney",History,german national anthem,german national anthem,anthem,head,element,anthem,head_noun
+1804030.0,"Chase-Riboud v. Dreamworks, Inc.",History,characters attending court proceedings,characters attending court proceedings,court proceeding,phrase,element,proceeding,head_noun
+7308718.0,Acker v. King,Horror,girl with psychic abilities,girl with psychic abilities,psychic ability,phrase,element,ability,head_noun
+7308718.0,Acker v. King,Horror,new england town setting,new england town setting,new england,phrase,element,setting,head_noun
+7308718.0,Acker v. King,Horror,using psychic abilities to save people,using psychic abilities to save people,psychic ability,phrase,element,telekinetic ability,semantic
+7308718.0,Acker v. King,Horror,supernatural things,supernatural things,,declined,,supernatural phenomena,semantic
+7308718.0,Acker v. King,Horror,defeating villains,defeating villains,defeat villain,event,event,villain,head_noun
+2159853.0,Williams v. Crichton,Science Fiction,dinosaur zoo,dinosaur zoo,zoo,head,element,zoo,head_noun
+2159853.0,Williams v. Crichton,Science Fiction,volcanic island,volcanic island,island,head,element,island,head_noun
+2159853.0,Williams v. Crichton,Science Fiction,park not open to public,park not open to public,,declined,,public,head_noun
+2159853.0,Williams v. Crichton,Science Fiction,fences separating dinosaurs from visitors,fences separating dinosaurs from visitors,fence,head,element,visitor,head_noun
+2159853.0,Williams v. Crichton,Science Fiction,automated tour vehicles,automated tour vehicles,vehicle,head,element,vehicle,head_noun
+2159853.0,Williams v. Crichton,Science Fiction,radio guides ,radio guides,guide,head,element,guide,head_noun
+2159853.0,Williams v. Crichton,Science Fiction,dinosaur nurseries,dinosaur nurseries,nursery,head,element,nursery,head_noun
+2159853.0,Williams v. Crichton,Science Fiction,scientists studying dinosaurs,scientists studying dinosaurs,scientist,head,element,dinosaur,head_noun
+2159853.0,Williams v. Crichton,Science Fiction,gardeners tending special flora,gardeners tending special flora,gardener,head,element,flora,head_noun
+1399924.0,Green v. Lindsey,Science Fiction,league of planets,league of planets,,declined,,planet,head_noun
+1399924.0,Green v. Lindsey,Science Fiction,effortless subliminal learning,effortless subliminal learning,,declined,,learning,head_noun
+1399924.0,Green v. Lindsey,Science Fiction,wild beast attack on protagonist,wild beast attack on protagonist,attack,head,element,protagonist,head_noun
+1399924.0,Green v. Lindsey,Science Fiction,fictional animals used for transportation,fictional animals used for transportation,animal,head,element,transportation,head_noun
+1399924.0,Green v. Lindsey,Science Fiction,teaching machine,teaching machine,machine,head,element,machine,head_noun
+1399924.0,Green v. Lindsey,Science Fiction,possessive dominant male,possessive dominant male,male,head,element,male,head_noun
+1399924.0,Green v. Lindsey,Science Fiction,female protagonist's servitude to male captor,female protagonist's servitude to male captor,servitude,head,element,captor,head_noun
+8344084.0,Weller v. Flynn,Thriller,couple arguing ,couple arguing,couple,head,element,arguing,head_noun
+8344084.0,Weller v. Flynn,Thriller,husband does not need or want wife's permission to go out,husband does not need or want wife's permission to go out,,declined,,out,head_noun
+8344084.0,Weller v. Flynn,Thriller,husband almost gets caught with his mistress,husband almost gets caught with his mistress,catch husband,event,event,mistress,head_noun
+8344084.0,Weller v. Flynn,Thriller,wife wishes to start over,wife wishes to start over,wife wish,phrase,element,over,head_noun
+8344084.0,Weller v. Flynn,Thriller,deteriorating marriage,deteriorating marriage,marriage,head,element,marriage,head_noun
+8344084.0,Weller v. Flynn,Thriller,wife plotting against her husband,wife plotting against her husband,wife,head,element,husband,head_noun
+8344084.0,Weller v. Flynn,Thriller,jealous lover,jealous lover,lover,head,element,lover,head_noun
+8344084.0,Weller v. Flynn,Thriller,vengeful lover,vengeful lover,,declined,,lover,head_noun
+8344084.0,Weller v. Flynn,Thriller,alienated husband,alienated husband,husband,head,element,husband,head_noun
+8344084.0,Weller v. Flynn,Thriller,dangerous woman,dangerous woman,woman,head,element,woman,head_noun
+2425066.0,Madrid v. Chronicle Books,Family,monster encountering a child in a closet,monster encountering a child in a closet,monster,head,element,closet,head_noun
+2425066.0,Madrid v. Chronicle Books,Family,monsters in the closet,monsters in the closet,monster,head,element,closet,head_noun
+2425066.0,Madrid v. Chronicle Books,Family,monsters under the bed,monsters under the bed,monster,head,element,bed,head_noun
+2425066.0,Madrid v. Chronicle Books,Family,innocence of the child,innocence of the child,innocence,head,element,child,head_noun
+2425066.0,Madrid v. Chronicle Books,Family,fat furry monster with horns,fat furry monster with horns,monster,head,element,horn,head_noun
+2425066.0,Madrid v. Chronicle Books,Family,mother consoling a child,mother consoling a child,mother,head,element,child,head_noun
+2425066.0,Madrid v. Chronicle Books,Family,mother/child relationship,mother/child relationship,relationship,head,element,mother,head_noun
+4783241.0,Donna Corbello v. Frankie Valli,Music,reunion evoking feeling of time machine,reunion evoking feeling of time machine,time machine,phrase,element,machine,head_noun
+2472491.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Action,secondary villain,secondary villain,villain,head,element,villain,head_noun
+2472491.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Action,sword-wielding sea-woman,sword-wielding sea-woman,woman,head,element,woman,head_noun
+2472491.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Action,secret lair for hero's transformation,secret lair for hero's transformation,lair,head,element,transformation,head_noun
+2472491.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Action,masked hero/heroine driven by revenge,masked hero/heroine driven by revenge,,declined,,hero,head_noun
+2472491.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Action,arrival by ship in california in the early 19th century,arrival by ship in california in the early 19th century,arrival,head,element,century,head_noun
+2472491.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Action,riding a dark horse,riding a dark horse,ride horse,event,event,horse,head_noun
+2472491.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Action,attendance at a party as entertainment,attendance at a party as entertainment,attendance,head,element,entertainment,head_noun
+2472491.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Action,flag-draped balcony,flag-draped balcony,balcony,head,element,balcony,head_noun
+2472491.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Action,military commander addressing crowd,military commander addressing crowd,military commander,phrase,element,crowd,head_noun
+2472491.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Action,public execution,public execution,public execution,exact,element,public execution,exact
+2472491.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Action,hero's sudden appearance to thwart event,hero's sudden appearance to thwart event,sudden appearance,phrase,element,event,head_noun
+2472491.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Action,heroic camera angles,heroic camera angles,angle,head,element,angle,head_noun
+8972023.0,Olson v. National Broadcasting Co. Inc.,Action,group of vietnam veterans as protagonists,group of vietnam veterans as protagonists,vietnam veteran,phrase,element,protagonist,head_noun
+8972023.0,Olson v. National Broadcasting Co. Inc.,Action,cigar-smoking man,cigar-smoking man,man,head,element,man,head_noun
+8972023.0,Olson v. National Broadcasting Co. Inc.,Action,firing a machine gun,firing a machine gun,machine gun,phrase,element,gun,head_noun
+8924329.0,"Warner Bros. Inc. v. American Broadcasting Companies, Inc.",Action,superhero lifting a car,superhero lifting a car,superhero,head,element,car,head_noun
+8924329.0,"Warner Bros. Inc. v. American Broadcasting Companies, Inc.",Action,superhero's imperviousness to bullets,superhero's imperviousness to bullets,,declined,,bullet,head_noun
+8924329.0,"Warner Bros. Inc. v. American Broadcasting Companies, Inc.",Action,superhero leading a double life,superhero leading a double life,double life,phrase,element,life,head_noun
+2317943.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Adventure,sword-wielding sea-woman,sword-wielding sea-woman,woman,head,element,woman,head_noun
+2317943.0,"Sony Pictures Entertainment, Inc. v. Fireworks Entertainment Group, Inc.",Adventure,dual identity ,dual identity,identity,head,element,identity,head_noun
+7329064.0,Kaye v. Cartoon Network Inc.,Action,protagonist fights and defeats villains,protagonist fights and defeats villains,villain,head,element,villain,head_noun
+7329064.0,Kaye v. Cartoon Network Inc.,Action,good versus evil adventure,good versus evil adventure,,declined,,adventure,head_noun
+7328186.0,"Brown v. Time Warner, Inc.",Comedy,protagonist who believes he is the son of god,protagonist who believes he is the son of god,protagonist,head,element,god,head_noun
+7328186.0,"Brown v. Time Warner, Inc.",Comedy,jesus character engaging in un-jesuslike behavior,jesus character engaging in un-jesuslike behavior,engage in behavior,event,event,behavior,head_noun
+1486306.0,Eaton v. National Broadcasting Co.,Comedy,automotive repair garage setting,automotive repair garage setting,,declined,,setting,head_noun
+1486306.0,Eaton v. National Broadcasting Co.,Comedy,female mechanic,female mechanic,mechanic,head,element,mechanic,head_noun
+2473919.0,Gable v. National Broadcasting Co.,Comedy,karma,karma,karma,exact,element,karma,exact
+2473919.0,Gable v. National Broadcasting Co.,Comedy,redemption,redemption,redemption,exact,element,redemption,exact
+2473919.0,Gable v. National Broadcasting Co.,Comedy,bad person's reformation,bad person's reformation,reformation,head,element,reformation,head_noun
+2473919.0,Gable v. National Broadcasting Co.,Comedy,prison time,prison time,prison time,exact,element,prison time,exact
+2473919.0,Gable v. National Broadcasting Co.,Comedy,making restitution ,making restitution,,declined,,restitution,head_noun
+2473919.0,Gable v. National Broadcasting Co.,Comedy,getting a job after turning life around,getting a job after turning life around,get job,event,event,new career,semantic
+2473919.0,Gable v. National Broadcasting Co.,Comedy,winning the lottery,winning the lottery,win lottery,event,event,lottery,head_noun
+1588010.0,"Novak v. National Broadcasting Co., Inc.",Comedy,fictional 'fifth beatle',fictional 'fifth beatle',,declined,,fictional character,semantic
+1588010.0,"Novak v. National Broadcasting Co., Inc.",Comedy,black and white film,black and white film,film,head,element,film,head_noun
+1588010.0,"Novak v. National Broadcasting Co., Inc.",Comedy,interview/talk show format,interview/talk show format,,declined,,interview,head_noun
+1588010.0,"Novak v. National Broadcasting Co., Inc.",Comedy,flashbacks,flashbacks,flashback,head,element,flashback,head_noun
+1588010.0,"Novak v. National Broadcasting Co., Inc.",Comedy,incongruous instrument,incongruous instrument,instrument,head,element,instrument,head_noun
+1588010.0,"Novak v. National Broadcasting Co., Inc.",Comedy,allegations of theft of ideas,allegations of theft of ideas,allegation,head,element,idea,head_noun
+1588010.0,"Novak v. National Broadcasting Co., Inc.",Comedy,misfit or disgruntled band member,misfit or disgruntled band member,band member,phrase,element,member,head_noun
+2539660.0,Feldman v. Twentieth Century Fox Film Corp.,Science Fiction,time travel,time travel,time travel,exact,element,time travel,exact
+2539660.0,Feldman v. Twentieth Century Fox Film Corp.,Science Fiction,involuntary time travel,involuntary time travel,time travel,phrase,element,travel,head_noun
+2539660.0,Feldman v. Twentieth Century Fox Film Corp.,Science Fiction,warning signs of impending time travel,warning signs of impending time travel,time travel,phrase,element,travel,head_noun
+2539660.0,Feldman v. Twentieth Century Fox Film Corp.,Science Fiction,after effects of time travel,after effects of time travel,time travel,phrase,element,travel,head_noun
+2539660.0,Feldman v. Twentieth Century Fox Film Corp.,Science Fiction,romance related to time travel,romance related to time travel,time travel,phrase,element,travel,head_noun
+2539660.0,Feldman v. Twentieth Century Fox Film Corp.,Science Fiction,significant consequences of time travel,significant consequences of time travel,time travel,phrase,element,travel,head_noun
+7321597.0,"Silas v. Home Box Office, Inc.",Drama,beaches,beaches,beach,head,element,beach,head_noun
+7321597.0,"Silas v. Home Box Office, Inc.",Drama,offices,offices,office,head,element,office,head_noun
+7321597.0,"Silas v. Home Box Office, Inc.",Drama,boats,boats,boat,head,element,boat,head_noun
+7321597.0,"Silas v. Home Box Office, Inc.",Drama,vip rooms,vip rooms,room,head,element,room,head_noun
+7105824.0,Metcalf v. Bochco,Drama,idealistic young professional choosing between financial and emotional reward,idealistic young professional choosing between financial and emotional reward,choosing,head,element,reward,head_noun
+7105824.0,Metcalf v. Bochco,Drama,love triangles,love triangles,love triangle,phrase,element,triangle,head_noun
+7105824.0,Metcalf v. Bochco,Drama,political forces interfering with private action,political forces interfering with private action,force,head,element,action,head_noun

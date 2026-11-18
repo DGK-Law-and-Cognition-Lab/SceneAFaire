@@ -9,9 +9,9 @@ def md(s):   cells.append(nbf.v4.new_markdown_cell(s.strip("\n")))
 def code(s): cells.append(nbf.v4.new_code_cell(s.strip("\n")))
 
 md(r"""
-# Notebook 07c — A stricter court matcher, events, and elements courts refused to call stock
+# Notebook 07c — A stricter court matcher, events, and features courts refused to call stock
 
-Added November 2026. Notebook 07b matched three quarters of the court-named elements by reducing the court's phrase to its last noun, and the last noun of a phrase is usually a common word. Its head-noun null showed that this step alone produces the high prevalence of those matches. This notebook rebuilds the matching so that it prefers the longest phrase it can find and declines to match when it finds nothing sound, and it repeats the two baselines of 07b on the cleaner matches. It then scores a first, unaudited list of elements that courts refused to call stock.
+Added November 2026. Notebook 07b matched three quarters of the court-named features by reducing the court's phrase to its last noun, and the last noun of a phrase is usually a common word. Its head-noun null showed that this step alone produces the high prevalence of those matches. This notebook rebuilds the matching so that it prefers the longest phrase it can find and declines to match when it finds nothing sound, and it repeats the two baselines of 07b on the cleaner matches. It then scores a first, unaudited list of features that courts refused to call stock.
 
 **The matcher, in order. Each step is a rule about wording; none looks at any score, and none uses a language model or an embedding.**
 
@@ -74,7 +74,7 @@ def out(s=''):
 print('V4 =', V4); print('OUT =', OUT)
 """)
 
-md("## Load the court elements, the element scores and the event scores")
+md("## Load the court features, the feature scores and the event scores")
 code(r"""
 judicial = read_parquet(V4 / '07_court_cases' / 'judicial_elements_CURATED.parquet')
 stk = read_parquet(V4 / '03b_classification' / 'stockiness_long_classified.parquet')
@@ -96,7 +96,7 @@ J['case'] = J['cluster_id'].where(J['cluster_id'].notna(), J['caseName']).astype
 J['label'] = 'held_stock'
 assert len(J) == 416, len(J)
 
-# Element percentiles within (genre, type), on the best-type row, exactly as in 07b.
+# Feature percentiles within (genre, type), on the best-type row, exactly as in 07b.
 stk['p_prevalence'] = stk.groupby(['genre', 'element_type'])['rel_freq_in_genre'].rank(pct=True)
 stk['p_distinctiveness'] = stk.groupby(['genre', 'element_type'])['posterior_smoothed'].rank(pct=True)
 best = stk.sort_values('ensemble').groupby(['element', 'genre']).tail(1)
@@ -108,7 +108,7 @@ NARR = stk.drop_duplicates('element').set_index('element')['is_narrative_element
 ev = ev.sort_values('film_count').drop_duplicates(['event', 'genre'], keep='last')
 EV = ev.set_index(['event', 'genre'])[['p_prevalence', 'p_distinctiveness', 'event_type']].sort_index()
 EVOCAB = set(ev['event'].unique())
-print(f'{len(J)} court elements; {len(VOCAB):,} vocabulary strings; {len(EVOCAB):,} events')
+print(f'{len(J)} court features; {len(VOCAB):,} vocabulary strings; {len(EVOCAB):,} events')
 """)
 
 md("## The matcher")
@@ -194,7 +194,7 @@ old = read_parquet(V4 / '07b_court_validation' / 'matched_judicial_elements.parq
 J = J.merge(old.rename(columns={'match_element': 'match_07b', 'match_method': 'method_07b'}), on=['element', 'gen'], how='left')
 cov = J['tier'].value_counts().reindex(['exact', 'phrase', 'event', 'head', 'declined']).fillna(0).astype(int)
 out('NOTEBOOK 07c — STRICTER COURT MATCHER, EVENTS, REJECTED ELEMENTS')
-out(f'{len(J)} in-scope court elements')
+out(f'{len(J)} in-scope court features')
 out(''); out('COVERAGE BY TIER'); out(cov.to_string())
 out(f"strict set (exact + phrase + event): {int(cov[['exact', 'phrase', 'event']].sum())}   (07b had {int((J['method_07b'] == 'exact').sum())} exact matches)")
 out(''); out('new tier (rows) against the 07b method (columns)')
@@ -206,11 +206,11 @@ J[J['tier'].isin(['phrase', 'event'])][['phrase', 'match', 'tier', 'match_07b']]
 md(r"""
 ## Score the matches and repeat the two baselines of 07b
 
-**Rank of the court's genre.** For each matched element or event, the genres in which it appears are ordered by its within-genre percentile, and the position of the court's genre is recorded from 0 to 1. Chance is 0.5.
+**Rank of the court's genre.** For each matched feature or event, the genres in which it appears are ordered by its within-genre percentile, and the position of the court's genre is recorded from 0 to 1. Chance is 0.5.
 
-**Matched controls.** Each matched element or event is compared with others of the same genre and kind that match it on one dimension (percentile within 0.02), and the difference on the other dimension is taken in percentile points. Court-named items are excluded from the control pools. Elements are compared with narrative elements of the same grammatical type, events with events of the same kind.
+**Matched controls.** Each matched feature or event is compared with others of the same genre and kind that match it on one dimension (percentile within 0.02), and the difference on the other dimension is taken in percentile points. Court-named items are excluded from the control pools. Features are compared with story features of the same grammatical type, events with events of the same kind.
 
-Each case contributes the mean (rank) or median (controls) of its items, and a Wilcoxon signed-rank test over cases compares the case values with chance. Element matches are restricted to narrative elements, as in 07b.
+Each case contributes the mean (rank) or median (controls) of its items, and a Wilcoxon signed-rank test over cases compares the case values with chance. Feature matches are restricted to story features, as in 07b.
 """)
 code(r"""
 def midrank(own, others):
@@ -292,7 +292,7 @@ for name, tiers in SETS.items():
 res = pd.DataFrame(rows)
 res.to_parquet(OUT / 'baselines_v2.parquet', index=False)
 pd.concat(case_long, ignore_index=True).to_parquet(OUT / 'baselines_v2_by_case.parquet', index=False)
-out(''); out('SCORED ITEMS AND BASELINES BY MATCH TIER  (elements: narrative only)')
+out(''); out('SCORED ITEMS AND BASELINES BY MATCH TIER  (features: narrative only)')
 for name in SETS:
     d = res[res['set'] == name]
     r0 = d.iloc[0]
@@ -325,7 +325,7 @@ def save(fig, name):
 md(r"""
 ### Which dimension, on all matches and on the court's own wording
 
-Each dot is one case. Red: the court-named elements' distinctiveness minus that of equally common controls. Blue: their prevalence minus that of equally characteristic controls. The boxes show the median and the middle half of the cases.
+Each dot is one case. Red: the court-named features' distinctiveness minus that of equally common controls. Blue: their prevalence minus that of equally characteristic controls. The boxes show the median and the middle half of the cases.
 """)
 code(r"""
 CL = pd.concat(case_long, ignore_index=True)
@@ -347,8 +347,8 @@ ax.axhline(0, color='black', ls='--', lw=1)
 ax.set_xticks([0, 1]); ax.set_xticklabels([f"{lbl}\n({len(vals_of(st, 'distinctiveness_given_prevalence'))} cases)" for st, lbl in groups])
 ax.set_ylim(-65, 72); ax.set_xlim(-0.6, 2.75); ax.set_ylabel('Court-named minus matched controls\n(percentile points; each dot is a case)')
 from matplotlib.patches import Patch
-ax.legend(handles=[Patch(color=RED, alpha=0.5, label='more characteristic than\nequally common elements'),
-                   Patch(color=BLUE, alpha=0.5, label='more common than\nequally characteristic elements')], loc='center right', fontsize=8.5)
+ax.legend(handles=[Patch(color=RED, alpha=0.5, label='more characteristic than\nequally common features'),
+                   Patch(color=BLUE, alpha=0.5, label='more common than\nequally characteristic features')], loc='center right', fontsize=8.5)
 save(fig, 'court_matched')
 """)
 
@@ -365,11 +365,11 @@ save(fig, 'matcher_tiers')
 """)
 
 md(r"""
-## Elements courts refused to call stock (first pass, not yet audited)
+## Features courts refused to call stock (first pass, not yet audited)
 
-The curated court data hold only elements that courts held to be scènes à faire. A test that separates stock from non-stock needs the other side too. As a first pass, the scènes à faire passages of the in-scope opinions were read for elements that the court expressly refused to treat as scènes à faire or expressly treated as protectable, each with a verbatim quotation. Every quotation was checked by exact match against the passage text, and rows that failed were dropped. **The list was extracted by a language model and has not been checked by a person**, so everything in this section is preliminary. The list is `rejected_elements_DRAFT.csv` in this notebook's output folder; if the file is absent this section is skipped.
+The curated court data hold only features that courts held to be scènes à faire. A test that separates stock from non-stock needs the other side too. As a first pass, the scènes à faire passages of the in-scope opinions were read for features that the court expressly refused to treat as scènes à faire or expressly treated as protectable, each with a verbatim quotation. Every quotation was checked by exact match against the passage text, and rows that failed were dropped. **The list was extracted by a language model and has not been checked by a person**, so everything in this section is preliminary. The list is `rejected_elements_DRAFT.csv` in this notebook's output folder; if the file is absent this section is skipped.
 
-The rejected elements go through the same matcher and are scored in the genre of their case. Two cautions apply. Courts usually protect specific combinations and sequences, which have no single score here, so most rejected rows are long phrases that the matcher declines. And a court refusing to call an element stock in one case is weaker evidence than a court calling it stock.
+The rejected features go through the same matcher and are scored in the genre of their case. Two cautions apply. Courts usually protect specific combinations and sequences, which have no single score here, so most rejected rows are long phrases that the matcher declines. And a court refusing to call a feature stock in one case is weaker evidence than a court calling it stock.
 """)
 code(r"""
 PATH_NEG = OUT / 'rejected_elements_DRAFT.csv'
@@ -388,7 +388,7 @@ else:
     out(''); out('ELEMENTS COURTS REFUSED TO CALL STOCK (first pass; extracted by a language model, quotations verified, not human-audited)')
     out(f"{len(NEG)} rows in {NEG['case'].nunique()} cases; by kind: {NEG['kind'].value_counts().to_dict()}; by holding: {NEG['holding_type'].value_counts().to_dict()}")
     out('matcher tiers: ' + str(NEG['tier'].value_counts().to_dict()))
-    out(f'scored in the court genre (narrative elements and events): {len(SN)}')
+    out(f'scored in the court genre (story features and events): {len(SN)}')
     SN.to_parquet(OUT / 'scored_rejected_v2.parquet', index=False)
     comp = []
     for name, tiers in [('strict', ['exact', 'phrase', 'event']), ('all tiers', ['exact', 'phrase', 'event', 'head'])]:
@@ -402,9 +402,9 @@ else:
                              'median_refused': float(y.median()), 'auc_held_stock_higher': float(u.statistic / (len(x) * len(y))), 'p': float(u.pvalue)})
     comp = pd.DataFrame(comp)
     comp.to_parquet(OUT / 'held_vs_refused.parquet', index=False)
-    out(comp.round(3).to_string(index=False) if len(comp) else 'too few scored refused elements to compare')
+    out(comp.round(3).to_string(index=False) if len(comp) else 'too few scored refused features to compare')
     if len(SN):
-        out(''); out('scored refused elements:')
+        out(''); out('scored refused features:')
         out(SN[['caseName', 'gen', 'phrase', 'match', 'tier', 'p_prevalence', 'p_distinctiveness']].round(2).to_string(index=False))
 """)
 
@@ -418,7 +418,7 @@ md(r"""
 
 In `v4_rebuild/07c_court_matcher_v2/`: `match_review_sheet_v2.csv` (every court phrase with its new and old match, for a blind audit), `scored_matches_v2.parquet`, `baselines_v2.parquet`, `baselines_v2_by_case.parquet`, `court_matcher_v2_report.txt`, the figures in `figures/`, and, when the draft list is present, `scored_rejected_v2.parquet` and `held_vs_refused.parquet`.
 
-Still to do before any of this is relied on in the paper: a blind two-person audit of `match_review_sheet_v2.csv` for match precision, and a human check of the refused-element list against the opinions.
+Still to do before any of this is relied on in the paper: a blind two-person audit of `match_review_sheet_v2.csv` for match precision, and a human check of the refused-feature list against the opinions.
 """)
 
 nb['cells'] = cells

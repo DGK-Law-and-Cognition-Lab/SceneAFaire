@@ -12,7 +12,7 @@ params:
 
 This file draws the Study 1 figures with ggplot2, shows each one here, and saves it as a PNG in `Analysis/v4_rebuild/12_study1_analysis/figures/`. The talk's slides use those PNG files as they are. It fits no models.
 
-There are two kinds of figure. The first kind plots what people did in plain units: the percentage of participants who listed an element, and the mean rating on the 1-to-7 scale, overall and in each of the six genres. These are raw means computed here from the same data, with the same exclusions, as the registered analysis. The second kind plots the estimates of the registered analysis (`study1_analysis.Rmd`, knit in real mode), read from the tables it wrote to `Analysis/v4_rebuild/12_study1_analysis/`. Each section says which kind it is. The registered tests are the ones in the analysis report; the raw-mean figures show the same patterns without a model.
+There are two kinds of figure. The first kind plots what people did in plain units: the percentage of participants who listed a feature, and the mean rating on the 1-to-7 scale, overall and in each of the six genres. These are raw means computed here from the same data, with the same exclusions, as the registered analysis. The second kind plots the estimates of the registered analysis (`study1_analysis.Rmd`, knit in real mode), read from the tables it wrote to `Analysis/v4_rebuild/12_study1_analysis/`. Each section says which kind it is. The registered tests are the ones in the analysis report; the raw-mean figures show the same patterns without a model.
 
 **How to run.** Open this file in RStudio and press *Knit*. It takes under a minute. Knit `study1_analysis.Rmd` in real mode first, so that its tables exist.
 
@@ -194,7 +194,7 @@ R <- R[!R$is_foil, ]
 R$prevalence      <- factor(ifelse(R$cell_code %in% c("HH", "HL"), "High", "Low"), levels = c("Low", "High"))
 R$distinctiveness <- ifelse(R$cell_code %in% c("HH", "LH"), "High distinctiveness", "Low distinctiveness")
 
-# Listing: one row per participant, genre and element of the generation analysis set (rows the registered model uses).
+# Listing: one row per participant, genre and feature of the generation analysis set (rows the registered model uses).
 G <- as.data.frame(read_parquet(file.path(CODED, paste0("production_matrix", suffix, ".parquet"))))
 G <- G[G$participant_id %in% usable$participant_id, ]
 G <- merge(G, pool[, c("genre", "key", "prevalence_pct", "distinctiveness_pct", "Lg10CD")], by = c("genre", "key"))
@@ -205,11 +205,11 @@ G$prevalence <- third(G$prevalence_pct); G$dist3 <- third(G$distinctiveness_pct)
 cat("usable participants:", nrow(usable), "| rating rows:", nrow(R), "| listing rows:", nrow(G), "\n")
 ```
 
-# Listing: the four kinds of element (raw percentages)
+# Listing: the four kinds of feature (raw percentages)
 
-The listing task, drawn the same way as the ratings. Every element of a genre's set is placed in the bottom, middle or top third of the genre on prevalence, and likewise on distinctiveness. The figure uses the four corners, the same four kinds of element the rated items were drawn from: low or high prevalence crossed with low or high distinctiveness. The height of a point is the percentage of participants who listed an element of that kind, averaged over the elements of that kind and over genres. The intervals treat participants as the unit.
+The listing task, drawn the same way as the ratings. Every feature of a genre's set is placed in the bottom, middle or top third of the genre on prevalence, and likewise on distinctiveness. The figure uses the four corners, the same four kinds of feature the rated items were drawn from: low or high prevalence crossed with low or high distinctiveness. The height of a point is the percentage of participants who listed a feature of that kind, averaged over the features of that kind and over genres. The intervals treat participants as the unit.
 
-The registered test of H1 is a mixed-effects logistic model on all the elements, with percentile predictors; its estimates are in the last sections. This figure shows the same pattern without a model.
+The registered test of H1 is a mixed-effects logistic model on all the features, with percentile predictors; its estimates are in the last sections. This figure shows the same pattern without a model.
 
 ```{r listing-cells, fig.height=4.2}
 # Each participant's listing rate in each corner of each of their two genres.
@@ -232,10 +232,10 @@ two_lines <- function(d, ylab, title, digits, side = FALSE) {
     geom_point(size = 4) +
     labels +
     scale_colour_manual(values = DCOL, name = NULL) +
-    labs(x = "Prevalence of the element in the genre", y = ylab, title = title)
+    labs(x = "Prevalence of the feature in the genre", y = ylab, title = title)
 }
-p_listing_cells <- two_lines(listing_cells, "Participants who listed the element (%)",
-                             "Listing: how often each kind of element is listed", 2, side = TRUE) +
+p_listing_cells <- two_lines(listing_cells, "Participants who listed the feature (%)",
+                             "Listing: how often each kind of feature is listed", 2, side = TRUE) +
   scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.15))) +
   scale_x_discrete(labels = c(Low = "Low (bottom third of the genre)", High = "High (top third of the genre)")) +
   theme(legend.position = "inside", legend.position.inside = c(0.2, 0.8), legend.background = element_rect(colour = "grey70"))
@@ -245,7 +245,7 @@ kable(listing_cells, digits = 3, row.names = FALSE)
 
 # Listing, genre by genre (raw percentages)
 
-The same figure for each of the six genres. Each panel uses only the participants who were given that genre, and each panel has its own vertical scale, because the genres' sets differ in size (405 elements for the Western, 3,215 for comedy) and so in how often any one element is listed.
+The same figure for each of the six genres. Each panel uses only the participants who were given that genre. All six panels share one vertical scale (David, Nov 12, 2026), so the heights can be compared across genres; the percentage for the features high on both measures is written beside that point. The genres' sets differ in size (405 features for the Western, 3,215 for comedy), which is why any one comedy feature is listed less often.
 
 ```{r listing-by-genre, fig.height=4.8}
 listing_genre <- do.call(rbind, lapply(split(rate, list(rate$genre, rate$prevalence, rate$distinctiveness)), function(d)
@@ -264,11 +264,14 @@ six_panels <- function(d, ylab, title, scales = "fixed", dots = NULL) {
     geom_point(size = 2.8) +
     facet_wrap(~ panel, nrow = 2, scales = scales) +
     scale_colour_manual(values = DCOL, name = NULL) +
-    labs(x = "Prevalence of the element in the genre", y = ylab, title = title) +
+    labs(x = "Prevalence of the feature in the genre", y = ylab, title = title) +
     theme(legend.position = "bottom")
 }
-p_listing_genre <- six_panels(listing_genre, "Participants who listed the element (%)", "Listing, genre by genre (each panel has its own scale)", scales = "free_y") +
-  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.08)))
+hh <- listing_genre[listing_genre$prevalence == "High" & listing_genre$distinctiveness == "High distinctiveness", ]
+p_listing_genre <- six_panels(listing_genre, "Participants who listed the feature (%)", "Listing, genre by genre (one scale for all six panels)") +
+  geom_text(data = hh, aes(prevalence, upper, label = sprintf("%.1f%%", estimate)), inherit.aes = FALSE,
+            vjust = -0.6, size = if (MS) 2.6 else 3.6) +
+  scale_y_continuous(limits = c(0, 10), breaks = seq(0, 10, 2), expand = expansion(mult = c(0, 0.02)))
 save_fig(p_listing_genre, "study1_listing_by_genre", height = 4.8)
 kable(listing_genre[order(listing_genre$panel), c("genre", "prevalence", "distinctiveness", "estimate", "lower", "upper", "n")], digits = 3, row.names = FALSE)
 ```
@@ -391,7 +394,7 @@ kable(h3, digits = 1, row.names = FALSE)
 
 # Listing: the registered estimates (H1)
 
-The registered model predicts, for every element of a genre's set and every participant, whether the participant listed it, from the element's prevalence, its distinctiveness and everyday word frequency. Each point is how many times higher the odds of being listed are for the element at the top of the genre's ranking than for the element at the bottom, with its 95% interval. The first point is the registered hypothesis. The second, distinctiveness, had no registered prediction. The last two repeat the prevalence test under the looser and the stricter coding of what participants typed.
+The registered model predicts, for every feature of a genre's set and every participant, whether the participant listed it, from the feature's prevalence, its distinctiveness and everyday word frequency. Each point is how many times higher the odds of being listed are for the feature at the top of the genre's ranking than for the feature at the bottom, with its 95% interval. The first point is the registered hypothesis. The second, distinctiveness, had no registered prediction. The last two repeat the prevalence test under the looser and the stricter coding of what participants typed.
 
 ```{r listing, fig.height=4}
 rows <- rbind(
@@ -468,7 +471,7 @@ rows <- rbind(
 body <- apply(rows, 1, function(r) paste(paste(r, collapse = " & "), "\\\\"))
 tex <- c("% Generated by Analysis/study1_analysis/study1_figures.Rmd (chunk manuscript-table). Do not edit by hand.",
          "\\begin{table}[htbp]", "\\centering", "\\small",
-         "\\caption{Study 1: the registered tests. Listing estimates are odds ratios for an element at the top of its genre's ranking against one at the bottom, from a logistic mixed model; rating estimates are differences in scale points (1 to 7) between the high and low thirds, from a linear mixed model; both models hold everyday word frequency fixed. Intervals are 95\\%. For H3, $\\Delta$AIC is the composite model's AIC minus the two-measure model's, and the last column but one counts the cross-validation folds in which the two-measure model predicted held-out participants better. $N = 131$.}",
+         "\\caption{Study 1: the registered tests. Listing estimates are odds ratios for a feature at the top of its genre's ranking against one at the bottom, from a logistic mixed model; rating estimates are differences in scale points (1 to 7) between the high and low thirds, from a linear mixed model; both models hold everyday word frequency fixed. Intervals are 95\\%. For H3, $\\Delta$AIC is the composite model's AIC minus the two-measure model's, and the last column but one counts the cross-validation folds in which the two-measure model predicted held-out participants better. $N = 131$.}",
          "\\label{tab:study1}",
          "\\begin{tabular}{@{}lllll@{}}", "\\toprule",
          "Test & Outcome and predictor & Estimate & Interval or folds & Result \\\\", "\\midrule",

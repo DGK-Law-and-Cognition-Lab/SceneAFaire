@@ -36,7 +36,7 @@ except Exception:
     pass
 
 _CANDS = [Path('/content/drive/MyDrive/DGK Lab/Reasoning Lab/DGK Lab - Scene A Faire Computational'),
-          Path('/Users/<you>/Library/CloudStorage/GoogleDrive-<you>/My Drive/DGK Lab/Reasoning Lab/'
+          Path('/Users/USER/Library/CloudStorage/GoogleDrive-ACCOUNT/My Drive/DGK Lab/Reasoning Lab/'
                'DGK Lab - Scene A Faire Computational'),
           Path.cwd().parent.parent, Path.cwd().parent]
 PROJECT_ROOT = next(c for c in _CANDS if (c / 'Analysis' / 'v4_rebuild').exists())
@@ -97,7 +97,7 @@ print('project root:', PROJECT_ROOT); print('figures ->', FIG); print('tables  -
 md(r"""
 ## Load the shared tables
 
-`stockiness_long_classified.parquet` is the scored table (one row per element, grammatical type and genre, after the 10/5 filter). The narrative set is the classifier's narrative elements minus Notebook 09's franchise blocklist, which gives the 17,965 (element, type) pairs the paper reports.
+`stockiness_long_classified.parquet` is the scored table (one row per feature, grammatical type and genre, after the 10/5 filter). The narrative set is the classifier's story features minus Notebook 09's franchise blocklist, which gives the 17,965 (feature, type) pairs the paper reports.
 """)
 code(r"""
 FRANCHISE_BLOCKLIST = {
@@ -111,7 +111,7 @@ sl['narrative'] = sl['is_narrative_element'] & ~sl['element'].isin(FRANCHISE_BLO
 sl.loc[sl['element'].isin(FRANCHISE_BLOCKLIST), 'element_taxonomy'] = 'character_name'
 pairs = sl[['element', 'element_type', 'element_taxonomy', 'narrative']].drop_duplicates(['element', 'element_type'])
 n_pairs, n_narr = len(pairs), int(pairs['narrative'].sum())
-print(f'{len(sl):,} cells; {n_pairs:,} (element, type) pairs after the filter; {n_narr:,} narrative ({100 * n_narr / n_pairs:.1f}%)')
+print(f'{len(sl):,} cells; {n_pairs:,} (feature, type) pairs after the filter; {n_narr:,} narrative ({100 * n_narr / n_pairs:.1f}%)')
 assert n_pairs == 27212 and n_narr == 17965, (n_pairs, n_narr)
 GEN = sorted(sl['genre'].unique())
 U = read_parquet(V4 / '01c_union' / 'movies_union.parquet')
@@ -135,15 +135,15 @@ def box(x, y, w, h, text, face='#efefef'):
 def arrow(x0, y0, x1, y1):
     ax.annotate('', xy=(x1, y1), xytext=(x0, y0), arrowprops=dict(arrowstyle='->', color=S.INK, lw=1))
 TOP = [(0.5, 21, 'Corpus\n45,958 plot summaries\n17 genres'),
-       (24.5, 21, 'Elements\nnouns, noun phrases,\nverbs, named entities'),
+       (24.5, 21, 'Features\nnouns, noun phrases,\nverbs, named entities'),
        (48.5, 21, 'Filters\n10 instances, 5 films;\nnarrative classifier'),
-       (72.5, 27, 'Two measures per\nelement and genre\nprevalence  P(e | g)\ndistinctiveness  P(g | e)')]
+       (72.5, 27, 'Two measures per\nfeature and genre\nprevalence  P(e | g)\ndistinctiveness  P(g | e)')]
 for x, w, t in TOP:
     box(x, 26, w, 14, t)
 for x0, x1 in [(21.8, 24.2), (45.8, 48.2), (69.8, 72.2)]:
     arrow(x0, 33, x1, 33)
 BOT = [(0.5, 'Checks on the measures\nmeaning, held-out prediction,\nreliability, language model'),
-       (25.5, 'Court record\nelements courts called\nstock, in the court-\nnamed genre'),
+       (25.5, 'Court record\nfeatures courts called\nstock, in the court-\nnamed genre'),
        (50.5, 'Study 1 (preregistered)\nwhat 131 people list\nand expect in six genres'),
        (75.5, 'Time, events,\ncombinations')]
 for x, t in BOT:
@@ -210,9 +210,9 @@ save(fig, 'fig_corpus_genres')
 """)
 
 md(r"""
-## Table: elements extracted and kept
+## Table: features extracted and kept
 
-Unique (element, grammatical type) pairs at each stage. "Before the filter" counts every pair Notebook 02 extracted; "after" counts pairs with at least ten instances (each counted once per film) and at least five films; "narrative" counts pairs the classifier kept, less the franchise blocklist.
+Unique (feature, grammatical type) pairs at each stage. "Before the filter" counts every pair Notebook 02 extracted; "after" counts pairs with at least ten instances (each counted once per film) and at least five films; "narrative" counts pairs the classifier kept, less the franchise blocklist.
 """)
 code(r"""
 ei = read_parquet(V4 / '02_elements' / 'element_index.parquet')
@@ -226,18 +226,18 @@ order = ['noun', 'noun phrase', 'verb', 'named entity']
 rows = [[k, f'{before_k.get(k, 0):,}', f'{after_k.get(k, 0):,}', f'{narr_k.get(k, 0):,}',
          f'{100 * narr_k.get(k, 0) / after_k.get(k, 1):.0f}\\%'] for k in order]
 rows.append([r'\midrule Total', f'{len(before):,}', f'{n_pairs:,}', f'{n_narr:,}', f'{100 * n_narr / n_pairs:.1f}\\%'])
-write_table('T-III-extraction', 'Elements extracted, filtered and kept.', 'tab:extraction', 'lrrrr',
+write_table('T-III-extraction', 'Features extracted, filtered and kept.', 'tab:extraction', 'lrrrr',
             ['Type', 'Extracted', 'After 10/5 filter', 'Narrative', 'Share kept'], rows,
-            'Counts are unique (element, grammatical type) pairs across the corpus. The 10/5 filter keeps pairs with at least ten '
+            'Counts are unique (feature, grammatical type) pairs across the corpus. The 10/5 filter keeps pairs with at least ten '
             'instances, each counted once per film, and at least five films. Narrative pairs are those the classifier labeled as '
             'characters, settings, objects, events, themes or relationships, less a short blocklist of franchise names.')
 print(pd.DataFrame(rows).to_string(index=False, header=False))
 """)
 
 md(r"""
-## Table and figure: how much of a reader's elements the extraction finds (Notebook 02b)
+## Table and figure: how much of a reader's features the extraction finds (Notebook 02b)
 
-A language model read 1,500 summaries (88 or 89 per genre) and listed their settings, characters, objects, events and themes. Recall is the share of those elements that the pipeline's spaCy extraction also found in the same summary, computed under three matching rules. The 02b notebook used the loosest (one string contained in the other, so that "con" matches "conspiracy"); the September 2026 audit recommended word boundaries. Recomputed here from the cached outputs.
+A language model read 1,500 summaries (88 or 89 per genre) and listed their settings, characters, objects, events and themes. Recall is the share of those features that the pipeline's spaCy extraction also found in the same summary, computed under three matching rules. The 02b notebook used the loosest (one string contained in the other, so that "con" matches "conspiracy"); the September 2026 audit recommended word boundaries. Recomputed here from the cached outputs.
 """)
 code(r"""
 llm = read_parquet(V4 / '02b_llm_validation' / 'llm_extractions.parquet')
@@ -273,15 +273,15 @@ print(f'films: {len(rec):,}  (per genre {rec.groupby("genre").size().min()} to {
 pooled = rec[['substring', 'word_boundary', 'exact']].mean()
 print('pooled recall:', pooled.round(3).to_dict(), '| chunk precision', round(rec['chunk_precision'].mean(), 3))
 rows = [['Films read by the language model', f'{len(rec):,}', ''],
-        ['Elements listed per film (mean)', f"{rec['n_llm'].mean():.1f}", ''],
+        ['Features listed per film (mean)', f"{rec['n_llm'].mean():.1f}", ''],
         ['Recall, loose matching (one string inside the other)', f"{pooled['substring']:.3f}", 'used in 2026 drafts'],
         ['Recall, word-boundary matching', f"{pooled['word_boundary']:.3f}", 'reported'],
         ['Recall, exact matching', f"{pooled['exact']:.3f}", ''],
         ['Noun-phrase precision', f"{rec['chunk_precision'].mean():.3f}", '']]
-write_table('T-III-validation', 'How much of a reader\'s elements the extraction finds.', 'tab:extraction-validation', 'lrl',
+write_table('T-III-validation', 'How much of a reader\'s features the extraction finds.', 'tab:extraction-validation', 'lrl',
             ['Quantity', 'Value', ''], rows,
             'A language model read a stratified sample of 1,500 summaries (88 or 89 per genre, seed 20260219) and listed their '
-            'settings, characters, objects, events and themes. Recall is the share of those elements the pipeline also extracted '
+            'settings, characters, objects, events and themes. Recall is the share of those features the pipeline also extracted '
             'from the same summary, averaged over films; noun-phrase precision is the share of the pipeline\'s noun phrases the '
             'model also listed.')
 g = rec.groupby('genre')[['word_boundary', 'substring']].agg(['mean', 'std', 'size'])
@@ -292,7 +292,7 @@ for off, col, k, lab in [(-w / 2, GRAY, 'word_boundary', 'word-boundary matching
     m = 100 * g.loc[order_g, (k, 'mean')]; h = 100 * 1.96 * g.loc[order_g, (k, 'std')] / np.sqrt(g.loc[order_g, (k, 'size')])
     ax.bar(x + off, m, w, color=col, yerr=h, error_kw=S.ERR, label=lab)
 ax.set_xticks(x); ax.set_xticklabels(order_g); rotate(ax)
-ax.set_ylim(0, 100); ax.set_ylabel("% of a reader's elements\nthe pipeline also found"); ax.legend(loc='upper right', ncol=2)
+ax.set_ylim(0, 100); ax.set_ylabel("% of a reader's features\nthe pipeline also found"); ax.legend(loc='upper right', ncol=2)
 save(fig, 'fig_extraction_recall')
 print((100 * g.loc[order_g, ('word_boundary', 'mean')]).round(1).to_dict())
 """)
@@ -300,7 +300,7 @@ print((100 * g.loc[order_g, ('word_boundary', 'mean')]).round(1).to_dict())
 md(r"""
 ## Figure: what the narrative classifier kept
 
-The ten categories of the classifier, counted over the 27,212 (element, type) pairs that pass the 10/5 filter. The first six are kept as narrative; the last four are filtered out.
+The ten categories of the classifier, counted over the 27,212 (feature, type) pairs that pass the 10/5 filter. The first six are kept as narrative; the last four are filtered out.
 """)
 code(r"""
 NARR_CATS = ['event', 'character_type', 'object', 'setting', 'theme', 'relationship']
@@ -315,7 +315,7 @@ ax.bar(range(len(cats)), [tx.get(c, 0) for c in cats], color=[GRAY] * 6 + [LIGHT
 for i, c in enumerate(cats):
     ax.text(i, tx.get(c, 0) + 80, f'{tx.get(c, 0):,}', ha='center', va='bottom', fontsize=7)
 ax.set_xticks(range(len(cats))); ax.set_xticklabels([NICE[c] for c in cats], fontsize=7.5)
-ax.set_ylabel('Element-type pairs'); ax.set_ylim(0, tx.max() * 1.15)
+ax.set_ylabel('Feature-type pairs'); ax.set_ylim(0, tx.max() * 1.15)
 ax.legend(handles=[Patch(color=GRAY, label='kept as narrative'), Patch(color=LIGHT, label='filtered out')], loc='upper right')
 save(fig, 'fig_taxonomy')
 print(tx.reindex(cats).to_string()); print('narrative total', tx.reindex(NARR_CATS).sum())
@@ -324,7 +324,7 @@ print(tx.reindex(cats).to_string()); print('narrative total', tx.reindex(NARR_CA
 md(r"""
 # Part IV.A. Two numbers in the corpus
 
-The scatter plots use the study pool: narrative elements found in at least 20 of the genre's films (the threshold below which the split-half reliability of Part IV.B is poor).
+The scatter plots use the study pool: story features found in at least 20 of the genre's films (the threshold below which the split-half reliability of Part IV.B is poor).
 """)
 code(r"""
 pool = pd.read_csv(V4 / '10_human_study_stimuli' / 'eligible_pool_predictors.csv')
@@ -342,10 +342,10 @@ for e, off in NAMED.items():
     ax.scatter(100 * r['rel_freq_in_genre'], 100 * r['posterior_smoothed'], s=22, color=S.INK, zorder=3)
     ax.annotate(e, (100 * r['rel_freq_in_genre'], 100 * r['posterior_smoothed']), xytext=off, textcoords='offset points', ha=HA.get(e, 'left'))
 ax.set_xscale('log'); ax.set_xticks([2, 5, 10, 20, 40]); ax.set_xticklabels(['2', '5', '10', '20', '40'])
-ax.set_xlabel('Prevalence: % of Westerns that mention the element (log scale)')
-ax.set_ylabel("Distinctiveness: % of the element's\nfilms that are Westerns"); ax.set_ylim(-3, 103)
+ax.set_xlabel('Prevalence: % of Westerns that mention the feature (log scale)')
+ax.set_ylabel("Distinctiveness: % of the feature's\nfilms that are Westerns"); ax.set_ylim(-3, 103)
 save(fig, 'fig_western_dimensions')
-print(f'Western pool: {len(w)} elements')
+print(f'Western pool: {len(w)} features')
 print(w[w['element'].isin(NAMED)][['element', 'film_count', 'rel_freq_in_genre', 'posterior_smoothed']].round(3).to_string(index=False))
 """)
 
@@ -364,16 +364,16 @@ for ax, g in zip(axes.ravel(), SIX):
                     textcoords='offset points', ha=ha, color=col, fontsize=8)
     ax.set_xscale('log'); ax.set_ylim(-3, 103); ax.margins(x=0.12)
     ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda v, _: f'{v:g}'))
-    ax.set_title(f'{g} ({len(d):,} elements)')
-fig.supxlabel("Prevalence: % of the genre's films that mention the element (log scale)", fontsize=S.FONT_SIZE)
-fig.supylabel("Distinctiveness: % of the element's films in the genre", fontsize=S.FONT_SIZE)
+    ax.set_title(f'{g} ({len(d):,} features)')
+fig.supxlabel("Prevalence: % of the genre's films that mention the feature (log scale)", fontsize=S.FONT_SIZE)
+fig.supylabel("Distinctiveness: % of the feature's films in the genre", fontsize=S.FONT_SIZE)
 save(fig, 'fig_six_genres')
 """)
 
 md(r"""
 ## Figure: the same split in six genres
 
-For each genre, the element with the highest prevalence and the element with the highest distinctiveness among those in at least 5% of the genre's films (the elements named in the six-genre scatter). Bars are percentages with 95% Wilson intervals from the film counts.
+For each genre, the feature with the highest prevalence and the feature with the highest distinctiveness among those in at least 5% of the genre's films (the features named in the six-genre scatter). Bars are percentages with 95% Wilson intervals from the film counts.
 """)
 code(r"""
 pr = pd.DataFrame([(g, k, r['element'], r['element_type'], r['film_count'], r['rel_freq_in_genre'], r['posterior_smoothed'])
@@ -385,9 +385,9 @@ fig, ax = plt.subplots(figsize=S.size(1.0, 3.2))
 x = np.arange(len(pr)) * 1.3 + np.repeat(np.arange(len(SIX)), 2) * 0.8
 wd = 0.38
 pv, dv = 100 * pr['prevalence'], 100 * pr['distinctiveness']
-ax.bar(x - wd / 2, pv, wd, color=BLUE, label="prevalence (% of the genre's films with the element)",
+ax.bar(x - wd / 2, pv, wd, color=BLUE, label="prevalence (% of the genre's films with the feature)",
        yerr=[np.clip(pv - 100 * p_lo, 0, None), np.clip(100 * p_hi - pv, 0, None)], error_kw=S.ERR)
-ax.bar(x + wd / 2, dv, wd, color=RED, label="distinctiveness (% of the element's films in the genre)",
+ax.bar(x + wd / 2, dv, wd, color=RED, label="distinctiveness (% of the feature's films in the genre)",
        yerr=[np.clip(dv - 100 * d_lo, 0, None), np.clip(100 * d_hi - dv, 0, None)], error_kw=S.ERR)
 ax.set_xticks(x); ax.set_xticklabels(pr['element'], fontsize=7.5); rotate(ax, 35)
 for i, g in enumerate(SIX):
@@ -399,9 +399,9 @@ print(pr[['genre', 'kind', 'element', 'film_count', 'prevalence', 'distinctivene
 """)
 
 md(r"""
-## Figure: how the six scores rank elements
+## Figure: how the six scores rank features
 
-Mean within-genre Spearman correlation over the 17 genres among narrative elements (Notebook 14).
+Mean within-genre Spearman correlation over the 17 genres among story features (Notebook 14).
 """)
 code(r"""
 corr = read_parquet(V4 / '14_dimension_checks' / 'measure_correlation.parquet')
@@ -424,7 +424,7 @@ print(corr.loc[order, order].round(2).to_string())
 md(r"""
 ## Figure: whose top 50 is the composite's top 50
 
-For each genre, the number of the composite's 50 highest narrative elements that are also among the 50 highest on each other score; bars are means over 17 genres with 95% t intervals, dots are genres.
+For each genre, the number of the composite's 50 highest story features that are also among the 50 highest on each other score; bars are means over 17 genres with 95% t intervals, dots are genres.
 """)
 code(r"""
 ov = read_parquet(V4 / '14_dimension_checks' / 'top50_overlap.parquet')
@@ -438,15 +438,15 @@ for i, k in enumerate(keys):
     ax.scatter(i + jit.uniform(-0.18, 0.18, len(v)), v, s=6, color=S.INK, alpha=0.5, zorder=3, lw=0)
     ax.text(i, max(hi, v.max()) + 1.2, f'{v.mean():.1f}', ha='center', va='bottom', fontsize=7.5)
 ax.set_xticks(range(len(keys))); ax.set_xticklabels([LAB[k] for k in keys]); rotate(ax, 30)
-ax.set_ylim(0, 55); ax.set_ylabel("Elements shared with the\ncomposite's top 50 (of 50)")
+ax.set_ylim(0, 55); ax.set_ylabel("Features shared with the\ncomposite's top 50 (of 50)")
 save(fig, 'fig_top50_overlap')
 print(ov[[f'composite_and_{k}' for k in keys] + ['prevalence_and_distinctiveness']].mean().round(1).to_string())
 """)
 
 md(r"""
-## Tables: the top elements on each measure
+## Tables: the top features on each measure
 
-Narrative elements found in at least 20 of the genre's films, ranked within the genre by prevalence and, separately, by distinctiveness (smoothed). An element appearing under two grammatical types is listed once, and so is a word the parser produced in two spellings that differ by a plural or lemma ending. The six study genres go in the text; all seventeen go in the supplement.
+Story features found in at least 20 of the genre's films, ranked within the genre by prevalence and, separately, by distinctiveness (smoothed). A feature appearing under two grammatical types is listed once, and so is a word the parser produced in two spellings that differ by a plural or lemma ending. The six study genres go in the text; all seventeen go in the supplement.
 """)
 code(r"""
 rk = sl[sl['narrative'] & (sl['film_count'] >= 20)].copy()
@@ -462,10 +462,10 @@ def top(g, col, k):
         if len(out) == k: break
     return out
 rows = [[g, ', '.join(map(tex_escape, top(g, 'rel_freq_in_genre', 5))), ', '.join(map(tex_escape, top(g, 'posterior_smoothed', 5)))] for g in SIX]
-write_table('T-IV-top5', 'The five highest elements on each measure, six genres.', 'tab:top5', 'lp{2.45in}p{2.45in}',
+write_table('T-IV-top5', 'The five highest features on each measure, six genres.', 'tab:top5', 'lp{2.45in}p{2.45in}',
             ['Genre', 'Highest prevalence', 'Highest distinctiveness'], rows,
-            'Narrative elements found in at least 20 of the genre\'s films, ranked within the genre. Prevalence is the share of the '
-            'genre\'s films that mention the element; distinctiveness is the share of the films mentioning it that are in the genre '
+            'Story features found in at least 20 of the genre\'s films, ranked within the genre. Prevalence is the share of the '
+            'genre\'s films that mention the feature; distinctiveness is the share of the films mentioning it that are in the genre '
             '(smoothed).', size=r'\footnotesize')
 for r in rows: print(r[0], '|', r[1], '|', r[2])
 # Supplement: all seventeen genres, top ten each (longtable; the supplement loads longtable)
@@ -474,11 +474,11 @@ for g in GEN:
     lines.append(f"{tex_escape(g)} & {', '.join(map(tex_escape, top(g, 'rel_freq_in_genre', 10)))} & "
                  f"{', '.join(map(tex_escape, top(g, 'posterior_smoothed', 10)))} \\\\")
 sup = (r'\begin{longtable}{p{0.95in}p{2.45in}p{2.45in}}' '\n'
-       r'\caption{The ten highest elements on each measure, all seventeen genres.}\label{tab:top10-two-measures}\\' '\n'
+       r'\caption{The ten highest features on each measure, all seventeen genres.}\label{tab:top10-two-measures}\\' '\n'
        r'\toprule Genre & Highest prevalence & Highest distinctiveness \\ \midrule \endfirsthead' '\n'
        r'\toprule Genre & Highest prevalence & Highest distinctiveness \\ \midrule \endhead' '\n'
        r'\bottomrule \endfoot' '\n' + '\n'.join(lines).replace('\\\\\n', '\\\\[3pt]\n') + '\n' r'\end{longtable}' '\n'
-       r'{\footnotesize\emph{Note:} Narrative elements found in at least 20 of the genre’s films.\par}' '\n')
+       r'{\footnotesize\emph{Note:} Story features found in at least 20 of the genre’s films.\par}' '\n')
 (TAB / 'T-App-A_top10_two_measures.tex').write_text('{\\footnotesize\n' + sup + '}\n')
 print('wrote table T-App-A_top10_two_measures')
 """)
@@ -488,7 +488,7 @@ md(r"""
 
 ## Figure: the meaning check, by score
 
-Cohen's d for how much closer in meaning to the genre the top 50 elements on each score are than the other narrative elements (cosine similarity to the genre centroid in voyage-4-large space; Notebook 14, Part A3). Bars are means over 17 genres with 95% t intervals; dots are genres.
+Cohen's d for how much closer in meaning to the genre the top 50 features on each score are than the other story features (cosine similarity to the genre centroid in voyage-4-large space; Notebook 14, Part A3). Bars are means over 17 genres with 95% t intervals; dots are genres.
 """)
 code(r"""
 meaning = read_parquet(V4 / '14_dimension_checks' / 'meaning_by_measure.parquet')
@@ -512,7 +512,7 @@ print(piv.mean().round(2).to_string())
 md(r"""
 ## Figure: the meaning check genre by genre (supplement)
 
-The same Cohen's d for prevalence and for distinctiveness in each genre, with a 95% interval from the standard error of d (50 top elements against the rest). This replaces the May draft's "Arm 1" figure, which used the composite's top 50 against a random 50.
+The same Cohen's d for prevalence and for distinctiveness in each genre, with a 95% interval from the standard error of d (50 top features against the rest). This replaces the May draft's "Arm 1" figure, which used the composite's top 50 against a random 50.
 """)
 code(r"""
 nn = sl[sl['narrative']].groupby('genre').size()
@@ -525,14 +525,14 @@ for off, k in [(-wd / 2, 'prevalence'), (wd / 2, 'distinctiveness')]:
     ax.bar(x + off, d, wd, color=color_of(k), yerr=1.96 * se, error_kw=S.ERR, label=k)
 ax.axhline(0, color=S.INK, lw=0.8)
 ax.set_xticks(x); ax.set_xticklabels(gorder); rotate(ax)
-ax.set_ylabel("Cohen's d: top 50 against\nthe other narrative elements"); ax.legend(loc='upper right', ncol=2)
+ax.set_ylabel("Cohen's d: top 50 against\nthe other story features"); ax.legend(loc='upper right', ncol=2)
 save(fig, 'fig_meaning_by_genre')
 """)
 
 md(r"""
 ## Figure: what the narrative classifier kept, genre by genre
 
-For each genre, the 50 highest narrative elements against the 50 highest elements the classifier filtered out, compared by closeness in meaning to the genre (Cohen's d with a 95% interval; Notebook 05). Light gray marks genres whose interval crosses zero. This is the May draft's "Arm 2", which is a check on the narrative filter, not on the measures.
+For each genre, the 50 highest story features against the 50 highest features the classifier filtered out, compared by closeness in meaning to the genre (Cohen's d with a 95% interval; Notebook 05). Light gray marks genres whose interval crosses zero. This is the May draft's "Arm 2", which is a check on the narrative filter, not on the measures.
 """)
 code(r"""
 fv = read_parquet(V4 / '05_embeddings' / 'filter_validation.parquet').sort_values('cohens_d', ascending=False)
@@ -541,7 +541,7 @@ reliable = (fv['cohens_d'].values - 1.96 * se) > 0
 fig, ax = plt.subplots(figsize=S.size(1.0, 2.8))
 ax.bar(fv['genre'], fv['cohens_d'], color=np.where(reliable, GRAY, LIGHT), yerr=1.96 * se, error_kw=S.ERR)
 ax.axhline(0, color=S.INK, lw=0.8); rotate(ax)
-ax.set_ylabel("Cohen's d: kept against\nfiltered-out elements")
+ax.set_ylabel("Cohen's d: kept against\nfiltered-out features")
 ax.legend(handles=[Patch(color=GRAY, label='interval above zero'), Patch(color=LIGHT, label='interval crosses zero')], loc='upper right')
 save(fig, 'fig_classifier_check')
 print(f"mean d {fv['cohens_d'].mean():.2f}; d > 0 in {int((fv['cohens_d'] > 0).sum())} of {len(fv)}; reliable in {int(reliable.sum())}")
@@ -551,13 +551,13 @@ print(fv[['genre', 'cohens_d']].round(2).to_string(index=False))
 md(r"""
 ## Figures: held-out prediction (Notebook 14, Part B)
 
-The films are split in half at random; both measures are computed on one half and tested on the other. Left: knowing a film's genre, rank the elements and ask whether the film's own elements come out on top. Right: knowing a film's elements, ask whether films of the genre score higher than films outside it. AUC 0.5 is guessing.
+The films are split in half at random; both measures are computed on one half and tested on the other. Left: knowing a film's genre, rank the features and ask whether the film's own features come out on top. Right: knowing a film's features, ask whether films of the genre score higher than films outside it. AUC 0.5 is guessing.
 """)
 code(r"""
 hc = read_parquet(V4 / '14_dimension_checks' / 'heldout_content.parquet')
 hg = read_parquet(V4 / '14_dimension_checks' / 'heldout_genre.parquet')
 hc_n, hg_n = hc[hc['set'] == 'narrative'].set_index('genre'), hg[hg['set'] == 'narrative'].set_index('genre')
-tasks = [("Know the genre,\npredict the film's elements", hc_n), ("Know the film's elements,\npredict its genre", hg_n)]
+tasks = [("Know the genre,\npredict the film's features", hc_n), ("Know the film's features,\npredict its genre", hg_n)]
 fig, ax = plt.subplots(figsize=S.size(0.75, 2.9))
 wd = 0.36; jit = np.random.default_rng(SEED)
 for t, (name, tab) in enumerate(tasks):
@@ -574,7 +574,7 @@ save(fig, 'fig_heldout_prediction')
 for name, tab in tasks:
     print(name.replace('\n', ' '), tab[['auc_prevalence', 'auc_distinctiveness']].mean().round(3).to_dict())
 print('overall frequency, genre -> content:', round(hc_n['auc_overall_frequency'].mean(), 3))
-print('no narrative filter (all elements): genre -> content prevalence', round(hc[hc['set'] == 'all_elements']['auc_prevalence'].mean(), 3),
+print('no narrative filter (all features): genre -> content prevalence', round(hc[hc['set'] == 'all_elements']['auc_prevalence'].mean(), 3),
       '| content -> genre distinctiveness', round(hg[hg['set'] == 'all_elements']['auc_distinctiveness'].mean(), 3))
 
 gorder = hg_n['auc_distinctiveness'].sort_values(ascending=False).index
@@ -594,7 +594,7 @@ print(f'genres showing the double dissociation: {both} of {len(hc_n)}')
 md(r"""
 ## Figure: how stable each number is (split-half reliability)
 
-Spearman agreement between the two halves of the corpus, by how many of the genre's films mention the element; bars are means over 17 genres with 95% t intervals (Notebook 14, Part B3).
+Spearman agreement between the two halves of the corpus, by how many of the genre's films mention the feature; bars are means over 17 genres with 95% t intervals (Notebook 14, Part B3).
 """)
 code(r"""
 rel = read_parquet(V4 / '14_dimension_checks' / 'split_half_reliability.parquet')
@@ -606,7 +606,7 @@ for off, k in [(-wd / 2, 'prevalence'), (wd / 2, 'distinctiveness')]:
     ax.bar(x + off, rel[k], wd, color=color_of(k), yerr=h, error_kw=S.ERR, label=k)
     for xi, v, hh in zip(x + off, rel[k], h): ax.text(xi, v + hh + 0.02, f'{v:.2f}', ha='center', va='bottom', fontsize=7.5)
 ax.set_xticks(x); ax.set_xticklabels(rel['films_in_genre']); ax.set_ylim(0, 1.12)
-ax.set_xlabel("Films of the genre that mention the element"); ax.set_ylabel('Agreement between two\nhalves of the corpus')
+ax.set_xlabel("Films of the genre that mention the feature"); ax.set_ylabel('Agreement between two\nhalves of the corpus')
 ax.legend(loc='upper left')
 save(fig, 'fig_split_half_reliability')
 print(rel[['films_in_genre', 'n_cells', 'prevalence', 'distinctiveness']].round(2).to_string(index=False))
@@ -615,7 +615,7 @@ print(rel[['films_in_genre', 'n_cells', 'prevalence', 'distinctiveness']].round(
 md(r"""
 ## Figures: the language-model check, re-described on the two measures
 
-Notebook 04 scored every summary's predictability with a language model (mean surprisal per token, Qwen2.5-7B). The May draft correlated it with each film's mean composite score, controlling for length. Here the same partial correlation is computed for the film's mean prevalence percentile and mean distinctiveness percentile (each element ranked within its genre and grammatical type, averaged over the film's narrative element-genre cells), alongside the composite version. Length is the log of the summary's word count. A negative r means more stock-heavy films are more predictable. Per genre, the films of that genre.
+Notebook 04 scored every summary's predictability with a language model (mean surprisal per token, Qwen2.5-7B). The May draft correlated it with each film's mean composite score, controlling for length. Here the same partial correlation is computed for the film's mean prevalence percentile and mean distinctiveness percentile (each feature ranked within its genre and grammatical type, averaged over the film's story feature-genre cells), alongside the composite version. Length is the log of the summary's word count. A negative r means more stock-heavy films are more predictable. Per genre, the films of that genre.
 """)
 code(r"""
 nc = sl[sl['narrative']][['element', 'element_type', 'genre', 'rel_freq_in_genre', 'posterior_smoothed', 'ensemble']].copy()
@@ -673,9 +673,9 @@ print('length correlations:', {lab: round(np.corrcoef(D[c], D['loglen'])[0, 1], 
 md(r"""
 # Part IV.C. The court record
 
-## Figure: where court-named elements fall on each measure
+## Figure: where court-named features fall on each measure
 
-The 312 narrative court-named elements matched in the court-named genre (Notebook 07b), placed by their within-genre percentile (within grammatical type) on prevalence and on distinctiveness. If courts named elements at random, each bar would hold about 10%.
+The 312 narrative court-named features matched in the court-named genre (Notebook 07b), placed by their within-genre percentile (within grammatical type) on prevalence and on distinctiveness. If courts named features at random, each bar would hold about 10%.
 """)
 code(r"""
 stk = sl.copy()
@@ -695,15 +695,15 @@ for ax, k in zip(axes, ['prevalence', 'distinctiveness']):
     ax.axhline(10, color=S.INK, ls='--', lw=0.8)
     ax.set_xlabel(f"Percentile on {k} within the genre"); ax.set_xlim(0, 100)
     ax.text(2, 10.8, 'random', fontsize=7)
-axes[0].set_ylabel('% of court-named elements')
+axes[0].set_ylabel('% of court-named features')
 save(fig, 'fig_courts_percentiles')
 print('share in top tenth:', {k: round(float((J[f'p_{k}'] >= 0.9).mean()), 3) for k in ['prevalence', 'distinctiveness']})
 """)
 
 md(r"""
-## Figure: is the element specific to the court's genre?
+## Figure: is the feature specific to the court's genre?
 
-For each case, the average position of the court-named genre among the element's genres (0 = lowest, 1 = highest), on each measure (Notebook 07b, baseline A). Chance is 0.5.
+For each case, the average position of the court-named genre among the feature's genres (0 = lowest, 1 = highest), on each measure (Notebook 07b, baseline A). Chance is 0.5.
 """)
 code(r"""
 bc = read_parquet(V4 / '07b_court_validation' / 'dimension_baselines_by_case.parquet')
@@ -720,7 +720,7 @@ for pos, k in enumerate(['prevalence', 'distinctiveness']):
     ax.text(pos + 0.3, np.median(v), f'{np.median(v):.2f}', va='center', fontsize=7.5)
 ax.axhline(0.5, color=S.INK, ls='--', lw=0.8)
 ax.set_xticks([0, 1]); ax.set_xticklabels(['Prevalence', 'Distinctiveness']); ax.set_xlim(-0.6, 1.7); ax.set_ylim(-0.03, 1.03)
-ax.set_ylabel("Position of the court's genre\namong the element's genres")
+ax.set_ylabel("Position of the court's genre\namong the feature's genres")
 save(fig, 'fig_court_genre_rank')
 base = read_parquet(V4 / '07b_court_validation' / 'dimension_baselines.parquet')
 print(base[(base['baseline'] == 'court_genre_rank') & (base['subset'] == 'narrative_in_genre')][
@@ -730,7 +730,7 @@ print(base[(base['baseline'] == 'court_genre_rank') & (base['subset'] == 'narrat
 md(r"""
 ## Figure: matched controls
 
-Each dot is a case. Red: the court-named elements' distinctiveness percentile minus that of elements in the same genre with matching prevalence. Blue: their prevalence percentile minus that of elements with matching distinctiveness. Left, all matches of the stricter matcher (Notebook 07c); right, only the phrases matched in the court's own wording.
+Each dot is a case. Red: the court-named features' distinctiveness percentile minus that of features in the same genre with matching prevalence. Blue: their prevalence percentile minus that of features with matching distinctiveness. Left, all matches of the stricter matcher (Notebook 07c); right, only the phrases matched in the court's own wording.
 """)
 code(r"""
 CL = read_parquet(V4 / '07c_court_matcher_v2' / 'baselines_v2_by_case.parquet')
@@ -775,6 +775,67 @@ ax.set_xticks(range(5)); ax.set_xticklabels([names[t] for t in order_t]); ax.set
 ax.set_ylabel(f'Court phrases (of {len(sheet)})')
 save(fig, 'fig_matcher_tiers')
 print(cov.reindex(order_t).to_string())
+""")
+
+md(r"""
+## Courts, the simpler figures (Nov 12, 2026)
+
+The same three questions as the talk's court slides, drawn in the manuscript style.
+
+1. **Where court-named features sit on the two numbers.** Features matched in the court's own wording (Notebook 07c's strict set: exact phrase, multi-word part, or event), placed by their percentiles on prevalence and on distinctiveness within the court's genre; dashed lines at the 75th percentile.
+2. **Is the court's genre the feature's best genre?** The share of court-named features (07b, story features in the court's genre) whose court genre ranks first among the genres containing the feature, by each measure, against the chance share (the mean of 1/k over features found in k genres). Wilson 95% intervals.
+3. **Matched controls.** Per case, the court-named features' distinctiveness minus that of equally common controls, and their prevalence minus that of equally characteristic controls (same genre and type, within two percentile points, at least five controls, court-named items excluded), in percentile points; bar = median over cases with a bootstrap 95% interval; dots = cases.
+""")
+code(r"""
+sm = read_parquet(V4 / '07c_court_matcher_v2' / 'scored_matches_v2.parquet')
+st = sm[sm.tier.isin(['exact', 'phrase', 'event']) & (sm.label == 'held_stock')].dropna(subset=['p_prevalence', 'p_distinctiveness'])
+assert len(st) == 133 and st.case.nunique() == 46
+hp, hd = st.p_prevalence >= .75, st.p_distinctiveness >= .75
+fig, ax = plt.subplots(figsize=S.size(1.0, 3.3))
+ax.scatter(100 * st.p_prevalence, 100 * st.p_distinctiveness, s=12, color=GRAY, alpha=0.8, zorder=3)
+ax.axvline(75, color=S.INK, ls='--', lw=0.8); ax.axhline(75, color=S.INK, ls='--', lw=0.8)
+quad = [('High on both', hp & hd, 99, 101.5, 'right'), ('Common only', hp & ~hd, 99, 3, 'right'),
+        ('Characteristic only', ~hp & hd, 1.5, 101.5, 'left'), ('Neither', ~hp & ~hd, 1.5, 3, 'left')]
+for lab, m, tx, ty, ha in quad:
+    ax.text(tx, ty, f'{lab}: {m.mean():.0%} ({m.sum()})', ha=ha, va='bottom', bbox=dict(facecolor='white', edgecolor='none', alpha=0.85))
+ax.set_xlim(0, 101); ax.set_ylim(0, 110)
+ax.set_xlabel("Prevalence in the court's genre (percentile)"); ax.set_ylabel("Distinctiveness for the\ncourt's genre (percentile)")
+save(fig, 'fig_court_quadrant')
+print({lab: (int(m.sum()), round(float(m.mean()), 3)) for lab, m, *_ in quad}, '| features', len(st), '| cases', st.case.nunique())
+""")
+code(r"""
+db = read_parquet(V4 / '07b_court_validation' / 'dimension_baselines.parquet')
+r = db[(db.baseline == 'court_genre_rank') & (db.subset == 'narrative_in_genre')].set_index('measure')
+n = int(r.loc['prevalence', 'n_elements']); chance = float(r.loc['prevalence', 'top_genre_chance'])
+fig, ax = plt.subplots(figsize=S.size(0.62, 2.8))
+for i, m in enumerate(['prevalence', 'distinctiveness']):
+    p = float(r.loc[m, 'top_genre_share']); k = round(p * n); lo, hi = wilson(k, n)
+    ax.bar(i, 100 * p, 0.55, color=COL[m], yerr=[[100 * (p - float(lo))], [100 * (float(hi) - p)]], error_kw=S.ERR)
+    ax.text(i, 100 * float(hi) + 1.0, f'{p:.0%}', ha='center')
+ax.axhline(100 * chance, color=S.INK, ls='--', lw=0.8, label=f'chance ({chance:.0%})')
+ax.legend(loc='upper right')
+ax.set_xticks([0, 1]); ax.set_xticklabels(['Ranked by\nprevalence', 'Ranked by\ndistinctiveness']); ax.set_xlim(-0.6, 1.6); ax.set_ylim(0, 40)
+ax.set_ylabel("Features whose best genre\nis the court's genre (%)")
+save(fig, 'fig_court_top_genre')
+print('n', n, '| cases', int(r.loc['prevalence', 'n_cases']), '| top genre', r.loc[['prevalence', 'distinctiveness'], 'top_genre_share'].round(3).to_dict(), '| chance', round(chance, 3))
+""")
+code(r"""
+bc2 = read_parquet(V4 / '07c_court_matcher_v2' / 'baselines_v2_by_case.parquet')
+mc = bc2[(bc2.set == 'strict (exact + phrase + event)') & (bc2.baseline == 'matched_controls')]
+rng = np.random.default_rng(SEED)
+fig, ax = plt.subplots(figsize=S.size(0.75, 3.0))
+for i, (m, col) in enumerate([('distinctiveness_given_prevalence', RED), ('prevalence_given_distinctiveness', BLUE)]):
+    v = 100 * mc[mc.measure == m].value.to_numpy(); med = np.median(v)
+    lo, hi = np.percentile([np.median(rng.choice(v, len(v))) for _ in range(5000)], [2.5, 97.5])
+    ax.bar(i, med, 0.55, color=col, yerr=[[med - lo], [hi - med]], error_kw=S.ERR, zorder=2)
+    ax.scatter(i + rng.uniform(-0.2, 0.2, len(v)), v, s=7, color=S.INK, alpha=0.45, zorder=3)
+    ax.text(i, 63, f'{(v > 0).sum()} of {len(v)} cases above zero', ha='center')
+    print(m, 'median', round(med, 1), 'CI', round(lo, 1), round(hi, 1), 'cases above zero', int((v > 0).sum()), 'of', len(v))
+ax.axhline(0, color=S.INK, lw=0.8)
+ax.set_xticks([0, 1]); ax.set_xticklabels(['More characteristic than\nequally common features', 'More common than\nequally characteristic features'])
+ax.set_xlim(-0.6, 1.6); ax.set_ylim(-60, 72)
+ax.set_ylabel('Court-named minus matched\ncontrols (percentile points)')
+save(fig, 'fig_court_vs_controls')
 """)
 
 md(r"""

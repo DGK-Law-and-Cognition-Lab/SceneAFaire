@@ -10,18 +10,18 @@ def code(s): cells.append(nbf.v4.new_code_cell(s.strip("\n")))
 md(r"""
 # Notebook 16c — Manuscript figures: turnover and change points on the two measures
 
-Added November 2026 for the law review manuscript (Part IV.E and the supplement). The May 2026 draft reported "change points": periods in which a genre's conventional vocabulary shifted, found from the turnover of the genre's top-ranked elements on the composite score. The paper no longer ranks anything by the composite, so this notebook recomputes the analysis on each of the two measures, prevalence and distinctiveness, in the single figure style of `saf_style.py` (prevalence blue, distinctiveness red, everything else gray, black intervals and reference lines, upright plots, no figure titles).
+Added November 2026 for the law review manuscript (Part IV.E and the supplement). The May 2026 draft reported "change points": periods in which a genre's conventional vocabulary shifted, found from the turnover of the genre's top-ranked features on the composite score. The paper no longer ranks anything by the composite, so this notebook recomputes the analysis on each of the two measures, prevalence and distinctiveness, in the single figure style of `saf_style.py` (prevalence blue, distinctiveness red, everything else gray, black intervals and reference lines, upright plots, no figure titles).
 
 **Rules (the same as Notebook 16b's survival analysis, so the two results can be read together).** Periods are five-year bins of release year (1950 means 1950 to 1954). Per-period scores come from Notebook 08 (`stockiness_by_bin.parquet`), which recomputes every measure inside each period.
 
-- A period counts for a genre if the genre has at least 100 films in it and at least 150 eligible elements.
-- An element is eligible in a genre and period if it is one of the 17,965 narrative elements and appears in at least 5 of the genre's films in that period.
+- A period counts for a genre if the genre has at least 100 films in it and at least 150 eligible features.
+- A feature is eligible in a genre and period if it is one of the 17,965 story features and appears in at least 5 of the genre's films in that period.
 - The top 50 is taken separately by prevalence (`rel_freq_in_genre`) and by distinctiveness (`posterior_smoothed`, α = 1, prior from the period's genre shares).
-- **Turnover** between two consecutive qualifying periods (b and b + 5) is 1 minus the Jaccard similarity of their top 50s: 0 means the same fifty elements, 1 means none in common. A turnover value is dated to the later period. Pairs separated by a non-qualifying period are skipped.
-- **Chance turnover** is the turnover expected if each period's top 50 were drawn at random from its eligible elements: with n₁ and n₂ eligible elements and c eligible in both periods, the expected overlap is c · (50 / n₁) · (50 / n₂).
+- **Turnover** between two consecutive qualifying periods (b and b + 5) is 1 minus the Jaccard similarity of their top 50s: 0 means the same fifty features, 1 means none in common. A turnover value is dated to the later period. Pairs separated by a non-qualifying period are skipped.
+- **Chance turnover** is the turnover expected if each period's top 50 were drawn at random from its eligible features: with n₁ and n₂ eligible features and c eligible in both periods, the expected overlap is c · (50 / n₁) · (50 / n₂).
 - **Change points** for a genre and measure are the periods whose turnover is in the genre's top decile of turnover values, or its two highest if it has fewer than ten.
 
-**A check on corpus growth.** Wikipedia has many more summaries of recent films, so later periods have more films, and more films mean more eligible elements and a less stable top 50 by sampling alone. The check at the end subsamples, for each genre, every qualifying period to the same number of the genre's films (the genre's smallest qualifying period), keeps the genre's share of the period by subsampling the other films at the same rate, recomputes both measures from the film-level element lists, and repeats the turnover over five random seeds.
+**A check on corpus growth.** Wikipedia has many more summaries of recent films, so later periods have more films, and more films mean more eligible features and a less stable top 50 by sampling alone. The check at the end subsamples, for each genre, every qualifying period to the same number of the genre's films (the genre's smallest qualifying period), keeps the genre's share of the period by subsampling the other films at the same rate, recomputes both measures from the film-level feature lists, and repeats the turnover over five random seeds.
 
 Nothing upstream is changed and no language model is called. Outputs: figures in the manuscript's `figures/` folder (PDF and PNG) and the numbers in `v4_rebuild/16c_manuscript_figures/`.
 """)
@@ -98,7 +98,7 @@ ELIG = {(g, b): set(zip(d['element'], d['element_type'])) for (g, b), d in elig.
 tops = {m: {(g, b): set(zip(d.nlargest(TOP, c)['element'], d.nlargest(TOP, c)['element_type']))
             for (g, b), d in elig.groupby(['genre', 'bin'])} for m, c in MCOL.items()}
 GENRES = sorted(qual['genre'].unique())
-out(f'qualifying genre-periods: {len(QUAL)} in {len(GENRES)} genres; eligible element-periods: {len(elig):,}')
+out(f'qualifying genre-periods: {len(QUAL)} in {len(GENRES)} genres; eligible feature-periods: {len(elig):,}')
 """)
 
 md(r"""
@@ -244,7 +244,7 @@ S.save(fig, 'fig_app_turnover_by_genre', FIG)
 md(r"""
 ## Check: does corpus growth produce the pattern?
 
-For each genre, every qualifying period is subsampled to the genre's smallest qualifying period size (films of the genre), and the period's other films are subsampled at the same rate, so the genre's share of the period is kept. Both measures are recomputed from the film-level element lists of Notebook 02 (narrative elements only, each counted once per film): prevalence is the share of the sampled genre films with the element, and distinctiveness is (f(e, g) + α · p_g) / (f(e) + α) with α = 1 and p_g the genre's share of the sampled film-genre pairs. The eligibility and top-50 rules are as above, except that a period needs at least 100 eligible elements after subsampling. Five seeds. The same code is also run without subsampling, to show it reproduces the Notebook 08 values.
+For each genre, every qualifying period is subsampled to the genre's smallest qualifying period size (films of the genre), and the period's other films are subsampled at the same rate, so the genre's share of the period is kept. Both measures are recomputed from the film-level feature lists of Notebook 02 (story features only, each counted once per film): prevalence is the share of the sampled genre films with the feature, and distinctiveness is (f(e, g) + α · p_g) / (f(e) + α) with α = 1 and p_g the genre's share of the sampled film-genre pairs. The eligibility and top-50 rules are as above, except that a period needs at least 100 eligible features after subsampling. Five seeds. The same code is also run without subsampling, to show it reproduces the Notebook 08 values.
 """)
 code(r"""
 union = read_parquet(V4 / '01c_union' / 'movies_union.parquet', columns=['union_id', 'year', 'genres_canonical']).dropna(subset=['year'])
@@ -336,7 +336,7 @@ for m in MCOL:
 md(r"""
 ## Robustness: is the turnover of the distinctiveness ranking a small-count effect?
 
-The top of a ranking by distinctiveness can be filled by elements seen in only a handful of the genre's films in a period, whose distinctiveness is close to 1 by chance. This section repeats both analyses with the eligible pool restricted, at each genre and period, to elements in at least k of the genre's films in that period, for k = 5, 10, and 20, applying the same restriction to prevalence so the comparison is fair. A genre-period qualifies if the genre has at least 100 films in it and at least 100 elements pass the restriction (twice the top 50). Chance is computed for the restricted pools: with n₁ and n₂ eligible elements and c eligible in both periods, two random top 50s are expected to share c · 50 · 50 / (n₁ n₂) elements, so chance survival is that overlap divided by 50 and chance turnover is 1 minus the corresponding Jaccard.
+The top of a ranking by distinctiveness can be filled by features seen in only a handful of the genre's films in a period, whose distinctiveness is close to 1 by chance. This section repeats both analyses with the eligible pool restricted, at each genre and period, to features in at least k of the genre's films in that period, for k = 5, 10, and 20, applying the same restriction to prevalence so the comparison is fair. A genre-period qualifies if the genre has at least 100 films in it and at least 100 features pass the restriction (twice the top 50). Chance is computed for the restricted pools: with n₁ and n₂ eligible features and c eligible in both periods, two random top 50s are expected to share c · 50 · 50 / (n₁ n₂) features, so chance survival is that overlap divided by 50 and chance turnover is 1 minus the corresponding Jaccard.
 """)
 code(r"""
 KS, LAGS_R, MIN_ELIG_K = [5, 10, 20], [20, 50], 100
@@ -373,7 +373,7 @@ for k in KS:
         rob_rows.append(row)
 rob = pd.DataFrame(rob_rows)
 rob.to_csv(OUT / 'robustness_min_films.csv', index=False)
-out('\nRobustness: eligible pool restricted to elements in at least k of the genre\'s films in the period')
+out('\nRobustness: eligible pool restricted to features in at least k of the genre\'s films in the period')
 out('  k   measure          genre-periods (genres)  pairs  turnover  chance   surv20  ch20   surv50  ch50   (genres at 20/50 yrs)')
 for r in rob.itertuples():
     out(f'  {r.k:<3} {r.measure:<16} {r.genre_periods:>5} ({r.genres:>2})             {r.pairs:>4}   {r.turnover:.3f}    {r.chance_turnover:.3f}   '
@@ -383,7 +383,7 @@ for r in rob.itertuples():
     out(f'  k = {r.k:<2} {r.measure:<15} turnover as a share of chance turnover: {r.turnover / r.chance_turnover:.2f};'
         f' survival at 20 years as a multiple of chance: {r.survival20 / r.chance20:.1f}')
 
-# Examples at k = 20: distinctive elements that persist across eras, and ones that come and go
+# Examples at k = 20: distinctive features that persist across eras, and ones that come and go
 tk20, es20 = keep_tops[20]
 out('\nExamples at k = 20 (top 50 by distinctiveness):')
 for g in ['Horror', 'Science Fiction', 'Crime', 'Western', 'Comedy', 'War']:
@@ -409,12 +409,53 @@ md(r"""
 """)
 code(r"""
 rule = ['Rule: five-year periods; a period qualifies for a genre with at least 100 of the genre\'s films and at least 150 eligible',
-        'elements (narrative elements in at least 5 of the genre\'s films in the period); top 50 by prevalence (rel_freq_in_genre)',
+        'features (story features in at least 5 of the genre\'s films in the period); top 50 by prevalence (rel_freq_in_genre)',
         'and by distinctiveness (posterior_smoothed, alpha = 1) from Notebook 08; turnover = 1 - Jaccard between the top 50s of',
         'consecutive qualifying periods, dated to the later period; change points = periods in a genre\'s top decile of turnover',
-        '(its two highest if fewer than ten values). Chance = turnover of two random top 50s from the eligible elements.', '']
+        '(its two highest if fewer than ten values). Chance = turnover of two random top 50s from the eligible features.', '']
 (OUT / 'report.txt').write_text('\n'.join(rule + report) + '\n')
 print('wrote', OUT / 'report.txt')
+""")
+
+md(r"""
+## Two eras, three features (Nov 12, 2026)
+
+The simpler over-time figures, in the manuscript style. For the sheriff in Westerns, the alien in science fiction, and the ghost in horror, Notebook 14 computes each five-year period's prevalence, distinctiveness, genre share of all films, and odds ratio from that period's films; here each is summarized by its median over the periods before 1970 and over the periods from 1990 on.
+""")
+code(r"""
+ao = read_parquet(V4 / '14_dimension_checks' / 'association_over_time.parquet')
+CASES = [('sheriff', 'Western', 'Sheriff in Westerns'), ('alien', 'Science Fiction', 'Alien in science fiction'), ('ghost', 'Horror', 'Ghost in horror')]
+def eras(el, g):
+    d = ao[(ao.element == el) & (ao.genre == g)]
+    return d[d.bin < 1970].median(numeric_only=True), d[d.bin >= 1990].median(numeric_only=True), int((d.bin < 1970).sum()), int((d.bin >= 1990).sum())
+cats = [('prevalence', S.PREVALENCE, 'Prevalence'), ('distinctiveness', S.DISTINCTIVENESS, 'Distinctive-\nness'), ('genre_share', S.NEUTRAL, 'Genre share\nof all films')]
+fig, axes = plt.subplots(1, 3, figsize=S.size(1.0, 2.9), sharey=True)
+for ax, (el, g, title) in zip(axes, CASES):
+    a, b, na, nb_ = eras(el, g)
+    for j, (c, col, lab) in enumerate(cats):
+        for val, alpha, off in [(a[c], 0.4, -0.19), (b[c], 1.0, 0.19)]:
+            ax.bar(j + off, 100 * val, 0.36, color=col, alpha=alpha, edgecolor=col, lw=0.5)
+            ax.text(j + off, 100 * val + 1.5, f'{100 * val:.0f}', ha='center', fontsize=7)
+    ax.set_xticks(range(3)); ax.set_xticklabels([l.replace('\n', ' ').replace('- ', '') for *_, l in cats], fontsize=7.5, rotation=30, ha='right', rotation_mode='anchor'); ax.set_title(title)
+    print(title, f'periods before 1970: {na}, from 1990: {nb_}', '| before:', {c: round(float(a[c]), 3) for c, *_ in cats}, '| from 1990:', {c: round(float(b[c]), 3) for c, *_ in cats})
+axes[0].set_ylabel('Percent (median over\nfive-year periods)'); axes[0].set_ylim(0, 105)
+from matplotlib.patches import Patch
+axes[2].legend(handles=[Patch(color=S.NEUTRAL, alpha=0.4, label='before 1970'), Patch(color=S.NEUTRAL, label='from 1990 on')], loc='upper left')
+S.save(fig, 'fig_over_time_before_after', FIG)
+""")
+code(r"""
+fig, ax = plt.subplots(figsize=S.size(0.62, 2.8))
+for i, (el, g, title) in enumerate(CASES):
+    a, b, *_ = eras(el, g)
+    for val, alpha, off, lab in [(a['odds_ratio'], 0.4, -0.19, 'before 1970'), (b['odds_ratio'], 1.0, 0.19, 'from 1990 on')]:
+        ax.bar(i + off, val, 0.36, color=S.NEUTRAL, alpha=alpha, label=lab if i == 0 else None)
+        ax.text(i + off, val * 1.15, f'{val:.0f}', ha='center', fontsize=7.5)
+    print(title, 'odds ratio before 1970', round(float(a['odds_ratio']), 1), '| from 1990', round(float(b['odds_ratio']), 1))
+ax.set_yscale('log'); ax.set_ylim(1, 400); ax.set_yticks([1, 3, 10, 30, 100, 300]); ax.set_yticklabels(['1', '3', '10', '30', '100', '300'])
+ax.axhline(1, color=S.INK, ls='--', lw=0.8)
+ax.set_xticks(range(3)); ax.set_xticklabels(['Sheriff in\nWesterns', 'Alien in\nscience fiction', 'Ghost in\nhorror'])
+ax.set_ylabel('Odds ratio, feature and genre\n(log scale)'); ax.legend(loc='upper right')
+S.save(fig, 'fig_odds_ratio_before_after', FIG)
 """)
 
 nb = nbf.v4.new_notebook()

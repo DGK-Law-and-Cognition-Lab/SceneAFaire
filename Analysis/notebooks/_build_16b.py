@@ -15,11 +15,11 @@ Added November 2026 for the law review manuscript. This notebook draws the figur
 
 The May 2026 draft built its temporal and combination results on the composite score. The paper no longer ranks anything by the composite, so each of those analyses is recomputed here on the two measures:
 
-- **Survival** of a genre's conventions: of the 50 elements at the top of a genre in one five-year period, how many are still in the top 50 a given number of years later, computed separately for the top 50 by prevalence and the top 50 by distinctiveness.
-- **Lifecycles**: an element's percentile within its genre, period by period, on each measure.
-- **New entrants**: how many of each period's top-50 elements had never been in the genre's top 50 before.
-- **Combinations**: pairs of elements that appear together, ranked by the pair's own distinctiveness (of the films with both elements, the share in the genre), with a minimum number of films. No composite enters.
-- **Networks and centrality**: the strongest co-occurrence links, and how an element's centrality in its genre's network relates to each measure.
+- **Survival** of a genre's conventions: of the 50 features at the top of a genre in one five-year period, how many are still in the top 50 a given number of years later, computed separately for the top 50 by prevalence and the top 50 by distinctiveness.
+- **Lifecycles**: a feature's percentile within its genre, period by period, on each measure.
+- **New entrants**: how many of each period's top-50 features had never been in the genre's top 50 before.
+- **Combinations**: pairs of features that appear together, ranked by the pair's own distinctiveness (of the films with both features, the share in the genre), with a minimum number of films. No composite enters.
+- **Networks and centrality**: the strongest co-occurrence links, and how a feature's centrality in its genre's network relates to each measure.
 
 Nothing upstream is changed and no language model is called. Inputs are the saved tables of Notebooks 03, 03b, 03c, 08, 13 and 14. Outputs: figures in the manuscript's `figures/` folder (PDF and PNG), tables in its `tables/` folder, and the numbers in `v4_rebuild/16b_manuscript_figures/`.
 """)
@@ -42,7 +42,7 @@ except Exception:
 
 _CANDS = [
     Path('/content/drive/MyDrive/DGK Lab/Reasoning Lab/DGK Lab - Scene A Faire Computational'),
-    Path('/Users/<you>/Library/CloudStorage/GoogleDrive-<you>/'
+    Path('/Users/USER/Library/CloudStorage/GoogleDrive-ACCOUNT/'
          'My Drive/DGK Lab/Reasoning Lab/DGK Lab - Scene A Faire Computational'),
     Path.cwd().parent.parent, Path.cwd().parent,
 ]
@@ -115,7 +115,7 @@ print('project:', PROJECT_ROOT); print('figures ->', FIG); print('tables ->', TA
 md(r"""
 ## Inputs
 
-The narrative vocabulary is the 17,965 element-type pairs the classifier kept (after the franchise blocklist), as frozen for Study 1 in `10_human_study_stimuli/coding_vocabulary.csv`. Films per genre come from the union corpus.
+The narrative vocabulary is the 17,965 feature-type pairs the classifier kept (after the franchise blocklist), as frozen for Study 1 in `10_human_study_stimuli/coding_vocabulary.csv`. Films per genre come from the union corpus.
 """)
 code(r"""
 narr = pd.read_csv(V4 / '10_human_study_stimuli' / 'coding_vocabulary.csv')[['element', 'element_type']]
@@ -132,9 +132,9 @@ out('films per genre: ' + ', '.join(f'{g} {N_g[g]:,}' for g in GENRES))
 
 # ---------------------------------------------------------------- Part IV.E
 md(r"""
-## Part IV.E (1): the odds ratio between element and genre, before 1970 and from 1990 on
+## Part IV.E (1): the odds ratio between feature and genre, before 1970 and from 1990 on
 
-From Notebook 14 (`association_over_time.parquet`): for each signature element, the median odds ratio over five-year periods before 1970 and from 1990 on (periods with at least 30 films in the genre and 5 films with the element). The odds ratio does not depend on how large the genre is. A value of 1 means no association.
+From Notebook 14 (`association_over_time.parquet`): for each signature feature, the median odds ratio over five-year periods before 1970 and from 1990 on (periods with at least 30 films in the genre and 5 films with the feature). The odds ratio does not depend on how large the genre is. A value of 1 means no association.
 """)
 code(r"""
 assoc = read_parquet(V4 / '14_dimension_checks' / 'association_over_time.parquet')
@@ -167,12 +167,12 @@ for r, ly in zip(o.itertuples(), lab_y):
 ax.axhline(1, color=S.INK, ls='--', lw=0.8)
 ax.set_yscale('log'); ax.set_yticks([1, 3, 10, 30, 100, 300]); ax.set_yticklabels(['1', '3', '10', '30', '100', '300'])
 ax.set_xticks([0, 1]); ax.set_xticklabels(['before 1970', '1990 on']); ax.set_xlim(-0.3, 1.75)
-ax.set_ylabel('Odds ratio between element and genre\n(median over five-year periods, log scale)')
+ax.set_ylabel('Odds ratio between feature and genre\n(median over five-year periods, log scale)')
 S.save(fig, 'fig_odds_ratio_early_late', FIG)
 """)
 
 md(r"""
-## Part IV.E (2): three elements over time
+## Part IV.E (2): three features over time
 
 Prevalence (blue), distinctiveness (red) and the genre's share of all films (gray, dashed), by five-year period from 1930. The panel title gives the odds ratio before 1970 and from 1990 on.
 """)
@@ -198,12 +198,12 @@ md(r"""
 
 Per-period scores come from Notebook 08 (`stockiness_by_bin.parquet`), which recomputes every measure inside each five-year period. Here:
 
-- a period counts for a genre if the genre has at least 100 films in it and at least 150 eligible elements;
-- an element is eligible in a genre and period if it is a narrative element in at least 5 of the genre's films in that period (this keeps distinctiveness from being driven by an element seen once);
+- a period counts for a genre if the genre has at least 100 films in it and at least 150 eligible features;
+- a feature is eligible in a genre and period if it is a story feature in at least 5 of the genre's films in that period (this keeps distinctiveness from being driven by a feature seen once);
 - the top 50 is taken separately by prevalence (`rel_freq_in_genre`) and by distinctiveness (`posterior_smoothed`, α = 1, prior from the period's genre shares);
 - survival at a lag of k periods is the share of a period's top 50 that is still in the top 50 k periods later, averaged over the genre's starting periods; the corpus value is the mean over genres, with a 95% t interval across genres.
 
-The May 2026 draft instead followed elements above z = 1 on the composite. The chance level printed beside each value is 50 divided by the number of eligible elements in the later period: the share expected if the later top 50 were drawn at random.
+The May 2026 draft instead followed features above z = 1 on the composite. The chance level printed beside each value is 50 divided by the number of eligible features in the later period: the share expected if the later top 50 were drawn at random.
 """)
 code(r"""
 bins = read_parquet(V4 / '08_temporal' / 'stockiness_by_bin.parquet',
@@ -247,7 +247,7 @@ for (m, k), d in surv.groupby(['measure', 'lag_years']):
 corp = pd.DataFrame(corp)
 corp.to_csv(OUT / 'survival_two_measures_corpus.csv', index=False)
 out(f'\nE3. Survival of the top {TOP} (mean over genres, 95% interval across genres; chance in brackets)')
-out(f'  qualifying genre-periods: {len(QUAL)}; eligible element-periods: {len(elig):,}')
+out(f'  qualifying genre-periods: {len(QUAL)}; eligible feature-periods: {len(elig):,}')
 for r in corp.itertuples():
     out(f'  {r.measure:<15} lag {r.lag_years:>2} years: {r.survival:.3f} [{r.lo:.3f}, {r.hi:.3f}]  chance {r.chance:.3f}  ({r.n_genres} genres)')
 
@@ -288,13 +288,13 @@ S.save(fig, 'fig_app_survival_by_genre', FIG)
 """)
 
 md(r"""
-## Part IV.E (4): lifecycles of six elements
+## Part IV.E (4): lifecycles of six features
 
-An element's percentile within its genre in each five-year period, among the eligible elements of that genre and period (narrative elements in at least 5 of the genre's films that period), on prevalence (blue) and distinctiveness (red). A period counts if the genre has at least 50 films and 50 eligible elements in it. Gaps are periods in which the element was in fewer than 5 of the genre's films.
+A feature's percentile within its genre in each five-year period, among the eligible features of that genre and period (story features in at least 5 of the genre's films that period), on prevalence (blue) and distinctiveness (red). A period counts if the genre has at least 50 films and 50 eligible features in it. Gaps are periods in which the feature was in fewer than 5 of the genre's films.
 """)
 code(r"""
-# Lifecycles use a looser rule than survival, since they follow one element rather than a top 50:
-# a period counts if the genre has at least 50 films and 50 eligible elements in it.
+# Lifecycles use a looser rule than survival, since they follow one feature rather than a top 50:
+# a period counts if the genre has at least 50 films and 50 eligible features in it.
 qual_l = pd.concat([n_elig, nbg], axis=1).reset_index()
 qual_l = qual_l[(qual_l['N_bg'] >= 50) & (qual_l['n_eligible'] >= 50)]
 QUAL_L = set(zip(qual_l['genre'], qual_l['bin']))
@@ -326,7 +326,7 @@ S.save(fig, 'fig_lifecycles_six', FIG)
 """)
 
 md(r"""
-### Appendix B: one signature element per genre
+### Appendix B: one signature feature per genre
 
 For each genre, the narrative noun with the highest distinctiveness over the whole corpus among those in at least 5% of the genre's films, followed period by period on both measures.
 """)
@@ -349,16 +349,16 @@ axes.flat[-1].legend(h, l, loc='center', fontsize=7)
 for ax in axes[:, 0]:
     ax.set_ylabel('Percentile')
 axes.flat[len(sig) - 1].xaxis.set_tick_params(labelbottom=True)
-out('\nAppendix B signature elements: ' + ', '.join(f'{g}: {el}' for el, g in sig))
+out('\nAppendix B signature features: ' + ', '.join(f'{g}: {el}' for el, g in sig))
 S.save(fig, 'fig_app_lifecycles_by_genre', FIG)
 """)
 
 md(r"""
 ## Part IV.E (5): new entrants to a genre's top 50
 
-For each measure and five-year period, the share of the period's top-50 slots (pooled over genres) held by elements that had never been in that genre's top 50 in any earlier qualifying period. A genre's first qualifying period is left out, since everything is new there.
+For each measure and five-year period, the share of the period's top-50 slots (pooled over genres) held by features that had never been in that genre's top 50 in any earlier qualifying period. A genre's first qualifying period is left out, since everything is new there.
 
-Caveat: the corpus grows over time (from a few hundred films per period before 1930 to several thousand after 2000), and plot summaries of recent films are longer and more detailed. More eligible elements in later periods mean more candidates for the top 50, so a higher entry rate in recent periods is partly a property of the corpus, not only of the genres.
+Caveat: the corpus grows over time (from a few hundred films per period before 1930 to several thousand after 2000), and plot summaries of recent films are longer and more detailed. More eligible features in later periods mean more candidates for the top 50, so a higher entry rate in recent periods is partly a property of the corpus, not only of the genres.
 """)
 code(r"""
 ent = []
@@ -447,16 +447,16 @@ S.save(fig, 'fig_events_both_dimensions', FIG)
 md(r"""
 ## Part IV.F (8): combinations, without the composite
 
-From Notebook 03c's pair table (`combination_stockiness.parquet`): for two narrative elements i and j in genre g, the number of the genre's films that contain both (`joint_count_g`), the number of all films that contain both (`joint_count_corpus`), and the pair's smoothed distinctiveness (`posterior_smoothed`: of the films with both, the share in g, with the same α = 1 smoothing as the single elements).
+From Notebook 03c's pair table (`combination_stockiness.parquet`): for two story features i and j in genre g, the number of the genre's films that contain both (`joint_count_g`), the number of all films that contain both (`joint_count_corpus`), and the pair's smoothed distinctiveness (`posterior_smoothed`: of the films with both, the share in g, with the same α = 1 smoothing as the single features).
 
 The rule used here:
 
 - the pair must be in at least max(10, 0.5% of the genre's films) of the genre's films;
-- both elements must be narrative nouns or noun phrases in the frozen vocabulary (verbs are left out, so that a combination is a combination of characters, settings, and objects; events are treated separately above);
+- both features must be narrative nouns or noun phrases in the frozen vocabulary (verbs are left out, so that a combination is a combination of characters, settings, and objects; events are treated separately above);
 - pairs whose wordings share a word (e.g., "apach" and "apaches", "rangers" and "texas ranger") are dropped, and a pair that appears under several grammatical types is kept once;
 - pairs are ranked by the pair's distinctiveness; ties go to the pair in more films.
 
-The table also gives the higher of the two elements' own distinctiveness in the genre, so the reader can see whether the combination marks the genre more strongly than either element alone. The May 2026 ranking multiplied the composite scores of the two elements by the log of their lift; that is not used.
+The table also gives the higher of the two features' own distinctiveness in the genre, so the reader can see whether the combination marks the genre more strongly than either feature alone. The May 2026 ranking multiplied the composite scores of the two features by the log of their lift; that is not used.
 """)
 code(r"""
 COLS = ['genre', 'element_i', 'element_type_i', 'element_j', 'element_type_j', 'joint_count_g', 'joint_count_corpus',
@@ -492,15 +492,15 @@ for g in SIX:
 write_table('T-IV-combinations_six', 'Combinations that mark a genre: the three most distinctive pairs in six genres.',
             'tab:combinations', 'llrrr',
             r'Genre & Pair & Films & Pair (\%) & Best single (\%)', rows,
-            r'Films: films of the genre whose summary contains both elements. Pair: of all films containing both, the percentage in the genre (smoothed). '
-            r'Best single: the higher of the two elements’ own distinctiveness in the genre. Pairs must appear in at least 10 of the genre\'s films or 0.5\% of them, whichever is larger; '
-            r'both elements are narrative nouns or noun phrases, and pairs whose wordings share a word are dropped.'.replace(r"\'", "'"))
+            r'Films: films of the genre whose summary contains both features. Pair: of all films containing both, the percentage in the genre (smoothed). '
+            r'Best single: the higher of the two features’ own distinctiveness in the genre. Pairs must appear in at least 10 of the genre\'s films or 0.5\% of them, whichever is larger; '
+            r'both features are narrative nouns or noun phrases, and pairs whose wordings share a word are dropped.'.replace(r"\'", "'"))
 rows = []
 for g in GENRES:
     d = topc[topc['genre'] == g]
     for i, r in enumerate(d.itertuples()):
         rows.append([tex(g) if i == 0 else '', tex(r.key), f'{r.joint_count_g:,}', f'{100 * r.posterior_smoothed:.0f}', f'{100 * r.best_single:.0f}'])
-write_table('T-App-B_combinations_17', 'The five most distinctive pairs of elements in each genre.', 'tab:app-combinations', 'llrrr',
+write_table('T-App-B_combinations_17', 'The five most distinctive pairs of features in each genre.', 'tab:app-combinations', 'llrrr',
             r'Genre & Pair & Films & Pair (\%) & Best single (\%)', rows,
             'Columns and rule as in the combinations table in Part~IV.F of the article.', long=True)
 """)
@@ -508,7 +508,7 @@ write_table('T-App-B_combinations_17', 'The five most distinctive pairs of eleme
 md(r"""
 ## Part IV.F (9): co-occurrence networks
 
-For a genre, the nodes are its 80 most distinctive narrative nouns and phrases among those in at least 1% of its films. The links are the 30 strongest pairs among them that pass the same support rule as the combinations, where strength is pointwise mutual information within the genre (how much more often the two elements appear together in the genre's films than chance would predict). Of many candidate layouts, the one with the fewest overlapping labels is drawn.
+For a genre, the nodes are its 80 most distinctive narrative nouns and phrases among those in at least 1% of its films. The links are the 30 strongest pairs among them that pass the same support rule as the combinations, where strength is pointwise mutual information within the genre (how much more often the two features appear together in the genre's films than chance would predict). Of many candidate layouts, the one with the fewest overlapping labels is drawn.
 """)
 code(r"""
 def label_overlaps(pos, char_w=0.024, line_h=0.075):
@@ -569,14 +569,14 @@ out('\nF9. Networks')
 G, e = network('Western')
 fig, ax = plt.subplots(figsize=S.size(1.0, 4.4))
 ov = draw(ax, G, font=8)
-out(f'  Western: {G.number_of_nodes()} elements, {G.number_of_edges()} links, overlapping labels {ov}; strongest: ' +
+out(f'  Western: {G.number_of_nodes()} features, {G.number_of_edges()} links, overlapping labels {ov}; strongest: ' +
     '; '.join(f'{r.element_i} + {r.element_j}' for r in e.head(5).itertuples()))
 S.save(fig, 'fig_network_western', FIG)
 fig, axes = plt.subplots(2, 1, figsize=S.size(1.0, 7.6))
 for ax, g in zip(axes, ['Crime', 'Horror']):
     G, e = network(g)
     ov = draw(ax, G, title=g, font=7.5)
-    out(f'  {g}: {G.number_of_nodes()} elements, {G.number_of_edges()} links, overlapping labels {ov}')
+    out(f'  {g}: {G.number_of_nodes()} features, {G.number_of_edges()} links, overlapping labels {ov}')
 S.save(fig, 'fig_networks_crime_horror', FIG)
 """)
 
@@ -589,13 +589,13 @@ for g in GENRES:
     fig, ax = plt.subplots(figsize=S.size(1.0, 4.0))
     ov = draw(ax, G, font=7)
     S.save(fig, f'fig_app_network_{g.replace(" ", "_")}', FIG, show=False)
-    out(f'  Appendix network {g}: {G.number_of_nodes()} elements, {G.number_of_edges()} links, overlapping labels {ov}')
+    out(f'  Appendix network {g}: {G.number_of_nodes()} features, {G.number_of_edges()} links, overlapping labels {ov}')
 """)
 
 md(r"""
 ## Part IV.F (10): centrality in the genre's network, against each measure
 
-Eigenvector centrality of each narrative element in its genre's co-occurrence network (Notebook 03c), against its prevalence and its distinctiveness in the genre, all as percentiles within the genre, for elements in at least 20 of the genre's films, pooled over genres. Shading counts elements (darker = more); the line is the median centrality percentile in each twentieth of the measure. The May 2026 figure plotted centrality against the composite.
+Eigenvector centrality of each story feature in its genre's co-occurrence network (Notebook 03c), against its prevalence and its distinctiveness in the genre, all as percentiles within the genre, for features in at least 20 of the genre's films, pooled over genres. Shading counts features (darker = more); the line is the median centrality percentile in each twentieth of the measure. The May 2026 figure plotted centrality against the composite.
 """)
 code(r"""
 cen = read_parquet(V4 / '03c_network' / 'element_centrality_by_genre.parquet',
@@ -607,7 +607,7 @@ for c, n in [('eigenvector', 'cen'), ('rel_freq_in_genre', 'prev'), ('posterior_
 rho = cen.groupby('genre').apply(lambda d: pd.Series({'prevalence': spearmanr(d['p_cen'], d['p_prev'])[0],
                                                        'distinctiveness': spearmanr(d['p_cen'], d['p_dist'])[0], 'n': len(d)}))
 rho.to_csv(OUT / 'centrality_spearman_by_genre.csv')
-out(f'\nF10. Centrality vs the two measures ({len(cen):,} element-genre pairs, 20+ films)')
+out(f'\nF10. Centrality vs the two measures ({len(cen):,} feature-genre pairs, 20+ films)')
 out(f'  mean within-genre Spearman: prevalence {rho["prevalence"].mean():.2f} (range {rho["prevalence"].min():.2f} to {rho["prevalence"].max():.2f}), '
     f'distinctiveness {rho["distinctiveness"].mean():.2f} (range {rho["distinctiveness"].min():.2f} to {rho["distinctiveness"].max():.2f})')
 fig, axes = plt.subplots(1, 2, figsize=S.size(1.0, 3.0), sharey=True)

@@ -9,7 +9,7 @@ def md(s):   cells.append(nbf.v4.new_markdown_cell(s.strip("\n")))
 def code(s): cells.append(nbf.v4.new_code_cell(s.strip("\n")))
 
 md(r"""
-# Notebook 13 — Event elements: scoring what happens, not only what is mentioned
+# Notebook 13 — Event features: scoring what happens, not only what is mentioned
 
 **Why.** Notebook 02 extracts nouns, noun phrases, verbs and names one at a time. Courts usually describe scènes à faire as things that happen: "firing a machine gun", "a shootout", "escaping from prison". The pipeline has "gun" and "fire" separately but not the event. This notebook is a first pass at an event-level unit, built with a grammatical parser and counting only, with no language-model judgment.
 
@@ -281,7 +281,7 @@ save(fig, 'events_both_dimensions')
 md(r"""
 ## How the two dimensions relate for events
 
-The rank correlation between prevalence and distinctiveness within each genre, for events in at least 20 of the genre's films (the floor the human study used for single elements).
+The rank correlation between prevalence and distinctiveness within each genre, for events in at least 20 of the genre's films (the floor the human study used for single features).
 """)
 code(r"""
 from scipy.stats import spearmanr
