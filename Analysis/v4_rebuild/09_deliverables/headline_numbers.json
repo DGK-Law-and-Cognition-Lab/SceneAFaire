@@ -1,0 +1,117 @@
+{
+  "n_films_total": {
+    "value": 45958,
+    "fmt": "{:,}",
+    "description": "Films in corpus union (CMU + Kaggle Wikipedia)"
+  },
+  "n_unique_elements_pre_filter": {
+    "value": 588354,
+    "fmt": "{:,}",
+    "description": "Unique (element, type) pairs extracted before the 10/5 filter"
+  },
+  "n_cells_filtered": {
+    "value": 345366,
+    "fmt": "{:,}",
+    "description": "Cells in stockiness_long after the 10/5 filter"
+  },
+  "n_elements_filtered": {
+    "value": 27212,
+    "fmt": "{:,}",
+    "description": "Unique (element, type) pairs after the 10/5 filter"
+  },
+  "n_narrative_elements": {
+    "value": 17965,
+    "fmt": "{:,}",
+    "description": "Narrative (element, type) pairs after 03b classification + blocklist"
+  },
+  "chunk_precision": {
+    "value": 0.3863286859485256,
+    "fmt": "{:.3f}",
+    "description": "Mean chunk precision in 02b"
+  },
+  "chunk_recall": {
+    "value": 0.1376894054893701,
+    "fmt": "{:.3f}",
+    "description": "Mean chunk recall in 02b"
+  },
+  "pooled_recall": {
+    "value": 0.6574352314126788,
+    "fmt": "{:.3f}",
+    "description": "Pooled recall (all element types) in 02b"
+  },
+  "n_validated_films": {
+    "value": 1500,
+    "fmt": "{:,}",
+    "description": "Films stratified-sampled for 02b validation (88 or 89 per genre, seed 20260219)"
+  },
+  "narrative_share": {
+    "value": 0.6601866823460238,
+    "fmt": "{:.1%}",
+    "description": "Share of unique (element, type) pairs classified as narrative"
+  },
+  "mean_measure_correlation": {
+    "value": 0.41055191309693173,
+    "fmt": "{:.2f}",
+    "description": "Mean off-diagonal correlation among the four ensemble z-scores"
+  },
+  "n_genres_negative_partial_r": {
+    "value": 17,
+    "fmt": "{:d}",
+    "description": "Number of canonical genres with negative partial Pearson r (of 17)"
+  },
+  "cohens_d_mean_arm_1": {
+    "value": 0.6803264844788419,
+    "fmt": "{:.2f}",
+    "description": "Mean Cohen's d across 17 genres in Arm 1"
+  },
+  "cohens_d_median_arm_1": {
+    "value": 0.6708713999781473,
+    "fmt": "{:.2f}",
+    "description": "Median Cohen's d across 17 genres in Arm 1"
+  },
+  "n_genres_arm_1_sig": {
+    "value": 13,
+    "fmt": "{:d}",
+    "description": "Arm 1 genres significant at p<0.05 (of 17)"
+  },
+  "n_genres_arm_1_large": {
+    "value": 7,
+    "fmt": "{:d}",
+    "description": "Arm 1 genres with large effect d>=0.8 (of 17)"
+  },
+  "cohens_d_mean_arm_2": {
+    "value": 0.6377363217961644,
+    "fmt": "{:.2f}",
+    "description": "Mean Cohen's d across 17 genres in Arm 2"
+  },
+  "n_genres_arm_2_narr_greater": {
+    "value": 16,
+    "fmt": "{:d}",
+    "description": "Arm 2 genres where narrative > filtered (of 17)"
+  },
+  "partial_r_corpuswide": {
+    "value": -0.16332625209685955,
+    "fmt": "{:+.3f}",
+    "description": "Partial Pearson r between surprisal and stockiness, controlling for log word count"
+  },
+  "raw_r_corpuswide": {
+    "value": 0.004733854443365291,
+    "fmt": "{:+.3f}",
+    "description": "Raw Pearson r between surprisal and stockiness (length-confounded)"
+  },
+  "mean_survival_lag_20": {
+    "value": 0.5251684692620665,
+    "fmt": "{:.1%}",
+    "description": "Mean survival probability of top-50 stock elements at 20-year lag"
+  },
+  "mean_survival_lag_50": {
+    "value": 0.4754025793050136,
+    "fmt": "{:.1%}",
+    "description": "Mean survival probability of top-50 stock elements at 50-year lag"
+  },
+  "n_litigation_candidates": {
+    "value": 340,
+    "fmt": "{:,}",
+    "description": "Total candidate scenes a faire across 17 genres"
+  }
+}

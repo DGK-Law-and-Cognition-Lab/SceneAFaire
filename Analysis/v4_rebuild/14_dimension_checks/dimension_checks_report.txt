@@ -1,0 +1,129 @@
+NOTEBOOK 14 — CHECKS ON THE TWO DIMENSIONS (counting only)
+345,366 (feature, type, genre) cells; 237,516 narrative
+
+A1. MEAN WITHIN-GENRE SPEARMAN CORRELATION (story features)
+                 prevalence  distinctiveness  collocation  tfidf    g2  composite
+prevalence             1.00             0.34         0.91   0.95  0.36       0.61
+distinctiveness        0.34             1.00         0.66   0.41  0.85       0.90
+collocation            0.91             0.66         1.00   0.91  0.60       0.86
+tfidf                  0.95             0.41         0.91   1.00  0.45       0.67
+g2                     0.36             0.85         0.60   0.45  1.00       0.81
+composite              0.61             0.90         0.86   0.67  0.81       1.00
+
+A2. MEAN OVERLAP OF TOP-50 LISTS ACROSS GENRES (out of 50)
+composite_and_prevalence          29.4
+composite_and_distinctiveness      1.7
+composite_and_collocation         42.3
+composite_and_tfidf               31.7
+composite_and_g2                  31.9
+prevalence_and_distinctiveness     0.0
+
+A3. MEANING CHECK BY SCORE (top 50 vs all other story features; mean Cohen's d over 17 genres)
+                 mean_d  genres_positive
+measure                                 
+prevalence         0.35               17
+distinctiveness    1.20               17
+collocation        0.61               16
+tfidf              0.40               17
+g2                 0.83               17
+composite          0.66               17
+
+A4. COURT-NAMED ELEMENTS: MEDIAN PERCENTILE BY SCORE (all n = 312, exact n = 59)
+                 all_matches  exact_matches
+prevalence             0.931          0.873
+distinctiveness        0.698          0.763
+collocation            0.947          0.904
+tfidf                  0.940          0.857
+g2                     0.858          0.770
+composite              0.935          0.831
+
+B. HELD-OUT PREDICTION (22,979 films to compute the scores, 22,979 to test; 15,976 story features, 22,727 of all features)
+Test 1, genre to content: mean AUC over genres
+              auc_prevalence  auc_distinctiveness  auc_overall_frequency
+set                                                                     
+all_elements           0.908                0.652                  0.902
+narrative              0.901                0.656                  0.894
+Test 2, content to genre: mean AUC over genres
+              auc_distinctiveness  auc_prevalence
+set                                              
+all_elements                0.868           0.617
+narrative                   0.862           0.630
+Test 2 by genre (story features)
+          genre  n_in_genre  auc_distinctiveness  auc_prevalence
+         Action        3929                0.857           0.615
+      Adventure        3088                0.843           0.571
+      Animation        1372                0.933           0.617
+         Comedy        7335                0.782           0.513
+          Crime        2770                0.879           0.656
+          Drama       11286                0.764           0.600
+         Family        2052                0.811           0.559
+        Fantasy        1159                0.876           0.567
+        History        1500                0.814           0.478
+         Horror        2219                0.950           0.673
+          Music        1452                0.798           0.610
+        Mystery        1354                0.847           0.657
+        Romance        4158                0.799           0.708
+Science Fiction        1301                0.942           0.689
+       Thriller        3737                0.831           0.601
+            War         838                0.960           0.773
+        Western         690                0.972           0.828
+Test 1 by genre (story features)
+          genre  n_films  auc_prevalence  auc_distinctiveness  auc_overall_frequency
+         Action      300           0.904                0.638                  0.898
+      Adventure      300           0.902                0.622                  0.896
+      Animation      300           0.899                0.684                  0.882
+         Comedy      300           0.900                0.574                  0.897
+          Crime      300           0.903                0.670                  0.898
+          Drama      300           0.899                0.594                  0.894
+         Family      300           0.894                0.621                  0.889
+        Fantasy      300           0.895                0.661                  0.890
+        History      300           0.888                0.614                  0.884
+         Horror      300           0.906                0.674                  0.895
+          Music      300           0.898                0.652                  0.898
+        Mystery      300           0.899                0.659                  0.902
+        Romance      300           0.906                0.659                  0.901
+Science Fiction      300           0.903                0.688                  0.887
+       Thriller      300           0.901                0.626                  0.900
+            War      300           0.906                0.733                  0.888
+        Western      300           0.916                0.788                  0.898
+
+B3. SPLIT-HALF RELIABILITY (mean within-genre Spearman between halves)
+films_in_genre  n_cells  prevalence  distinctiveness  prevalence_sd  distinctiveness_sd  n_genres
+       5 to 19    73532       0.222            0.521          0.018               0.135        17
+      20 to 99    32058       0.757            0.803          0.017               0.075        17
+   100 or more    10917       0.938            0.934          0.020               0.031        17
+
+C. ASSOCIATION OVER TIME (periods with 30+ films in the genre and 5+ films with the feature)
+  sheriff    Western          before 1970 / 1990 on:  distinctiveness 0.61 / 0.14   genre share 0.067 / 0.010   odds ratio 24 / 17   prevalence 0.197 / 0.163
+  outlaw     Western          before 1970 / 1990 on:  distinctiveness 0.80 / 0.39   genre share 0.067 / 0.010   odds ratio 65 / 66   prevalence 0.158 / 0.105
+  vampire    Horror           before 1970 / 1990 on:  distinctiveness 0.93 / 0.82   genre share 0.077 / 0.101   odds ratio 131 / 35   prevalence 0.060 / 0.055
+  ghost      Horror           before 1970 / 1990 on:  distinctiveness 0.22 / 0.54   genre share 0.052 / 0.101   odds ratio 7 / 12   prevalence 0.043 / 0.126
+  detective  Crime            before 1970 / 1990 on:  distinctiveness 0.44 / 0.48   genre share 0.114 / 0.139   odds ratio 6 / 6   prevalence 0.107 / 0.088
+  gangster   Crime            before 1970 / 1990 on:  distinctiveness 0.44 / 0.44   genre share 0.114 / 0.139   odds ratio 7 / 5   prevalence 0.078 / 0.068
+  planet     Science Fiction  before 1970 / 1990 on:  distinctiveness 0.84 / 0.69   genre share 0.067 / 0.066   odds ratio 94 / 36   prevalence 0.174 / 0.161
+  alien      Science Fiction  before 1970 / 1990 on:  distinctiveness 0.93 / 0.70   genre share 0.067 / 0.066   odds ratio 147 / 37   prevalence 0.119 / 0.122
+  wizard     Fantasy          before 1970 / 1990 on:  distinctiveness 0.50 / 0.55   genre share 0.047 / 0.068   odds ratio 21 / 18   prevalence 0.059 / 0.032
+  witch      Fantasy          before 1970 / 1990 on:  distinctiveness 0.21 / 0.40   genre share 0.028 / 0.068   odds ratio 11 / 11   prevalence 0.031 / 0.051
+  wedding    Comedy           before 1970 / 1990 on:  distinctiveness 0.41 / 0.52   genre share 0.327 / 0.323   odds ratio 2 / 2   prevalence 0.046 / 0.071
+  soldier    War              before 1970 / 1990 on:  distinctiveness 0.32 / 0.19   genre share 0.056 / 0.026   odds ratio 13 / 19   prevalence 0.259 / 0.443
+
+D. NARRATIVE FILTER BY GRAMMATICAL TYPE
+                        n  kept  share_kept
+element_type                               
+noun                11989  7662       0.639
+chunk                8069  6754       0.837
+verb                 3499  2864       0.819
+entity_ORG           1736   258       0.149
+entity_GPE           1025    30       0.029
+entity_NORP           362   289       0.798
+entity_LOC            175    22       0.126
+entity_PRODUCT        151    55       0.364
+entity_FAC             80    19       0.238
+entity_EVENT           65    12       0.185
+entity_WORK_OF_ART     61    14       0.230
+A rule with no language model ("keep everything that is not a named entity") agrees with the classifier on 74.4% of 27,212 features.
+element_taxonomy
+generic_or_empty     2814
+character_name       2065
+place_name            985
+proper_noun_other     413

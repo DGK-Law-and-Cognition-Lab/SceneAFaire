@@ -1,0 +1,10 @@
+"rule","excluded_in_order","meeting_rule_any_order"
+"r1_hidden_trap",0,0
+"r2_reading_speed",1,1
+"r3_task_check",0,0
+"r4_attention",2,2
+"r5_incomplete",0,0
+"r6_generation_quality",0,0
+"r7_ai_use",1,2
+"r8_duplicate_id",0,0
+"r9_not_serious",2,2

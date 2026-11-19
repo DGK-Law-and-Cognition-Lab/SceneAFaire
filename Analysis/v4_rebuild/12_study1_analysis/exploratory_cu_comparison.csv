@@ -1,0 +1,3 @@
+"outcome","AIC_two","AIC_composite","AIC_cu","heldout_two","heldout_composite","heldout_cu","folds_two_beats_cu","cu_structure","AIC_cu_minus_two","heldout_two_minus_cu"
+"generation",17094.4193630715,17151.2614825979,17195.5168148939,-9319.85078187546,-9424.00902523817,-9562.73635881941,10,"produced ~ cu + lg + genre + (1 | pid) + (0 + cu | pid) + (1 | item)",101.097451822352,242.885576943952
+"rating",43727.9227410244,44025.5024721619,43852.0722150783,-21566.9546989954,-21693.1346458103,-21616.6412989694,7,"rating ~ cu + lg + genre + (1 + cu | pid) + (1 | item)",124.149474053818,49.6865999740585

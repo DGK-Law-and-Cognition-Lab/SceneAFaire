@@ -1,0 +1,130 @@
+======================================================================
+NOTEBOOK 08: TEMPORAL ANALYSIS REPORT
+======================================================================
+  bin width                 : 5 years
+  range covered             : 1915 to 2015 (21 bins)
+  films per bin (min/max)   : 248 / 7087
+  narrative pairs tracked   : 17,979
+  per-(element, type, genre, bin) cells after filter: 814,237
+  per-(element, type, genre) lifecycle rows: 142,484
+  ever-stock rate           : 10.7%
+
+======================================================================
+HEADLINE: CORPUS-WIDE SURVIVAL CURVE
+======================================================================
+Given an element is at z_ensemble ≥ 1.0 in some genre at time τ,
+what is the probability it is still above the threshold at time τ + lag?
+
+   lag (years)  P(stock | stock at τ)      n_pairs
+             5                  0.568       44,041
+            10                  0.547       40,682
+            15                  0.538       36,445
+            20                  0.535       32,551
+            30                  0.517       26,167
+            50                  0.492       16,370
+
+======================================================================
+PER-GENRE SURVIVAL AT LAG = 20 YEARS
+======================================================================
+(higher = genre's conventions are more durable)
+  Drama              P = 0.732  (n_pairs = 2,542)
+  Science Fiction    P = 0.597  (n_pairs = 1,321)
+  Action             P = 0.568  (n_pairs = 2,535)
+  Adventure          P = 0.566  (n_pairs = 2,753)
+  Crime              P = 0.563  (n_pairs = 2,168)
+  Comedy             P = 0.554  (n_pairs = 3,265)
+  Horror             P = 0.549  (n_pairs = 1,781)
+  Thriller           P = 0.548  (n_pairs = 2,304)
+  Romance            P = 0.519  (n_pairs = 2,081)
+  War                P = 0.517  (n_pairs = 1,200)
+  Western            P = 0.516  (n_pairs = 832)
+  Fantasy            P = 0.500  (n_pairs = 1,563)
+  Music              P = 0.468  (n_pairs = 1,463)
+  Family             P = 0.456  (n_pairs = 1,883)
+  Mystery            P = 0.447  (n_pairs = 1,591)
+  Animation          P = 0.443  (n_pairs = 1,453)
+  History            P = 0.376  (n_pairs = 1,816)
+
+======================================================================
+PER-GENRE PERSISTENT CONVENTIONS (longest stock duration in bins)
+======================================================================
+  Action             investigate (21 bins), ship (21 bins), army (20 bins), henchman (20 bins), hero (20 bins), attack (19 bins), avenge (19 bins), capture (19 bins)
+  Adventure          crew (21 bins), expedition (21 bins), fall (21 bins), island (21 bins), persuade (21 bins), princess (21 bins), reach (21 bins), rescue (21 bins)
+  Animation          cat (20 bins), bird (19 bins), bear (18 bins), bull (18 bins), chase (18 bins), creature (18 bins), elephant (18 bins), pig (18 bins)
+  Comedy             break (21 bins), car (21 bins), couple (21 bins), dance (21 bins), daughter (21 bins), discover (21 bins), door (21 bins), fall (21 bins)
+  Crime              car (21 bins), criminal (21 bins), theft (21 bins), crime (20 bins), gang (20 bins), kill (20 bins), murder (20 bins), police (20 bins)
+  Drama              brother (21 bins), city (21 bins), country (21 bins), daughter (21 bins), death (21 bins), die (21 bins), discover (21 bins), fall (21 bins)
+  Family             princess (20 bins), cat (19 bins), dog (19 bins), gang (19 bins), play (19 bins), prince (19 bins), run (19 bins), car (18 bins)
+  Fantasy            palace (21 bins), power (21 bins), castle (20 bins), guard (20 bins), king (20 bins), prince (20 bins), princess (20 bins), attack (19 bins)
+  History            battle (21 bins), british (21 bins), reach (21 bins), king (20 bins), prince (20 bins), army (19 bins), attack (19 bins), count (19 bins)
+  Horror             commit (20 bins), lock (20 bins), soul (20 bins), attack (19 bins), blood (19 bins), box (19 bins), death (19 bins), doctor (19 bins)
+  Music              band (19 bins), perform (19 bins), play (19 bins), singer (19 bins), song (19 bins), audition (18 bins), concert (18 bins), dancer (18 bins)
+  Mystery            suspect (21 bins), detective (20 bins), house (20 bins), killer (20 bins), murder (20 bins), escape (19 bins), investigate (19 bins), kill (19 bins)
+  Romance            home (21 bins), marry (21 bins), propose (21 bins), visit (21 bins), fall (20 bins), father (20 bins), forget (20 bins), invite (20 bins)
+  Science Fiction    destroy (20 bins), machine (20 bins), scientist (20 bins), attack (19 bins), earth (19 bins), moon (19 bins), creature (18 bins), earth (18 bins)
+  Thriller           building (21 bins), capture (21 bins), encounter (21 bins), escape (21 bins), murder (21 bins), police (21 bins), report (21 bins), shoot (21 bins)
+  War                army (21 bins), german (21 bins), german (21 bins), soldier (21 bins), war (21 bins), wound (21 bins), commander (20 bins), troop (20 bins)
+  Western            camp (21 bins), town (21 bins), cowboy (20 bins), horse (20 bins), kill (20 bins), outlaw (20 bins), indian (19 bins), mexican (19 bins)
+
+======================================================================
+PER-GENRE EMERGING CONVENTIONS (first stock bin in 1985+; ever-stock)
+======================================================================
+  Action             coordinate (first stock 2015), digimon (first stock 2015), disintegrate (first stock 2015), parachute (first stock 2015), task force (first stock 2015), monster (first stock 2015), trafficker (first stock 2015), obtain (first stock 2015)
+  Adventure          bull (first stock 2015), curse (first stock 2015), detention (first stock 2015), aftermath (first stock 2015), mantis (first stock 2015), burial (first stock 2015), slaughterhouse (first stock 2015), human form (first stock 2015)
+  Animation          raft (first stock 2015), scientist (first stock 2015), predator (first stock 2015), redeem (first stock 2015), retirement (first stock 2015), return (first stock 2015), revert (first stock 2015), roach (first stock 2015)
+  Comedy             iphone (first stock 2015), rocket (first stock 2015), dash (first stock 2015), manufacturer (first stock 2015), fighting (first stock 2015), senior (first stock 2015), cart (first stock 2015), seal (first stock 2015)
+  Crime              bat (first stock 2015), citizen (first stock 2015), commissioner (first stock 2015), blind man (first stock 2015), seal (first stock 2015), collar (first stock 2015), mill (first stock 2015), government (first stock 2015)
+  Drama              illness (first stock 2015), competition (first stock 2015), defeat (first stock 2015), disability (first stock 2015), discrimination (first stock 2015), file (first stock 2015), heal (first stock 2015), high school (first stock 2015)
+  Family             classmate (first stock 2015), road trip (first stock 2015), redemption (first stock 2015), manor (first stock 2015), notebook (first stock 2015), beard (first stock 2015), dollar (first stock 2015), comic (first stock 2015)
+  Fantasy            abandoned house (first stock 2015), breath (first stock 2015), mobilize (first stock 2015), mage (first stock 2015), limb (first stock 2015), humanity (first stock 2015), guild (first stock 2015), fleet (first stock 2015)
+  History            insubordination (first stock 2015), relent (first stock 2015), manufacture (first stock 2015), ptsd (first stock 2015), quest (first stock 2015), local bar (first stock 2015), ransom (first stock 2015), limb (first stock 2015)
+  Horror             loser (first stock 2015), beset (first stock 2015), vaccine (first stock 2015), urge (first stock 2015), prank (first stock 2015), prayer (first stock 2015), bungalow (first stock 2015), psychiatrist (first stock 2015)
+  Music              dishearten (first stock 2015), rock band (first stock 2015), entrance (first stock 2015), charm (first stock 2015), pearl (first stock 2015), mexican (first stock 2015), signature (first stock 2015), senior (first stock 2015)
+  Mystery            cup (first stock 2015), legacy (first stock 2015), slice (first stock 2015), silence (first stock 2015), sandwich (first stock 2015), cinema (first stock 2015), implore (first stock 2015), inflict (first stock 2015)
+  Romance            yuan (first stock 2015), muster (first stock 2015), business trip (first stock 2015), shoot (first stock 2015), redemption (first stock 2015), high school student (first stock 2015), courier (first stock 2015), potion (first stock 2015)
+  Science Fiction    loop (first stock 2015), rebellion (first stock 2015), drill (first stock 2015), outer wall (first stock 2015), replicate (first stock 2015), coup (first stock 2015), payload (first stock 2015), fin (first stock 2015)
+  Thriller           young adult (first stock 2015), school (first stock 2015), rumor (first stock 2015), rooftop (first stock 2015), channel (first stock 2015), relate (first stock 2015), rebel (first stock 2015), exam (first stock 2015)
+  War                zoo (first stock 2015), stock (first stock 2015), delay (first stock 2015), legion (first stock 2015), counterattack (first stock 2015), province (first stock 2015), desire (first stock 2015), relay (first stock 2015)
+  Western            carcass (first stock 2015), nail (first stock 2015), pension (first stock 2015), jewellery (first stock 2015), elude (first stock 2015), vision (first stock 2015), kerosene (first stock 2015), pupil (first stock 2015)
+
+======================================================================
+PER-GENRE FADING CONVENTIONS (peak before 1990; last_stock_bin < 2000)
+======================================================================
+  Action             scheme (peak 1915, last stock 1915), apple (peak 1920, last stock 1920), adventure (peak 1920, last stock 1920), toss (peak 1920, last stock 1920), wander (peak 1920, last stock 1920), trick (peak 1925, last stock 1925), befriend (peak 1925, last stock 1925), document (peak 1925, last stock 1925)
+  Adventure          yacht (peak 1915, last stock 1915), aristocrat (peak 1915, last stock 1915), passenger (peak 1915, last stock 1915), ghost (peak 1915, last stock 1915), heir (peak 1915, last stock 1915), clear (peak 1920, last stock 1920), swim (peak 1915, last stock 1920), fear (peak 1920, last stock 1920)
+  Animation          lake (peak 1915, last stock 1915), produce (peak 1915, last stock 1920), pick (peak 1925, last stock 1925), indian (peak 1925, last stock 1925), carry (peak 1925, last stock 1925), stage (peak 1925, last stock 1930), bimbo (peak 1930, last stock 1930), bimbo (peak 1930, last stock 1930)
+  Comedy             policeman (peak 1915, last stock 1915), toss (peak 1915, last stock 1915), distract (peak 1915, last stock 1915), cook (peak 1915, last stock 1920), kitchen (peak 1915, last stock 1920), wash (peak 1915, last stock 1920), climb (peak 1920, last stock 1920), impersonate (peak 1920, last stock 1925)
+  Crime              ranch (peak 1915, last stock 1915), card (peak 1920, last stock 1920), encounter (peak 1920, last stock 1920), table (peak 1920, last stock 1920), sheriff (peak 1915, last stock 1920), cabin (peak 1920, last stock 1920), train (peak 1920, last stock 1920), sheik (peak 1920, last stock 1920)
+  Drama              artist (peak 1915, last stock 1915), inn (peak 1915, last stock 1915), orphanage (peak 1915, last stock 1915), magazine (peak 1915, last stock 1920), adopt (peak 1915, last stock 1920), judge (peak 1920, last stock 1920), film magazine (peak 1915, last stock 1920), spade (peak 1930, last stock 1930)
+  Family             gratitude (peak 1920, last stock 1920), clothe (peak 1920, last stock 1920), invitation (peak 1920, last stock 1920), crush (peak 1925, last stock 1925), slave (peak 1920, last stock 1925), boss (peak 1925, last stock 1925), pray (peak 1925, last stock 1925), rain (peak 1925, last stock 1925)
+  Fantasy            beauty (peak 1920, last stock 1920), sheik (peak 1920, last stock 1920), count (peak 1915, last stock 1920), suspect (peak 1920, last stock 1920), carriage (peak 1920, last stock 1925), president (peak 1925, last stock 1925), berate (peak 1925, last stock 1925), model (peak 1920, last stock 1925)
+  History            abduct (peak 1920, last stock 1920), farm (peak 1915, last stock 1920), argument (peak 1920, last stock 1920), ghost (peak 1915, last stock 1925), instruct (peak 1925, last stock 1925), trust (peak 1925, last stock 1925), summon (peak 1925, last stock 1925), soul (peak 1920, last stock 1925)
+  Horror             perform (peak 1920, last stock 1920), desire (peak 1920, last stock 1920), battlefield (peak 1915, last stock 1920), gather (peak 1915, last stock 1920), german (peak 1920, last stock 1920), awake (peak 1920, last stock 1920), authority (peak 1920, last stock 1920), nature (peak 1920, last stock 1920)
+  Music              land (peak 1925, last stock 1925), switch (peak 1925, last stock 1925), break (peak 1925, last stock 1925), clerk (peak 1925, last stock 1925), showgirl (peak 1925, last stock 1925), pal (peak 1925, last stock 1925), goodbye (peak 1925, last stock 1925), chorus girl (peak 1925, last stock 1925)
+  Mystery            prince (peak 1915, last stock 1915), fake (peak 1915, last stock 1915), abduct (peak 1920, last stock 1920), mate (peak 1920, last stock 1920), awake (peak 1920, last stock 1920), german (peak 1920, last stock 1920), panic (peak 1920, last stock 1920), bridge (peak 1920, last stock 1920)
+  Romance            aristocrat (peak 1915, last stock 1915), captain (peak 1915, last stock 1915), pocket (peak 1915, last stock 1915), hang (peak 1915, last stock 1915), court (peak 1920, last stock 1920), coach (peak 1920, last stock 1920), stricken (peak 1920, last stock 1920), switch (peak 1920, last stock 1920)
+  Science Fiction    adventure (peak 1915, last stock 1915), youth (peak 1920, last stock 1920), secret (peak 1920, last stock 1920), denounce (peak 1915, last stock 1925), finance (peak 1925, last stock 1925), chair (peak 1920, last stock 1925), meeting (peak 1925, last stock 1925), convent (peak 1925, last stock 1925)
+  Thriller           midnight (peak 1915, last stock 1915), sentence (peak 1915, last stock 1915), flower (peak 1915, last stock 1915), invite (peak 1915, last stock 1915), box (peak 1915, last stock 1920), manager (peak 1920, last stock 1920), treasure (peak 1915, last stock 1920), count (peak 1920, last stock 1920)
+  War                gather (peak 1915, last stock 1915), peace (peak 1915, last stock 1915), valley (peak 1920, last stock 1920), wood (peak 1925, last stock 1925), german spy (peak 1925, last stock 1925), locomotive (peak 1925, last stock 1925), dance (peak 1920, last stock 1925), collapse (peak 1925, last stock 1925)
+  Western            protect (peak 1915, last stock 1915), civilization (peak 1915, last stock 1915), hall (peak 1915, last stock 1915), frame (peak 1920, last stock 1920), star (peak 1920, last stock 1920), laugh (peak 1920, last stock 1920), trick (peak 1920, last stock 1920), reform (peak 1920, last stock 1920)
+
+======================================================================
+PER-GENRE VOCABULARY CHANGE-POINTS (bins where top-K turnover is in bottom 10%)
+======================================================================
+  Action             1920 (jacc=0.00), 1930 (jacc=0.00)
+  Adventure          1920 (jacc=0.07), 1930 (jacc=0.11)
+  Animation          1920 (jacc=0.03), 1930 (jacc=0.03), 1980 (jacc=0.00)
+  Comedy             1920 (jacc=0.11), 1925 (jacc=0.25), 1975 (jacc=0.25)
+  Crime              1920 (jacc=0.03), 1925 (jacc=0.00)
+  Drama              1920 (jacc=0.36), 1930 (jacc=0.58), 1940 (jacc=0.58), 1975 (jacc=0.58), 2015 (jacc=0.58)
+  Family             1925 (jacc=0.03), 1930 (jacc=0.03)
+  Fantasy            1925 (jacc=0.00), 1945 (jacc=0.00), 1975 (jacc=0.00)
+  History            1930 (jacc=0.00), 1935 (jacc=0.00), 1955 (jacc=0.00)
+  Horror             1920 (jacc=0.00), 1925 (jacc=0.03)
+  Music              1925 (jacc=0.00), 1940 (jacc=0.20)
+  Mystery            1920 (jacc=0.07), 1925 (jacc=0.07)
+  Romance            1920 (jacc=0.03), 1925 (jacc=0.11)
+  Science Fiction    1920 (jacc=0.00), 1945 (jacc=0.00)
+  Thriller           1920 (jacc=0.03), 1925 (jacc=0.03), 1930 (jacc=0.03)
+  War                1920 (jacc=0.07), 1985 (jacc=0.15)
+  Western            1920 (jacc=0.03), 1925 (jacc=0.00), 2015 (jacc=0.03)

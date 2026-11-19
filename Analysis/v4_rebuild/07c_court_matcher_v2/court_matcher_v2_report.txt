@@ -1,0 +1,82 @@
+NOTEBOOK 07c — STRICTER COURT MATCHER, EVENTS, REJECTED ELEMENTS
+416 in-scope court features
+
+COVERAGE BY TIER
+tier
+exact        66
+phrase       63
+event        15
+head        199
+declined     73
+strict set (exact + phrase + event): 144   (07b had 66 exact matches)
+
+new tier (rows) against the 07b method (columns)
+method_07b  exact  head_noun  semantic  unmatched
+tier                                             
+declined        0         50        17          6
+event           0         14         1          0
+exact          66          0         0          0
+head            0        197         2          0
+phrase          0         59         4          0
+
+SCORED ITEMS AND BASELINES BY MATCH TIER  (features: narrative only)
+  strict (exact + phrase + event): 133 items; median percentile in the court genre: prevalence 0.880, distinctiveness 0.804
+      rank of court genre, prevalence       case median 0.766  39/46 cases > 0.5  p=2.3e-08
+      rank of court genre, distinctiveness  case median 0.760  40/46 cases > 0.5  p=2.1e-06
+      distinctiveness_given_prevalence   case median +0.117  34/46 cases > 0  p=1.6e-02
+      prevalence_given_distinctiveness   case median +0.141  37/46 cases > 0  p=2.9e-06
+  exact: 59 items; median percentile in the court genre: prevalence 0.873, distinctiveness 0.763
+      rank of court genre, prevalence       case median 0.790  21/26 cases > 0.5  p=6.4e-05
+      rank of court genre, distinctiveness  case median 0.790  19/26 cases > 0.5  p=9.1e-04
+      distinctiveness_given_prevalence   case median +0.156  18/26 cases > 0  p=8.4e-02
+      prevalence_given_distinctiveness   case median +0.143  21/26 cases > 0  p=5.2e-04
+  phrase: 59 items; median percentile in the court genre: prevalence 0.908, distinctiveness 0.873
+      rank of court genre, prevalence       case median 0.821  29/32 cases > 0.5  p=6.5e-08
+      rank of court genre, distinctiveness  case median 0.836  31/32 cases > 0.5  p=6.4e-08
+      distinctiveness_given_prevalence   case median +0.143  28/32 cases > 0  p=2.3e-04
+      prevalence_given_distinctiveness   case median +0.112  24/32 cases > 0  p=2.8e-03
+  event: 15 items; median percentile in the court genre: prevalence 0.810, distinctiveness 0.728
+      rank of court genre, prevalence       case median 0.812  9/13 cases > 0.5  p=1.7e-01
+      rank of court genre, distinctiveness  case median 0.778  9/13 cases > 0.5  p=1.7e-01
+      distinctiveness_given_prevalence   case median +0.089  8/13 cases > 0  p=3.1e-01
+      prevalence_given_distinctiveness   case median -0.027  6/13 cases > 0  p=3.4e-01
+  head: 164 items; median percentile in the court genre: prevalence 0.938, distinctiveness 0.645
+      rank of court genre, prevalence       case median 0.729  48/59 cases > 0.5  p=2.9e-07
+      rank of court genre, distinctiveness  case median 0.688  49/59 cases > 0.5  p=6.4e-07
+      distinctiveness_given_prevalence   case median +0.068  35/59 cases > 0  p=1.2e-02
+      prevalence_given_distinctiveness   case median +0.316  55/59 cases > 0  p=4.1e-10
+  all tiers: 297 items; median percentile in the court genre: prevalence 0.910, distinctiveness 0.726
+      rank of court genre, prevalence       case median 0.745  61/69 cases > 0.5  p=1.0e-10
+      rank of court genre, distinctiveness  case median 0.710  61/69 cases > 0.5  p=1.9e-10
+      distinctiveness_given_prevalence   case median +0.114  51/69 cases > 0  p=1.5e-04
+      prevalence_given_distinctiveness   case median +0.237  63/69 cases > 0  p=4.9e-11
+
+ELEMENTS COURTS REFUSED TO CALL STOCK (first pass; extracted by a language model, quotations verified, not human-audited)
+23 rows in 14 cases; by kind: {'single': 13, 'combination': 10}; by holding: {'rejected_as_scenes_a_faire': 13, 'held_protectable': 10}
+matcher tiers: {'phrase': 11, 'declined': 6, 'head': 4, 'event': 2}
+scored in the court genre (story features and events): 13
+      set              measure  n_held_stock  n_refused  median_held_stock  median_refused  auc_held_stock_higher     p
+   strict         p_prevalence           133         13              0.880           0.723                  0.626 0.136
+   strict    p_distinctiveness           133         13              0.804           0.781                  0.561 0.473
+   strict      rank_prevalence           133         13              0.818           0.778                  0.548 0.564
+   strict rank_distinctiveness           133         13              0.857           0.778                  0.573 0.383
+all tiers         p_prevalence           297         13              0.910           0.723                  0.670 0.038
+all tiers    p_distinctiveness           297         13              0.726           0.781                  0.485 0.861
+all tiers      rank_prevalence           297         13              0.812           0.778                  0.524 0.770
+all tiers rank_distinctiveness           297         13              0.800           0.778                  0.537 0.653
+
+scored refused features:
+                                                                                                                                     caseName     gen                                                                                                                                                                                                                                        phrase                match   tier  p_prevalence  p_distinctiveness
+                                                                                                    Suntrust Bank v. Houghton Mifflin Company   Drama                                                                                                a novel's fifteen fictional characters with their physical attributes, mannerisms, distinct features and complex relationships with each other complex relationship phrase          0.72               0.84
+Suntrust Bank, as Trustee of the Stephen Mitchell Trusts F.B.O. Eugene Muse Mitchell and Joseph Reynolds Mitchell v. Houghton Mifflin Company   Drama                                                                                                a novel's fifteen fictional characters with their physical attributes, mannerisms, distinct features and complex relationships with each other complex relationship phrase          0.72               0.84
+                                                                                                             Chase-Riboud v. Dreamworks, Inc. History                                                                                                                                                                 a black abolitionist character given a significant role in the amistad matter            give role  event          0.79               0.78
+                                                                                                                            Nash v. CBS, INC.   Crime                                                                                                           an interpretive tale that john dillinger did not die in 1934, telling what happened immediately before and after his supposed death       supposed death phrase          0.39               0.59
+                                                                                                     Lone Wolf McQuade Associates v. CBS INC.  Action                                                                                                               combination of character traits of a maverick texas ranger hero who uses martial arts, drives a 4x4, and has a minority partner          martial art phrase          1.00               0.99
+                                                                                                     Novak v. National Broadcasting Co., Inc.  Comedy                                                                                                                                                                         comedic use of a black-box camera mask in a gangster interview sketch            black box phrase          0.14               0.53
+                                                                                                                      Burgess v. Chase-Riboud   Drama                                                                                                                                              scene of jefferson's youngest daughter and sally hemings arriving in paris and meeting jefferson    youngest daughter phrase          0.89               0.76
+                                                                                                                      Burgess v. Chase-Riboud   Drama                                                                     conflict between sally hemings and jefferson's eldest daughter over control of monticello and its household keys, ending in the daughter ordering her to act as wet nurse      eldest daughter phrase          0.96               0.89
+                                                                                                                            Metcalf v. Bochco   Drama common pattern and sequence of many generic similarities (idealistic young professional choosing between financial and emotional reward, strained love triangles among young professionals, political forces interfering with private action)        love triangle phrase          0.98               0.85
+                                                                                            Shame on You Productions, Inc. v. Elizabeth Banks  Comedy                                                                                                                                                                         a helicopter transporting the lead character to her final destination    final destination phrase          0.49               0.79
+                                                                                            Shame on You Productions, Inc. v. Elizabeth Banks  Comedy                                                                                                                                                                                the lead character having her car towed during a walk of shame       lead character phrase          0.87               0.59
+                                                                                                          Penguin Random House LLC v. Colting   Drama                                                                                           specific man-versus-technology plot combining a space station, a space shuttle, an intelligent machine, tragedy in space, and overcoming technology        space shuttle phrase          0.18               0.06
+                                                                                                              Greenspan v. Random House, Inc.   Drama                                                                                                              plaintiff's particular depiction of a university president's unwelcoming manner and inability to see the students' point of view            see point  event          0.31               0.55

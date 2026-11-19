@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: "If you use this software or data, please cite the archived release and the article."
+title: "Scènes à Faire: an empirical method (code, derived outputs, and Study 1 materials)"
+type: software
+authors:
+  - family-names: Kamper
+    given-names: David G.
+    affiliation: University of Chicago Law School
+  - family-names: Bartholomew
+    given-names: Mark
+    affiliation: University at Buffalo School of Law
+  - family-names: Patel
+    given-names: Mira
+    affiliation: University of California, Los Angeles
+  - family-names: Holyoak
+    given-names: Keith J.
+    affiliation: University of California, Los Angeles
+license: MIT
+repository-code: "https://github.com/DGK-Law-and-Cognition-Lab/SceneAFaire"
+keywords:
+  - copyright
+  - scènes à faire
+  - genre
+  - computational text analysis
+  - preregistration
+abstract: >-
+  Code, small derived outputs, and Study 1 materials for a computational
+  method that measures, for every narrative element of a film genre, its
+  prevalence (share of the genre's films that contain it) and its
+  distinctiveness (share of films containing it that belong to the genre),
+  tested against held-out films, elements courts have called scènes à faire,
+  and a preregistered study of what people expect in a genre. Data, documents
+  and derived outputs are licensed CC BY 4.0 (see LICENSE-DATA).
+references:
+  - type: article
+    title: "Common or Characteristic? An Empirical Method for Scènes à Faire"
+    authors:
+      - family-names: Kamper
+        given-names: David G.
+      - family-names: Bartholomew
+        given-names: Mark
+      - family-names: Patel
+        given-names: Mira
+      - family-names: Holyoak
+        given-names: Keith J.
+    year: 2026
+    notes: "Manuscript."

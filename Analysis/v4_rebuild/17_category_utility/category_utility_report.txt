@@ -1,0 +1,94 @@
+NOTEBOOK 17 — INCREMENTAL CATEGORY VALIDITY, P(e | genre) − P(e | film)
+45,958 films; 345,366 cells; 237,516 narrative cells in 17 genres
+Share of narrative cells with incremental category validity above zero: 0.584
+
+A. INCREMENTAL CATEGORY VALIDITY AGAINST THE OTHER SCORES (story features, mean over 17 genres)
+                 mean_spearman_with_cu  mean_top50_shared_with_cu
+prevalence                        0.39                      25.35
+distinctiveness                   0.87                       0.18
+collocation                       0.64                      35.65
+TF-IDF                            0.43                      26.18
+G²                                0.81                      28.76
+composite                         0.83                      33.88
+base rate                        -0.08                      14.65
+
+B. TOP 12 NARRATIVE ELEMENTS, WESTERN
+   prevalence category utility distinctiveness
+1        kill             town     new marshal
+2        town            shoot         apaches
+3       shoot            horse   local rancher
+4      return             kill         outdraw
+5      arrive            ranch           apach
+6        lead          sheriff      gunfighter
+7      escape           indian           sioux
+8         set             gang         rustler
+9       horse           outlaw  cattle rustler
+10        run              gun   indian attack
+11   discover             ride     wagon train
+12      learn           saloon    town marshal
+
+B. TOP 12 NARRATIVE ELEMENTS, HORROR
+   prevalence category utility   distinctiveness
+1        kill             kill       lycanthropy
+2    discover           attack  paranormal event
+3       death            death    female vampire
+4      escape           escape         vampirism
+5         die         discover  malevolent force
+6       house              die          zombifie
+7      return             room    vengeful ghost
+8      arrive            blood  remaining zombie
+9      attack            house         pheromone
+10        run           murder         pentagram
+11       fall             stab    vampire hunter
+12       room      investigate          cenobite
+
+B. TOP 12 NARRATIVE ELEMENTS, SCIENCE FICTION
+   prevalence category utility    distinctiveness
+1        kill          destroy           lifeform
+2    discover            earth         lightsaber
+3      escape             kill  research facility
+4      return           escape      human subject
+5     destroy         discover          interface
+6      arrive           attack      atomic breath
+7        lead        scientist           starship
+8        save           planet     alien creature
+9         die            power          selenites
+10     attack         creature           selenite
+11      earth             ship           venusian
+12        run             save     unknown planet
+
+C. COURT-NAMED ELEMENTS (07c strict set, features only: 118 matches, 44 cases)
+Median within-genre percentile, case medians:  p_prevalence 0.860   p_distinctiveness 0.750   p_cu 0.799
+Share of features in the top quarter:           p_prevalence 0.686   p_distinctiveness 0.559   p_cu 0.627
+Features whose genre ordering is the same on incremental category validity and prevalence: 1.0000
+
+D. MEDIANS OVER FIVE-YEAR PERIODS, BEFORE 1970 AND FROM 1990 ON
+element           genre          era  periods  prevalence  base_rate  category_utility  distinctiveness  genre_share
+sheriff         Western  before 1970        8       0.197      0.023             0.175            0.606        0.067
+sheriff         Western from 1990 on        4       0.162      0.012             0.148            0.138        0.010
+  alien Science Fiction  before 1970        4       0.119      0.007             0.112            0.932        0.067
+  alien Science Fiction from 1990 on        6       0.122      0.011             0.111            0.698        0.066
+  ghost          Horror  before 1970        6       0.043      0.012             0.033            0.218        0.052
+  ghost          Horror from 1990 on        6       0.126      0.024             0.101            0.544        0.101
+
+E. STUDY 1 POOL: 8,972 rows, 8,816 in the generation analysis set; Spearman of the incremental category validity percentile, by genre
+                 with prevalence  with distinctiveness  with composite
+genre                                                                 
+Comedy                      0.03                  0.90            0.70
+Crime                       0.35                  0.90            0.82
+Fantasy                     0.50                  0.81            0.86
+Horror                      0.46                  0.80            0.85
+Science Fiction             0.43                  0.84            0.81
+Western                     0.41                  0.91            0.78
+
+F. INCREMENTAL CATEGORY VALIDITY AND INCREMENTAL CUE VALIDITY
+Identity P(C)*dCatV = P(F)*dCue = P(F and C) - P(F)P(C): holds on every cell (checked numerically)
+Town in Westerns: P(F|C) = 0.417, P(F) = 0.112, P(C) = 0.0296 (1,362 of 45,958 films)
+  dCatV = 0.305;  P(C|F) = 0.111;  dCue = 0.081;  covariance = 0.0091;  contrast P(F|C) - P(F|not C) = 0.315
+Within-genre Spearman correlations among story features, mean over the 17 genres (min, max):
+  dCatV~contrast           1.000  (1.000, 1.000)
+  dCatV~covariance         1.000  (1.000, 1.000)
+  dCue~distinctiveness     0.999  (0.998, 1.000)
+  dCue~dCatV               0.858  (0.799, 0.888)
+  dCue~prevalence          0.311  (0.075, 0.459)
+Top 50 by dCue: shared with distinctiveness's top 50 44.5, with dCatV's top 50 0.1 (mean over genres)

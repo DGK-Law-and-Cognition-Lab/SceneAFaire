@@ -1,0 +1,159 @@
+======================================================================
+NOTEBOOK 03b: ELEMENT CLASSIFICATION REPORT
+======================================================================
+unique elements classified : 40,877
+stockiness rows enriched   : 456,159
+gold-set accuracy          : 94.5% (121/128)
+
+Taxonomy distribution (unique elements):
+  character_type         7,572  [narrative]
+  setting                3,375  [narrative]
+  object                 5,166  [narrative]
+  event                  8,098  [narrative]
+  theme                  3,056  [narrative]
+  relationship             799  [narrative]
+  character_name         4,364  [FILTERED]
+  place_name             2,745  [FILTERED]
+  proper_noun_other      1,433  [FILTERED]
+  generic_or_empty       4,269  [FILTERED]
+
+flagged ambiguous   : 5,844
+flagged split-sense : 2,845
+flagged needs_review: 545
+resolved at Tier 2  : 16,339
+
+======================================================================
+PER-GENRE TOP 15 BEFORE vs AFTER FILTER (ranked by ensemble)
+======================================================================
+
+--- Action ---
+  before: kill, man, escape, fight, shoot, gang, defeat, destroy, save, officer, capture, battle, fight, attack, team
+  after : kill, escape, fight, shoot, gang, defeat, destroy, save, officer, capture, battle, fight, attack, team, mission
+  dropped from top 15: man
+
+--- Adventure ---
+  before: kill, ship, capture, escape, man, rescue, destroy, shoot, fight, battle, save, defeat, return, arrive, island
+  after : kill, ship, capture, escape, rescue, destroy, shoot, fight, battle, save, defeat, return, arrive, island, lead
+  dropped from top 15: man
+
+--- Animation ---
+  before: bug, cat, mouse, cartoon, rabbit, hole, cause, fly, run, fall, chase, tree, dog, daffy, tail
+  after : cat, mouse, fly, run, fall, chase, dog, tail, eat, bird, destroy, grab, return, escape, earth
+  dropped from top 15: bug, cartoon, rabbit, hole, cause, tree, daffy
+
+--- Comedy ---
+  before: stooges, friend, stooge, man, end, love, job, marry, money, win, play, fall, girl, party, house
+  after : stooge, love, marry, win, play, fall, girl, party, house, father, run, wedding, return, arrive, discover
+  dropped from top 15: stooges, friend, man, end, job, money
+
+--- Crime ---
+  before: police, kill, murder, money, shoot, man, car, crime, gun, murder, prison, gang, robbery, killer, arrest
+  after : police, kill, murder, shoot, car, crime, gun, murder, prison, gang, robbery, killer, arrest, steal, detective
+  dropped from top 15: money, man
+
+--- Drama ---
+  before: life, mother, family, father, son, love, marry, live, wife, man, relationship, friend, daughter, husband, child
+  after : mother, family, father, son, love, marry, wife, relationship, daughter, husband, kill, marriage, return, die, fall
+  dropped from top 15: life, live, man, friend, child
+
+--- Family ---
+  before: bug, cat, mouse, dog, family, father, child, run, friend, return, mother, fall, time, house, boy
+  after : cat, mouse, dog, family, father, run, return, mother, fall, house, fly, santa, chase, eat, home
+  dropped from top 15: bug, child, friend, time, boy
+
+--- Fantasy ---
+  before: power, world, magic, dragon, king, kill, witch, destroy, earth, castle, defeat, return, kingdom, save, spell
+  after : power, magic, dragon, king, kill, witch, destroy, earth, castle, defeat, return, kingdom, save, spell, earth
+  dropped from top 15: world
+
+--- History ---
+  before: war, british, man, life, army, king, kill, die, german, return, family, time, soldier, father, friend
+  after : war, british, army, king, kill, die, german, return, family, soldier, father, death, jew, battle, son
+  dropped from top 15: man, life, time, friend
+
+--- Horror ---
+  before: kill, body, house, attack, vampire, zombie, creature, blood, ghost, room, death, discover, stab, escape, monster
+  after : kill, house, attack, vampire, zombie, creature, blood, ghost, room, death, discover, stab, escape, monster, spirit
+  dropped from top 15: body
+
+--- Music ---
+  before: song, sing, love, band, singer, marry, perform, music, performance, fall, friend, father, concert, play, life
+  after : song, love, band, singer, marry, perform, music, performance, fall, father, concert, play, girl, stage, return
+  dropped from top 15: sing, friend, life
+
+--- Mystery ---
+  before: murder, kill, police, killer, murder, investigate, man, body, investigation, death, detective, suspect, discover, room, house
+  after : murder, kill, police, killer, murder, investigate, investigation, death, detective, suspect, discover, room, house, evidence, wife
+  dropped from top 15: man, body
+
+--- Romance ---
+  before: love, marry, friend, relationship, fall, marriage, life, love, father, man, girl, mother, woman, live, time
+  after : love, marry, relationship, fall, marriage, love, father, girl, mother, family, return, wedding, daughter, house, parent
+  dropped from top 15: friend, life, man, woman, live, time
+
+--- Science Fiction ---
+  before: earth, earth, planet, alien, destroy, kill, creature, scientist, ship, robot, human, escape, discover, attack, world
+  after : earth, earth, planet, alien, destroy, kill, creature, scientist, ship, robot, human, escape, discover, attack, monster
+  dropped from top 15: world
+
+--- Thriller ---
+  before: kill, police, shoot, murder, man, killer, body, murder, car, death, escape, investigate, house, gun, discover
+  after : kill, police, shoot, murder, killer, murder, car, death, escape, investigate, house, gun, discover, room, arrive
+  dropped from top 15: man, body
+
+--- War ---
+  before: german, war, soldier, german, japanese, american, army, british, troop, kill, officer, man, nazi, commander, camp
+  after : german, war, soldier, german, japanese, american, army, british, troop, kill, officer, nazi, commander, camp, battle
+  dropped from top 15: man
+
+--- Western ---
+  before: ranch, town, horse, outlaw, man, sheriff, indian, posse, indian, saloon, kill, cattle, shoot, cowboy, stagecoach
+  after : ranch, town, horse, outlaw, sheriff, indian, posse, indian, saloon, kill, cattle, shoot, cowboy, stagecoach, rancher
+  dropped from top 15: man
+
+======================================================================
+ELEMENTS FLAGGED needs_review (rule-prior or gazetteer conflict)
+======================================================================
+  "aasha" (entity_GPE) -> character_name | prior=place_name | conf=4
+  "abu" (entity_GPE) -> character_name | prior=place_name | conf=4
+  "adelaide" (entity_GPE) -> character_name | prior=place_name | conf=4
+  "achu" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "alibaba" (entity_GPE) -> character_name | prior=place_name | conf=3
+  "alien" (noun) -> character_type | prior=None | conf=5
+  "alex" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "algy" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "ames" (entity_GPE) -> character_name | prior=place_name | conf=4
+  "amudha" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "ananka" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "annachi" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "anitha" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "anjali" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "aparna" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "apocalypse" (entity_WORK_OF_ART) -> event | prior=proper_noun_other | conf=4
+  "antonio" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "ark" (entity_GPE) -> object | prior=place_name | conf=3
+  "aravindan" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "ash" (entity_GPE) -> character_name | prior=place_name | conf=4
+  "augusta" (entity_GPE) -> character_name | prior=place_name | conf=4
+  "aunt em" (entity_WORK_OF_ART) -> character_name | prior=proper_noun_other | conf=5
+  "austin" (entity_GPE) -> place_name | prior=place_name | conf=3
+  "b.a." (entity_GPE) -> proper_noun_other | prior=place_name | conf=2
+  "b.c." (entity_GPE) -> proper_noun_other | prior=place_name | conf=2
+  "babe" (entity_GPE) -> character_name | prior=place_name | conf=4
+  "babe" (entity_WORK_OF_ART) -> character_name | prior=proper_noun_other | conf=4
+  "baburao" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "balachandran" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "baldwin" (entity_GPE) -> character_name | prior=place_name | conf=4
+  "bansi" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "baptist" (entity_GPE) -> character_type | prior=place_name | conf=4
+  "batman" (entity_WORK_OF_ART) -> character_name | prior=proper_noun_other | conf=5
+  "battle of the bands" (entity_WORK_OF_ART) -> event | prior=proper_noun_other | conf=5
+  "bdsm" (entity_GPE) -> theme | prior=place_name | conf=3
+  "beast" (entity_WORK_OF_ART) -> character_name | prior=proper_noun_other | conf=4
+  "beaumont" (entity_GPE) -> character_name | prior=place_name | conf=4
+  "bedford" (entity_GPE) -> character_name | prior=place_name | conf=5
+  "beef" (entity_WORK_OF_ART) -> character_name | prior=proper_noun_other | conf=4
+  "belle" (entity_GPE) -> character_name | prior=place_name | conf=4
+  ... and 505 more (see element_classifications.parquet)
+
+[2026-10-15] REGENERATED after the instance-filter correction in Notebook 03 (raw_instance_count, each instance counted once per film). No LLM calls were made: the existing per-pair element_classifications.parquet (40,877 pairs) was joined onto the new stockiness_long.parquet (345,366 cells, 27,212 pairs; 17,979 narrative pairs before the Notebook 09 franchise blocklist). The classification of every retained pair is unchanged; the counts above this note describe the May 2026 run.

@@ -1,0 +1,34 @@
+CMU CORPUS AUDIT REPORT
+============================================================
+
+Raw rows (after plot+metadata join): 42,204
+Rows with valid year: 39,585
+Rows with canonical genre: 39,185
+Rows in cleaned output: 35,249
+
+TOKEN COUNT PERCENTILES
+  p50: 237 tokens
+  p75: 570 tokens
+  p90: 930 tokens
+  p95: 1142 tokens
+  p99: 1722 tokens
+  p99.9: 3064 tokens
+
+CANONICAL GENRE COUNTS
+  Action              6,885
+  Adventure           6,110
+  Animation           2,611
+  Comedy             12,996
+  Crime               5,291
+  Drama              19,832
+  Family              4,063
+  Fantasy             2,185
+  History             2,723
+  Horror              4,147
+  Music               2,763
+  Mystery             2,540
+  Romance             7,254
+  Science Fiction     2,357
+  Thriller            6,939
+  War                 1,575
+  Western             1,050

@@ -1,0 +1,169 @@
+======================================================================
+NOTEBOOK 05: EMBEDDINGS AND TOPIC MODELING — SEMANTIC VALIDATION
+======================================================================
+embedding model : voyage-4-large
+plot embeddings : 45,958 × 1024
+element embeds  : 40,877 × 1024
+
+======================================================================
+GMM BIC SWEEP (adaptive-stop)
+======================================================================
+  WARNING: BIC kept decreasing through GMM_N_MAX = 80
+  Selected n_components = 80 (the upper bound).
+  The true BIC minimum lies above 80. Consider extending GMM_N_MAX.
+
+  BIC sweep (n_components, BIC, delta-from-running-min):
+    n=  8  BIC=     -5,298,881  Δ_from_min=           0
+    n=  9  BIC=     -5,306,057  Δ_from_min=           0
+    n= 10  BIC=     -5,320,531  Δ_from_min=           0
+    n= 11  BIC=     -5,332,322  Δ_from_min=           0
+    n= 12  BIC=     -5,344,260  Δ_from_min=           0
+    n= 13  BIC=     -5,349,454  Δ_from_min=           0
+    n= 14  BIC=     -5,361,249  Δ_from_min=           0
+    n= 15  BIC=     -5,369,012  Δ_from_min=           0
+    n= 16  BIC=     -5,368,868  Δ_from_min=         144
+    n= 17  BIC=     -5,377,652  Δ_from_min=           0
+    n= 18  BIC=     -5,380,496  Δ_from_min=           0
+    n= 19  BIC=     -5,385,976  Δ_from_min=           0
+    n= 20  BIC=     -5,390,630  Δ_from_min=           0
+    n= 21  BIC=     -5,395,249  Δ_from_min=           0
+    n= 22  BIC=     -5,399,608  Δ_from_min=           0
+    n= 23  BIC=     -5,406,731  Δ_from_min=           0
+    n= 24  BIC=     -5,413,197  Δ_from_min=           0
+    n= 25  BIC=     -5,416,960  Δ_from_min=           0
+    n= 26  BIC=     -5,419,406  Δ_from_min=           0
+    n= 27  BIC=     -5,422,134  Δ_from_min=           0
+    n= 28  BIC=     -5,425,873  Δ_from_min=           0
+    n= 29  BIC=     -5,427,753  Δ_from_min=           0
+    n= 30  BIC=     -5,430,225  Δ_from_min=           0
+    n= 31  BIC=     -5,434,600  Δ_from_min=           0
+    n= 32  BIC=     -5,438,091  Δ_from_min=           0
+    n= 33  BIC=     -5,439,184  Δ_from_min=           0
+    n= 34  BIC=     -5,444,629  Δ_from_min=           0
+    n= 35  BIC=     -5,445,516  Δ_from_min=           0
+    n= 36  BIC=     -5,447,789  Δ_from_min=           0
+    n= 37  BIC=     -5,448,394  Δ_from_min=           0
+    n= 38  BIC=     -5,444,474  Δ_from_min=       3,919
+    n= 39  BIC=     -5,451,461  Δ_from_min=           0
+    n= 40  BIC=     -5,453,169  Δ_from_min=           0
+    n= 41  BIC=     -5,454,531  Δ_from_min=           0
+    n= 42  BIC=     -5,456,124  Δ_from_min=           0
+    n= 43  BIC=     -5,457,603  Δ_from_min=           0
+    n= 44  BIC=     -5,458,767  Δ_from_min=           0
+    n= 45  BIC=     -5,460,781  Δ_from_min=           0
+    n= 46  BIC=     -5,459,989  Δ_from_min=         792
+    n= 47  BIC=     -5,459,644  Δ_from_min=       1,137
+    n= 48  BIC=     -5,465,491  Δ_from_min=           0
+    n= 49  BIC=     -5,465,502  Δ_from_min=           0
+    n= 50  BIC=     -5,468,038  Δ_from_min=           0
+    n= 51  BIC=     -5,465,626  Δ_from_min=       2,412
+    n= 52  BIC=     -5,469,701  Δ_from_min=           0
+    n= 53  BIC=     -5,470,510  Δ_from_min=           0
+    n= 54  BIC=     -5,473,067  Δ_from_min=           0
+    n= 55  BIC=     -5,473,256  Δ_from_min=           0
+    n= 56  BIC=     -5,474,891  Δ_from_min=           0
+    n= 57  BIC=     -5,476,888  Δ_from_min=           0
+    n= 58  BIC=     -5,480,016  Δ_from_min=           0
+    n= 59  BIC=     -5,480,946  Δ_from_min=           0
+    n= 60  BIC=     -5,480,784  Δ_from_min=         161
+    n= 61  BIC=     -5,482,041  Δ_from_min=           0
+    n= 62  BIC=     -5,482,920  Δ_from_min=           0
+    n= 63  BIC=     -5,482,884  Δ_from_min=          36
+    n= 64  BIC=     -5,484,076  Δ_from_min=           0
+    n= 65  BIC=     -5,485,315  Δ_from_min=           0
+    n= 66  BIC=     -5,485,395  Δ_from_min=           0
+    n= 67  BIC=     -5,485,176  Δ_from_min=         220
+    n= 68  BIC=     -5,485,606  Δ_from_min=           0
+    n= 69  BIC=     -5,485,889  Δ_from_min=           0
+    n= 70  BIC=     -5,487,574  Δ_from_min=           0
+    n= 71  BIC=     -5,489,280  Δ_from_min=           0
+    n= 72  BIC=     -5,489,950  Δ_from_min=           0
+    n= 73  BIC=     -5,489,817  Δ_from_min=         133
+    n= 74  BIC=     -5,488,375  Δ_from_min=       1,574
+    n= 75  BIC=     -5,491,307  Δ_from_min=           0
+    n= 76  BIC=     -5,490,019  Δ_from_min=       1,288
+    n= 77  BIC=     -5,491,622  Δ_from_min=           0
+    n= 78  BIC=     -5,491,900  Δ_from_min=           0
+    n= 79  BIC=     -5,492,852  Δ_from_min=           0
+    n= 80  BIC=     -5,495,197  Δ_from_min=           0  ← min
+
+======================================================================
+CLUSTER-GENRE ALIGNMENT
+======================================================================
+Both clusterings are compared against the seventeen canonical genres.
+Adjusted Rand Index = 0 means random alignment; 1 means perfect.
+NMI similarly bounded [0, 1].
+
+BERTopic   : ARI = 0.0611, NMI = 0.1848, noise = 44.7%, n_clusters = 50
+GMM (n=80): ARI = 0.0196, NMI = 0.1489
+
+======================================================================
+ARM 1 — TOP-50 NARRATIVE vs RANDOM-50: cosine to genre centroid
+======================================================================
+A positive gap means top-stock narrative elements sit closer to the
+genre centroid than random narrative elements. Larger gaps and Cohen's d
+values indicate stronger validation of the framework's count-based
+ranking by an independent semantic representation.
+
+  genre                 top50   rand50       gap   cohens_d    p_value
+  Western              0.2390   0.1230   +0.1160     +1.254  1.936e-08 ***
+  Horror               0.2236   0.1238   +0.0998     +1.411  3.059e-10 ***
+  War                  0.1776   0.1160   +0.0616     +0.867  3.932e-05 ***
+  Romance              0.2143   0.1573   +0.0571     +0.821  8.400e-05 ***
+  Animation            0.2256   0.1705   +0.0550     +0.888  2.385e-05 ***
+  Mystery              0.2217   0.1678   +0.0539     +0.661  1.335e-03 **
+  Action               0.1914   0.1377   +0.0537     +0.826  8.206e-05 ***
+  Family               0.2212   0.1697   +0.0515     +0.886  2.622e-05 ***
+  Crime                0.2212   0.1744   +0.0468     +0.586  4.232e-03 **
+  Thriller             0.1949   0.1496   +0.0454     +0.671  1.153e-03 **
+  Music                0.1904   0.1453   +0.0451     +0.786  1.614e-04 ***
+  Fantasy              0.1951   0.1600   +0.0351     +0.570  5.373e-03 **
+  Science Fiction      0.1956   0.1698   +0.0258     +0.392  5.294e-02
+  Adventure            0.1728   0.1489   +0.0238     +0.399  4.868e-02 *
+  Comedy               0.2121   0.1990   +0.0131     +0.220  2.740e-01
+  Drama                0.2037   0.1909   +0.0129     +0.195  3.309e-01
+  History              0.1373   0.1299   +0.0073     +0.133  5.072e-01
+
+  Mean gap across genres : +0.0473
+  Median gap             : +0.0468
+  Mean Cohen's d         : +0.680
+  Genres with p < 0.05   : 13 / 17
+  Genres with p < 0.001  : 8 / 17
+  Genres with d ≥ 0.8 (large) : 7 / 17
+  Genres with d ≥ 0.5 (medium): 12 / 17
+
+======================================================================
+ARM 2 — TOP-50 NARRATIVE vs TOP-50 FILTERED: 03b classification validity
+======================================================================
+A positive narrative-minus-filtered gap means narrative elements sit
+closer to the genre centroid than 03b-classified filtered elements.
+A consistent positive result confirms that 03b's narrative-vs-noise
+classification is doing real semantic work, not just count-statistical work.
+
+  genre                  narr     filt      diff   cohens_d    p_value
+  Crime                0.2212   0.1330   +0.0882     +1.261  1.501e-08 ***
+  Horror               0.2236   0.1395   +0.0841     +1.167  7.594e-08 ***
+  Mystery              0.2217   0.1483   +0.0734     +0.971  5.075e-06 ***
+  Action               0.1914   0.1191   +0.0723     +1.184  7.897e-08 ***
+  Thriller             0.1949   0.1374   +0.0576     +0.934  1.210e-05 ***
+  Fantasy              0.1951   0.1452   +0.0499     +0.835  6.595e-05 ***
+  Romance              0.2143   0.1666   +0.0478     +0.844  6.348e-05 ***
+  Drama                0.2037   0.1609   +0.0429     +0.828  7.803e-05 ***
+  Adventure            0.1728   0.1302   +0.0425     +0.762  2.470e-04 ***
+  Science Fiction      0.1956   0.1561   +0.0396     +0.655  1.464e-03 **
+  History              0.1373   0.1159   +0.0213     +0.383  5.874e-02
+  Music                0.1904   0.1703   +0.0201     +0.360  7.509e-02
+  Comedy               0.2121   0.1928   +0.0193     +0.374  6.414e-02
+  Western              0.2390   0.2209   +0.0181     +0.169  3.999e-01
+  Family               0.2212   0.2058   +0.0153     +0.262  1.931e-01
+  War                  0.1776   0.1683   +0.0093     +0.110  5.842e-01
+  Animation            0.2256   0.2443   -0.0187     -0.257  2.017e-01
+
+  Mean narrative-minus-filtered: +0.0402
+  Genres where narrative > filtered: 16 / 17
+
+  ANOMALY: genre(s) where filtered elements are CLOSER to the centroid
+  than narrative elements. Doctrinal reading: that genre's semantic
+  identity is partly carried by named entities (franchise characters,
+  proper-noun work titles) that 03b classifies as non-narrative.
+    Animation          narr=0.2256, filt=0.2443, diff=-0.0187

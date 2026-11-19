@@ -1,0 +1,57 @@
+"figure","genre","prevalence","distinctiveness","estimate","lower","upper","n"
+"listing_cells","all","High","High distinctiveness",3.4057661212224,3.03636974413256,3.77516249831223,131
+"listing_cells","all","Low","High distinctiveness",0.440320528925834,0.34297338335171,0.537667674499958,131
+"listing_cells","all","High","Low distinctiveness",0.509162904758731,0.370770030782298,0.647555778735165,131
+"listing_cells","all","Low","Low distinctiveness",0.120518620338774,0.0816566837751912,0.159380556902356,131
+"listing_by_genre","Comedy","High","High distinctiveness",0.582037869299344,0.476594687279118,0.68748105131957,49
+"listing_by_genre","Crime","High","High distinctiveness",3.36743393009378,2.95959614513712,3.77527171505044,46
+"listing_by_genre","Fantasy","High","High distinctiveness",3.51120351120351,2.81238048552702,4.21002653688,39
+"listing_by_genre","Horror","High","High distinctiveness",2.21836419753086,1.82191659069116,2.61481180437057,36
+"listing_by_genre","Science Fiction","High","High distinctiveness",3.06386120339609,2.5510161327081,3.57670627408407,43
+"listing_by_genre","Western","High","High distinctiveness",7.3539760731879,6.27571003323165,8.43224211314414,49
+"listing_by_genre","Comedy","Low","High distinctiveness",0.0644953240890035,0.0294786560696313,0.0995119921083757,49
+"listing_by_genre","Crime","Low","High distinctiveness",0.176630434782609,0.0921363443761133,0.261124525189104,46
+"listing_by_genre","Fantasy","Low","High distinctiveness",1.03463787674314,0.77474514005697,1.29453061342931,39
+"listing_by_genre","Horror","Low","High distinctiveness",0.178687459389214,0.0862489697577284,0.271125949020699,36
+"listing_by_genre","Science Fiction","Low","High distinctiveness",0.285932138772398,0.121860886569625,0.450003390975171,43
+"listing_by_genre","Western","Low","High distinctiveness",0.918367346938775,0.486175775334287,1.35055891854326,49
+"listing_by_genre","Comedy","High","Low distinctiveness",0.184512161028795,0.12573744490085,0.243286877156741,49
+"listing_by_genre","Crime","High","Low distinctiveness",0.359324469996407,0.19857898468499,0.520069955307823,46
+"listing_by_genre","Fantasy","High","Low distinctiveness",0.65359477124183,0.350047141988793,0.957142400494867,39
+"listing_by_genre","Horror","High","Low distinctiveness",0.326797385620915,0.188030216248614,0.465564554993216,36
+"listing_by_genre","Science Fiction","High","Low distinctiveness",0.302325581395349,0.0843490472835722,0.520302115507125,43
+"listing_by_genre","Western","High","Low distinctiveness",1.17501546072975,0.538956512155167,1.81107440930433,49
+"listing_by_genre","Comedy","Low","Low distinctiveness",0.0181675043904802,-0.00247803003958794,0.0388130388205484,49
+"listing_by_genre","Crime","Low","Low distinctiveness",0.0645716745587602,0.00569607483199677,0.123447274285524,46
+"listing_by_genre","Fantasy","Low","Low distinctiveness",0.0801282051282051,0.002290016757981,0.157966393498429,39
+"listing_by_genre","Horror","Low","Low distinctiveness",0.209080047789725,0.109180974754717,0.308979120824733,36
+"listing_by_genre","Science Fiction","Low","Low distinctiveness",0.0645994832041344,0.00178707402666095,0.127411892381608,43
+"listing_by_genre","Western","Low","Low distinctiveness",0.291545189504373,0.113172981591396,0.469917397417351,49
+"ratings_by_genre","Comedy","Low","High distinctiveness",4.21938775510204,3.41891602131963,5.01985948888445,12
+"ratings_by_genre","Crime","Low","High distinctiveness",5.30797101449275,4.57351777905302,6.04242424993249,12
+"ratings_by_genre","Fantasy","Low","High distinctiveness",5.13247863247863,4.37771586277046,5.8872414021868,12
+"ratings_by_genre","Horror","Low","High distinctiveness",4.82407407407407,4.06096171862747,5.58718642952068,12
+"ratings_by_genre","Science Fiction","Low","High distinctiveness",5.75968992248062,5.39932783791581,6.12005200704543,12
+"ratings_by_genre","Western","Low","High distinctiveness",5.76190476190476,5.17529735921007,6.34851216459946,12
+"ratings_by_genre","Comedy","High","High distinctiveness",5.0969387755102,4.59711539551506,5.59676215550535,12
+"ratings_by_genre","Crime","High","High distinctiveness",6.06884057971014,5.54430602316964,6.59337513625064,12
+"ratings_by_genre","Fantasy","High","High distinctiveness",5.80128205128205,5.22877165888287,6.37379244368123,12
+"ratings_by_genre","Horror","High","High distinctiveness",6.19212962962963,5.82349235024615,6.56076690901311,12
+"ratings_by_genre","Science Fiction","High","High distinctiveness",5.61240310077519,5.1459373117741,6.07886888977628,12
+"ratings_by_genre","Western","High","High distinctiveness",5.10884353741497,4.31579202460195,5.90189505022799,12
+"ratings_by_genre","Comedy","Low","Low distinctiveness",3.85714285714286,3.14045580779898,4.57382990648673,12
+"ratings_by_genre","Crime","Low","Low distinctiveness",3.90760869565217,3.25600994728232,4.55920744402203,12
+"ratings_by_genre","Fantasy","Low","Low distinctiveness",3.2457264957265,2.38616958658665,4.10528340486634,12
+"ratings_by_genre","Horror","Low","Low distinctiveness",4.61574074074074,4.02932912154084,5.20215235994064,12
+"ratings_by_genre","Science Fiction","Low","Low distinctiveness",3.36627906976744,2.77644348144682,3.95611465808806,12
+"ratings_by_genre","Western","Low","Low distinctiveness",4.70408163265306,4.32199794976431,5.08616531554181,12
+"ratings_by_genre","Comedy","High","Low distinctiveness",4.35374149659864,3.31251558632336,5.39496740687392,12
+"ratings_by_genre","Crime","High","Low distinctiveness",4.05978260869565,3.44998286200569,4.66958235538562,12
+"ratings_by_genre","Fantasy","High","Low distinctiveness",4.53632478632479,3.87992447600643,5.19272509664314,12
+"ratings_by_genre","Horror","High","Low distinctiveness",4.40277777777778,3.78537822560239,5.02017732995317,12
+"ratings_by_genre","Science Fiction","High","Low distinctiveness",4.3953488372093,4.04027641899814,4.75042125542046,12
+"ratings_by_genre","Western","High","Low distinctiveness",4.54761904761905,3.95493282846771,5.14030526677038,12
+"composite_kinds","all","common and characteristic","composite percentile 88.8",5.64673961238703,5.42518863469342,5.86829059008064,72
+"composite_kinds","all","characteristic, not common","composite percentile 68.4",5.16758436008881,4.89240336933357,5.44276535084405,72
+"composite_kinds","all","common, not characteristic","composite percentile 53.2",4.38259909237087,4.13838336954138,4.62681481520036,72
+"composite_kinds","all","neither","composite percentile 8.5",3.94942991528046,3.6836396672028,4.21522016335813,72

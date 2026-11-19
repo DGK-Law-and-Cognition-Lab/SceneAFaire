@@ -1,0 +1,21 @@
+Data, documents and derived outputs in this repository
+
+Copyright (c) 2026 David G. Kamper, Mark Bartholomew, Mira Patel, Keith J. Holyoak
+
+The data, documents and derived outputs in this repository (tables, reports,
+figures, stimulus files, the coding manual and rubric, and the README text)
+are licensed under the Creative Commons Attribution 4.0 International License
+(CC BY 4.0). To view a copy of the license, visit
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+You are free to share and adapt this material for any purpose, including
+commercially, provided you give appropriate credit, provide a link to the
+license, and indicate if changes were made.
+
+Code in this repository is licensed separately under the MIT License (see LICENSE).
+
+Upstream material is not covered by either license. The source corpora (the
+CMU Movie Summary Corpus and the Wikipedia Movie Plots dataset) are not
+redistributed here and remain under their own terms; short excerpts of plot
+summaries printed in a few notebook outputs remain under Wikipedia's CC BY-SA
+license. See README.md, "Upstream data".

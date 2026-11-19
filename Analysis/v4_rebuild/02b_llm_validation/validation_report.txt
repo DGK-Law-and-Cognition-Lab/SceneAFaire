@@ -1,0 +1,116 @@
+ELEMENT EXTRACTION VALIDATION REPORT
+============================================================
+spaCy model: en_core_web_lg
+LLM model: Claude Sonnet 4.6 (claude-sonnet-4-6)
+Sample size: 1500 films (stratified by genre, mode=equal)
+
+PER-TYPE PRECISION (fraction of spaCy elements the LLM corroborated)
+  chunk    mean=0.387  median=0.364  N=1496
+  entity   mean=0.432  median=0.429  N=1353
+  noun     mean=0.558  median=0.545  N=1500
+  verb     mean=0.245  median=0.215  N=1499
+  (chunk = fair comparison; noun/verb = LLM not prompted for these)
+
+POOLED RECALL (LLM elements spaCy captured under any type)
+  mean=0.657, median=0.674, std=0.143
+
+Avg spaCy elements/film (pooled): 89.3
+Avg LLM elements/film:           42.0
+
+BY GENRE (chunk precision, pooled recall, N)
+  Action             chunkP=0.380  R=0.683  N=89
+  Adventure          chunkP=0.368  R=0.703  N=89
+  Animation          chunkP=0.382  R=0.676  N=89
+  Comedy             chunkP=0.391  R=0.634  N=89
+  Crime              chunkP=0.394  R=0.627  N=88
+  Drama              chunkP=0.373  R=0.620  N=88
+  Family             chunkP=0.350  R=0.649  N=88
+  Fantasy            chunkP=0.380  R=0.686  N=88
+  History            chunkP=0.329  R=0.638  N=88
+  Horror             chunkP=0.439  R=0.694  N=88
+  Music              chunkP=0.369  R=0.627  N=88
+  Mystery            chunkP=0.449  R=0.630  N=88
+  Romance            chunkP=0.385  R=0.647  N=88
+  Science Fiction    chunkP=0.374  R=0.727  N=88
+  Thriller           chunkP=0.377  R=0.646  N=88
+  War                chunkP=0.407  R=0.673  N=88
+  Western            chunkP=0.437  R=0.615  N=88
+
+LLM-ONLY ELEMENTS BY CATEGORY
+  settings: 1,815 elements
+    urban environment (44)
+    family home (35)
+    courtroom (25)
+    frontier town (23)
+    city streets (18)
+    suburban neighborhood (17)
+    small town (16)
+    domestic interior (14)
+    television studio (13)
+    domestic household (12)
+  characters: 3,316 elements
+    mentor figure (38)
+    love interest (18)
+    romantic rival (16)
+    romantic lead (15)
+    femme fatale (13)
+    reluctant hero (13)
+    grieving widower (9)
+    damsel in distress (8)
+    child protagonist (8)
+    comic sidekick (8)
+  objects: 1,153 elements
+    gun (44)
+    camera (19)
+    military uniform (18)
+    musical instruments (18)
+    microphone (17)
+    military weapons (16)
+    weapons (15)
+    guns (10)
+    firearms (10)
+    legal documents (9)
+  events: 3,285 elements
+    marriage proposal (24)
+    final showdown (22)
+    romantic pursuit (18)
+    marriage (15)
+    murder investigation (15)
+    undercover infiltration (14)
+    reconciliation (14)
+    romantic rivalry (14)
+    final confrontation (13)
+    family reunion (10)
+  themes: 10,337 elements
+    good vs evil (290)
+    survival (288)
+    coming of age (198)
+    redemption (177)
+    sacrifice (151)
+    betrayal (100)
+    revenge (74)
+    loyalty (60)
+    grief and loss (53)
+    forbidden love (48)
+
+CHUNK-SPECIFIC VALIDATION (multi-word elements)
+  films with >=1 chunk: 1496
+  mean chunks per film: 16.8
+  mean chunk precision: 0.387
+    Action             0.380  N=88
+    Adventure          0.368  N=89
+    Animation          0.382  N=89
+    Comedy             0.391  N=89
+    Crime              0.394  N=88
+    Drama              0.373  N=88
+    Family             0.350  N=88
+    Fantasy            0.380  N=88
+    History            0.329  N=88
+    Horror             0.439  N=88
+    Music              0.369  N=87
+    Mystery            0.449  N=87
+    Romance            0.385  N=88
+    Science Fiction    0.374  N=88
+    Thriller           0.377  N=87
+    War                0.407  N=88
+    Western            0.437  N=88

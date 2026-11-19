@@ -1,0 +1,86 @@
+======================================================================
+NOTEBOOK 04: PLOT-LEVEL SURPRISAL — DISCRIMINANT VALIDITY REPORT
+======================================================================
+language model        : Qwen/Qwen2.5-7B
+films with surprisal  : 45,958
+films with stockiness : 45,953
+films in both + length: 45,953
+
+SURPRISAL DISTRIBUTION (nats per token, full corpus)
+  p10    : 2.290
+  p25    : 2.476
+  median : 2.696
+  p75    : 2.962
+  p90    : 3.249
+
+PER-FILM MEAN STOCKINESS DISTRIBUTION
+  p10    : 1.412
+  p25    : 1.841
+  median : 2.401
+  p75    : 3.183
+  p90    : 4.245
+
+======================================================================
+LENGTH CONFOUND CHECK
+======================================================================
+  Pearson r(surprisal, log_word_count) = -0.522
+  Pearson r(stockiness, log_word_count) = -0.266
+  Both measures are correlated with plot length in the same direction,
+  which makes the RAW correlation between surprisal and stockiness
+  close to zero even when a real underlying signal exists. The headline
+  number is the PARTIAL correlation, which removes the length confound.
+
+======================================================================
+HEADLINE: corpus-wide Pearson r between mean surprisal and mean per-film
+narrative stockiness, with and without length control
+======================================================================
+  RAW     Pearson r   = +0.005  (n = 45,953, p = 3.102e-01)
+  PARTIAL Pearson r   = -0.163  (controlling for log(word_count), p = 3.728e-272)
+  Spearman ρ (raw)    = -0.026
+  partial R²          = 2.67%  (variance shared after removing length confound)
+
+Interpretation guide (use the PARTIAL r for the doctrinal claim):
+  |partial r| < 0.20  weak / no relationship — element-level measures fully independent of plot predictability
+  |partial r| 0.20-0.40  modest correlation — directional agreement, framework retains independent doctrinal claim
+  |partial r| 0.40-0.60  moderate correlation — framework shares meaningful variance with plot predictability but is not redundant
+  |partial r| > 0.60  strong correlation — element-level measures are essentially a re-skinned plot-predictability metric (doctrinal claim weakened)
+
+Expected sign of the partial r: NEGATIVE
+  Negative partial r means predictable plots use stock elements and unpredictable
+  plots use less-stock elements, which is the doctrinally intuitive direction.
+  A positive partial r would be counter-intuitive and worth investigating.
+
+======================================================================
+PER-GENRE CORRELATIONS (sorted ascending by partial r)
+======================================================================
+  genre               n_films    raw r   partial r   raw rho
+  Fantasy                2429   -0.094      -0.232    -0.138
+  History                2882   -0.062      -0.190    -0.095
+  Romance                8219   +0.052      -0.179    -0.009
+  Drama                 22363   +0.007      -0.168    -0.019
+  Horror                 4363   -0.042      -0.165    -0.063
+  Comedy                14720   +0.003      -0.148    -0.023
+  Family                 4164   +0.008      -0.132    -0.025
+  Mystery                2681   +0.104      -0.125    +0.088
+  War                    1658   +0.101      -0.123    +0.100
+  Adventure              6145   -0.019      -0.121    -0.060
+  Music                  2926   +0.095      -0.110    +0.047
+  Crime                  5564   +0.055      -0.106    +0.032
+  Thriller               7447   +0.016      -0.103    -0.044
+  Action                 7774   +0.034      -0.090    -0.041
+  Science Fiction        2590   +0.099      -0.083    +0.060
+  Animation              2834   +0.032      -0.030    +0.038
+  Western                1362   +0.180      -0.020    +0.169
+
+======================================================================
+KNOWN CONFOUND: HIGH-SURPRISAL TAIL
+======================================================================
+  top 5% by surprisal (n=2,298): median word_count = 79
+  bot 5% by surprisal (n=2,298): median word_count = 484
+  Inspection of the high-surprisal tail shows it is dominated by short plot
+  summaries of foreign-language films awkwardly translated into English. The
+  surprisal is high because the language is non-native, not because the
+  narrative is unusual. This is a corpus-quality artifact; the partial-
+  correlation framing accommodates it because length partly proxies for
+  text quality. A paper-time robustness check could filter to clean-English
+  plots only.

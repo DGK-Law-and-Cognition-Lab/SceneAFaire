@@ -1,0 +1,157 @@
+---
+title: "Study 1, exploratory: incremental category validity against the two numbers"
+author: "David Kamper, Mira Patel and Keith Holyoak"
+date: "`r format(Sys.time(), '%B %d, %Y, %H:%M')`"
+params:
+  mode: real
+  workers: 8
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "")
+options(width = 160)
+```
+
+**This analysis was not preregistered.** It was added on November 13, 2026, after Keith Holyoak suggested incremental category validity, the core term of Gluck and Corter's category utility (Gluck & Corter, 1985; Corter & Gluck, 1992): the probability of a feature given the category minus its probability given the superordinate, here P(feature | genre) − P(feature | all films). Notebook 17 computes it for every feature in the Study 1 pool and turns it into a percentile within genre, the way the registered predictors were scaled.
+
+**The question.** The registered H3 asked whether one combined score (the composite) predicts what participants listed and how they rated items as well as prevalence and distinctiveness entered separately. It did not. This file asks the same question of a different single score, incremental category validity, with exactly the registered H3 machinery: both models fit by maximum likelihood and reduced by the registered rule, compared on AIC and on held-out log-likelihood in the same ten folds by participant.
+
+**How it runs.** The file does not copy the registered code. It reads `study1_analysis.Rmd`, runs its setup, data and model-fitting chunks unchanged (the same exclusions, coding decision, tables, reduction rule and fit cache), takes the H3 scoring functions from its H3 chunk, and then fits only the new category-utility models. The registered two-number and composite models are read from the fit cache, so their numbers here must match the registered output; a check below stops the file if they do not.
+
+```{r registered-code}
+if (!exists("params", envir = globalenv(), inherits = FALSE))   # the registered chunks read params$mode and params$workers
+  assign("params", params, envir = globalenv())
+lines <- readLines("study1_analysis.Rmd")
+opens <- grep("^```\\{r ", lines)
+labels <- sub("^```\\{r ([^,} ]+).*$", "\\1", lines[opens])
+chunk <- function(label) {                            # the code of one registered chunk, as written
+  i <- opens[labels == label]; stopifnot(length(i) == 1)
+  close <- which(lines == "```" & seq_along(lines) > i)[1]
+  lines[(i + 1):(close - 1)]
+}
+run <- function(code) eval(parse(text = code), envir = globalenv())
+for (lab in c("packages", "materials", "decision", "sessions", "tables", "fitting", "cache")) run(chunk(lab))
+h3_code <- chunk("h3")
+run(h3_code[seq_len(grep("^h3 <- list\\(\\)", h3_code) - 1)])          # pid_cov, z_matrix, ll_gauss, ll_logit, heldout_ll
+stopifnot(MODE == "real", exists("heldout_ll"), exists("fit_reduced"))
+suppressPackageStartupMessages(library(ggplot2))
+```
+
+# Incremental category validity on the analysis tables
+
+```{r cu-tables}
+cu <- read.csv(file.path(AN, "v4_rebuild", "17_category_utility", "cu_pool_predictors.csv"), stringsAsFactors = FALSE)
+add_cu <- function(d) {
+  d$cu <- cu$cu_pct[match(paste(d$genre, d$key), paste(cu$genre, cu$key))] - 0.5
+  stopifnot(!anyNA(d$cu)); d
+}
+G1 <- prep(G); R1 <- prep(R48)
+G1c <- add_cu(G1); R1c <- add_cu(R1)
+cat("production rows:", nrow(G1c), "| rating rows:", nrow(R1c), "\n")
+kable(data.frame(table = c("listing", "ratings"),
+                 rho_cu_prevalence = c(cor(G1c$cu, G1c$prevalence, method = "spearman"), cor(R1c$cu, R1c$prevalence, method = "spearman")),
+                 rho_cu_distinctiveness = c(cor(G1c$cu, G1c$distinctiveness, method = "spearman"), cor(R1c$cu, R1c$distinctiveness, method = "spearman"))),
+      digits = 2, caption = "Rank correlation of incremental category validity with the two numbers, on the rows each model uses")
+```
+
+# Fitting, in parallel
+
+The full-data category-utility models first, then their twenty cross-validation fits with the reduced structures, as the registered file does for the composite.
+
+```{r cu-prefetch}
+OUTCOMES <- list(list(name = "generation", data = G1c, kind = "glmer", outcome = "produced"),
+                 list(name = "rating", data = R1c, kind = "lmer", outcome = "rating"))
+cu_f <- function(o) paste(o$outcome, "~ cu + lg + genre")
+w1 <- prefetch(lapply(OUTCOMES, function(o) spec(paste("CU", o$name), cu_f(o), "cu", o$data, o$kind, REML = FALSE)))
+w2 <- list()
+for (o in OUTCOMES) {
+  full <- fit_reduced(cu_f(o), "cu", o$data, o$kind, REML = FALSE)
+  folds <- cv_folds(o$data$pid)
+  for (k in 1:10) {
+    train <- o$data[!(as.character(o$data$pid) %in% names(folds)[folds == k]), ]
+    w2 <- c(w2, list(spec(sprintf("CU %s, fold %d", o$name, k), cu_f(o), NULL, train, o$kind, FALSE,
+                          list(slopes = full$slopes, corr = full$corr))))
+  }
+}
+w2 <- prefetch(w2)
+kable(rbind(w1, w2), row.names = FALSE, caption = "Category-utility models fit ahead (minutes of wall time)")
+```
+
+# The comparison
+
+```{r compare}
+res <- list(); folds_tab <- list(); est <- list()
+for (o in OUTCOMES) {
+  base <- if (o$name == "generation") G1 else R1
+  two_f <- paste(o$outcome, "~ prevalence + distinctiveness + lg + genre")
+  comp_f <- paste(o$outcome, "~ composite + lg + genre")
+  two <- fit_reduced(two_f, c("prevalence", "distinctiveness"), base, o$kind, REML = FALSE)
+  comp <- fit_reduced(comp_f, "composite", base, o$kind, REML = FALSE)
+  cuf <- fit_reduced(cu_f(o), "cu", o$data, o$kind, REML = FALSE)
+  cv_two <- heldout_ll(two_f, list(slopes = two$slopes, corr = two$corr), base, o$kind, o$outcome)
+  cv_comp <- heldout_ll(comp_f, list(slopes = comp$slopes, corr = comp$corr), base, o$kind, o$outcome)
+  cv_cu <- heldout_ll(cu_f(o), list(slopes = cuf$slopes, corr = cuf$corr), o$data, o$kind, o$outcome)
+  res[[o$name]] <- data.frame(outcome = o$name, AIC_two = AIC(two$model), AIC_composite = AIC(comp$model), AIC_cu = AIC(cuf$model),
+                              heldout_two = sum(cv_two), heldout_composite = sum(cv_comp), heldout_cu = sum(cv_cu),
+                              folds_two_beats_cu = sum(cv_two > cv_cu), cu_structure = cuf$formula)
+  folds_tab[[o$name]] <- data.frame(outcome = o$name, fold = 1:10, heldout_two = cv_two, heldout_composite = cv_comp,
+                                    heldout_cu = cv_cu, two_minus_cu = cv_two - cv_cu)
+  b <- summary(cuf$model)$coefficients
+  est[[o$name]] <- data.frame(outcome = o$name, term = "cu (bottom to top of the genre's ranking)",
+                              estimate = b["cu", "Estimate"], se = b["cu", "Std. Error"])
+}
+res <- do.call(rbind, res); folds_tab <- do.call(rbind, folds_tab); est <- do.call(rbind, est)
+res$AIC_cu_minus_two <- res$AIC_cu - res$AIC_two
+res$heldout_two_minus_cu <- res$heldout_two - res$heldout_cu
+est$lower <- est$estimate - 1.96 * est$se; est$upper <- est$estimate + 1.96 * est$se
+est$plain <- ifelse(est$outcome == "generation",
+                    sprintf("odds of listing x%.1f [%.1f, %.1f]", exp(est$estimate), exp(est$lower), exp(est$upper)),
+                    sprintf("%+.2f scale points [%+.2f, %+.2f]", est$estimate, est$lower, est$upper))
+
+# The registered numbers must be reproduced exactly.
+reg <- read.csv(file.path(OUT, "h3_model_comparison.csv"))
+reg <- reg[match(res$outcome, reg$outcome), ]
+stopifnot(isTRUE(all.equal(res$AIC_two, reg$AIC_two)), isTRUE(all.equal(res$AIC_composite, reg$AIC_composite)),
+          isTRUE(all.equal(res$heldout_two, reg$heldout_ll_two, tolerance = 1e-6)),
+          isTRUE(all.equal(res$heldout_composite, reg$heldout_ll_composite, tolerance = 1e-6)))
+cat("Registered H3 numbers reproduced: yes\n")
+kable(res[, setdiff(names(res), "cu_structure")], digits = 1, row.names = FALSE)
+kable(est, digits = 3, row.names = FALSE, caption = "The effect of incremental category validity, in its own model")
+kable(folds_tab, digits = 1, row.names = FALSE, caption = "Held-out log-likelihood per fold")
+cat(res$cu_structure, sep = "\n")
+write.csv(res, file.path(OUT, "exploratory_cu_comparison.csv"), row.names = FALSE)
+write.csv(folds_tab, file.path(OUT, "exploratory_cu_folds.csv"), row.names = FALSE)
+write.csv(est, file.path(OUT, "exploratory_cu_estimates.csv"), row.names = FALSE)
+```
+
+# Rounds won
+
+The same picture as the registered H3 figure: in each of the ten rounds a tenth of the participants is left out, both models are fit on the rest, and each is scored on the participants it has not seen.
+
+```{r rounds, fig.width = 9.1, fig.height = 4}
+theme_set(theme_bw(base_size = 14))
+lab <- c(generation = "Listing", rating = "Ratings")
+won <- rbind(data.frame(task = lab[res$outcome], model = "The two numbers, kept apart", rounds = res$folds_two_beats_cu),
+             data.frame(task = lab[res$outcome], model = "Incremental category validity alone", rounds = 10 - res$folds_two_beats_cu))
+won$model <- factor(won$model, levels = c("The two numbers, kept apart", "Incremental category validity alone"))
+p <- ggplot(won, aes(task, rounds, fill = model)) +
+  geom_col(position = position_dodge(width = 0.7), width = 0.6) +
+  geom_text(aes(label = rounds), position = position_dodge(width = 0.7), vjust = -0.5, size = 4.5) +
+  scale_fill_manual(values = c("The two numbers, kept apart" = "#4d4d4d", "Incremental category validity alone" = "#bdbdbd"), name = NULL) +
+  scale_y_continuous(limits = c(0, 11.5), breaks = seq(0, 10, 2)) +
+  labs(x = NULL, y = "Rounds won (of 10) in predicting\nthe left-out participants",
+       title = "Incremental category validity alone, or the two numbers kept apart? (exploratory)") +
+  theme(legend.position = "bottom")
+print(p)
+dir.create(file.path(OUT, "figures"), showWarnings = FALSE)
+ggsave(file.path(OUT, "figures", "study1_cu_rounds.png"), p, width = 9.1, height = 4, dpi = 200, bg = "white")
+```
+
+```{r session-info}
+cat("fits read from the cache:", CACHE_STATS$read, "| fitted in this pass:", CACHE_STATS$fitted, "\n")
+sessionInfo()
+```

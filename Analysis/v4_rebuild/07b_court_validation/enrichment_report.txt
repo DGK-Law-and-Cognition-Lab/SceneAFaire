@@ -1,0 +1,139 @@
+======================================================================
+NOTEBOOK 07b — COURT-CASE VALIDATION (FORWARD ENRICHMENT)
+======================================================================
+in-scope judicial elements (valid genre): 416
+unextractable rows excluded              : 135
+matched total                            : 410 (98.6%)
+
+COVERAGE BY LAYER
+----------------------------------------------------------------------
+  exact          66  (15.9%)
+  head_noun     320  (76.9%)
+  semantic       24  ( 5.8%)
+  unmatched       6  ( 1.4%)
+
+FORWARD ENRICHMENT  (null median = 0.500; valid framework pushes toward 1)
+----------------------------------------------------------------------
+  all_matched          n= 398  median=0.938 [0.920,0.957]  %>=75th=72.4  %>=90th=58.0  p=3.4e-56
+  in_genre_only        n= 395  median=0.939 [0.921,0.958]  %>=75th=72.7  %>=90th=58.2  p=1.0e-55
+  narrative_matched    n= 314  median=0.935 [0.902,0.959]  %>=75th=70.7  %>=90th=55.7  p=1.9e-44
+  narrative_in_genre   n= 312  median=0.935 [0.900,0.959]  %>=75th=70.8  %>=90th=55.8  p=4.2e-44
+  random_baseline      n=5000  median=0.519 [0.506,0.533]  %>=75th=26.5  %>=90th=11.5  p=5.7e-04
+
+Mann-Whitney in-genre matched > random baseline: p=1.09e-94
+
+PER-GENRE MEDIAN PERCENTILE
+----------------------------------------------------------------------
+  Western            n=  7  median=0.975  %>=75th=85.7
+  Crime              n= 54  median=0.974  %>=75th=81.5
+  Science Fiction    n= 49  median=0.964  %>=75th=79.6
+  Action             n= 35  median=0.962  %>=75th=68.6
+  Thriller           n= 10  median=0.961  %>=75th=70.0
+  Adventure          n= 40  median=0.947  %>=75th=80.0
+  Drama              n= 55  median=0.938  %>=75th=72.7
+  Comedy             n= 54  median=0.926  %>=75th=66.7
+  Horror             n= 18  median=0.916  %>=75th=72.2
+  Fantasy            n= 42  median=0.912  %>=75th=66.7
+  Family             n= 16  median=0.900  %>=75th=75.0
+  War                n=  4  median=0.839  %>=75th=50.0
+  History            n=  4  median=0.588  %>=75th=25.0
+  Animation          n=  4  median=0.559  %>=75th=25.0
+  Mystery            n=  3  median=0.465  %>=75th=33.3
+
+GENRE SPECIFICITY  (primary statistic: percentile in the court-assigned genre
+minus mean percentile in the element's other genres; median per case;
+Wilcoxon signed-rank over cases, two-sided)
+----------------------------------------------------------------------
+  narrative_in_genre: 312 elements in 68 cases (0 elements appear only in the court genre)
+    ensemble         case median +0.118  58/68 cases > 0  p=7.5e-09
+    prevalence       case median +0.045  62/68 cases > 0  p=1.4e-10
+    distinctiveness  case median +0.209  56/68 cases > 0  p=8.9e-09
+    film_count       case median +0.045  62/68 cases > 0  p=1.4e-10
+  exact_narrative_in_genre: 59 elements in 26 cases (0 elements appear only in the court genre)
+    ensemble         case median +0.273  21/26 cases > 0  p=7.0e-05
+    prevalence       case median +0.144  23/26 cases > 0  p=4.2e-07
+    distinctiveness  case median +0.287  20/26 cases > 0  p=7.5e-04
+    film_count       case median +0.144  23/26 cases > 0  p=4.2e-07
+  all_in_genre: 395 elements in 69 cases (0 elements appear only in the court genre)
+    ensemble         case median +0.094  60/69 cases > 0  p=6.7e-10
+    prevalence       case median +0.042  65/69 cases > 0  p=6.3e-12
+    distinctiveness  case median +0.145  56/69 cases > 0  p=1.5e-09
+    film_count       case median +0.042  65/69 cases > 0  p=6.3e-12
+  (prevalence and film_count coincide by construction: within a genre,
+   prevalence is film count divided by the genre size)
+
+WHICH DIMENSION CARRIES IT  (distinctiveness contrast minus prevalence
+contrast, median over cases; paired Wilcoxon, two-sided)
+----------------------------------------------------------------------
+  narrative_in_genre         gap +0.121  55/68 cases larger  p=4.9e-07
+  exact_narrative_in_genre   gap +0.063  17/26 cases larger  p=1.9e-01
+  all_in_genre               gap +0.113  56/69 cases larger  p=9.8e-08
+  (this raw gap is not on a common scale: distinctiveness percentiles vary
+   more across genres than prevalence percentiles for any element; see the
+   baselines below)
+
+BASELINE A: RANK OF THE COURT GENRE among the element's genres
+(0 = lowest, 1 = highest; 0.5 if the court genre were unrelated; mean per
+case; Wilcoxon over cases against 0.5, two-sided)
+----------------------------------------------------------------------
+  narrative_in_genre: 312 elements in 68 cases
+    prevalence       case median 0.783  60/68 cases > 0.5  p=1.1e-10  top genre 26.9% (chance 6.4%)
+    distinctiveness  case median 0.714  56/68 cases > 0.5  p=7.3e-09  top genre 22.4% (chance 6.4%)
+    ensemble         case median 0.750  58/68 cases > 0.5  p=3.5e-10  top genre 26.6% (chance 6.4%)
+    distinctiveness minus prevalence: case median -0.031  16/68 cases > 0  p=5.4e-04
+  exact_narrative_in_genre: 59 elements in 26 cases
+    prevalence       case median 0.790  21/26 cases > 0.5  p=6.4e-05  top genre 32.2% (chance 6.9%)
+    distinctiveness  case median 0.790  19/26 cases > 0.5  p=9.1e-04  top genre 32.2% (chance 6.9%)
+    ensemble         case median 0.790  19/26 cases > 0.5  p=6.5e-04  top genre 30.5% (chance 6.9%)
+    distinctiveness minus prevalence: case median +0.000  3/26 cases > 0  p=1.1e-01
+  all_in_genre: 395 elements in 69 cases
+    prevalence       case median 0.750  62/69 cases > 0.5  p=9.7e-12  top genre 24.6% (chance 6.3%)
+    distinctiveness  case median 0.672  58/69 cases > 0.5  p=4.0e-10  top genre 20.5% (chance 6.3%)
+    ensemble         case median 0.730  59/69 cases > 0.5  p=2.9e-11  top genre 24.3% (chance 6.3%)
+    distinctiveness minus prevalence: case median -0.038  16/69 cases > 0  p=4.6e-05
+
+BASELINE B: MATCHED CONTROLS within the genre
+(controls: same genre and element type, matching percentile within 0.02;
+court-named minus control mean, in percentile points; median per case;
+Wilcoxon over cases against 0, two-sided)
+----------------------------------------------------------------------
+  narrative_in_genre
+    distinctiveness, prevalence held fixed   n=309  court 0.694 vs controls 0.583  case median +0.087  44/68 cases > 0  p=2.0e-03
+    prevalence, distinctiveness held fixed   n=309  court 0.932 vs controls 0.606  case median +0.324  65/68 cases > 0  p=4.4e-12
+    composite, prevalence held fixed         n=309  court 0.935 vs controls 0.815  case median +0.021  48/68 cases > 0  p=2.2e-02
+  exact_narrative_in_genre
+    distinctiveness, prevalence held fixed   n= 58  court 0.750 vs controls 0.586  case median +0.161  18/26 cases > 0  p=9.4e-02
+    prevalence, distinctiveness held fixed   n= 59  court 0.873 vs controls 0.624  case median +0.146  21/26 cases > 0  p=5.2e-04
+    composite, prevalence held fixed         n= 58  court 0.827 vs controls 0.699  case median +0.070  18/26 cases > 0  p=1.2e-01
+  all_in_genre
+    distinctiveness, prevalence held fixed   n=393  court 0.664 vs controls 0.578  case median +0.083  43/69 cases > 0  p=2.9e-03
+    prevalence, distinctiveness held fixed   n=392  court 0.946 vs controls 0.572  case median +0.363  69/69 cases > 0  p=5.2e-13
+    composite, prevalence held fixed         n=393  court 0.939 vs controls 0.851  case median +0.020  51/69 cases > 0  p=5.2e-03
+
+BASELINE C: HEAD-NOUN NULL  (random multi-word elements of the same genres,
+reduced to their head noun; 1000 draws; median percentile)
+----------------------------------------------------------------------
+  prevalence       court head-noun matches 0.956   null 0.969 [0.959, 0.977]   share of null draws at or above: 0.995
+  distinctiveness  court head-noun matches 0.681   null 0.511 [0.466, 0.564]   share of null draws at or above: 0.000
+  ensemble         court head-noun matches 0.950   null 0.936 [0.904, 0.958]   share of null draws at or above: 0.130
+
+Reading the baselines: across genres both dimensions pick out the court's
+genre well above chance, and prevalence does so at least as well as
+distinctiveness, so the raw gap above was a difference of scale. Within a
+genre, court-named elements exceed matched controls on each dimension with
+the other held fixed. The prevalence difference is the larger one in the
+full set, but the head-noun null shows that the matching step alone
+produces the prevalence of the head-noun matches, while their
+distinctiveness is above that null. On exact matches the two differences
+are of similar size. The case record therefore supports "high on both"
+and does not rank the two dimensions.
+
+Interpretation: judicially identified scenes a faire sit high in their
+genre's ranking, well above the random baseline, but that percentile is
+descriptive: raw film count reproduces most of it (September 2026 audit).
+The primary judicial statistic is genre specificity: the same elements rank
+higher in the genre the court assigned than in their other genres. The
+baselines above, not the raw gap, bear on which dimension carries it.
+Precision@K from Notebook 07 is not reported because it inverts the
+inference: the case record is a sparse sample of disputes, not a complete
+catalog of stock elements.
