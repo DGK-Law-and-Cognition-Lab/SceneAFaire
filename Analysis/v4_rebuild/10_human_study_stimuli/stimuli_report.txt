@@ -102,7 +102,7 @@ Fantasy          HL  'school' blocked by 'high school'
 
 SUBTLEX
 ------------------------------------------------------------------------
-joined from /Users/dgkamper/Library/CloudStorage/GoogleDrive-dgkamper@gmail.com/My Drive/DGK Lab/Reasoning Lab/DGK Lab - Scene A Faire Computational/Data/SUBTLEX-US/SUBTLEXus74286wordstextversion.txt: 336 of 336 items matched on the head token
+joined from /Users/USER/Library/CloudStorage/GoogleDrive-ACCOUNT/My Drive/DGK Lab/Reasoning Lab/DGK Lab - Scene A Faire Computational/Data/SUBTLEX-US/SUBTLEXus74286wordstextversion.txt: 336 of 336 items matched on the head token
 
 TOTAL ITEMS
 ------------------------------------------------------------------------

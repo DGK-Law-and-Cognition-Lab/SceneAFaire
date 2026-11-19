@@ -408,6 +408,55 @@ else:
         out(SN[['caseName', 'gen', 'phrase', 'match', 'tier', 'p_prevalence', 'p_distinctiveness']].round(2).to_string(index=False))
 """)
 
+md(r"""
+## The hand check of the phrase and event matches
+
+On November 18, 2026 David Kamper went through the 78 phrase and event matches by hand and marked, for each, whether the matched story feature keeps the meaning of the court's phrase (`same_meaning_Y_N` in `match_check_78_reviewed.csv`). A second pass by a language model sits in the column beside it (`reviewed_Y_N`). **All 78 matches are kept in the results above.** Each phrase match is a run of two or more of the court's own words, and each event match is an event the parser found in the court's phrase; the check asked the stricter question of whether the match carries the meaning of the whole phrase. A match marked N keeps part of it: "female character held captive" is matched to *female character*, and "one-night stand" to *night stand*.
+
+This section reports the marks and repeats the two baselines without the matches marked N, so that a reader can see how much of each result rests on them. The matched controls are the ones drawn above for the full set; they are not drawn again for the smaller sets.
+""")
+code(r"""
+PATH_CHECK = OUT / 'match_check_78_reviewed.csv'
+out(''); out('=' * 78); out('HAND CHECK OF THE 78 PHRASE AND EVENT MATCHES'); out('=' * 78)
+if not PATH_CHECK.exists():
+    out('match_check_78_reviewed.csv not found; this section was skipped.')
+else:
+    CH = pd.read_csv(PATH_CHECK, encoding='utf-8-sig')
+    for c in ['caseName', 'court_phrase', 'our_story_feature', 'same_meaning_Y_N', 'reviewed_Y_N']:
+        CH[c] = CH[c].astype(str).str.strip()
+    CH['key'] = list(zip(CH['caseName'], CH['court_phrase'], CH['our_story_feature']))
+    marks = pd.DataFrame({'author (same_meaning_Y_N)': CH['same_meaning_Y_N'].value_counts(),
+                          'second pass (reviewed_Y_N)': CH['reviewed_Y_N'].value_counts()}).reindex(['Y', 'N']).fillna(0).astype(int)
+    out(f'{len(CH)} matches checked: {int((CH["tier"] == "phrase").sum())} phrase, {int((CH["tier"] == "event").sum())} event')
+    out('keeps the meaning of the court phrase (Y) or only part of it (N):'); out(marks.to_string())
+    out('author by second pass:'); out(pd.crosstab(CH['same_meaning_Y_N'], CH['reviewed_Y_N']).to_string())
+    out('author marks by tier:'); out(pd.crosstab(CH['tier'], CH['same_meaning_Y_N']).to_string())
+
+    ST = S[S['tier'].isin(['exact', 'phrase', 'event'])].copy()
+    ST['key'] = list(zip(ST['caseName'].astype(str).str.strip(), ST['phrase'].astype(str).str.strip(), ST['match'].astype(str).str.strip()))
+    checked = ST[ST['tier'].isin(['phrase', 'event'])]
+    out(f'scored phrase and event matches: {len(checked)}; found in the check sheet: {int(checked["key"].isin(set(CH["key"])).sum())} '
+        f'(the other {len(CH) - len(checked)} checked matches have no score in the court genre)')
+    n_author = set(CH.loc[CH['same_meaning_Y_N'] == 'N', 'key']); n_second = set(CH.loc[CH['reviewed_Y_N'] == 'N', 'key'])
+    HSETS = {'all 78 kept (the results above)': ST,
+             'without the matches the author marked N': ST[~ST['key'].isin(n_author)],
+             'without the matches the second pass marked N': ST[~ST['key'].isin(n_second)],
+             'exact matches only': ST[ST['tier'] == 'exact']}
+    hrows = []
+    for name, d in HSETS.items():
+        base = {'set': name, 'n_items': int(len(d))}
+        for n in DIMS:
+            cm = d.dropna(subset=[f'rank_{n}']).groupby('case')[f'rank_{n}'].mean()
+            hrows.append({**base, 'baseline': 'court_genre_rank', 'measure': n, **case_test(cm, 0.5)})
+        for col, lab in [('distinctiveness_vs_controls', 'distinctiveness_given_prevalence'), ('prevalence_vs_controls', 'prevalence_given_distinctiveness')]:
+            cm = d.dropna(subset=[col]).groupby('case')[col].median()
+            hrows.append({**base, 'baseline': 'matched_controls', 'measure': lab, **case_test(cm, 0.0)})
+    HC = pd.DataFrame(hrows)
+    HC.to_csv(OUT / 'hand_check_sensitivity.csv', index=False)
+    out(''); out('the two baselines with and without the matches marked N (controls not redrawn):')
+    out(HC.round(4).to_string(index=False))
+""")
+
 code(r"""
 (OUT / 'court_matcher_v2_report.txt').write_text('\n'.join(report))
 print('wrote', OUT / 'court_matcher_v2_report.txt')
@@ -416,9 +465,9 @@ print('wrote', OUT / 'court_matcher_v2_report.txt')
 md(r"""
 ## Outputs
 
-In `v4_rebuild/07c_court_matcher_v2/`: `match_review_sheet_v2.csv` (every court phrase with its new and old match, for a blind audit), `scored_matches_v2.parquet`, `baselines_v2.parquet`, `baselines_v2_by_case.parquet`, `court_matcher_v2_report.txt`, the figures in `figures/`, and, when the draft list is present, `scored_rejected_v2.parquet` and `held_vs_refused.parquet`.
+In `v4_rebuild/07c_court_matcher_v2/`: `match_review_sheet_v2.csv` (every court phrase with its new and old match), `match_check_78_reviewed.csv` (the hand check of the 78 phrase and event matches), `hand_check_sensitivity.csv`, `scored_matches_v2.parquet`, `baselines_v2.parquet`, `baselines_v2_by_case.parquet`, `court_matcher_v2_report.txt`, the figures in `figures/`, and, when the draft list is present, `scored_rejected_v2.parquet` and `held_vs_refused.parquet`.
 
-Still to do before any of this is relied on in the paper: a blind two-person audit of `match_review_sheet_v2.csv` for match precision, and a human check of the refused-feature list against the opinions.
+The 78 phrase and event matches were checked by hand by one author (David Kamper, November 18, 2026), and all 78 are kept; the section above gives the marks and the results without the matches marked N. It was a check by one author, in place of the blind two-person audit first planned. Still to do: a human check of the refused-feature list against the opinions.
 """)
 
 nb['cells'] = cells

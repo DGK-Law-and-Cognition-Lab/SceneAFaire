@@ -19,6 +19,13 @@ Analysis/v4_rebuild/11_study1_coding/
 **/human_coder_*.csv
 **/coder_*_sheet*.csv
 **/blind_key.csv
+# Study 1 de-identified participant data: restricted access on Zenodo under a data use
+# agreement (David, Nov 2026). Never in this repository; the key that links codes is private.
+Analysis/v4_rebuild/11c_study1_deidentified/
+**/Study1_deidentified_data.zip
+**/Study1_deid_key.csv
+# The unreviewed first sheet of the matcher check; match_check_78_reviewed.csv is the record and is included
+**/match_check_78.csv
 
 # Large or regenerated intermediates (reproduced by the notebooks)
 *.npy
