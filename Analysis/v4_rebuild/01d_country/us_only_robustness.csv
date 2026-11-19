@@ -1,0 +1,18 @@
+genre,us_films,prevalence_top25_kept,prevalence_spearman,distinctiveness_top25_kept,distinctiveness_spearman
+Action,3879,21,0.897,8,0.79
+Adventure,4158,24,0.955,8,0.854
+Animation,1633,23,0.903,12,0.757
+Comedy,8550,23,0.939,9,0.844
+Crime,3380,24,0.92,9,0.79
+Drama,10308,23,0.912,7,0.822
+Family,2725,22,0.934,18,0.827
+Fantasy,1369,21,0.903,15,0.727
+History,1650,24,0.894,11,0.707
+Horror,2598,22,0.93,14,0.821
+Music,1404,20,0.826,16,0.584
+Mystery,1864,24,0.922,10,0.745
+Romance,3566,23,0.867,7,0.711
+Science Fiction,1693,24,0.928,13,0.794
+Thriller,4267,23,0.932,9,0.824
+War,875,24,0.875,11,0.687
+Western,1209,24,0.953,22,0.844

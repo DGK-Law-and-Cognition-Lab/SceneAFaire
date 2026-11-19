@@ -45,3 +45,17 @@ references:
         given-names: Keith J.
     year: 2026
     notes: "Manuscript."
+  - type: data
+    title: "Study 1 participant data (de-identified) for 'Common or Characteristic? An Empirical Method for Scènes à Faire'"
+    authors:
+      - family-names: Kamper
+        given-names: David G.
+      - family-names: Patel
+        given-names: Mira
+      - family-names: Bartholomew
+        given-names: Mark
+      - family-names: Holyoak
+        given-names: Keith J.
+    year: 2026
+    doi: 10.5281/zenodo.24357245
+    notes: "Restricted access: available to qualified researchers under a data use agreement."
