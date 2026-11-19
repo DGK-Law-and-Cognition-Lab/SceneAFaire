@@ -174,7 +174,8 @@ for f in OUT.rglob('*'):
                 leaks += [(f.name, m) for m in set(pat.findall(' '.join(d[c].astype(str))))]
         text_hits += [(f.name, m) for m in set(pat.findall(d.to_csv(index=False)))]
 print('survey codes in file names or identifier columns:', len(leaks), leaks[:5])
-print('five-digit values elsewhere that equal a survey code (inspect; expected to be timings):', text_hits[:10])
+# print only the count: the matching values are themselves survey codes
+print('five-digit values elsewhere that equal a survey code (timings such as added_ms; inspect privately):', len(text_hits))
 
 # (b) the registered exclusion rules give the same counts
 def rules(t, flagged):

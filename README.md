@@ -40,7 +40,7 @@ The folder layout mirrors the project's, so the notebooks find their inputs when
 | Courts | `07_court_case_validation`, `07b_court_validation`, `07c_court_matcher_v2` | elements courts called scènes à faire; their genre specificity; the stricter matcher |
 | Time | `08_temporal_analysis` | the measures by five-year period |
 | Headline numbers | `09_deliverables` | `headline_numbers.tex` |
-| Study 1 | `10_human_study_stimuli`, `11_study1_response_coding`, `11b_blind_coder_sheets`, then `study1_analysis.Rmd` (real mode) and `study1_figures.Rmd`; `11c_study1_deidentify` (code only, outputs cleared) | the items, the coding of typed lists, the registered estimates, the Study 1 figures; the de-identified data set held on Zenodo |
+| Study 1 | `10_human_study_stimuli`, `11_study1_response_coding`, `11b_blind_coder_sheets`, then `study1_analysis.Rmd` (real mode) and `study1_figures.Rmd`; `11c_study1_deidentify` (the code and its printed checks; no data) | the items, the coding of typed lists, the registered estimates, the Study 1 figures; the de-identified data set held on Zenodo |
 | Worked example | `15_worked_example` | the table for the constructed Western dispute |
 | Manuscript figures and tables | `16a_manuscript_figures_corpus`, `16b_manuscript_figures_time_structure`, `16c_manuscript_figures_turnover` | the corpus figures and tables of the paper and its supplement, in one figure style (`saf_style.py`) |
 | Incremental category validity | `17_category_utility`, then `study1_exploratory_category_utility.Rmd` | prevalence net of the feature's base rate (the core term of Gluck and Corter's category utility), the identity linking it to cue validity, and the exploratory Study 1 comparison |
