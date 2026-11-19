@@ -80,3 +80,42 @@ Suntrust Bank, as Trustee of the Stephen Mitchell Trusts F.B.O. Eugene Muse Mitc
                                                                                             Shame on You Productions, Inc. v. Elizabeth Banks  Comedy                                                                                                                                                                                the lead character having her car towed during a walk of shame       lead character phrase          0.87               0.59
                                                                                                           Penguin Random House LLC v. Colting   Drama                                                                                           specific man-versus-technology plot combining a space station, a space shuttle, an intelligent machine, tragedy in space, and overcoming technology        space shuttle phrase          0.18               0.06
                                                                                                               Greenspan v. Random House, Inc.   Drama                                                                                                              plaintiff's particular depiction of a university president's unwelcoming manner and inability to see the students' point of view            see point  event          0.31               0.55
+
+==============================================================================
+HAND CHECK OF THE 78 PHRASE AND EVENT MATCHES
+==============================================================================
+78 matches checked: 63 phrase, 15 event
+keeps the meaning of the court phrase (Y) or only part of it (N):
+   author (same_meaning_Y_N)  second pass (reviewed_Y_N)
+Y                         38                          44
+N                         40                          34
+author by second pass:
+reviewed_Y_N       N   Y
+same_meaning_Y_N        
+N                 34   6
+Y                  0  38
+author marks by tier:
+same_meaning_Y_N   N   Y
+tier                    
+event              5  10
+phrase            35  28
+scored phrase and event matches: 74; found in the check sheet: 74 (the other 4 checked matches have no score in the court genre)
+
+the two baselines with and without the matches marked N (controls not redrawn):
+                                         set  n_items         baseline                          measure  n_cases  median_case  cases_above      p
+             all 78 kept (the results above)      133 court_genre_rank                       prevalence       46       0.7656           39 0.0000
+             all 78 kept (the results above)      133 court_genre_rank                  distinctiveness       46       0.7604           40 0.0000
+             all 78 kept (the results above)      133 matched_controls distinctiveness_given_prevalence       46       0.1171           34 0.0157
+             all 78 kept (the results above)      133 matched_controls prevalence_given_distinctiveness       46       0.1411           37 0.0000
+     without the matches the author marked N       95 court_genre_rank                       prevalence       38       0.7002           31 0.0000
+     without the matches the author marked N       95 court_genre_rank                  distinctiveness       38       0.7106           31 0.0001
+     without the matches the author marked N       95 matched_controls distinctiveness_given_prevalence       38       0.1140           26 0.1526
+     without the matches the author marked N       95 matched_controls prevalence_given_distinctiveness       38       0.1727           29 0.0000
+without the matches the second pass marked N      101 court_genre_rank                       prevalence       39       0.7510           33 0.0000
+without the matches the second pass marked N      101 court_genre_rank                  distinctiveness       39       0.7483           33 0.0000
+without the matches the second pass marked N      101 matched_controls distinctiveness_given_prevalence       39       0.1143           27 0.0875
+without the matches the second pass marked N      101 matched_controls prevalence_given_distinctiveness       39       0.1851           31 0.0000
+                          exact matches only       59 court_genre_rank                       prevalence       26       0.7902           21 0.0001
+                          exact matches only       59 court_genre_rank                  distinctiveness       26       0.7902           19 0.0009
+                          exact matches only       59 matched_controls distinctiveness_given_prevalence       26       0.1558           18 0.0842
+                          exact matches only       59 matched_controls prevalence_given_distinctiveness       26       0.1425           21 0.0005

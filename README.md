@@ -37,7 +37,7 @@ The folder layout mirrors the project's, so the notebooks find their inputs when
 | Measures | `03_stockiness`, `03b_element_classification` | prevalence, distinctiveness and the other scores; the narrative filter |
 | Structure | `03c_network_and_combinations`, `13_event_elements` | co-occurrence networks and combinations; events from a dependency parse |
 | Checks | `04_plot_surprisal`, `05_embeddings_and_topics`, `14_dimension_checks` | the discriminant check, the meaning check, held-out prediction, split-half reliability, odds ratios over time |
-| Courts | `07_court_case_validation`, `07b_court_validation`, `07c_court_matcher_v2` | elements courts called scènes à faire; their genre specificity; the stricter matcher |
+| Courts | `07_court_case_validation`, `07b_court_validation`, `07c_court_matcher_v2` | elements courts called scènes à faire; their genre specificity; the stricter matcher, the hand check of its 78 phrase and event matches (`match_check_78_reviewed.csv`), and the results without the matches marked as keeping only part of the court's phrase |
 | Time | `08_temporal_analysis` | the measures by five-year period |
 | Headline numbers | `09_deliverables` | `headline_numbers.tex` |
 | Study 1 | `10_human_study_stimuli`, `11_study1_response_coding`, `11b_blind_coder_sheets`, then `study1_analysis.Rmd` (real mode) and `study1_figures.Rmd`; `11c_study1_deidentify` (the code and its printed checks; no data) | the items, the coding of typed lists, the registered estimates, the Study 1 figures; the de-identified data set held on Zenodo |

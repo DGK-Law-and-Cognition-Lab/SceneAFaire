@@ -1,0 +1,17 @@
+set,n_items,baseline,measure,n_cases,median_case,cases_above,p
+all 78 kept (the results above),133,court_genre_rank,prevalence,46,0.7655961102389673,39,2.2895505935593974e-08
+all 78 kept (the results above),133,court_genre_rank,distinctiveness,46,0.7604166666666667,40,2.074453732348047e-06
+all 78 kept (the results above),133,matched_controls,distinctiveness_given_prevalence,46,0.11705219209656337,34,0.015721646915721976
+all 78 kept (the results above),133,matched_controls,prevalence_given_distinctiveness,46,0.14114637705061528,37,2.9371414598244883e-06
+without the matches the author marked N,95,court_genre_rank,prevalence,38,0.7001602564102564,31,2.297310857102275e-06
+without the matches the author marked N,95,court_genre_rank,distinctiveness,38,0.710576923076923,31,0.00012122897896915674
+without the matches the author marked N,95,matched_controls,distinctiveness_given_prevalence,38,0.11401087350330757,26,0.15263901730941143
+without the matches the author marked N,95,matched_controls,prevalence_given_distinctiveness,38,0.17274574628703668,29,3.1074348953552544e-05
+without the matches the second pass marked N,101,court_genre_rank,prevalence,39,0.751046176046176,33,6.488262442871928e-07
+without the matches the second pass marked N,101,court_genre_rank,distinctiveness,39,0.7482517482517483,33,4.399772296892479e-05
+without the matches the second pass marked N,101,matched_controls,distinctiveness_given_prevalence,39,0.1143118784474918,27,0.0874627010889526
+without the matches the second pass marked N,101,matched_controls,prevalence_given_distinctiveness,39,0.1851200172162628,31,8.16120154922828e-06
+exact matches only,59,court_genre_rank,prevalence,26,0.7901785714285714,21,6.365776062011719e-05
+exact matches only,59,court_genre_rank,distinctiveness,26,0.7901785714285714,19,0.0009118914604187012
+exact matches only,59,matched_controls,distinctiveness_given_prevalence,26,0.15580085395192303,18,0.08419731259346008
+exact matches only,59,matched_controls,prevalence_given_distinctiveness,26,0.1425425893055355,21,0.0005246102809906006
